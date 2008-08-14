@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>chapter06-parent</artifactId>
+		<groupId>com.muleinaction</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>soap-component</artifactId>
+	<packaging>jar</packaging>
+	<name>Mule in Action - Chapter 6 - SOAP Component</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-axis</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+	</dependencies>
+</project>

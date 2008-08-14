@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>chapter06-parent</artifactId>
+    <groupId>com.muleinaction</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>rest-component</artifactId>
+  <packaging>jar</packaging>
+  <name>Mule in Action - Chapter 6 - REST Component</name>
+
+  <dependencies>
+	<dependency>
+		<groupId>xom</groupId>
+	  	<artifactId>xom</artifactId>
+		<version>1.1</version>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.json-lib</groupId>
+		<artifactId>json-lib</artifactId>
+		<version>2.2.2</version>
+		<classifier>jdk15</classifier>
+	</dependency>
+  </dependencies>
+</project>

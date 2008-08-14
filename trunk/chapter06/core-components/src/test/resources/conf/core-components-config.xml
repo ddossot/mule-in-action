@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd">
+
+	<spring:bean id="StringTargetComponent" class="com.muleinaction.test.StringTargetComponent" />
+	
+	<spring:bean id="IntegerServiceComponent" class="org.mule.component.simple.StaticComponent">
+		<spring:property name="data">
+			<spring:value type="int">123</spring:value>
+		</spring:property>
+	</spring:bean>
+
+	<spring:bean id="StringServiceComponent" class="org.mule.component.simple.StaticComponent">
+		<spring:property name="data" value="ABC" />
+	</spring:bean>
+	
+	<vm:endpoint name="GenericChannel" path="GenericChannel" />
+	<vm:endpoint name="IntegerServiceChannel" path="IntegerService.In"/>
+	<vm:endpoint name="StringServiceChannel" path="StringService.In"/>
+
+	<append-string-transformer name="Suffixer"  message=" world!" />
+
+	<model name="CoreComponentsShowcase">
+		
+		<!-- <start id="CoCoShow-ExplicitBridge"/> -->
+		<service name="ExplicitBridge">
+			<inbound>
+				<vm:inbound-endpoint path="ExplicitBridge.In">
+					<transformer ref="Suffixer" />
+				</vm:inbound-endpoint>
+			</inbound>
+			
+			<bridge-component />
+			
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint ref="GenericChannel" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoShow-ExplicitBridge"/> -->
+		
+		<!-- <start id="CoCoShow-ImplicitBridge"/> -->
+		<service name="ImplicitBridge">
+			<inbound>
+				<vm:inbound-endpoint path="ImplicitBridge.In">
+					<transformer ref="Suffixer" />
+				</vm:inbound-endpoint>
+			</inbound>
+			
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint ref="GenericChannel" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoShow-ImplicitBridge"/> -->
+		
+		<!-- <start id="CoCoShow-Echo"/> -->
+		<service name="Echo">
+			<inbound>
+				<vm:inbound-endpoint path="Echo.In">
+					<transformer ref="Suffixer" />
+				</vm:inbound-endpoint>
+			</inbound>
+			
+			<echo-component />
+			
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint ref="GenericChannel" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoShow-Echo"/> -->
+		
+		<!-- <start id="CoCoShow-Log"/> -->
+		<service name="Log">
+			<inbound>
+				<vm:inbound-endpoint path="Log.In">
+					<transformer ref="Suffixer" />
+				</vm:inbound-endpoint>
+			</inbound>
+			
+			<log-component />
+			
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint ref="GenericChannel" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoShow-Log"/> --> 				
+
+		<!-- <start id="CoCoNull-Log"/> -->
+		<service name="Null">
+			<inbound>
+				<vm:inbound-endpoint path="Null.In">
+					<transformer ref="Suffixer" />
+				</vm:inbound-endpoint>
+			</inbound>
+			
+			<null-component />
+			
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint ref="GenericChannel" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoNull-Log"/> --> 				
+		
+		<!-- <start id="CoCoShow-Builder"/> -->
+		<service name="Builder">
+			<inbound>
+				<vm:inbound-endpoint path="Builder.In" />
+			</inbound>
+			
+			<component class="org.mule.component.builder.ReflectionMessageBuilder" />
+			
+			<outbound>
+				<multicasting-router>
+					<vm:outbound-endpoint ref="IntegerServiceChannel" />
+					<vm:outbound-endpoint ref="StringServiceChannel" />
+				</multicasting-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoShow-Builder"/> -->
+		
+		<!-- <start id="CoCoShow-Static"/> -->
+		<service name="Static">
+			<inbound>
+				<vm:inbound-endpoint path="Static.In" />
+			</inbound>
+			
+			<component>
+				<singleton-object class="org.mule.component.simple.StaticComponent">
+					<property key="data" value="All I hear is static" />
+				</singleton-object>
+			</component>
+			
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint ref="GenericChannel" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<!-- <end id="CoCoShow-Static"/> -->
+
+	</model>
+	
+	<model name="Stubs">
+		<service name="GenericChannelService">
+			<inbound>
+				<vm:inbound-endpoint ref="GenericChannel" />
+			</inbound>
+			<component>
+				<spring-object bean="StringTargetComponent" />
+			</component>
+		</service>
+		
+		<service name="IntegerService">
+			<inbound>
+				<vm:inbound-endpoint ref="IntegerServiceChannel" />
+			</inbound>
+			<component>
+				<spring-object bean="IntegerServiceComponent" />
+			</component>
+		</service>
+		
+		<service name="StringService">
+			<inbound>
+				<vm:inbound-endpoint ref="StringServiceChannel" />
+			</inbound>
+			<component>
+				<spring-object bean="StringServiceComponent" />
+			</component>
+		</service>
+	</model>
+	
+</mule>

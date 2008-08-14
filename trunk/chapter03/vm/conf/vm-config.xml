@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
+      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.0"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+      xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.0"
+      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
+      xmlns:cxf="http://www.mulesource.org/schema/mule/cxf/2.0"
+      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
+       http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
+       http://www.mulesource.org/schema/mule/smtp/2.0 http://www.mulesource.org/schema/mule/smtp/2.0/mule-smtp.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/imap/2.0 http://www.mulesource.org/schema/mule/imap/2.0/mule-imap.xsd
+       http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/cxf/2.0 http://www.mulesource.org/schema/mule/cxf/2.0/mule-cxf.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd
+       "
+        >
+
+   <stdio:connector name="SystemStreamConnector"
+        promptMessage="Please enter a stock ticker: "
+        messageDelayTime="1000"/>
+
+    <vm:connector name="vmConnector" queueEvents="true"/>
+
+    <model name="vmModel">
+        <service name="vmService">
+            <inbound>
+                <http:inbound-endpoint address="http://localhost:8080/books">
+                    <byte-array-to-string-transformer/>
+                </http:inbound-endpoint>
+            </inbound>
+            <outbound>
+                <outbound-pass-through-router>
+                    <vm:outbound-endpoint address="vm://orders"/>
+                </outbound-pass-through-router>
+            </outbound>
+        </service>
+
+        <service name="Outbound Order Service">
+            <inbound>
+                <vm:inbound-endpoint address="vm://orders"/>
+            </inbound>
+            <outbound>
+                <outbound-pass-through-router>
+                    <outbound-endpoint address="wsdl-cxf:http://www.webservicex.net/stockquote.asmx?WSDL&amp;method=GetQuote"/>
+                </outbound-pass-through-router>
+            </outbound>
+
+        </service>
+
+        <queue-profile persistent="true" maxOutstandingMessages="1000"/>
+    </model>
+</mule>

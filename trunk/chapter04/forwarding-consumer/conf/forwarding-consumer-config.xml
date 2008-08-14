@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
+      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd
+       "
+>
+
+    <spring:beans>
+        <spring:import resource="spring-config.xml"/>
+    </spring:beans>
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
+
+    <model name="forwardingConsumerModel">
+        <service name="forwardingConsumerService">
+            <inbound> 
+                <jms:inbound-endpoint queue="messages"/>
+                <vm:inbound-endpoint address="vm://messages"/>
+                <forwarding-router> 
+                    <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/> 
+                </forwarding-router>
+                <inbound-pass-through-router/>
+            </inbound> 
+            <component> 
+                <spring-object bean="messageEnricher"/> 
+            </component> 
+            <outbound>
+                <outbound-pass-through-router> 
+                    <stdio:outbound-endpoint system="OUT"/> 
+                </outbound-pass-through-router>
+            </outbound> 
+        </service> 
+   </model>
+
+</mule>
