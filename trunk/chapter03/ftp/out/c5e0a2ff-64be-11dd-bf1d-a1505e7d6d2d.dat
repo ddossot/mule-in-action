@@ -1,0 +1,348 @@
+commit c27d379fe5e7a0709fdb63eeaec5c7c848747d8a
+tree 663a18804af8e66287bd8411e4e54c241027d146
+parent 361716975a00f9fd58ea619fd891b51096d38981
+author <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:23:51 -0700
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:23:51 -0700
+
+    Linux 2.6.11.11
+
+commit 361716975a00f9fd58ea619fd891b51096d38981
+tree a2c2ba2d1d495e1654e88146bb5ac56bfcbeaf52
+parent c7df5dfb58fdd6fc6983c54cb54add8a18794b19
+author Andi Kleen <ak@suse.de> Tue, 17 May 2005 04:53:24 +0000
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:13 -0700
+
+    [PATCH] x86_64: Don't look up struct page pointer of physical address in iounmap
+    
+    It could be in a memory hole not mapped in mem_map and that causes the hash
+    lookup to go off to nirvana.
+    
+    Back port to -stable tree by Chris Wright
+    
+    Signed-off-by: Andi Kleen <ak@suse.de>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit c7df5dfb58fdd6fc6983c54cb54add8a18794b19
+tree aa91726e43a645f586fe884f949256de41c99e33
+parent b80f032f5c5713fdfccfd0005b0e3078f32596b2
+author Andi Kleen <ak@suse.de> Tue, 17 May 2005 04:53:31 +0000
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:12 -0700
+
+    [PATCH] x86_64: When checking vmalloc mappings don't use pte_page
+    
+    The PTEs can point to ioremap mappings too, and these are often outside
+    mem_map.  The NUMA hash page lookup functions cannot handle out of bounds
+    accesses properly.
+    
+    Signed-off-by: Andi Kleen <ak@suse.de>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit b80f032f5c5713fdfccfd0005b0e3078f32596b2
+tree 5196844f0e40605cba37b9111a8036b5bb7a4c68
+parent f51f3c46d7deaf3b957fefdce0c7e55d930f1c9f
+author Andi Kleen <ak@suse.de> Tue, 17 May 2005 04:53:20 +0000
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:11 -0700
+
+    [PATCH] x86_64: Add a guard page at the end of the 47bit address space
+    
+    This works around a bug in the AMD K8 CPUs.
+    
+    Signed-off-by: Andi Kleen <ak@suse.de>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit f51f3c46d7deaf3b957fefdce0c7e55d930f1c9f
+tree 7387c97e3dafc359eba872b8159d6bf7d566a9e9
+parent 63a4a4f228c0de221779cd18c7ed9511d42c557b
+author Andi Kleen <ak@suse.de> Tue, 17 May 2005 04:53:30 +0000
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:11 -0700
+
+    [PATCH] x86_64: Fix canonical checking for segment registers in ptrace
+    
+    Allowed user programs to set a non canonical segment base, which would cause
+    oopses in the kernel later.
+    
+    Credit-to: Alexander Nyberg <alexn@dsv.su.se>
+    
+     For identifying and reporting this bug.
+    
+    Signed-off-by: Andi Kleen <ak@suse.de>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 63a4a4f228c0de221779cd18c7ed9511d42c557b
+tree d624f187485e67e5e95b840b8f492e4805cb8ecc
+parent 77068954f8f2354b3dfd65253f2a41e473b58f66
+author Andi Kleen <ak@suse.de> Tue, 17 May 2005 04:53:29 +0000
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:10 -0700
+
+    [PATCH] x86_64: check if ptrace RIP is canonical
+    
+    This works around an AMD Erratum.
+    
+    Signed-off-by: Andi Kleen <ak@suse.de>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 77068954f8f2354b3dfd65253f2a41e473b58f66
+tree c533d1bad9d68667d20134b4be532ef6c079c960
+parent d49a9ad0b56837bdefe5c25237f34d37c85736fb
+author gregkh@suse.de <gregkh@suse.de> Wed, 23 Mar 2005 15:26:40 -0800
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:09 -0700
+
+    [PATCH] USB: fix bug in visor driver with throttle/unthrottle causing oopses.
+    
+    Thanks to Mark Lord <mlord@pobox.com> for reporting this and helping with testing.
+    
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit d49a9ad0b56837bdefe5c25237f34d37c85736fb
+tree 52b27a71f920506e3c3f8e9555eefcc4953090f3
+parent 439de7e64f1d6c24694697ca103185dbd04563f0
+author Gregor Jasny <gjasny@web.de> Thu, 28 Apr 2005 09:24:08 +0200
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:08 -0700
+
+    [PATCH] usbusx2y: prevent oops & dead keyboard on usb unplugging while the device is being used
+    
+    Summary: prevent oops & dead keyboard on usb unplugging while the device is being used
+    
+    Without this patch, some usb kobjects, which are parents to
+    the usx2y's kobjects can be freed before the usx2y's.
+    This led to an oops in get_kobj_path_length() and a dead
+    keyboard, when the usx2y's kobjects were freed.
+    The patch ensures the correct sequence.
+    Tested ok on kernel 2.6.12-rc2.
+    
+    Present in ALSA cvs
+    
+    Signed-off-by: Karsten Wiese <annabellesgarden@yahoo.de>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 439de7e64f1d6c24694697ca103185dbd04563f0
+tree 02914a46932ca652a5a4c2bb82f49333bc5fb420
+parent 87127723a58fe970177ce087e079f2fffac2adce
+author Gregor Jasny <gjasny@web.de> Thu, 28 Apr 2005 09:26:48 +0200
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:07 -0700
+
+    [PATCH] usbaudio: prevent oops & dead keyboard on usb unplugging while the device is being used
+    
+    Summary: prevent oops & dead keyboard on usb unplugging while the device is being used
+    
+    Without this patch, some usb kobjects, which are parents to
+    the usx2y's kobjects can be freed before the usx2y's.
+    This led to an oops in get_kobj_path_length() and a dead
+    keyboard, when the usx2y's kobjects were freed.
+    The patch ensures the correct sequence.
+    Tested ok on kernel 2.6.12-rc2.
+    
+    Present in ALSA cvs
+    
+    Signed-off-by: Karsten Wiese <annabellesgarden@yahoo.de>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 87127723a58fe970177ce087e079f2fffac2adce
+tree e5cefe66570da03dabb35fe5037fcefe2183cfbf
+parent bb2c14017115369ba23f7fe86309e725bd2ee9b5
+author ralf@linux-mips.org <ralf@linux-mips.org> Thu, 10 Mar 2005 19:47:08 -0800
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:06 -0700
+
+    [PATCH] Fix minor security hole
+    
+    ROSE wasn't verifying the ndigis argument of a new route resulting in a
+    minor security hole.
+    
+    Signed-off-by: David S. Miller <davem@davemloft.net>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit bb2c14017115369ba23f7fe86309e725bd2ee9b5
+tree 985f06b4984801a96fc66829dae406b419dae7d7
+parent de116e6f648b419fc9fe5cebda8b2c3f90ab1206
+author Daniel Drake <dsd@gentoo.org> Thu, 12 May 2005 12:31:27 +0100
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:05 -0700
+
+    [PATCH] ide-disk: Fix LBA8 DMA
+    
+    This is from Gentoo's 2.6.11 patchset. A problem was introduced in 2.6.10
+    where some users could not enable DMA on their disks (particularly ALi15x3
+    users). This was a small mistake with the no_lba48_dma flag.
+    
+    I can't find the exact commit but this is definately included in 2.6.12-rc4.
+    
+    From: Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit de116e6f648b419fc9fe5cebda8b2c3f90ab1206
+tree dec31b90ef825dfc3b28af0f85e2dee22c10b1dd
+parent 2a678e09a966a0ad20aab2f761c37f0b29b40e71
+author vandrove@vc.cvut.cz <vandrove@vc.cvut.cz> Thu, 31 Mar 2005 08:48:52 -0800
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:05 -0700
+
+    [PATCH] Fix matroxfb on big-endian hardware
+    
+    There was too much/too few byteswapping done by driver and hardware in
+    matroxfb on big endian hardware.  Change fixes mirrored/split/corrupted
+    letters seen on screen when using accelerated matroxfb mode.
+    
+    Patch was tested on Mips (by Peter) and x86-64 (by Petr).
+    
+    Signed-off-by: Peter 'p2' De Schrijver <p2@mind.be>
+    Signed-off-by: Petr Vandrovec <vandrove@vc.cvut.cz>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 2a678e09a966a0ad20aab2f761c37f0b29b40e71
+tree fcd64bebb0cb5aef1c9cc0e771ac91a425373691
+parent fa0726854c4f03f9d2d1e00bb3b67a49ce490c32
+author olof@austin.ibm.com <olof@austin.ibm.com> Mon, 28 Mar 2005 19:27:06 -0800
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:04 -0700
+
+    [PATCH] PPC64: Fix LPAR IOMMU setup code for p630
+    
+    Here's a fix to deal with p630 systems in LPAR mode.  They're to date the
+    only system that in some cases might lack a dma-window property for the
+    bus, but contain an overriding property in the device node for the specific
+    adapter/slot.  This makes the device setup code a bit more complex since it
+    needs to do some of the things that the bus setup code has already done.
+    
+    Signed-off-by: Olof Johansson <olof@austin.ibm.com>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit fa0726854c4f03f9d2d1e00bb3b67a49ce490c32
+tree cc9db358c8cfef5ad19108e5288d04cadbd3dbe3
+parent 5ba07d5c81af64d42937a4027ea7c930bdd8bf9e
+author cmm@us.ibm.com <cmm@us.ibm.com> Thu, 10 Mar 2005 08:44:10 -0800
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:03 -0700
+
+    [PATCH] ext3: fix race between ext3 make block reservation and reservation window discard
+    
+    This patch fixed a race between ext3_discard_reservation() and
+    ext3_try_to_allocate_with_rsv().
+    
+    There is a window where ext3_discard_reservation will remove an already
+    unlinked reservation window node from the filesystem reservation tree:
+    It thinks the reservation is still linked in the filesystem reservation
+    tree, but it is actually temperately removed from the tree by
+    allocate_new_reservation() when it failed to make a new reservation from
+    the current group and try to make a new reservation from next block
+    group.
+    
+    Here is how it could happen:
+    
+    CPU 1
+    try to allocate a block in group1 with given reservation window my_rsv
+    ext3_try_to_allocate_with_rsv(group
+    	----copy reservation window my_rsv into local rsv_copy
+    	ext3_try_to_allocate(...rsv_copy)
+    		----no free block in existing reservation window,
+    		----need a new reservation window
+    	spin_lock(&rsv_lock);
+    
+    CPU 2
+    
+    ext3_discard_reservation
+    	if (!rsv_is_empty()
+    		----this is true
+    	spin_lock(&rsv_lock)
+    		----waiting for thread 1
+    
+    CPU 1:
+    
+    	allocate_new_reservation
+    		failed to reserve blocks in this group
+    		remove the window from the tree
+    		rsv_window_remove(my_rsv)
+    			----window node is unlinked from the tree here
+    		return -1
+    	spin_unlock(&rsv_lock)
+    ext3_try_to_allocate_with_rsv() failed in this group
+    group++
+    
+    CPU 2
+    	spin_lock(&rsv_lock) succeed
+    	rsv_remove_window ()
+    		---------------break, trying to remove a unlinked node from the tree
+    	....
+    
+    CPU 1:
+    ext3_try_to_allocate_with_rsv(group, my_rsv)
+    	rsv_is_empty is true, need a new reservation window
+    	spin_lock(&rsv_lock);
+    		^--------------- spinning forever
+    
+    We need to re-check whether the reservation window is still linked to
+    the tree after grab the rsv_lock spin lock in ext3_discard_reservation,
+    to prevent panic in rsv_remove_window->rb_erase.
+    
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 5ba07d5c81af64d42937a4027ea7c930bdd8bf9e
+tree 75a6512dac67541bf9a76a5e2a5af129702547a6
+parent 973ed0feb6c29b170e4e57f25198403b1fee2dfb
+author bdschuym@pandora.be <bdschuym@pandora.be> Mon, 14 Mar 2005 21:22:31 -0800
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:02 -0700
+
+    [PATCH] Fix smp race.
+    
+    The patch below fixes an smp race that happens on such systems under
+    heavy load.
+    This bug was reported and solved by Steve Herrell
+    <steve_herrell@yahoo.ca>
+    
+    Signed-off-by: Bart De Schuymer <bdschuym@pandora.be>
+    Signed-off-by: David S. Miller <davem@davemloft.net>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 973ed0feb6c29b170e4e57f25198403b1fee2dfb
+tree c6189121a65ebdb673897084009a395e6612d28c
+parent 27d050adf5cea402a3da5ca7564a23bf87ce7bef
+author daniel.ritz@gmx.ch <daniel.ritz@gmx.ch> Thu, 05 May 2005 16:36:40 -0700
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:01 -0700
+
+    [PATCH] 3c59x: only put the device into D3 when we're actually using WOL
+    
+    During a warm boot the device is in D3 and has troubles coming out of it.
+    
+    Signed-off-by: Daniel Ritz <daniel.ritz@gmx.ch>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Linus Torvalds <torvalds@osdl.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+
+commit 27d050adf5cea402a3da5ca7564a23bf87ce7bef
+tree d7384eaea30e89c6d45bcf98f4b5993abf548f07
+parent 4dd43544510011f66ae75e41301926003588e89d
+author Linus Torvalds <torvalds@osdl.org> Thu, 19 May 2005 22:43:37 -0700
+committer <chrisw@vas.sous-sol.org> Thu, 26 May 2005 21:20:00 -0700
+
+    [PATCH] Fix get_unmapped_area sanity tests
+    
+    Fix get_unmapped_area sanity tests
+    
+    As noted by Chris Wright, we need to do the full range of tests regardless
+    of whether MAP_FIXED is set or not, so re-organize get_unmapped_area()
+    slightly to do the sanity checks unconditionally.
+    
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+    Signed-off-by: Chris Wright <chrisw@osdl.org>
+

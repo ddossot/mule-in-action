@@ -1,0 +1,48 @@
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:spring="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
+       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
+       xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.0"
+       xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
+       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
+       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
+       http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/smtp/2.0 http://www.mulesource.org/schema/mule/smtp/2.0/mule-smtp.xsd
+       http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
+       http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"
+>
+    
+    <jms:activemq-connector name="jmsQueueConnector" specification="1.0.2b" brokerURL="vm://localhost" />
+     
+    <jms:activemq-connector name="jmsTopicConnector" specification="1.0.2b" brokerURL="vm://localhost" />
+     
+    <model name="jms102bModel"> 
+        <service name="jms102bService"> 
+            <inbound> 
+                <http:inbound-endpoint address="http://localhost:8080/books"> 
+                    <byte-array-to-string-transformer/>
+                     
+                </http:inbound-endpoint>
+                 
+            </inbound>
+             
+            <outbound> 
+                <outbound-pass-through-router> 
+                    <jms:outbound-endpoint connector-ref="jmsTopicConnector" 
+topic="books"/>
+                     
+                </outbound-pass-through-router>
+                 
+            </outbound>
+             
+        </service>
+    </model>        
+</mule>

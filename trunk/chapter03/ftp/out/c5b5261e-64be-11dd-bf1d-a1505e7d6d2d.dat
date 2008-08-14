@@ -1,0 +1,224 @@
+
+Summary of changes from v2.6.11.2 to v2.6.11.3
+==============================================
+
+<khali@linux-fr.org>
+	[PATCH] fix amd64 2.6.11 oops on modprobe (saa7110)
+	
+	This is a rewrite of the saa7110_write_block function, which was plain
+	broken in the case where the underlying adapter supports I2C_FUNC_I2C.
+	It also includes related fixes which ensure that different parts of the
+	driver agree on the number of registers the chip has.
+	
+	Signed-off-by: Jean Delvare <khali@linux-fr.org>
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<akpm@osdl.org>
+	[PATCH] cramfs: small stat(2) fix
+	
+	From: Eric Lammerts <eric@lammerts.org>
+	
+	When I stat(2) a device node on a cramfs, the st_blocks field is bogus
+	(it's derived from the size field which in this case holds the major/minor
+	numbers).  This makes du(1) output completely wrong.
+	
+	Signed-off-by: Eric Lammerts <eric@lammerts.org>
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<airlied@linux.ie>
+	[PATCH] drm missing memset can crash X server..
+	
+	Egbert Eich reported a bug 2673 on bugs.freedesktop.org and tracked it
+	down to a missing memset in the setversion ioctl, this causes X server
+	crashes...
+	
+	From: Egbert Eich <eich@pdx.freedesktop.org>
+	Signed-off-by: Dave Airlie <airlied@linux.ie>
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<akpm@osdl.org>
+	[PATCH] ppc32: Compilation fixes for Ebony, Luan and Ocotea
+	
+	From: Matt Porter <mporter@kernel.crashing.org>
+	
+	this patch fixes the problem, that the current kernel (linux-2.6.11-rc5)
+	could not be compiled, when "support for early boot texts over serial port"
+	(CONFIG_SERIAL_TEXT_DEBUG=y) is active.
+	
+	Signed-off-by: Gerhard Jaeger <gjaeger@sysgo.com>
+	Signed-off-by: Matt Porter <mporter@kernel.crashing.org>
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<khali@linux-fr.org>
+	[PATCH] Fix i2c messsage flags in video drivers
+	
+	While working on the saa7110 driver I found a problem with the way
+	various video drivers (found on Zoran-based boards) prepare i2c messages
+	to be used by i2c_transfer. The drivers improperly copy the i2c client
+	flags as the message flags, while both sets are mostly unrelated. The
+	net effect in this case is to trigger an I2C block read instead of the
+	expected I2C block write. The fix is simply not to pass any flag,
+	because none are needed.
+	
+	I think this patch qualifies hands down as a "critical bug fix" to be
+	included in whatever bug-fix-only trees exist these days. As far as I
+	can see, all Zoran-based boards are broken in 2.6.11 without this patch.
+	
+	Signed-off-by: Jean Delvare <khali@linux-fr.org>
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<davem@davemloft.net>
+	[PATCH] [TCP]: Put back tcp_timer_bug_msg[] symbol export.
+	
+	This wrecks the ipv6 modular build for a lot of people.
+	In fact, since I always build ipv6 modular I am surprised
+	I never hit this.  My best guess is that my compiler is
+	optimizing the reference away, but that can never be
+	depended upon and the symbol export really is needed.
+	
+	[TCP]: Put back tcp_timer_bug_msg[] symbol export.
+	
+	It is needed for tcp_reset_xmit_timer(), which is invoked by
+	tcp_prequeue() which is invoked from tcp_ipv6.c
+	
+	Signed-off-by: Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>
+	Signed-off-by: David S. Miller <davem@davemloft.net>
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<galak@freescale.com>
+	[PATCH] ppc32: trivial fix for e500 oprofile build
+	
+	Fix for trivial fix for 2.6.11 oprofile compilation on e500 based ppc.
+	
+	Signed-off-by: Andy Fleming <afleming@freescale.com>
+	Signed-off-by: Kumar Gala <kumar.gala@freescale.com>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<alexn@dsv.su.se>
+	[PATCH] PCI: fix hotplug double free
+	
+	[PATCH] PCI: fix hotplug double free
+	
+	With the brackets missed out func could be freed twice.
+	
+	Found by Coverity tool
+	
+	Signed-off-by: Alexander Nyberg <alexn@dsv.su.se>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<shemminger@osdl.org>
+	[PATCH] r8169: receive descriptor length fix
+	
+	The status and received packets indication in the Rx descriptor ring
+	are not correctly reset when a descriptor is recycled.
+	
+	Signed-off-by: Francois Romieu <romieu@fr.zoreil.com>
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<chrisw@osdl.org>
+	[PATCH] sis900 kernel oops fix
+	
+	Backport of fix described below.
+	
+	  From: Herbert Xu <herbert@gondor.apana.org.au>
+	
+	  Fix bug #4223.
+	
+	  OK, this happened because we got preempted before sis900_mii_probe
+	  finished setting the sis_priv->mii.  Theoretically this can happen
+	  with SMP as well but I suppose the number of SMP machines with sis900
+	  is fairly small.
+	
+	  Anyway, the fix is to make sure that sis900_mii_probe is done before
+	  the device can be opened.  This patch does it by moving the setup
+	  before register_netdevice.
+	
+	  Since the netdev name is not available before register_netdev, I've
+	  changed the relevant printk's to use pci_name instead.  Note that
+	  one of those printk's may be called after register_netdev as well.
+	
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<olof@austin.ibm.com>
+	[PATCH] [VIA RHINE] older chips oops on shutdown
+	
+	Kernel 2.6.11, hardware is a MSI KT333-based board with an XP1800.
+	
+	I'm oopsing on shutdown on a machine that has a Via Rhine adapter in it:
+	
+	Unable to handle kernel paging request at virtual address e0803003
+	  printing eip:
+	c01f262c
+	*pde = 014dc067
+	*pte = 00000000
+	Oops: 0000 [#1]
+	Modules linked in: cpufreq_userspace cpufreq_powersave cpufreq_ondemand
+	CPU:    0
+	EIP:    0060:[<c01f262c>]    Not tainted VLI
+	EFLAGS: 00010292   (2.6.11)
+	EIP is at ioread8+0x2c/0x40
+	eax: e0803003   ebx: e0803003   ecx: c026b430   edx: e0803003
+	esi: dff90260   edi: e0802f80   ebp: dd117e74   esp: dd117e74
+	ds: 007b   es: 007b   ss: 0068
+	Process reboot (pid: 5769, threadinfo=dd117000 task=dfafa080)
+	Stack: dd117e8c c026b490 dff90040 c151ccd4 c044a1a8 b7fdc078 dd117ea4
+	c0253ad9
+	        c151ccd4 00000042 fee1dead 00000001 dd117fbc c012461c c04d72a8 00000001
+	        00000000 00010800 00000000 dd117ed8 c013b40b dffe7380 00030800 00000000
+	Call Trace:
+	  [<c0103d5f>] show_stack+0x7f/0xa0
+	  [<c0103efa>] show_registers+0x15a/0x1c0
+	  [<c01040ce>] die+0xce/0x150
+	  [<c0113406>] do_page_fault+0x356/0x692
+	  [<c01039ff>] error_code+0x2b/0x30
+	  [<c026b490>] rhine_shutdown+0x60/0x140
+	  [<c0253ad9>] device_shutdown+0x89/0x8b
+	  [<c012461c>] sys_reboot+0xac/0x200
+	  [<c0102f71>] sysenter_past_esp+0x52/0x75
+	Code: 3d ff ff 03 00 89 c2 89 e5 77 20 66 31 c0 3d 00 00 01 00 75 0c
+	81 e2 ff ff 00 00 ec 0f b6 c0 c9 c3 0f 0b 37 00 7b 65 3b c0 eb ea <0f>
+	b6 00 eb ec eb 0d 90 90 90 90 90 90 90 90 90 90 90 90 90 55
+	
+	Seems like it is the ioread8 in:
+	
+	         /* Hit power state D3 (sleep) */
+	         iowrite8(ioread8(ioaddr + StickyHW) | 0x03, ioaddr + StickyHW);
+	
+	that fails. StickyHW is 0x83. lspci says:
+	
+	0000:00:07.0 Ethernet controller: VIA Technologies, Inc. VT86C100A
+	[Rhine] (rev 06)
+	         Flags: bus master, medium devsel, latency 32, IRQ 18
+	         I/O ports at ec00 [size=128]
+	         Memory at dfffff80 (32-bit, non-prefetchable) [size=128]
+	
+	In other words, it's trying to read outside of the I/O range (0x80),
+	which matches the fauling address.
+	
+	I'm guessing my chip revision doesn't support WOL, it's a crappy noname
+	card.
+	
+	It does seem as if rhine_power_init checks quirks for rqWOL before
+	touching any registers. Should rhine_shutdown do the same? Proposed
+	patch below, which resolves the problem on my system.
+	
+	
+	Check to make sure WOL is supported before setting it up in
+	rhine_shutdown.
+	
+	
+	Signed-off-by: Olof Johansson <olof@austin.ibm.com>
+	Signed-off-by: Chris Wright <chrisw@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<gregkh@suse.de>
+	Linux 2.6.11.3
+

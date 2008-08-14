@@ -1,0 +1,372 @@
+
+Summary of changes from v2.6.0-test11 to v2.6.0
+============================================
+
+<hirofumi@mail.parknet.co.jp>
+	[PATCH] Missing initialization of /proc/net/tcp seq_file
+	
+	We need to initialize st->state in tcp_seq_start().  Otherwise
+	tcp_seq_stop() is run with previous st->state, and it calls the unneeded
+	unlock etc, causing a kernel crash.
+
+<mingo@elte.hu>
+	[PATCH] Fix lost wakeups problem
+	
+	When doing sync wakeups we must not skip the notification of other cpus
+	if the task is not on this runqueue.
+
+<torvalds@home.osdl.org>
+	Fix x86 kernel page fault error codes
+
+<torvalds@home.osdl.org>
+	Fix ide-scsi.c uninitialized variable
+
+<yoshfuji@linux-ipv6.org>
+	[IPV6]: Fix ipv4 mapped address calculation in udpv6_sendmsg().
+
+<laforge@netfilter.org>
+	[NETFILTER]: Sanitize ip_ct_tcp_timeout_close_wait value, from 2.4.x
+
+<pavlin@icir.org>
+	[RTNETLINK]: Add RTPROT_XORP.
+
+<mingo@elte.hu>
+	[PATCH] Fix /proc access to dead thread group list oops
+	
+	The pid_alive() check within the loop is incorrect.  If we are within
+	the tasklist lock and the thread group leader is valid then the thread
+	chain will be fully intact.
+	
+	Instead, the check should be _outside_ the loop, since if the group
+	leader no longer exists, the whole list is gone and we must not try
+	to access it.
+	
+	Move the check around, and add comment.
+	
+	Bug-hunting and fix by Srivatsa Vaddagiri
+
+<axboe@suse.de>
+	[PATCH] fix broken x86_64 rdtscll
+	
+	The scheduler is completed b0rked on x86_64, and I finally found out
+	why.  sched_clock() always returned 0, because rdtscll() always returned
+	0.  The 'a' in the macro doesn't agree with the 'a' in the function,
+	yippe :-)
+	
+	This is a show stopper for x86_64.
+
+<khali@linux-fr.org>
+	[PATCH] I2C: fix i2c_smbus_write_byte() for i2c-nforce2
+	
+	This patch fixes i2c_smbus_write_byte() being broken for i2c-nforce2.
+	This causes trouble when that module is used together with eeprom (which
+	is also in 2.6). We have had three user reports about the problem.
+	
+	Credits go to Mark D. Studebaker for finding and fixing the problem.
+
+<drepper@redhat.com>
+	[PATCH] Fix 'noexec' behaviour
+	
+	We should not allow mmap() with PROT_EXEC on mounts marked "noexec",
+	since otherwise there is no way for user-supplied executable loaders
+	(like ld.so and emulator environments) to properly honour the
+	"noexec"ness of the target.
+
+<davem@nuts.ninka.net>
+	[NETFILTER]: In conntrack, do not fragment TSO packets by accident.
+
+<ja@ssi.bg>
+	[BRIDGE]: Provide correct TOS value to IPv4 routing.
+
+<jgarzik@pobox.com>
+	[PATCH] fix use-after-free in libata
+	
+	Fixes oops some were seeing on module unload.
+	
+	Caught by Jon Burgess.
+
+<jgarzik@pobox.com>
+	[PATCH] fix oops on unload in pcnet32
+	
+	The driver was calling pci_unregister_driver for each _device_, and then
+	again at the end of the module unload routine.  Remove the call that's
+	inside the loop, pci_unregister_driver should only be called once.
+	   
+	Caught by Don Fry (and many others)
+
+<jgarzik@pobox.com>
+	[PATCH] remove manual driver poisoning of net_device
+	
+	From: Al Viro <viro@parcelfarce.linux.theplanet.co.uk>
+	   
+	   Such poisoning can cause oopses either because the refcount is not
+	   zero when the poisoning occurs, or due to kernel debugging options
+	   being enabled.
+
+<torvalds@home.osdl.org>
+	Fix the PROT_EXEC breakage on anonymous mmap.
+	
+	Clean up the tests while at it.
+
+<jgarzik@pobox.com>
+	[PATCH] wireless airo oops fix
+	
+	From Javier Achirica:
+	
+	Delay MIC activation to prevent Oops
+
+<davem@nuts.ninka.net>
+	[PKT_SCHED]: Do not dereference the special pointer value 'HTB_DIRECT'.
+	
+	Based upon a patch from devik.
+
+<devik@cdi.cz>
+	[PKT_SCHED]: In HTB, filters must be destroyed before the classes.
+
+<James_McMechan@hotmail.com>
+	[PATCH] tmpfs oops fix
+	
+	The problem was that the cursor was in the list being walked, and when
+	the pointer pointed to the cursor the list_del/list_add_tail pair would
+	oops trying to find the entry pointed to by the prev pointer of the
+	deleted cursor element.
+	
+	The solution I found was to move the list_del earlier, before the
+	beginning of the list walk. since it is not used during the list walk and
+	should not count in the list enumeration it can be deleted, then the
+	list pointer cannot point to it so it can be added safely with the
+	list_add_tail without oopsing, and everything works as expected.
+	
+	I am unable to oops this version with any of my test programs. 
+	
+	Patch acked by Al Viro.
+
+<greg@kroah.com>
+	[PATCH] USB: register usb-serial ports in the proper place in sysfs
+	
+	They should be bound to the interface the driver is attached to, not
+	the device.
+
+<david-b@pacbell.net>
+	[PATCH] USB: fix remove device after set_configuration
+	
+	If a device can't be configured, the current test9 code forgets
+	to clean it out of sysfs.  This resolves that issue, so the retry
+	in usb_new_device() stands a chance of working.
+	
+	The enumeration code still doesn't handle such errors well, but
+	at least this way that hub port can be used for another device.
+
+<greg@kroah.com>
+	[PATCH] USB: fix race with hub devices disconnecting while stuff is still happening to them.
+
+<acme@conectiva.com.br>
+	[IPV6]: Fix TCP socket leak.
+	
+	TCP IPV6 ->hash() method should not grab a socket reference.
+
+<axboe@suse.de>
+	[PATCH] scsi_ioctl memcpy'ing user address
+	
+	James reported a bug in scsi_ioctl.c where it mem copies a user pointer
+	instead of using copy_from_user(). I inadvertently introduced this one
+	when getting rid of CDROM_SEND_PACKET. Here's a trivial patch to fix it.
+
+<mdharm-usb@one-eyed-alien.net>
+	[PATCH] USB storage: fix for jumpshot and datafab devices
+	
+	This patch fixes some obvious errors in the jumpshot and datafab drivers.
+	
+	This should close out Bugzilla bug #1408
+	
+	> Date: Mon, 1 Dec 2003 12:14:53 -0500 (EST)
+	> From: Alan Stern <stern@rowland.harvard.edu>
+	> Subject: Patch from Eduard Hasenleithner
+	> To: Matthew Dharm <mdharm-usb@one-eyed-alien.net>
+	> cc: USB Storage List <usb-storage@one-eyed-alien.net>
+	>
+	> Matt:
+	>
+	> Did you see this patch?  It was posted to the usb-development mailing list
+	> about a week ago, before I started making all my changes.  It is clearly
+	> correct and necessary.
+	>
+	> Alan Stern
+
+<trini@kernel.crashing.org>
+	[PATCH] USB: mark the scanner driver as obsolete
+	
+	On Mon, Dec 01, 2003 at 11:21:58AM -0800, Greg KH wrote:
+	> Can't you use xsane without the scanner kernel driver?  I thought the
+	> latest versions used libusb/usbfs to talk directly to the hardware.
+	> Because of this, the USB scanner driver is marked to be removed from the
+	> kernel sometime in the near future.
+	
+	After a bit of mucking around (and possibly finding a bug with debian's
+	libusb/xsane/hotplug interaction, nothing seems to run
+	/etc/hotplug/usb/libusbscanner and thus only root can scan, anyone whose
+	got this working please let me know), the problem does not exist if I
+	only use  libusb xsane.
+	
+	How about the following:
+
+<oliver@neukum.org>
+	[PATCH] USB: fix sleping in interrupt bug in auerswald driver
+	
+	this fixes two instances of GFP_KERNEL from completion handlers.
+
+<oliver@neukum.org>
+	[PATCH] USB: fix race with signal delivery in usbfs
+	
+	apart from locking bugs, there are other races. This fixes one with
+	signal delivery. The signal should be delivered _before_ the reciever
+	is woken.
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: fix bug not setting device state following usb_device_reset()
+
+<herbert@gondor.apana.org.au>
+	[PATCH] USB: Fix connect/disconnect race
+	
+	This patch was integrated by you in 2.4 six months ago.  Unfortunately
+	it never got into 2.5.  Without it you can end up with crashes such
+	as http://bugs.debian.org/218670
+
+<greg@kroah.com>
+	[PATCH] USB: fix bug for multiple opens on ttyUSB devices.
+	
+	This patch fixes the bug where running ppp over a ttyUSB device would fail.
+
+<arvidjaar@mail.ru>
+	[PATCH] USB: prevent catch-all USB aliases in modules.alias
+	
+	visor.c defines one empty slot in USB ids table that can be filled in at
+	runtime using module parameters. file2alias generates catch-all alias for it:
+	
+	alias usb:v*p*dl*dh*dc*dsc*dp*ic*isc*ip* visor
+	
+	patch adds the same sanity check as in depmod to scripts/file2alias.
+
+<greg@kroah.com>
+	kobject: fix bug where a parent could be deleted before a child device.
+
+<torvalds@home.osdl.org>
+	Fix subtle bug in "finish_wait()", which can cause kernel stack
+	corruption on SMP because of another CPU still accessing a waitqueue
+	even after it was de-allocated.
+	
+	Use a careful version of the list emptiness check to make sure we
+	don't de-allocate the stack frame before the waitqueue is all done.
+
+<axboe@suse.de>
+	[PATCH] no bio unmap on cdb copy failure
+	
+	The previous scsi_ioctl.c patch didn't cleanup the buffer/bio in the
+	error case. 
+	
+	Fix it by copying the command data earlier.
+
+<l.s.r@web.de>
+	[PATCH] HPFS: missing lock_kernel() in hpfs_readdir()
+	
+	In 2.5.x, the BKL was pushed from vfs_readdir() into the filesystem
+	specific functions.  But only the unlock_kernel() made it into the HPFS
+	code, lock_kernel() got lost on the way.  This rendered the filesystem
+	unusable.
+	
+	This adds the missing lock_kernel().  It's been tested by Timo Maier who
+	also reported the problem earlier today.
+
+<torvalds@home.osdl.org>
+	More subtle SMP bugs in prepare_to_wait()/finish_wait(). 
+	
+	This time we have a SMP memory ordering issue in prepare_to_wait(),
+	where we really need to make sure that subsequent tests for the
+	event we are waiting for can not migrate up to before the wait
+	queue has been set up.
+
+<torvalds@home.osdl.org>
+	Fix thread group leader zombie leak
+	
+	Petr Vandrovec noticed a problem where the thread group leader
+	would not be properly reaped if the parent of the thread group
+	was ignoring SIGCHLD, and the thread group leader had exited
+	before the last sub-thread.
+	
+	Fixed by Ingo Molnar.
+
+<neilb@cse.unsw.edu.au>
+	[PATCH] Fix possible bio corruption with RAID5
+	
+	 1/ make sure raid5 doesn't try to handle multiple overlaping
+	    requests at the same time as this would confuse things badly.
+	    Currently it justs BUGs if this is attempted.
+	 2/ Fix a possible data-loss-on-write problem.  If two or
+	    more bio's that write to the same page are processed at the
+	    same time, only the first was actually commited to storage.
+	 3/ Fix a use-after-free bug.  raid5 keeps the bio's it is given
+	    in linked lists when more than one bio touch a single page.
+	    In some cases the tail of this list can be freed, and
+	    the current test for 'are we at the end' isn't reliable.
+	    This patch strengths the test to make it reliable.
+
+<axboe@suse.de>
+	[PATCH] Fix IDE bus reset and DMA disable when reading blank DVD-R
+	
+	From Jon Burgess:
+	
+	  There is a problems with blank DVD media using the ide-cd driver.
+	
+	  When we attempt to read the blank disk, the drive responds to the read
+	  request by returning a "blank media" error.  The kernel doesn't have
+	  any special case handling for this sense value and retries the request
+	  a couple of times, then gives up and does a bus reset and disables DMA
+	  to the device.
+	
+	  Which obviously doesn't help the situation.
+	
+	  The sense key value of 8 isn't listed in ide-cd.h, but it is listed in
+	  scsi.h as a "BLANK_CHECK" error.
+	
+	  This trivial patch treats this error condition as a reason to abort
+	  the request.  This behaviour is the same as what we do with a blank CD-R.
+	
+	  It looks like the same fix might be desired for 2.4 as well, although
+	  is perhaps not so important since scsi-ide is normally used instead.
+
+<axboe@suse.de>
+	[PATCH] CDROM_SEND_PACKET bug
+	
+	I just found Yet Another Bug in scsi_ioctl - CDROM_SEND_PACKET puts a
+	kernel pointer in hdr->cmdp, where sg_io() expects to find user address.
+	This worked up until recently because of the memcpy bug, but now it
+	doesn't because we do the proper copy_from_user(). 
+	
+	This fix undoes the user copy code from sg_io, and instead makes the
+	SG_IO ioctl copy it locally.  This makes SG_IO and CDROM_SEND_PACKET
+	agree on the calling convention, and everybody is happy. 
+	
+	I've tested that both
+	
+	   cdrecord -dev=/dev/hdc -inq
+	
+	and
+	
+	   cdrecord -dev=ATAPI:/dev/hdc -inq
+	
+	works now.  The former will use SG_IO, the latter CDROM_SEND_PACKET (and
+	incidentally would work in both 2.4 and 2.6, if it wasn't for
+	CDROM_SEND_PACKET sucking badly in 2.4).
+
+<jes@trained-monkey.org>
+	[PATCH] qla1280 crash fix in error handling
+	
+	This fixes a bug in the qla1280 driver where it would leave a pointer to
+	an on the stack completion event in a command structure if
+	qla1280_mailbox_command fails.  The result is that the interrupt handler
+	later tries to complete() garbage on the stack.  The mailbox command can
+	fail if a device on the bus decides to lock up etc.
+
+<torvalds@home.osdl.org>
+	Linux 2.6.0
+

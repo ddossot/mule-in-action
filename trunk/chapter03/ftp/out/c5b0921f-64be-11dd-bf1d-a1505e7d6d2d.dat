@@ -1,0 +1,1336 @@
+
+Summary of changes from v2.6.9 to v2.6.10
+============================================
+
+<akpm@osdl.org>
+	[PATCH] wireless-extension-v17-for-linus.patch
+	
+	From: Jean Tourrilhes <jt@bougret.hpl.hp.com>
+	
+		This is the patch to migrate Wireless Extension from WE-16 to
+	WE-17 for kernel 2.6.X. I would like you to queue that patch and
+	submit it to Linus as soon as 2.6.8 is released (so it can be fully
+	tested during 2.6.9). If you want, I can resend that as soon as 2.6.8
+	is released.
+	
+		The patch is basically unchanged compared to the version
+	posted to the netdev list and my web page one month ago, I just
+	re-diff to the latest kernel (2.6.8-rc2-bk12). The patch already
+	included feedback from various driver maintainers, and nobody else
+	complained, so I guess it's ready.
+		The patch for some drivers inside the kernel will follow
+	(airo.c, wavelan.c, wavelan_cs). Patch for various other drivers
+	(orinoco, hostap, prism54) have been sent already to their maintainers
+	(one month ago) and basically waiting for this patch.
+	
+		Changelog :
+	 *	- Add flags to frequency -> auto/fixed
+	 *	- Document (struct iw_quality *)->updated, add new flags (INVALID)
+	 *	- Wireless Event capability in struct iw_range
+	 *	- Add support for relative TxPower (yick !)
+	 *	- Change the way we get to spy_data method for added safety and hostap
+	 *	- Remove spy #ifdef, they are always on -> cleaner code
+	 *	- Allow any size GET request if user specifies length > max
+	 *	- Start migrating get_wireless_stats to struct iw_handler_def
+	 * Based on patch from Pavel Roskin <proski@gnu.org> :
+	 *	- Fix kernel data leak to user space in private handler handling
+	
+		I also added on my page a version of Wireless Tools that use
+	RtNetlink instead of ioctls. This is not as clean as I would like, but
+	is fully functional (if you have WE-19). I know that you were
+	interested, so feel free to send feedback on that...
+	
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+
+<akpm@osdl.org>
+	[PATCH] wireless-drivers-update-for-we-17.patch
+	
+	From: Jean Tourrilhes <jt@bougret.hpl.hp.com>
+	
+		This patch complement the main WE-17 patch I just sent you. It
+	updates a few driver to take advantage of WE-17. You should queue it
+	along with the other patch.
+	
+		o Aironet driver :
+			o iwspy data can be shared between eth0 and wifi0 if needed
+			o allow arbitrarily large scan results (no longer limited)
+			o export wireless event capabilities
+		o Wavelan drivers :
+			o export wireless event capabilities
+	
+	
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+
+<akpm@osdl.org>
+	[PATCH] defxx trivial updates
+	
+	From: "Maciej W. Rozycki" <macro@linux-mips.org>
+	
+	Here are a few obvious clean-ups I did to the driver.
+	
+	Signed-off-by: Maciej W. Rozycki <macro@linux-mips.org>
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+
+<akpm@osdl.org>
+	[PATCH] defxx device name fixes
+	
+	From: "Maciej W. Rozycki" <macro@linux-mips.org>
+	
+	This is a fix for the "fddi%d" device name reported literally due to the
+	switch from init_fddidev() to alloc_fddidev().  Plus related updates to
+	module information.  Applies on top of the 2.4.27-defxx-sync2681 or
+	2.6.8.1-defxx-misc patches, respectively.  Please apply.
+	
+	Signed-off-by: Maciej W. Rozycki <macro@linux-mips.org>
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+
+<akpm@osdl.org>
+	[PATCH] sparse: fix warnings in net/irda/*
+	
+	From: "Mika Kukkonen" <mika@osdl.org>
+	
+	  CHECK   net/irda/irlan/irlan_client.c
+	net/irda/irlan/irlan_client.c:237:14: warning: assignment expression in
+	conditional
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+
+<akpm@osdl.org>
+	[PATCH] de4x5 warning fix
+	
+	Ugh.
+	
+	drivers/net/tulip/de4x5.c: In function `mii_get_phy':
+	drivers/net/tulip/de4x5.c:5092: warning: operation on `i' may be undefined
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+
+<olh@suse.de>
+	[PATCH] remove old version check from mac8390
+	
+	This 'netdevice' define will end up in the 'tags' file.
+	Its not used, so just remove it.
+
+<jgarzik@pobox.com>
+	[netdev] Remove no-op in-driver implementations of ->set_config()
+
+<viro@www.linux.org.uk>
+	[netdrvr eth1394] use netdev_priv
+
+<viro@www.linux.org.uk>
+	[netdrvr usb] use netdev_priv
+	
+	Update catc, pegasus, rtl8150, and gadget/ether to use netdev_priv()
+
+<viro@www.linux.org.uk>
+	[netdrvr] netdev_priv for ewrk3, xircom_tulip_cb, wavelan_cs
+
+<viro@www.linux.org.uk>
+	[netdrvr] netdev_priv for sundance, typhoon, yellowfin
+
+<viro@www.linux.org.uk>
+	[netdrvr] use netdev_priv in dl2k, hamachi
+
+<viro@www.linux.org.uk>
+	[netdrvr starfire] fix unregister_netdev call site
+
+<viro@www.linux.org.uk>
+	[netdrvr starfire] use netdev_priv
+
+<viro@www.linux.org.uk>
+	[PATCH] (1/27) eth1394 ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (2/27) cris ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (3/27) ixgb ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (4/27) 3c509 ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (5/27) smc91c92_cs ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (6/27) tulip ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (7/27) xircom ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (8/27) wavelan ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (9/27) wl3501_cs ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (10/27) yellowfin ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (11/27) typhoon ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (12/27) sundance ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (13/27) starfire ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (14/27) ns83820 ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (15/27) natsemi ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (16/27) veth ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (17/27) hamachi ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (18/27) forcedeth ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (19/27) ewrk3 ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (20/27) eepro100 ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (21/27) dl2k ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (22/27) amd8111e ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (23/27) gadget ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (24/27) rtl8150 ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (25/27) pegasus ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (26/27) kaweth ethtool conversion
+
+<viro@www.linux.org.uk>
+	[PATCH] (27/27) catc ethtool conversion
+
+<shaggy@austin.ibm.com>
+	JFS: Fix extent overflow bugs
+	
+	The code which handled adding a new extent when it is unable to grow an extent
+	past the maximum size made an invalid assumption about when the root page
+	would split.
+	
+	Signed-off-by: Dave Kleikamp <shaggy@austin.ibm.com>
+
+<oliver@neukum.org>
+	[PATCH] USB: update of help text for hpusbscsi
+	
+	Signed-Off-By: Oliver Neukum <oliver@neukum.name>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<oliver@neukum.org>
+	[PATCH] USB: switching microtek to usb_kill_urb
+	
+	this reworks the microtek driver's disconnect method, now that
+	usb_kill_urb is available.
+	
+	Signed-Off-By: Oliver Neukum <oliver@neukum.name>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<zaitcev@redhat.com>
+	[PATCH] USB: Fixes for ub in 2.4.9-rc1 from Oliver and Pat
+	
+	- Set the allocation size in REQUEST SENSE (Pat LaVarre)
+	- Move add_timer invocations to safer places (Oliver Neukum)
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Make usbcore use usb_kill_urb()
+	
+	This patch changes the only places in usbcore where usb_unlink_urb() is
+	still used for synchronous unlinking; now they will use usb_kill_urb().
+	As it turns out, there were only a couple of changes needed.
+	
+	This still leaves all the drivers to audit!
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Suspend/resume/wakeup support for UHCI root hub ports
+	
+	This patch adds support for suspending, resuming, and remote wakeup
+	detection on root hub ports to the UHCI driver.  It doesn't add support
+	for suspending or resuming the root hub itself (beyond what's already
+	there) -- that will require considerably more work.  But at least devices
+	plugged directly into the computer will interact nicely with power
+	management.
+	
+	Of lesser importance, the patch also simplifies some constant expressions.
+	
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<oliver@neukum.org>
+	[PATCH] USB: correct interrupt interval for kaweth
+	
+	  - overriding the media check interrupt interval
+	
+	Signed-Off-By: Oliver Neukum <oliver@neukum.name>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<wouter-kernel@fort-knox.rave.org>
+	[PATCH] USB: usb audio is for oss only
+	
+	Doh. Fixed.
+
+<petkan@nucleusys.com>
+	[PATCH] USB: small rtl8150 patch
+	
+	this one make rtl8150 auto-load its register values at reset.  Not doing
+	so is known to cause improper setup when the device is being reseted
+	frequently.
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<oliver@neukum.org>
+	[PATCH] USB: switching microtek to usb_kill_urb
+	
+	Am Dienstag, 31. August 2004 17:41 schrieb Alan Stern:
+	> On Tue, 31 Aug 2004, Oliver Neukum wrote:
+	>
+	> Alan Stern
+	>
+	>
+	>
+	>
+	> > @@ -822,9 +822,8 @@
+	> >
+	> >  	usb_set_intfdata(intf, NULL);
+	> >
+	> > +	usb_kill_urb(desc->urb);
+	> >  	scsi_remove_host(desc->host);
+	> > -	usb_unlink_urb(desc->urb);
+	> > -	scsi_host_put(desc->host);
+	> >
+	> >  	usb_free_urb(desc->urb);
+	> >  	kfree(desc);
+	>
+	> I think you still need the scsi_host_put(), to account for the fact that
+	> scsi_host_alloc() sets the refcount to 1 initially.
+	
+	Right you are. Greg, please also apply this one.
+	
+	Signed-Off-By: Oliver Neukum <oliver@neukum.name>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<alborchers@steinerpoint.com>
+	[PATCH] USB: corrected digi_acceleport 2.6.9-rc1 fix for hang on disconnect
+	
+	- Fixed hang on disconnect in digi_acceleport USB serial driver.
+	  See http://bugme.osdl.org/show_bug.cgi?id=2459.  Close after
+	  disconnect no longer tries to communicate with the device.
+	
+	Signed-off-by: Al Borchers <alborchers@steinerpoint.com>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<david-b@pacbell.net>
+	[PATCH] USB: OHCI init cleanups
+	
+	This ought to fix the NS9750 init issue, and make the AMD756 case
+	at least somewhat better.  It makes the init go "by the book" in more
+	ways, and formalizes one quirk.
+	
+	Various OHCI init/reset cleanups for different silicion environments:
+	
+	 - Reset a bit more "by the book".
+	
+	    * Define a new quirk flag for the SiS and OPTi problem seen earlier.
+	      Since 2.4 we've always worked around that quirk, even though we've
+	      not seen that on other chips; but it's "wrong" and doesn't work on
+	      some chips (notably NetSilicon NS9750).
+	
+	      The quirk still seems to be needed for SiS, but either this test
+	      machine is too fast for the OPTi problem to show up, or the frame
+	      timing setup problem there came from a now-fixed bug.
+	
+	    * Look at the HC state before resetting it; depending on whether
+	      it was previously owned by BIOS, SMM, an OS, or nobody, different
+	      USB signaling (and timings) might be needed.
+	
+	    * Re-init the frame timings right after soft reset, rather than
+	      later (potentially too much later).
+	
+	    * Restore a reset in the PCI startup code, so this logic more closely
+	      resembles the non-PCI paths (future code sharing).  It also makes it
+	      easier to guarantee a 1-millisecond ceiling between reset and "go".
+	
+	      An earlier reset is being done to help workaround BIOS-related
+	      problems on some boards, but we may need an even earlier one
+	      (as a PCI quirk, before IRQs get reconfigured).
+	
+	 - Add an explicit #define to disable the BIOS/SMM handoff; it's
+	   not just HPPA, many embedded chips don't expect BIOS either.
+	
+	 - There are reports of AMD 756 machines disliking the OHCI suspend
+	   patch of a few months back.  Erratum #10 partly explains that, so
+	   now root hubs won't autosuspend on those Slot-A era chips.
+	
+	 - Other minor fixes
+	
+	    * We've got lots of non-PCI OHCI now too, so comments shouldn't
+	      be assuming all-is-pci!
+	
+	    * Hey, it's unsafe to call hc_reset() in IRQ (after unrecoverable
+	      error); so just force a soft reset, don't do the whole thing.
+	
+	Tested on half a dozen different OHCI versions, but maybe some other
+	versions of OHCI will be sensitive to one of these changes.
+	
+	Signed-off-by: David Brownell <dbrownell@users.sourceforge.net>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<abbotti@mev.co.uk>
+	[PATCH] USB: Add B&B Electronics VID/PIDs to ftdi_sio
+	
+	This patch adds VID/PIDs for a few FTDI-based USB serial devices
+	from B&B Electronics to the ftdi_sio driver.
+	
+	
+	Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<akpm@osdl.org>
+	[PATCH] USB: "Lost sync on frames" error in konicawc module
+	
+	From: <fgalea@prism.uvsq.fr>
+	
+	http://bugme.osdl.org/show_bug.cgi?id=3286
+	
+	The kernel keeps printing "Lost sync on frames" error messages as soon as a
+	program tries to access the webcam.  No video data can be retrieved from
+	the webcam.
+	
+	The following patch seems enough to solve the problem.  (just inverting the
+	order at which the old and new data blocks are sent to the user).
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Remove inappropriate unusual_devs.h entry
+	
+	A couple of months ago you applied a patch from Torsten Scherer to create
+	a new unusual_devs.h entry.  In further discussions with him I learned
+	that the entry wasn't needed to access the device; the only reason for it
+	was as a workaround for some old, buggy hotplug program on his system.
+	
+	Now Evan Fletcher reports that the entry actively prevents him from using
+	his device.  For me that's the last straw, so here's a patch to remove the
+	entry.  Torsten should be okay if he simply upgrades his hotplug package
+	or removes the buggy program.
+	
+	On Mon, 30 Aug 2004, Evan Fletcher wrote:
+	> Hi list,
+	>
+	> I have a Bytecc 5.25" External Enclosure, model ME-320U2F, that has
+	> both USB 2.0 and Firewire connections
+	> (http://www.byteccusa.com/product/enclosure/ME-320.htm).  It used to
+	> work fine on earlier Linux 2.6 kernels, but stopped working a few
+	> revisions ago.
+	>
+	> I tracked the problem down to an entry in unusual_devs.h:
+	>
+	> /* <torsten.scherer@uni-bielefeld.de>: I don't know the name of the bridge
+	>  * manufacturer, but I've got an external USB drive by the Revoltec company
+	>  * that needs this. otherwise the drive is recognized as /dev/sda, but any
+	>  * access to it blocks indefinitely.
+	>  */
+	> UNUSUAL_DEV(  0x0402, 0x5621, 0x0103, 0x0103,
+	>                 "Revoltec",
+	>                 "USB/IDE Bridge (ATA/ATAPI)",
+	>                 US_SC_DEVICE, US_PR_DEVICE, NULL, US_FL_FIX_INQUIRY),
+	
+	<...>
+	> So, is there some way that this entry can be modified so that my DVD+R
+	> works properly, and Mr. Scherer can still use his Revoltec external
+	> disk?
+	>
+	> Thank you,
+	> Evan Fletcher
+	
+	
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<bjorn.helgaas@hp.com>
+	[PATCH] HCD PCI probe: print actual, not ioremapped, address
+	
+	I think the USB HCD should print the actual PCI memory address, not the
+	ioremapped address.  AFAIK, there's no reason the ioremapped address has
+	to have any fixed relationship to the actual address.  Also, this makes
+	it match what's in /proc/iomem.  I also added a leading "0x".  Example
+	from ia64:
+	
+	    - ehci_hcd 0000:00:01.2: irq 52, pci mem c000000080021000
+	    + ehci_hcd 0000:00:01.2: irq 52, pci mem 0x80021000
+	
+	
+	
+	USB HCD: print actual PCI mem address, not the ioremapped value.
+	
+	Signed-off-by: Bjorn Helgaas <bjorn.helgaas@hp.com>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] usb/tiglusb: insert set_current_state() before schedule_timeout()
+	
+	Insert set_current_state() so schedule_timeout() functions as expected.
+	
+	Signed-off-by: Nishanth Aravamudan <nacc@us.ibm.com>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] usb/dabusb: insert set_current_state() before schedule_timeout()
+	
+	After discussing this patch with Mark Hollomon, I think it is much safer
+	/ better to leave the conditional check within the while loop. This way
+	the mutex state is as expected and maintainability is not compromised.
+	The previous patch should not be applied.
+	
+	
+	Description: Inserts appropriate set_current_state() call so that
+	schedule_timeout() functions as expected.
+	
+	Signed-off-by: Nishanth Aravamudan <nacc@us.ibm.com>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Nag message for usb_kill_urb
+	
+	This patch is only for nuisance value.  It puts a nag message in the
+	system log every time usb_unlink_urb() is called for synchronous
+	unlinking.  My hope is this will speed the process of converting drivers
+	to use usb_kill_urb().
+	
+	Don't apply this if it generates too much noise, but otherwise go ahead.
+	A little prodding never hurt anyone.
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<alborchers@steinerpoint.com>
+	[PATCH] USB: circular buffer for pl2303
+	
+	Here is the patch adding a circular buffer to pl2303
+	updated to 2.6.9-rc1.  Phil and I both tested this.
+	(Phil tested a slightly different earlier version.)
+	
+	This fixes the carriage return newline problem Olaf
+	Hering reported and helps Phil with hotsyncing his
+	phone.  This patch also fixes a problem that would
+	sometimes leave a pl2303 port unable to send data,
+	reporting "already writing", after closing the port
+	while writing was in progress.  This happened about
+	1/3 of the time in my tests with the stock 2.6.9-rc1
+	pl2303 driver.
+	
+	
+	- Added a circular write buffer, protected by the
+	  existing spin lock.
+	
+	- Write_room and chars_in_buffer now report room and
+	  chars in the circular buffer.
+	
+	- Added a "bounce buffer" when transfering data from
+	  user space to the circular buffer--needed for locking.
+	
+	- Replaced (urb->status != -EINPROGRESS) with a private
+	  write_urb_in_use flag protected by the existing spin
+	  lock.  Clear this flag when the urb is unlinked.
+	
+	- Free memory on failed startup.
+	
+	- These changes make ONLCR mapping work and fix a bug
+	  that would sometimes leave the port unable to write,
+	  reporting "already writing", after closing the port
+	  while writing was in progress.
+	
+	Signed-off-by: Al Borchers <alborchers@steinerpoint.com>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<alborchers@steinerpoint.com>
+	[PATCH] USB: close waits for drain in pl2303
+	
+	Here is an additional patch for pl2303 in 2.6.9-rc1,
+	to be applied after my previous circular buffer patch.
+	This patch waits for the buffer to drain on close and
+	then clears the buffer.  In addition to the obvious
+	features, this also fixes a bug where closing a port
+	with a full buffer would accidentally disable writes
+	when the port was re-opened.
+	
+	The original pl2303 could lose data that was still going
+	out the port on close, and even this patch only solves
+	the problem completely for data rates of 1200 bps and
+	above.
+	
+	Waiting for data to drain from the circular buffer is
+	easy, but the problem is waiting for data to drain from
+	the 256 byte hardware buffer on the device.  I don't know
+	how much data is in the hardware buffer, so I just wait
+	long enough for a potentially full hardware buffer to
+	drain, but I don't want to wait that long for low data
+	rates if the buffer isn't full.  There is probably some
+	way to query the pl2303 to find out how much data is in
+	its hardware buffer, maybe snooping would reveal that.
+	
+	- Added a wait for data to drain from the driver
+	  write buffer when closing.
+	
+	- Added a wait for the data to drain from the
+	  device hardware buffer when closing.
+	
+	- Cleared the driver write buffer when closing.
+	
+	Signed-off-by: Al Borchers <alborchers@steinerpoint.com>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<davej@redhat.com>
+	[CPUFREQ] speedstep-smi: only allow it to run on mobile Intel Pentium III
+	
+	speedstep-smi only makes sense on Intel mobile Pentium III systems.
+	So, unify the distributed checks for speedstep_processor there,
+	and disallow P4s.
+	
+	Signed-off-by: Dominik Brodowski <linux@brodo.de>
+	Signed-off-by: Dave Jones <davej@redhat.com>
+
+<kay.sievers@vrfy.org>
+	[PATCH] export of SEQNUM to userspace (creates /sys/kernel)
+	
+	o /sys/kernel/hotplug_seqnum exports the current number
+	o lib/kobject.c's  sequence_num is renamed to hotplug_seqnum and
+	  exported by include/linux/kobject.h
+	o the source file ksysfs.c in kernel/ creates on init the
+	  sybsystem "/sys/kernel/" in sysfs
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	kobject: adjust hotplug_seqnum increment to keep userspace and kernel agreeing.
+
+<greg@kroah.com>
+	ksysfs: don't build ksysfs if CONFIG_SYSFS is not enabled.
+	
+	Thanks to Kay Sievers for pointing this out.
+	  
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	kobject: fix build error if CONFIG_HOTPLUG is not enabled.
+	
+	Thanks to Kay Sievers for pointing this out.
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	USB: remove usbdevfs filesystem name, usbfs is the proper one to use.
+	
+	This has been publicised for years now, and the usvfs name will work just
+	fine with a 2.4 kernel, so we are not breaking backwards compatibility.
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] list_for_each_entry: drivers-usb-core-devices.c
+	
+	Make code more readable with list_for_each_entry.
+	Compile tested.
+	
+	Patch incremental on the list_for_each() change.
+	
+	Signed-off-by: Domen Puncer <domen@coderock.org>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] list_for_each_entry: drivers-usb-serial-ipaq.c
+	
+	Use list_for_each_entry_safe to make code more readable.
+	Compile tested.
+	
+	Signed-off-by: Domen Puncer <domen@coderock.org>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] list_for_each_entry: drivers-usb-host-hc_sl811.c
+	
+	Make code more readable with list_for_each_entry_safe.
+	(Is this a non i386? I can't compile it.)
+	
+	Signed-off-by: Domen Puncer <domen@coderock.org>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] list_for_each_entry: drivers-usb-media-dabusb.c
+	
+	Use list_for_each_entry to make code more readable.
+	Compile tested.
+	
+	Signed-off-by: Domen Puncer <domen@coderock.org>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] list_for_each_entry: drivers-usb-class-usb-midi.c
+	
+	Make code more readable with list_for_each_entry.
+	Compile tested.
+	
+	
+	Signed-off-by: Domen Puncer <domen@coderock.org>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<janitor@sternwelten.at>
+	[PATCH] list_for_each_entry: drivers-usb-class-audio.c
+	
+	Make code more readable with list_for_each_entry.
+	Compile tested.
+	
+	
+	Signed-off-by: Domen Puncer <domen@coderock.org>
+	Signed-off-by: Maximilian Attems <janitor@sternwelten.at>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Centralize logical disconnects in the hub driver
+	
+	This patch takes some code that was only used in one place in the hub
+	driver, and packages it up into a subroutine which is now called from
+	several places.  The routine does a logical disconnect -- for example,
+	after issuing a port reset, if the device descriptors have changed
+	(because of a firmware update perhaps) we logically disconnect the old
+	device structure and create a new one.  Or if a resume fails for any
+	reason we can do the same thing.
+	
+	This touches some of David Brownell's suspend/resume code, obviously.
+	(It also fixes a couple of small errors in there.)  He has said it looks
+	okay.
+	
+	
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<margitsw@t-online.de>
+	[PATCH] prism54 Code cleanup
+	
+	(Patches submitted by Denis Vlasenko)
+	There are neither functionality changes nor bug fixes.
+	
+	* 2004-08-14 Denis Vlasenko <vda@port.imtp.ilyichevsk.odessa.ua>
+	* Move assignment out of if()
+	* Remove trailing space from printk
+	* Eliminate not needed local 'u32 reg'
+	* Add a comment about undoc bits
+	* Add #define VEC_SIZE, use it as appropriate
+	* Add some printks to reset error code path (our
+	* current area of trouble)
+	* Make printk text less confusing
+	* Some not needed NULL assignments removed
+	* mgt_commit_list(): tell which oid has failed
+
+<margitsw@t-online.de>
+	[PATCH] prism54 remove module params
+	
+	* Remove unneeded module params.
+
+<margitsw@t-online.de>
+	[PATCH] prism54 add WE17 support
+	
+	* Add support for WE17 from Jean Tourrilhes
+
+<margitsw@t-online.de>
+	[PATCH] prism54 initial WPA support
+	
+	* Work based on initial patches from Jouni Malinen <jkmaline@cc.hut.fi>
+	* Initial wpa_supplicant support work:
+	* isl_ioctl.c (prism54_process_trap_helper): Start to use mlmeex,
+	* start doing what's right for
+	* DOT11_OID_AUTHENTICATEEX,
+	* DOT11_OID_ASSOCIATEEX,
+	* DOT11_OID_ASSOCIATEEX, and
+	* DOT11_OID_REASSOCIATEEX
+	
+	* isl_ioctl.c: add temporary structure for wpa_supplicant requests,
+	
+	* isl_ioctl.c: add prism2_ioctl_set_encryption which can probably be removed
+	later
+	
+	* isl_ioctl.c: add prism2_ioctl_set_generic_element (well tested)
+	
+	* isl_ioctl.c: add prism2_ioctl_mlme which should be unnecessary since
+	* WE scan should be used by wpa_supplicant
+	
+	* isl_ioctl.c: add prism54_hostapd - this parses wpa_supplicant
+	* requests and does the right job for each
+	
+	* isl_ioctl.c (prism54_set_wpa): changed to not use mgt_set/mgt_commit
+	* as commit is unecessary. Added proper OID sets to enable/disable WPA.
+	* This is called by wpa_supplicant at startup. This should eventually
+	* be part of WE18.
+	
+	* isl_ioctl.c (prism54_ioctl): Links wpa_supplicant to prism54
+	
+	* isl_ioctl.h: defined prism54_set_wpa to allow prism54_hostapd to use
+	
+	* isl_oid.h: add struct obj_attachment for OID OID_TYPE_ATTACH
+	
+	* oid_mgt.c: map OID DOT11_OID_ATTACHMENT to struct obj_attachment
+	
+	* oid_mgt.c (mgt_le_to_cpu, mgt_cpu_to_le): handle endianness for
+	* obj_attachment
+	
+	* oid_mgt.c: add mgt_set_varlen, needed for mlmeex as it has a
+	* variable size field.
+	
+	* oid_mgt.c: add mgt_unlatch_all, this can be used to force a commit
+	* on OIDs:
+	* MEDIUMLIMIT, BEACONPERIOD, DTIMPERIOD, ATIMWINDOW,
+	* LISTENINTERVAL, FREQUENCY, EXTENDEDRATES
+	* These OIDs are "latched". TODO: config mode handling.
+	* oid_mgt.c (mgt_response_to_str): learn to parse OID_TYPE_ATTACH
+	* oid_mgt.h: add mgt_set_varlen, and mgt_unlatch_all
+
+<margitsw@t-online.de>
+	[PATCH] prism54 fix wpa_supplicant frequency parsing
+	
+	* This work fixes wpa_supplicant frequency parsing. iwlist eth0
+	* scan will now show channel and frequency.
+
+<perex@suse.cz>
+	ALSA CVS update
+	ENS1370/1+ driver
+	Fixed AC3-passthru on ens1371/1373 boards.
+	
+	SRC is bypassed when the sample rate is 48k, so that the non-audio
+	signal won't be broken.  The other sample rates still need SRC.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	ALSA CVS update
+	ICE1712 driver
+	Allow the private EEPROM image for evaluation boards
+	
+	The driver may have a private EEPROM image instead of reading
+	from the board (as well as ice1724 does).  It'll be helpful for
+	test boards.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	ALSA CVS update
+	ES18xx driver
+	Fixed a bug in setting the filter register.
+	
+	A fix from the kernel OSS driver.  The original report/patch is from
+	http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=204147
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  Added __GFP_NORETRY to avoid OOM-killer
+	
+	Memalloc module
+	__GFP_NORETRY is added to the DMA buffer allocator to avoid triggering
+	OOM-killer.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  Enable __GFP_NOWARN as default for buffer allocation
+	
+	Memalloc module
+	__GFP_NOWARN is enabled for DMA buffer allocation regardless of
+	its size.  The DMA buffer allocation is not a critical task.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  Korg1212 misc fixes
+	
+	KORG1212 driver
+	The DSP firmware download timeout has been increased;
+	Some concurrent device settings has been fixed (I have shameless copied
+	some code from RME9652); and
+	One debug message was fixed.
+	
+	Signed-off-by: Haroldo Gamal <gamal@alternex.com.br>
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  AC97 96 kHz sample rate support
+	
+	Documentation,AC97 Codec Core,Intel8x0 driver
+	
+	
+	Signed-off-by: Clemens Ladisch <clemens@ladisch.de>
+
+<perex@suse.cz>
+	[ALSA]  add missing ifdef for disabling MIDI
+	
+	Intel8x0 driver
+	
+	
+	Signed-off-by: <castet.matthieu@free.fr>
+	Signed-off-by: Clemens Ladisch <clemens@ladisch.de>
+
+<perex@suse.cz>
+	[ALSA]  suppress auto-loading of modules in module_init().
+	
+	ALSA sequencer
+	The auto-loading of sequencer modules is suppressed in module_init().
+	The recent module-init-tools may cause blocking.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  Fix latency in ens1371 driver
+	
+	ENS1370/1+ driver
+	The high latency in prepare callback of ens1371 driver is fixed.
+	The *_rate_set() functions are moved outside of spinlock, and
+	cond_resched() is inserted in the busy probing loop.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  add AC97 quirk for Fujitsu-Siemens E4010
+	
+	Intel8x0 driver
+	
+	
+	Signed-off-by: <castet.matthieu@free.fr>
+	Signed-off-by: Clemens Ladisch <clemens@ladisch.de>
+
+<perex@suse.cz>
+	[ALSA]  remove gameport/MIDI support
+	
+	Documentation,PCI drivers,Intel8x0 driver
+	snd-intel8x0's gameport/MIDI code has quite a few problems:  the port
+	addresses cannot be detected reliably (or not at all with newer LPC
+	bridge devices), joystick port address 0x208 isn't supported, the MIDI
+	interrupt isn't detected, PnP isn't supported, changing the port
+	addresses in the LPC bridge configuration doesn't affect the devices
+	in the Super-I/O chip connected to the LPC bus, and registering this
+	driver for the LPC bridge PCI device prevents other drivers using the
+	LPC's PCI id from loading later.
+	
+	All these problems can be cured by removing the offending code and
+	using the proper modules for these devices (ns558/snd-mpu401) instead.
+	
+	Signed-off-by: Clemens Ladisch <clemens@ladisch.de>
+
+<perex@suse.cz>
+	[ALSA]  add mixer quirk for LineX FM Transmitter
+	
+	USB generic driver
+	The LineX FM Transmitter needs a mixer quirk entry
+	to ignore control errors.
+	
+	Signed-off-by: Lonnie Mendez <dignome@gmail.com>
+	Signed-off-by: Clemens Ladisch <clemens@ladisch.de>
+
+<perex@suse.cz>
+	[ALSA]  [ac97] Added VIA shared type.
+	
+	AC97 Codec Core,VIA82xx driver
+	Added a new shared type AC97_SHARED_TYPE_VIA for via82xx southbridge
+	to share codecs between audio and modem drivers.
+	
+	Signed-off-by: Sasha Khapyorsky <sashak@smlink.com>
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  [ac97] Check ac97 codec id in quirk table
+	
+	AC97 Codec Core
+	Added codec_id field to ac97_quirk struct so that the devices with
+	the same PCI subsystem IDs but with different AC97 chips can be
+	distinguished properly.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  ac97 quirk entry for Soltek SL-75DRV5
+	
+	VIA82xx driver
+	Added an ac97 quirk entry for Soltek SL-75DRV5.
+	Since the PCI subsystem id is identical with ASRock K7VT2, codec_id is
+	used additionally to tell between them.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  inverted EAPD support
+	
+	Documentation,AC97 Codec Core,Intel8x0 driver,CS46xx driver
+	Since there are more than one (broken) implementation of EAPD bit
+	on ac97 chips, the new scaps bit is added for the inverted EAPD.
+	Also, AC97_TUNE_INV_EAPD is used to tune this behavior later by
+	snd_ac97_tune_hardware().
+	
+	The ac97 quirk entry for Sony S1XP is added to turn this on.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  detect errors reported by the hardware
+	
+	BT87x driver
+	stop the PCM if the hardware reports FIFO/PCI errors
+	
+	Signed-off-by: Clemens Ladisch <clemens@ladisch.de>
+
+<perex@suse.cz>
+	[ALSA]  Added Compaq Evo W4000 quirk
+	
+	Intel8x0 driver
+	Added an AC97 quirk entry for Compaq Evo W4000.
+	
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<perex@suse.cz>
+	[ALSA]  [emu10k1] Audigy DSP support
+	
+	EMU10K1/EMU10K2 driver
+	This patch will add better support for Audigy DSP.  More gpr,
+	instruction and tram.  It will break binary compatibility for app
+	which use emu10k1 hwdep.
+	
+	Signed-off-by: Peter Zubaj <pzad@pobox.sk>
+	Signed-off-by: Takashi Iwai <tiwai@suse.de>
+
+<ben@fluff.org>
+	Add S3C2410 (Samsung ARM9 Mobile SoC) watchdog driver
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Internal port numbers start at 0
+	
+	This patch changes a couple of new routines in the suspend/resume code.
+	Internally they use port numbers starting from 1, unlike every other
+	routine in the hub driver.  This changes the port numbers to origin-0, for
+	consistency's sake.  Of course, messages sent to the system log will
+	continue to start counting from 1.
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<luca.risolia@studio.unibo.it>
+	[PATCH] USB: SN9C10x driver update
+	
+	Changes:
+	
+	- Add support for SN9C103 based devices. The audio capability is already
+	  supported but not released in this version. I will release
+	  it once someone donates two SN9C103 based devices.
+	- Implement VIDIOC_G_CTRL for TAS5110C1B and TAS51130D1B
+	- Replace "SN9C10[12]" strings with "SN9C10x"
+	- Add red, green, blue gain controls to the SN9C103
+	- Memory offsets are now page-aligned
+	- Fix typos in the documentation
+	- Documentation updates
+	- Setting bounds are checked by the core module
+	- Add exposure control for TAS51130D1B
+	
+	Signed-off-by: Luca Risolia <luca.risolia@studio.unibo.it>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<david-b@pacbell.net>
+	[PATCH] USB: EHCI SMP fix
+	
+	This addresses an SMP-only issue with the EHCI driver, where only one CPU
+	should scan the schedule at a time (scanning is not re-entrant) but either
+	the IRQ handler or a watchdog timer could end up starting it.  Many thanks
+	to Olaf Hering for isolating the failure mode, and testing this fix!
+	
+	Once once CPU starts scanning, any other might as well finish right
+	away.  This fix just adds a flag to detect that case.
+	
+	Signed-off-by: David Brownell <dbrownell@users.sourceforge.net>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<akpm@osdl.org>
+	[PATCH] USB: Codemercs IO-Warrior support
+	
+	From: Steffen Zieger <lkml@steffenspage.de>
+	
+	Here is a patch to get the kernel module from Codemerces to work.  The module
+	is available in source for the 2.4 and 2.6 series except the needed changes in
+	hid-core.c.  Codemercs distribute the needed changes as a complete file
+	(version 2.6.4).  This isn't working with 2.6.8.1.
+	
+	http://www.codemercs.com
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<util@deuroconsult.ro>
+	[PATCH] USB Serial: Correct a use of out of range variable
+	
+	Bug found by Coverity:
+	http://linuxbugs.coverity.com/external/editbugparent.php?viewbugid=2137&checkers%5B%5D=all&status%5B%5D=BUG&status%5B%5D=UNINSPECTED&status%5B%5D=UNKNOWN&status%5B%5D=DON%27T%20CARE&status%5B%5D=PENDING&product%5B%5D=all&component%5B%5D=all&file=&fn=&sortby=reverse_rank&before=&after=&curpage=2&bugid=-1&comment=&reason=
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<mdharm-usb@one-eyed-alien.net>
+	[PATCH] USB Storage: change how INQUIRY is fixed up
+	
+	The usb-storage driver 'fixes up' the INQUIRY data returned by a device so
+	that it reads SCSI rev 2 by intercepting the data in-flight.  This was done
+	to make various SCSI drivers (sd, sr, etc.) work with the device.
+	
+	However, this technique also has the unfortunate side-effect that nobody
+	can see the real rev. -- not even sg users.
+	
+	This patch changes that.  Now, the SCSI revision is changed in the
+	slave_configure() function.  Thus, the 'real' data is available to anyone
+	who wants to issue an INQUIRY directly via any means.
+	
+	This also simplifies the code somewhat.
+	
+	
+	Signed-off-by: Matthew Dharm <mdharm-usb@one-eyed-alien.net>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<nacc@us.ibm.com>
+	[PATCH] i2c-algo-ite: remove iic_sleep()
+	
+	Removes unused function iic_sleep().
+	
+	Signed-off-by: Nishanth Aravamudan <nacc@us.ibm.com>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<castet.matthieu@free.fr>
+	[PATCH] use of MODULE_DEVICE_TABLE in i2c busses driver
+	
+	hello,
+	since you say your are interested of using MODULE_DEVICE_TABLE in
+	http://bugzilla.kernel.org/show_bug.cgi?id=3091 I did a patch (attach).
+	
+	Also I notice that some pci_device_id are marked __devinitdata that seem a bug
+	if I read Linux 2.6.0-test3 changelog.
+	To find them do a "grep pci_device_id  /usr/src/linux/drivers/i2c/busses/* |
+	grep __devinitdata"
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<mhoffman@lightlink.com>
+	[PATCH] I2C/SMBus stub for driver testing
+	
+	* Greg KH <greg@kroah.com> [2004-08-24 16:44:32 -0700]:
+	> > > Why not?  It looks useful to me.  Care to send me a patch adding
+	> > > this to the main kernel tree?
+	
+	* Mark M. Hoffman <mhoffman@lightlink.com> [2004-08-25 10:25:02 -0400]:
+	> Later today, sure.
+	
+	Well here it is, one day later because I really didn't want to do this
+	with printk.  I spent some time looking around and relayfs seems like
+	a good fit.  Do you think relayfs will ever get merged?  Meanwhile...
+	
+	* * * * *
+	
+	This patch, applied to 2.6.9-rc1, adds an I2C/SMBus test stub that is useful
+	for developing sensors drivers.
+	
+	Signed-off-by: Mark M. Hoffman <mhoffman@lightlink.com>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<margitsw@t-online.de>
+	[PATCH] I2C: minor lm85 fix
+	
+	Jean scribeth :
+	> Except lm85, but this should be fixed
+	
+	Indeed, patch attached.
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<khali@linux-fr.org>
+	[PATCH] I2C: Do not init global variables to 0
+	
+	This trivial patch enforces the rule that global variables should not be
+	explicitely initialized to 0 for all i2c chip drivers.
+	
+	Signed-off-by: Jean Delvare <khali@linux-fr.org>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<khali@linux-fr.org>
+	[PATCH] I2C: Fix macro calls in chip drivers
+	
+	I noticed that some I2C chip drivers (all written or reviewed by me, I
+	feel ashamed to say) misuse macros. Passing function calls
+	(simple_strtol in this case) to macros evaluating their argument up to 4
+	times is certainly not wise and obviously performs poorly. It is not
+	critical in that it happens only when writing to the chips (setting
+	limits), which doesn't happen that often. However I'd say it's worth
+	fixing.
+	
+	Thus, the patch below fixes that, by moving the function calls outside
+	of the macro calls.
+	
+	
+	Signed-off-by: Jean Delvare <khali@linux-fr.org>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<johnpol@2ka.mipt.ru>
+	[PATCH] w1: Added slave->ttl - time to live for the registered slave.
+	
+	Added slave->ttl - time to live for the registered slave.
+	When slave was not found we will not remove it immediately but wait until ->ttl attempts were done.
+	It prevents various debouncing effects(problems with pull-up, power).
+	
+	Signed-off-by: Evgeniy Polyakov <johnpol@2ka.mipt.ru>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	[PATCH] kobject: hotplug_seqnum is not 64 bits on all platforms, so fix it.
+	
+	Thanks to Kay Sievers for pointing this out.
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	[PATCH] ksyms: don't implement /sys/kernel/hotplug_seqnum if CONFIG_HOTPLUG is not enabled.
+	
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	USB: make usb_unlink_urb() message only show up if CONFIG_DEBUG_KERNEL is enabled.
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<johnpol@2ka.mipt.ru>
+	[PATCH] W1: let W1 select NET.
+	
+	On Wed, 2004-08-25 at 23:41, Greg KH wrote:
+	> On Wed, Aug 25, 2004 at 11:21:29PM +0400, Evgeniy Polyakov wrote:
+	> > On Wed, 25 Aug 2004 10:49:12 -0700
+	> > Greg KH <greg@kroah.com> wrote:
+	> >
+	> > > On Fri, Aug 13, 2004 at 02:35:40PM +0400, Evgeniy Polyakov wrote:
+	> > > > The patch below fixes this issue by letting W1 select NET.
+	> > > >
+	> > > > Patch was created by Adrian Bunk <bunk@fs.tum.de>.
+	> > >
+	> > > Nah, I'm going to hold off on this, it's not really needed (who
+	> > > doesn't build with NET enabled...)
+	> >
+	> > Hmmm, but someone really may want to build it without NET support.
+	> > I have an idea(I thought it out exactly for the case when you do not
+	> > apply it) to disable networking(netlink) support in compilation time if
+	> > CONFIG_NET is not defined.
+	> > And add some warning like:
+	> >
+	> > #ifndef CONFIG_NET
+	> > #warning Netlink support is disabled.
+	> > #endif
+	>
+	> That sounds like a good fix.
+	
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Add OTG support to g_file_storage
+	
+	This patch adds minimal USB On-The-Go support (mainly just an extra
+	descriptor) to the File-Storage Gadget.  The changes were based on the
+	additions made to the Gadget Zero driver.
+	
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: New submission procedure for unusual_devs.h
+	
+	As you requested, this patch updates the documented procedure for
+	submitting new unusual_devs.h entries.
+	
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<petkov@uni-muenster.de>
+	[PATCH] USB: fix up usblp usb_unlink_urb() warning
+	
+	On Thursday 09 September 2004 08:38, Greg KH wrote:
+	> On Thu, Sep 09, 2004 at 01:07:05AM -0400, Gene Heskett wrote:
+	> > Greetings;
+	> >
+	> > I just had to reboot back to -mm2 after playing with some printer configs
+	> > in cups, although the test pages worked, so I'm not sure what this all
+	> > about, from var log/messages:
+	> >
+	> > Sep  8 23:13:42 coyote cups: cupsd -HUP succeeded
+	> > Sep  8 23:13:43 coyote kernel: usb_unlink_urb() is deprecated for
+	> > synchronous unlinks.  Use usb_kill_urb() Sep  8 23:13:43 coyote kernel:
+	> > Badness in usb_unlink_urb at drivers/usb/core/urb.c:456 Sep  8 23:13:44
+	> > coyote kernel:  [<c01048ce>] dump_stack+0x1e/0x20 Sep  8 23:13:44 coyote
+	> > kernel:  [<c0295f35>] usb_unlink_urb+0x85/0xa0 Sep  8 23:13:44 coyote
+	> > kernel:  [<c02a7447>] usblp_unlink_urbs+0x17/0x40 Sep  8 23:13:44 coyote
+	> > kernel:  [<c02a74a8>] usblp_release+0x38/0x60 Sep  8 23:13:44 coyote
+	> > kernel:  [<c01501ea>] __fput+0x12a/0x140
+	> > Sep  8 23:13:44 coyote kernel:  [<c014e8e7>] filp_close+0x57/0x80
+	> > Sep  8 23:13:44 coyote kernel:  [<c014e971>] sys_close+0x61/0x90
+	> > Sep  8 23:13:44 coyote kernel:  [<c010425d>] sysenter_past_esp+0x52/0x71
+	
+	
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<stern@rowland.harvard.edu>
+	[PATCH] USB: Unusual_devs entry for Panasonic cameras
+	
+	Thanks to Tom Hughes for jogging my memory about this patch, which has
+	been sitting here waiting for Greg's return.  It adds an unusual_devs.h
+	entry for the Panasonic DMC-LCx line of cameras, which incorrectly report
+	the total number of blocks in response to READ CAPACITY rather than the
+	highest available block number.
+	
+	
+	Signed-off-by: Alan Stern <stern@rowland.harvard.edu>
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com>
+	USB: fix usb_unlink_urb() usage in pl2303 driver
+	
+	Signed-off-by: Greg Kroah-Hartman <greg@kroah.com>
+
+<greg@kroah.com

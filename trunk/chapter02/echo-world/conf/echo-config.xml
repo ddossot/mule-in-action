@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+    xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd">
+
+    <stdio:connector name="SystemStreamConnector"
+        promptMessage="Please enter something: "
+        messageDelayTime="1000"/>
+
+    <model name="echoSample">
+        <service name="echoService">
+            <inbound>
+                <stdio:inbound-endpoint system="IN"/>
+            </inbound>
+            <outbound>
+                <outbound-pass-through-router>
+                    <stdio:outbound-endpoint system="OUT"/>
+                </outbound-pass-through-router>
+            </outbound>
+        </service>
+    </model>
+</mule>

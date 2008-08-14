@@ -1,0 +1,65 @@
+commit 4dd43544510011f66ae75e41301926003588e89d
+tree 4d41d5ac185284acf22f14c885bd37167c55f6bc
+parent 6d608f690e9f0d51b07400c9fdfaaa1e3302ba69
+author Greg KH <gregkh@suse.de> Mon, 16 May 2005 10:48:16 -0700
+committer Greg KH <gregkh@suse.de> Mon, 16 May 2005 10:48:16 -0700
+
+    Linux 2.6.11.10
+
+commit 6d608f690e9f0d51b07400c9fdfaaa1e3302ba69
+tree fcac5f1e3f17559ddb8b02f9c969676feddb6bc0
+parent 739b21c70fae430367c7617cb88548fe783ce24f
+author Peter Osterlund <petero2@telia.com> Sat, 14 May 2005 00:58:30 -0700
+committer Greg KH <gregkh@suse.de> Mon, 16 May 2005 10:45:48 -0700
+
+    [PATCH] Fix root hole in pktcdvd
+
+    ioctl_by_bdev may only be used INSIDE the kernel.  If the "arg" argument
+    refers to memory that is accessed by put_user/get_user in the ioctl
+    function, the memory needs to be in the kernel address space (that's the
+    set_fs(KERNEL_DS) doing in the ioctl_by_bdev).  This works on i386 because
+    even with set_fs(KERNEL_DS) the user space memory is still accessible with
+    put_user/get_user.  That is not true for s390.  In short the ioctl
+    implementation of the pktcdvd device driver is horribly broken.
+
+    Signed-off-by: Peter Osterlund <petero2@telia.com>
+    Signed-off-by: Andrew Morton <akpm@osdl.org>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+commit 739b21c70fae430367c7617cb88548fe783ce24f
+tree 4874ca9b8bc470148e1ec9b9f89001da6d3f5000
+parent b23b1dc851540dd0580251d98f6b9993779904e4
+author Dave Jones <davej@redhat.com> Fri, 13 May 2005 23:31:19 -0400
+committer Greg KH <gregkh@suse.de> Mon, 16 May 2005 10:42:14 -0700
+
+    [PATCH] Fix root hole in raw device
+
+    [Patch] Fix raw device ioctl pass-through
+
+    Raw character devices are supposed to pass ioctls through to the block
+    devices they are bound to.  Unfortunately, they are using the wrong
+    function for this: ioctl_by_bdev(), instead of blkdev_ioctl().
+
+    ioctl_by_bdev() performs a set_fs(KERNEL_DS) before calling the ioctl,
+    redirecting the user-space buffer access to the kernel address space.
+    This is, needless to say, a bad thing.
+
+    This was noticed first on s390, where raw IO was non-functioning.  The
+    s390 driver config does not actually allow raw IO to be enabled, which
+    was the first part of the problem.  Secondly, the s390 kernel address
+    space is distinct from user, causing legal raw ioctls to fail.  I've
+    reproduced this on a kernel built with 4G:4G split on x86, which fails
+    in the same way (-EFAULT if the address does not exist kernel-side;
+    returns success without actually populating the user buffer if it does.)
+
+    The patch below fixes both the config and address-space problems.  It's
+    based closely on a patch by Jan Glauber <jang@de.ibm.com>, which has
+    been tested on s390 at IBM.  I've tested it on x86 4G:4G (split address
+    space) and x86_64 (common address space).
+
+    Kernel-address-space access has been assigned CAN-2005-1264.
+
+    Signed-off-by: Stephen Tweedie <sct@redhat.com>
+    Signed-off-by: Dave Jones <davej@redhat.com>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+

@@ -1,0 +1,37 @@
+
+Summary of changes from v2.6.11 to v2.6.11.1
+============================================
+
+<rene@exactcode.de>
+	[PATCH] trivial fix for 2.6.11 raid6 compilation on ppc w/ Altivec
+	
+	From: Rene Rebe <rene@exactcode.de>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<olof@austin.ibm.com>
+	[PATCH] Fix for trivial fix for 2.6.11 raid6 compilation on ppc w/ Altivec
+	
+	Here's a patch that will work for both PPC and PPC64. The proper way to
+	fix this in mainline is to merge -mm's cpu_has_feature patch, but for
+	the stable 2.6.11-series, this much less intrusive (i.e. just the pure
+	bugfix, not the cleanup part).
+	
+	Signed-off-by: Olof Johansson <olof@austin.ibm.com>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<dtor_core@ameritech.net>
+	[PATCH] Fix keyboards for Dell machines
+	
+	Some ACPI-related changes were recently made to i8042 discovery for ia64.
+	Unfortunately this broke a significant number of Dell laptops due to their
+	having incorrect BIOS tables.
+	
+	So, for now, arrange for the new code to be ia64-only.
+	
+	From: Dmitry Torokhov <dtor_core@ameritech.net>
+	Signed-off-by: Andrew Morton <akpm@osdl.org>
+	Signed-off-by: Greg Kroah-Hartman <gregkh@suse.de>
+
+<gregkh@suse.de>
+	Linux 2.6.11.1
+

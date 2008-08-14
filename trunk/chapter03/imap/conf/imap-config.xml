@@ -1,0 +1,39 @@
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:spring="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
+       xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.0"
+       xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.0"
+       xmlns:email="http://www.mulesource.org/schema/mule/email/2.0"
+       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
+       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
+       http://www.mulesource.org/schema/mule/imap/2.0 http://www.mulesource.org/schema/mule/imap/2.0/mule-imap.xsd
+       http://www.mulesource.org/schema/mule/smtp/2.0 http://www.mulesource.org/schema/mule/smtp/2.0/mule-smtp.xsd
+       http://www.mulesource.org/schema/mule/email/2.0 http://www.mulesource.org/schema/mule/email/2.0/mule-email.xsd
+       http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"  
+>
+    
+    <model name="imapModel">
+        <service name="imapService">
+            <inbound>
+                <imap:inbound-endpoint host="localhost" user='user%40mail.com' password="password">
+                    <email:email-to-string-transformer/>
+                </imap:inbound-endpoint>
+            </inbound>
+            <outbound>
+                <outbound-pass-through-router>
+                    <file:outbound-endpoint path="./out" outputPattern="EMAIL-[DATE].txt"/>
+                     
+                </outbound-pass-through-router>
+            </outbound>
+        </service>
+    </model>
+</mule>
+
