@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<artifactId>chapter07-parent</artifactId>
+		<groupId>com.muleinaction</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>standalone-server</artifactId>
+	<packaging>jar</packaging>
+	<name>Mule in Action - Chapter 7 - Standalone server</name>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-jetty</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+	</dependencies>
+</project>
