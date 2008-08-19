@@ -16,5 +16,6 @@
 	<modules>
     <module>standalone-server</module>
     <module>web-application</module>
+    <module>java-application</module>
   </modules>
 </project>

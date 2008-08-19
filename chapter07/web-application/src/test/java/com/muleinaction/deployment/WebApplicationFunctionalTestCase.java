@@ -1,4 +1,4 @@
-package com.muleinaction;
+package com.muleinaction.deployment;
 
 import org.mule.api.service.Service;
 import org.mule.tck.FunctionalTestCase;
