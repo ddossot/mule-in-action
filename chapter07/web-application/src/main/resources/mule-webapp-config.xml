@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:servlet="http://www.mulesource.org/schema/mule/servlet/2.0"
+    xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/servlet/2.0 http://www.mulesource.org/schema/mule/servlet/2.0/mule-servlet.xsd">
+       
+    <model name="WebApplication">
+	<service name="RandomIntegerGenerator">
+		<inbound>
+			<servlet:inbound-endpoint address="servlet://rig">
+				<response-transformers>
+					<object-to-string-transformer />
+				</response-transformers>
+			</servlet:inbound-endpoint>
+		</inbound>
+		<component>
+			<no-arguments-entry-point-resolver>
+				<include-entry-point method="nextInt"/>
+			</no-arguments-entry-point-resolver>
+			<singleton-object class="java.util.Random" />
+		</component>
+	</service>
+    </model>
+</mule>
