@@ -1,0 +1,1396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <exclude-output />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library name="commons-lang:commons-lang:2.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.activation:activation:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/activation/activation/1.1/activation-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/activation/activation/1.1/activation-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/activation/activation/1.1/activation-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.servlet:servlet-api:2.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.springframework:spring-core:2.5.5">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-core/2.5.5/spring-core-2.5.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-core/2.5.5/spring-core-2.5.5-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-core/2.5.5/spring-core-2.5.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-logging:commons-logging:1.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.springframework:spring-aop:2.5.5">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-aop/2.5.5/spring-aop-2.5.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-aop/2.5.5/spring-aop-2.5.5-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-aop/2.5.5/spring-aop-2.5.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="aopalliance:aopalliance:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.springframework:spring-beans:2.5.5">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-beans/2.5.5/spring-beans-2.5.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-beans/2.5.5/spring-beans-2.5.5-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-beans/2.5.5/spring-beans-2.5.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-vm:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-vm/2.0.2/mule-transport-vm-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-vm/2.0.2/mule-transport-vm-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-vm/2.0.2/mule-transport-vm-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule:mule-core:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/mule-core/2.0.2/mule-core-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/mule-core/2.0.2/mule-core-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/mule-core/2.0.2/mule-core-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-j2ee-connector_1.5_spec:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-connector_1.5_spec/1.1/geronimo-j2ee-connector_1.5_spec-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-connector_1.5_spec/1.1/geronimo-j2ee-connector_1.5_spec-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-connector_1.5_spec/1.1/geronimo-j2ee-connector_1.5_spec-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-jta_1.0.1B_spec:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.0.1B_spec/1.1/geronimo-jta_1.0.1B_spec-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.0.1B_spec/1.1/geronimo-jta_1.0.1B_spec-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.0.1B_spec/1.1/geronimo-jta_1.0.1B_spec-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.safehaus.jug:jug:2.0.0:asl">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/safehaus/jug/jug/2.0.0/jug-2.0.0-asl.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/safehaus/jug/jug/2.0.0/jug-2.0.0-asl-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/safehaus/jug/jug/2.0.0/jug-2.0.0-asl-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="log4j:log4j:1.2.14">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/log4j/log4j/1.2.14/log4j-1.2.14-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="backport-util-concurrent:backport-util-concurrent:3.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-beanutils:commons-beanutils:1.7.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-cli:commons-cli:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-collections:commons-collections:3.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-collections/commons-collections/3.2/commons-collections-3.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-collections/commons-collections/3.2/commons-collections-3.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-collections/commons-collections/3.2/commons-collections-3.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-discovery:commons-discovery:0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-io:commons-io:1.3.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-io/commons-io/1.3.1/commons-io-1.3.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-io/commons-io/1.3.1/commons-io-1.3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.slf4j:jcl104-over-slf4j:1.5.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/jcl104-over-slf4j/1.5.0/jcl104-over-slf4j-1.5.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/jcl104-over-slf4j/1.5.0/jcl104-over-slf4j-1.5.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/jcl104-over-slf4j/1.5.0/jcl104-over-slf4j-1.5.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.slf4j:slf4j-api:1.5.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/slf4j-api/1.5.0/slf4j-api-1.5.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/slf4j-api/1.5.0/slf4j-api-1.5.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/slf4j-api/1.5.0/slf4j-api-1.5.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.slf4j:slf4j-log4j12:1.5.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/slf4j-log4j12/1.5.0/slf4j-log4j12-1.5.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/slf4j-log4j12/1.5.0/slf4j-log4j12-1.5.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/slf4j/slf4j-log4j12/1.5.0/slf4j-log4j12-1.5.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-pool:commons-pool:1.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-pool/commons-pool/1.4/commons-pool-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-pool/commons-pool/1.4/commons-pool-1.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-pool/commons-pool/1.4/commons-pool-1.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="junit:junit:4.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/junit/junit/4.4/junit-4.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/junit/junit/4.4/junit-4.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/junit/junit/4.4/junit-4.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="mockobjects:mockobjects-core:0.09">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mockobjects/mockobjects-core/0.09/mockobjects-core-0.09.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mockobjects/mockobjects-core/0.09/mockobjects-core-0.09-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mockobjects/mockobjects-core/0.09/mockobjects-core-0.09-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-stdio:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-stdio/2.0.2/mule-transport-stdio-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-stdio/2.0.2/mule-transport-stdio-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-stdio/2.0.2/mule-transport-stdio-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-http:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-http/2.0.2/mule-transport-http-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-http/2.0.2/mule-transport-http-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-http/2.0.2/mule-transport-http-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-ssl:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-ssl/2.0.2/mule-transport-ssl-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-ssl/2.0.2/mule-transport-ssl-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-ssl/2.0.2/mule-transport-ssl-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-tcp:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-tcp/2.0.2/mule-transport-tcp-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-tcp/2.0.2/mule-transport-tcp-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-tcp/2.0.2/mule-transport-tcp-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-codec:commons-codec:1.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-httpclient:commons-httpclient:3.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-email:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-email/2.0.2/mule-transport-email-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-email/2.0.2/mule-transport-email-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-email/2.0.2/mule-transport-email-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.mail:mail:1.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/mail/mail/1.4/mail-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/mail/mail/1.4/mail-1.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/mail/mail/1.4/mail-1.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-jms:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-jms/2.0.2/mule-transport-jms-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-jms/2.0.2/mule-transport-jms-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-jms/2.0.2/mule-transport-jms-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1/geronimo-jms_1.1_spec-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1/geronimo-jms_1.1_spec-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1/geronimo-jms_1.1_spec-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-j2ee-management_1.0_spec:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-management_1.0_spec/1.1/geronimo-j2ee-management_1.0_spec-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-management_1.0_spec/1.1/geronimo-j2ee-management_1.0_spec-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-management_1.0_spec/1.1/geronimo-j2ee-management_1.0_spec-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-file:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-file/2.0.2/mule-transport-file-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-file/2.0.2/mule-transport-file-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-file/2.0.2/mule-transport-file-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-cxf:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-cxf/2.0.2/mule-transport-cxf-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-cxf/2.0.2/mule-transport-cxf-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-cxf/2.0.2/mule-transport-cxf-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.modules:mule-module-xml:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-xml/2.0.2/mule-module-xml-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-xml/2.0.2/mule-module-xml-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-xml/2.0.2/mule-module-xml-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="dom4j:dom4j:1.6.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-jxpath:commons-jxpath:1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-jxpath/commons-jxpath/1.2/commons-jxpath-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-jxpath/commons-jxpath/1.2/commons-jxpath-1.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-jxpath/commons-jxpath/1.2/commons-jxpath-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="com.thoughtworks.xstream:xstream:1.2.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/thoughtworks/xstream/xstream/1.2.1/xstream-1.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/thoughtworks/xstream/xstream/1.2.1/xstream-1.2.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/thoughtworks/xstream/xstream/1.2.1/xstream-1.2.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="xpp3:xpp3_min:1.1.3.4.O">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="stax:stax-api:1.0.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.codehaus.woodstox:wstx-asl:3.2.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.6/wstx-asl-3.2.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.6/wstx-asl-3.2.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.6/wstx-asl-3.2.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="jaxen:jaxen:1.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/jaxen/jaxen/1.1.1/jaxen-1.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/jaxen/jaxen/1.1.1/jaxen-1.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/jaxen/jaxen/1.1.1/jaxen-1.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="jdom:jdom:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/jdom/jdom/1.0/jdom-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/jdom/jdom/1.0/jdom-1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/jdom/jdom/1.0/jdom-1.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="net.java.dev.stax-utils:stax-utils:20080702">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/java/dev/stax-utils/stax-utils/20080702/stax-utils-20080702.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/java/dev/stax-utils/stax-utils/20080702/stax-utils-20080702-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/java/dev/stax-utils/stax-utils/20080702/stax-utils-20080702-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="net.sf.saxon:saxon:8.9.0.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/saxon/saxon/8.9.0.4/saxon-8.9.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/saxon/saxon/8.9.0.4/saxon-8.9.0.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/saxon/saxon/8.9.0.4/saxon-8.9.0.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="net.sf.saxon:saxon-dom:8.9.0.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/saxon/saxon-dom/8.9.0.4/saxon-dom-8.9.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/saxon/saxon-dom/8.9.0.4/saxon-dom-8.9.0.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/saxon/saxon-dom/8.9.0.4/saxon-dom-8.9.0.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.transports:mule-transport-soap:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-soap/2.0.2/mule-transport-soap-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-soap/2.0.2/mule-transport-soap-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/transports/mule-transport-soap/2.0.2/mule-transport-soap-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jaxrpc_1.1_spec/1.1/geronimo-jaxrpc_1.1_spec-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jaxrpc_1.1_spec/1.1/geronimo-jaxrpc_1.1_spec-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-jaxrpc_1.1_spec/1.1/geronimo-jaxrpc_1.1_spec-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.xml.soap:saaj-api:1.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/soap/saaj-api/1.3/saaj-api-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/soap/saaj-api/1.3/saaj-api-1.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/soap/saaj-api/1.3/saaj-api-1.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="com.sun.xml.messaging.saaj:saaj-impl:1.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/messaging/saaj/saaj-impl/1.3/saaj-impl-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/messaging/saaj/saaj-impl/1.3/saaj-impl-1.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/messaging/saaj/saaj-impl/1.3/saaj-impl-1.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-core:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-core/2.0.6/cxf-rt-core-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-core/2.0.6/cxf-rt-core-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-core/2.0.6/cxf-rt-core-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-api:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-api/2.0.6/cxf-api-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-api/2.0.6/cxf-api-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-api/2.0.6/cxf-api-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-common-utilities:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-common-utilities/2.0.6/cxf-common-utilities-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-common-utilities/2.0.6/cxf-common-utilities-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-common-utilities/2.0.6/cxf-common-utilities-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.springframework:spring-context:2.5.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-context/2.5.3/spring-context-2.5.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-context/2.5.3/spring-context-2.5.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-context/2.5.3/spring-context-2.5.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-annotation_1.0_spec:1.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.geronimo.specs:geronimo-ws-metadata_2.0_spec:1.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-ws-metadata_2.0_spec/1.1.2/geronimo-ws-metadata_2.0_spec-1.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-ws-metadata_2.0_spec/1.1.2/geronimo-ws-metadata_2.0_spec-1.1.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/geronimo/specs/geronimo-ws-metadata_2.0_spec/1.1.2/geronimo-ws-metadata_2.0_spec-1.1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.xml.bind:jaxb-api:2.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="wsdl4j:wsdl4j:1.6.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/wsdl4j/wsdl4j/1.6.1/wsdl4j-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/wsdl4j/wsdl4j/1.6.1/wsdl4j-1.6.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/wsdl4j/wsdl4j/1.6.1/wsdl4j-1.6.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="xml-resolver:xml-resolver:1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/xml-resolver/xml-resolver/1.2/xml-resolver-1.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/xml-resolver/xml-resolver/1.2/xml-resolver-1.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.ws.commons.schema:XmlSchema:1.4.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/ws/commons/schema/XmlSchema/1.4.2/XmlSchema-1.4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/ws/commons/schema/XmlSchema/1.4.2/XmlSchema-1.4.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/ws/commons/schema/XmlSchema/1.4.2/XmlSchema-1.4.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.neethi:neethi:2.0.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/neethi/neethi/2.0.4/neethi-2.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/neethi/neethi/2.0.4/neethi-2.0.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/neethi/neethi/2.0.4/neethi-2.0.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-common-schemas:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-common-schemas/2.0.6/cxf-common-schemas-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-common-schemas/2.0.6/cxf-common-schemas-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-common-schemas/2.0.6/cxf-common-schemas-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="com.sun.xml.bind:jaxb-impl:2.0.5">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/bind/jaxb-impl/2.0.5/jaxb-impl-2.0.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/bind/jaxb-impl/2.0.5/jaxb-impl-2.0.5-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/bind/jaxb-impl/2.0.5/jaxb-impl-2.0.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-frontend-simple:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-frontend-simple/2.0.6/cxf-rt-frontend-simple-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-frontend-simple/2.0.6/cxf-rt-frontend-simple-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-frontend-simple/2.0.6/cxf-rt-frontend-simple-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.xml.ws:jaxws-api:2.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/ws/jaxws-api/2.0/jaxws-api-2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/ws/jaxws-api/2.0/jaxws-api-2.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/xml/ws/jaxws-api/2.0/jaxws-api-2.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-bindings-soap:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-soap/2.0.6/cxf-rt-bindings-soap-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-soap/2.0.6/cxf-rt-bindings-soap-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-soap/2.0.6/cxf-rt-bindings-soap-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-tools-common:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-tools-common/2.0.6/cxf-tools-common-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-tools-common/2.0.6/cxf-tools-common-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-tools-common/2.0.6/cxf-tools-common-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="velocity:velocity:1.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/velocity/velocity/1.4/velocity-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/velocity/velocity/1.4/velocity-1.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/velocity/velocity/1.4/velocity-1.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="velocity:velocity-dep:1.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/velocity/velocity-dep/1.4/velocity-dep-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/velocity/velocity-dep/1.4/velocity-dep-1.4-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/velocity/velocity-dep/1.4/velocity-dep-1.4-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="com.sun.xml.bind:jaxb-xjc:2.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/bind/jaxb-xjc/2.0/jaxb-xjc-2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/bind/jaxb-xjc/2.0/jaxb-xjc-2.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/sun/xml/bind/jaxb-xjc/2.0/jaxb-xjc-2.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-databinding-jaxb:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-databinding-jaxb/2.0.6/cxf-rt-databinding-jaxb-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-databinding-jaxb/2.0.6/cxf-rt-databinding-jaxb-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-databinding-jaxb/2.0.6/cxf-rt-databinding-jaxb-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-frontend-jaxws:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-frontend-jaxws/2.0.6/cxf-rt-frontend-jaxws-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-frontend-jaxws/2.0.6/cxf-rt-frontend-jaxws-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-frontend-jaxws/2.0.6/cxf-rt-frontend-jaxws-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-bindings-xml:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-xml/2.0.6/cxf-rt-bindings-xml-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-xml/2.0.6/cxf-rt-bindings-xml-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-xml/2.0.6/cxf-rt-bindings-xml-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-databinding-aegis:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-databinding-aegis/2.0.6/cxf-rt-databinding-aegis-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-databinding-aegis/2.0.6/cxf-rt-databinding-aegis-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-databinding-aegis/2.0.6/cxf-rt-databinding-aegis-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-transports-local:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-transports-local/2.0.6/cxf-rt-transports-local-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-transports-local/2.0.6/cxf-rt-transports-local-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-transports-local/2.0.6/cxf-rt-transports-local-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-transports-http:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-transports-http/2.0.6/cxf-rt-transports-http-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-transports-http/2.0.6/cxf-rt-transports-http-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-transports-http/2.0.6/cxf-rt-transports-http-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.springframework:spring-web:2.5.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-web/2.5.3/spring-web-2.5.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-web/2.5.3/spring-web-2.5.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/springframework/spring-web/2.5.3/spring-web-2.5.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.cxf:cxf-rt-bindings-http:2.0.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-http/2.0.6/cxf-rt-bindings-http-2.0.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-http/2.0.6/cxf-rt-bindings-http-2.0.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/cxf/cxf-rt-bindings-http/2.0.6/cxf-rt-bindings-http-2.0.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="ant:ant:1.6.5">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/ant/ant/1.6.5/ant-1.6.5-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/ant/ant/1.6.5/ant-1.6.5-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.modules:mule-module-builders:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-builders/2.0.2/mule-module-builders-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-builders/2.0.2/mule-module-builders-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-builders/2.0.2/mule-module-builders-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.modules:mule-module-spring-config:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-spring-config/2.0.2/mule-module-spring-config-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-spring-config/2.0.2/mule-module-spring-config-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-spring-config/2.0.2/mule-module-spring-config-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.modules:mule-module-management:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-management/2.0.2/mule-module-management-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-management/2.0.2/mule-module-management-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-management/2.0.2/mule-module-management-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="tanukisoft:wrapper:3.2.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/tanukisoft/wrapper/3.2.3/wrapper-3.2.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/tanukisoft/wrapper/3.2.3/wrapper-3.2.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/tanukisoft/wrapper/3.2.3/wrapper-3.2.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="mx4j:mx4j-jmx:2.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-jmx/2.1.1/mx4j-jmx-2.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="mx4j:mx4j-impl:2.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-impl/2.1.1/mx4j-impl-2.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-impl/2.1.1/mx4j-impl-2.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-impl/2.1.1/mx4j-impl-2.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="mx4j:mx4j-tools:2.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-tools/2.1.1/mx4j-tools-2.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-tools/2.1.1/mx4j-tools-2.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-tools/2.1.1/mx4j-tools-2.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="mx4j:mx4j-remote:2.1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-remote/2.1.1/mx4j-remote-2.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-remote/2.1.1/mx4j-remote-2.1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/mx4j/mx4j-remote/2.1.1/mx4j-remote-2.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="com.yourkit:yjp-controller-api-redist:7.0.10">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/yourkit/yjp-controller-api-redist/7.0.10/yjp-controller-api-redist-7.0.10.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/yourkit/yjp-controller-api-redist/7.0.10/yjp-controller-api-redist-7.0.10-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/com/yourkit/yjp-controller-api-redist/7.0.10/yjp-controller-api-redist-7.0.10-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.modules:mule-module-scripting:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-scripting/2.0.2/mule-module-scripting-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-scripting/2.0.2/mule-module-scripting-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-scripting/2.0.2/mule-module-scripting-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="net.sf.retrotranslator:retrotranslator-runtime:1.2.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/retrotranslator/retrotranslator-runtime/1.2.1/retrotranslator-runtime-1.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/retrotranslator/retrotranslator-runtime/1.2.1/retrotranslator-runtime-1.2.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/net/sf/retrotranslator/retrotranslator-runtime/1.2.1/retrotranslator-runtime-1.2.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.script:script-api:1.0:jdk14">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/script/script-api/1.0/script-api-1.0-jdk14.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/script/script-api/1.0/script-api-1.0-jdk14-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/script/script-api/1.0/script-api-1.0-jdk14-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="javax.script:groovy-engine:1.1:jdk14">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/script/groovy-engine/1.1/groovy-engine-1.1-jdk14.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/script/groovy-engine/1.1/groovy-engine-1.1-jdk14-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/javax/script/groovy-engine/1.1/groovy-engine-1.1-jdk14-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.codehaus.groovy:groovy-all:1.5.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/codehaus/groovy/groovy-all/1.5.6/groovy-all-1.5.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/codehaus/groovy/groovy-all/1.5.6/groovy-all-1.5.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/codehaus/groovy/groovy-all/1.5.6/groovy-all-1.5.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.mule.modules:mule-module-client:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-client/2.0.2/mule-module-client-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-client/2.0.2/mule-module-client-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/modules/mule-module-client/2.0.2/mule-module-client-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.mule.tests:mule-tests-functional:2.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/tests/mule-tests-functional/2.0.2/mule-tests-functional-2.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/tests/mule-tests-functional/2.0.2/mule-tests-functional-2.0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/tests/mule-tests-functional/2.0.2/mule-tests-functional-2.0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.mule:mule-core:2.0.2:tests">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/mule-core/2.0.2/mule-core-2.0.2-tests.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/mule-core/2.0.2/mule-core-2.0.2-tests-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/mule/mule-core/2.0.2/mule-core-2.0.2-tests-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.activemq:activemq-core:5.1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activemq-core/5.1.0/activemq-core-5.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activemq-core/5.1.0/activemq-core-5.1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activemq-core/5.1.0/activemq-core-5.1.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-logging:commons-logging-api:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.camel:camel-core:1.3.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/camel/camel-core/1.3.0/camel-core-1.3.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/camel/camel-core/1.3.0/camel-core-1.3.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/camel/camel-core/1.3.0/camel-core-1.3.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.activemq:activeio-core:3.1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="org.apache.activemq:activeio-core:3.1.0:tests">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0-tests.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0-tests-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../../.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0-tests-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntryProperties />
+  </component>
+</module>
+

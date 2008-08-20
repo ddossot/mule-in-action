@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:pgp="http://www.mulesource.org/schema/mule/pgp/2.0"
+      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/pgp/2.0 http://www.mulesource.org/schema/mule/pgp/2.0/mule-pgp.xsd
+       http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd
+       "
+        >
+
+    <stdio:connector name="InputSystemStreamConnector" promptMessage="Enter Some Text: "/>
+
+    <spring:bean id="pgpKeyManager" class="org.mule.module.pgp.PGPKeyRingImpl" init-method="initialise">
+        <spring:property name="publicKeyRingFileName" value="public.key.gpg"/>
+        <spring:property name="secretKeyRingFileName" value="secret.key.gpg"/>
+        <spring:property name="secretAliasId" value="0x6168F39C"/>
+        <spring:property name="secretPassphrase" value="mule"/>
+    </spring:bean>
+    <spring:bean id="credentialAccessor" class="org.mule.security.MuleHeaderCredentialsAccessor"/>
+
+    <pgp:security-manager>
+        <pgp:security-provider name="pgpSecurityProvider" keyManager-ref="pgpKeyManager"/>
+        <pgp:keybased-encryption-strategy name="keyBasedEncryptionStrategy" keyManager-ref="pgpKeyManager"/>
+    </pgp:security-manager>
+
+    <model name="echoModel">
+        <service name="in">
+            <inbound>
+                <stdio:inbound-endpoint connector-ref="InputSystemStreamConnector" system="IN">
+                    <!--
+                     -->
+                </stdio:inbound-endpoint>
+            </inbound>
+            <outbound>
+                <outbound-pass-through-router>
+                    <vm:outbound-endpoint address="vm://out">
+                        <message-properties-transformer>
+                            <add-message-property key="MULE_USER" value="Mule in Action &lt;john.demic@gmail.com&gt;"/>
+                        </message-properties-transformer>
+                    </vm:outbound-endpoint>
+                </outbound-pass-through-router>
+            </outbound>
+        </service>
+
+        <service name="out">
+            <inbound>
+                <vm:inbound-endpoint address="vm://out">
+                    <pgp:security-filter strategyName="keyBasedEncryptionStrategy"
+                                         signRequired="no"
+                                         keyManager-ref="pgpKeyManager"
+                                         credentialsAccessor-ref="credentialAccessor"/>
+                </vm:inbound-endpoint>
+            </inbound>
+            <echo-component/>
+        </service>
+    </model>
+
+</mule>
