@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
+	xsi:schemaLocation="
+			 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd">
+       
+    <global-property name="dlq.address" value="vm://DLQ.In"/>
+       
+	<spring:bean name="correlationTimeOutListener"
+		class="com.muleinaction.service.CorrelationTimeOutListener"
+		init-method="initialize">
+		<spring:property name="dlqAddress" value="${dlq.address}" />
+	</spring:bean>
+	
+	<notifications>
+		<notification-listener ref="correlationTimeOutListener" />
+	</notifications>
+	
+	<vm:connector name="persistedQueues" queueEvents="true">
+		<vm:queue-profile persistent="true" />
+	</vm:connector>
+	
+	<vm:endpoint name="DLQ" address="${dlq.address}" />
+	
+	<model name="ConversationalFaultTolerance">
+		<service name="MessageEntryPoint">
+			<inbound>
+				<vm:inbound-endpoint path="MessageReceiver.In" />
+			</inbound>
+			<outbound>
+				<multicasting-router>
+					<vm:outbound-endpoint path="ResponseAggregator.In">
+						<message-properties-transformer>
+							<add-message-property key="MULE_CORRELATION_GROUP_SIZE"
+								value="2" />
+						</message-properties-transformer>
+					</vm:outbound-endpoint>
+					<vm:outbound-endpoint path="DodgyServiceCaller.In" />
+				</multicasting-router>
+			</outbound>
+		</service>
+
+		<service name="DodgyServiceCaller">
+			<inbound>
+				<vm:inbound-endpoint path="DodgyServiceCaller.In" />
+			</inbound>
+			<outbound>
+				<chaining-router>
+					<http:outbound-endpoint address="http://localhost:8080">
+						<response-transformers>
+							<object-to-string-transformer />
+						</response-transformers>
+					</http:outbound-endpoint>
+					<vm:outbound-endpoint path="ResponseAggregator.In" />
+				</chaining-router>
+			</outbound>
+		</service>
+
+		<service name="ResponseAggregator">
+			<inbound>
+				<vm:inbound-endpoint path="ResponseAggregator.In" />
+				<collection-aggregator-router timeout="1" />
+			</inbound>
+			<outbound>
+				<outbound-pass-through-router>
+					<vm:outbound-endpoint path="FinalDestination.In" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+
+		<service name="MessageFinalDestination">
+			<inbound>
+				<vm:inbound-endpoint path="FinalDestination.In" />
+			</inbound>
+			<!--
+				In this particular test, we do not expect the message to flow up to
+				here
+			-->
+			<null-component />
+		</service>
+
+		<service name="DlqProcessor">
+			<inbound>
+				<vm:inbound-endpoint ref="DLQ" />
+			</inbound>
+			<component>
+				<singleton-object class="org.mule.tck.functional.FunctionalTestComponent" />
+			</component>
+		</service>
+	</model>
+
+	<model name="ServiceStubs">
+		<service name="ServiceCaller">
+			<inbound>
+				<http:inbound-endpoint address="http://localhost:8080"
+					synchronous="true" />
+			</inbound>
+			<component class="com.muleinaction.service.DodgyService" />
+		</service>
+	</model>
+</mule>

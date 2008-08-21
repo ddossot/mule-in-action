@@ -17,5 +17,6 @@
     <module>standalone-server</module>
     <module>web-application</module>
     <module>java-application</module>
+    <module>fault-tolerance</module>
   </modules>
 </project>
