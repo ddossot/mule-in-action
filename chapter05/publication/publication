@@ -29,4 +29,3 @@ export MULE_APP
 
 exec "$MULE_BASE/bin/mule" -config publication-config.xml,server-stub-config.xml
 
-# Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService
