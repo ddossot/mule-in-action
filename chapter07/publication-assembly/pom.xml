@@ -11,7 +11,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>publication</artifactId>
+	<artifactId>publication-app</artifactId>
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 7 - Packaging Sample</name>
 	
