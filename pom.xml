@@ -54,6 +54,7 @@
 							<directory>${basedir}</directory>
 							<includes>
 								<include>activemq-data</include>
+								<include>.mule</include>
 							</includes>
 						</fileset>
 					</filesets>
