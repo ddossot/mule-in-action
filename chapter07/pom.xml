@@ -18,5 +18,6 @@
     <module>web-application</module>
     <module>java-application</module>
     <module>fault-tolerance</module>
+    <module>publication-assembly</module>
   </modules>
 </project>
