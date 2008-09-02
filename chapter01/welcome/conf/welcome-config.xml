@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+		xmlns:quartz="http://www.mulesource.org/schema/mule/quartz/2.0"
+		xmlns:spring="http://www.springframework.org/schema/beans"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+			http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd
+			http://www.mulesource.org/schema/mule/quartz/2.0 http://www.mulesource.org/schema/mule/quartz/2.0/mule-quartz.xsd">
+			
+	<spring:bean id="welcomeMessage" class="java.lang.String">
+		<spring:constructor-arg>
+			<spring:value><![CDATA[
+ _    _      _                            _         ___  ___      _      _ 
+| |  | |    | |                          | |        |  \/  |     | |    | |
+| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | .  . |_   _| | ___| |
+| |/\| |/ _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  | |\/| | | | | |/ _ \ |
+\  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |  | | |_| | |  __/_|
+ \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  \_|  |_/\__,_|_|\___(_)
+
+			]]>
+			</spring:value>
+		</spring:constructor-arg>
+	</spring:bean>
+
+	<model name="welcomeModel">
+		<service name="welcomeService">
+			<inbound>
+				<quartz:inbound-endpoint jobName="welcome" repeatInterval="0" repeatCount="0">
+					<property key="payload" value-ref="welcomeMessage" />
+					<quartz:event-generator-job />
+				</quartz:inbound-endpoint>
+			</inbound>
+			<outbound>
+				<outbound-pass-through-router>
+					<stdio:outbound-endpoint system="OUT"/>
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+	</model>
+</mule>
