@@ -21,7 +21,7 @@
 	</notifications>
 	
 	<vm:connector name="persistedQueues" queueEvents="true">
-		<vm:queue-profile persistent="true" />
+		<vm:queueProfile persistent="true" />
 	</vm:connector>
 	
 	<vm:endpoint name="DLQ" address="${dlq.address}" />

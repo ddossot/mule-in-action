@@ -16,6 +16,7 @@
 	</properties>
 	
 	<modules>
+	    <module>chapter01</module>
 	    <module>chapter02</module>
 	    <module>chapter03</module>
 	    <module>chapter04</module>
@@ -136,6 +137,12 @@
 			<artifactId>mule-transport-cxf</artifactId>
 			<version>${mule-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-quartz</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-builders</artifactId>
