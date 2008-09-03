@@ -2,8 +2,8 @@ package com.muleinaction.deployment;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +39,7 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
     public void testOriginalMessageSavedInDlq() throws Exception {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        final Set<Object> receivedPayloads = new HashSet<Object>();
+        final List<Object> receivedPayloads = new ArrayList<Object>();
 
         final EventCallback callback = new EventCallback() {
             public void eventReceived(final MuleEventContext context,

@@ -9,8 +9,7 @@ import org.mule.api.lifecycle.Callable;
 public class DodgyService implements Callable {
 
     public Object onCall(final MuleEventContext eventContext) throws Exception {
-        Thread.sleep(100);
-        return null;
+        throw new RuntimeException("Simulated service error");
     }
 
 }

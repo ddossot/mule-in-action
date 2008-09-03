@@ -63,7 +63,7 @@
 		<service name="ResponseAggregator">
 			<inbound>
 				<vm:inbound-endpoint path="ResponseAggregator.In" />
-				<collection-aggregator-router timeout="1" />
+				<collection-aggregator-router timeout="30000" />
 			</inbound>
 			<outbound>
 				<outbound-pass-through-router>
