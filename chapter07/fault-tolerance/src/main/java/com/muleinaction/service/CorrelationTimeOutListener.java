@@ -1,8 +1,10 @@
 package com.muleinaction.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.mule.api.MuleException;
+import org.mule.api.MuleMessage;
 import org.mule.api.MuleMessageCollection;
 import org.mule.api.context.notification.RoutingNotificationListener;
 import org.mule.api.context.notification.ServerNotification;
@@ -37,9 +39,20 @@ public class CorrelationTimeOutListener implements RoutingNotificationListener {
         try {
             // we assume here that we care only about the first message of the
             // aggregation collection
+            final MuleMessage uncorrelatedMessage =
+                    messageCollection.getMessagesAsArray()[0];
+
+            final Map<String, Object> properties =
+                    new HashMap<String, Object>();
+
+            for (final Object propertyName : uncorrelatedMessage.getPropertyNames()) {
+                properties.put(
+                        propertyName.toString(),
+                        uncorrelatedMessage.getProperty(propertyName.toString()));
+            }
+
             muleClient.sendNoReceive(dlqAddress,
-                    messageCollection.getMessagesAsArray()[0].getPayload(),
-                    new HashMap<Object, Object>());
+                    uncorrelatedMessage.getPayload(), properties);
 
         } catch (final MuleException me) {
             // here we should log a serialized form of the message, using a
