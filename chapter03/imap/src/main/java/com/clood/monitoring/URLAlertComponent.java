@@ -1,10 +1,10 @@
-package com.muleinaction;
+package com.clood.monitoring;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
 
-public class DataStatisticsComponent {
+public class URLAlertComponent {
 
     public Object process(Object object) throws Exception {
         return getData((String) object);
