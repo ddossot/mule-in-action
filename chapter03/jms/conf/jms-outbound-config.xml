@@ -18,30 +18,40 @@
        http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
        http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
        http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"
->   
+>
     <global-property name="http.host" value="localhost"/>
     <global-property name="http.port" value="8080"/>
     <global-property name="jms.url" value="vm://localhost"/>
     
-    <jms:activemq-connector name="jmsQueueConnector" specification="1.0.2b" brokerURL="${jms.url}" />
-    <jms:activemq-connector name="jmsTopicConnector" specification="1.0.2b" brokerURL="${jms.url}" />
-     
-    <model name="jms102bModel"> 
-        <service name="jms102bService"> 
-            <inbound> 
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
+    
+    <model name="jmsModel">
+        <service name="jmsService">
+            <inbound>
                 <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
-             
-            <outbound> 
-                <outbound-pass-through-router> 
-                    <jms:outbound-endpoint connector-ref="jmsTopicConnector" 
-topic="backup-reports"/>
-                     
+            <outbound>
+                <outbound-pass-through-router>
+                    <jms:outbound-endpoint topic="backup-reports"/>
                 </outbound-pass-through-router>
             </outbound>
-             
         </service>
-    </model>        
+        
+        <service name="jmsInboundService">
+            <inbound>
+                <jms:inbound-endpoint queue="messages"> 
+                    <jms:jmsmessage-to-object-transformer/>
+                </jms:inbound-endpoint>
+                 
+            </inbound>
+            <outbound>
+                <outbound-pass-through-router>
+                    <stdio:outbound-endpoint system="OUT"/>
+                </outbound-pass-through-router>
+            </outbound>
+        </service>
+        
+    </model>
 </mule>
