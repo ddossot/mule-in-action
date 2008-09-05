@@ -23,13 +23,11 @@
     <model name="fileModel">
         <service name="fileService">
             <inbound>
-                <file:inbound-endpoint path="./data/in"/>
-                 
+                <file:inbound-endpoint path="./data/snapshot"/>
             </inbound>
             <outbound>
                 <outbound-pass-through-router>
-                    <file:outbound-endpoint path="./data/out" outputPattern="FILE-[DATE]"/>
-                     
+                    <file:outbound-endpoint path="./data/archive" outputPattern="SNAPSHOT-[DATE]"/>
                 </outbound-pass-through-router>
             </outbound>
         </service>

@@ -39,19 +39,5 @@
             </outbound>
         </service>
         
-        <service name="jmsInboundService">
-            <inbound>
-                <jms:inbound-endpoint queue="messages"> 
-                    <jms:jmsmessage-to-object-transformer/>
-                </jms:inbound-endpoint>
-                 
-            </inbound>
-            <outbound>
-                <outbound-pass-through-router>
-                    <stdio:outbound-endpoint system="OUT"/>
-                </outbound-pass-through-router>
-            </outbound>
-        </service>
-        
     </model>
 </mule>
