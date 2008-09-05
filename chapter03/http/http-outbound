@@ -22,6 +22,6 @@ fi
 MULE_LIB=./conf
 export MULE_LIB
 
-exec "$MULE_BASE/bin/mule" -config http-config.xml
+exec "$MULE_BASE/bin/mule" -config http-outbound-config.xml
 
 # Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService
