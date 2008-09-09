@@ -6,24 +6,24 @@ import org.mule.tck.FunctionalTestCase;
 /**
  * @author John D'Emic (john.demic@gmail.com)
  */
-public class ImapTransportFunctionalTestCase extends AbstractEmailFunctionalTestCase {
+public class ImapJdbcTransportFunctionalTestCase extends AbstractEmailFunctionalTestCase {
 
-    public ImapTransportFunctionalTestCase()
+    public ImapJdbcTransportFunctionalTestCase()
     {
         super(65433, STRING_MESSAGE, "imap");
     }
 
-	@Override
+    @Override
 	protected String getConfigResources() {
-		return "conf/imap-config.xml";
+		return "conf/imap-jdbc-config.xml";
 	}
 
 	public void testCorrectlyInitialized() throws Exception {
 		final Service service = muleContext.getRegistry().lookupService(
-				"imapService");
+				"imapJdbcService");
 
 		assertNotNull(service);
-		assertEquals("imapModel", service.getModel().getName());
+		assertEquals("imapJdbcModel", service.getModel().getName());
 	}
 
 }
