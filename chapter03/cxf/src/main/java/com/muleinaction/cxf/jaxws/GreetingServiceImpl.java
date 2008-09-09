@@ -3,7 +3,7 @@ package com.muleinaction.cxf.jaxws;
 import javax.jws.WebService; 
 import javax.jws.WebMethod; 
 
-@WebService(endpointInterface = "GreetingService", 
+@WebService(endpointInterface = "com.muleinaction.cxf.jaxws.GreetingService", 
 serviceName = "GreetingService") 
 public class GreetingServiceImpl implements GreetingService { 
 
