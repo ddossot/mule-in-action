@@ -23,7 +23,7 @@
     
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
     
-    <model name="jmsModel">
+    <model name="jmsInboundModel">
         <service name="jmsInboundService">
             <inbound>
                 <jms:inbound-endpoint topic="backup-reports"> 

@@ -25,8 +25,8 @@
     
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
     
-    <model name="jmsModel">
-        <service name="jmsService">
+    <model name="jmsOutboundModel">
+        <service name="jmsOutboundService">
             <inbound>
                 <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
                     <byte-array-to-string-transformer/>
