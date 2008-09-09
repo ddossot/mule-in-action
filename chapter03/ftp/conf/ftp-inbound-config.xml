@@ -3,9 +3,7 @@
        xmlns:spring="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
-       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
        xmlns:ftp="http://www.mulesource.org/schema/mule/ftp/2.0"
-       xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
        xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
        xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
     xsi:schemaLocation="
@@ -13,30 +11,27 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
        http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
-       http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd
        http://www.mulesource.org/schema/mule/ftp/2.0 http://www.mulesource.org/schema/mule/ftp/2.0/mule-ftp.xsd
-       http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
        http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
        http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"
 >
-    
+    <global-property name="ftp.host" value="localhost"/>
+    <global-property name="ftp.port" value="21"/>
+    <global-property name="ftp.path" value="/files"/>
+    <global-property name="ftp.freq" value="36000"/>
+ 
     <model name="ftpModel"> 
         <service name="ftpService"> 
             <inbound> 
                 <ftp:inbound-endpoint user="ftp" password="ftp" 
-                    host="mirrors.usc.edu" port="21" path="/pub/kernel/pub/linux/kernel/v2.6" pollingFrequency="3600000"/>
+                    host="${ftp.host}" port="${ftp.port}" path="${ftp.path}" pollingFrequency="${ftp.freq}"/>
                  
             </inbound>
-             
             <outbound> 
                 <outbound-pass-through-router> 
                     <file:outbound-endpoint path="./out"/>
                 </outbound-pass-through-router>
-                 
             </outbound>
-             
         </service>
-         
     </model>
-
 </mule>
