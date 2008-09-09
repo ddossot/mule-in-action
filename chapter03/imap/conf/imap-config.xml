@@ -4,7 +4,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
        xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.0"
-       xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.0"
        xmlns:email="http://www.mulesource.org/schema/mule/email/2.0"
        xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
        xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
@@ -14,16 +13,19 @@
        http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
        http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
        http://www.mulesource.org/schema/mule/imap/2.0 http://www.mulesource.org/schema/mule/imap/2.0/mule-imap.xsd
-       http://www.mulesource.org/schema/mule/smtp/2.0 http://www.mulesource.org/schema/mule/smtp/2.0/mule-smtp.xsd
        http://www.mulesource.org/schema/mule/email/2.0 http://www.mulesource.org/schema/mule/email/2.0/mule-email.xsd
        http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
        http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"  
 >
-    
+    <global-property name="imap.host" value="localhost"/>
+    <global-property name="imap.port" value="65433"/>
+    <global-property name="imap.user" value="bob"/>
+    <global-property name="imap.password" value="password"/>
+ 
     <model name="imapModel">
         <service name="imapService">
             <inbound>
-                <imap:inbound-endpoint host="localhost" user='user%40mail.com' password="password">
+                <imap:inbound-endpoint host="${imap.host}" port="${imap.port}" user="${imap.user}" password="${imap.password}">
                     <email:email-to-string-transformer/>
                 </imap:inbound-endpoint>
             </inbound>

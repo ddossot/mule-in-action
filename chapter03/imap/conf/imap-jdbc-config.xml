@@ -2,7 +2,6 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
       xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.0"
       xmlns:jdbc="http://www.mulesource.org/schema/mule/jdbc/2.0"
       xmlns:email="http://www.mulesource.org/schema/mule/email/2.0"
@@ -12,7 +11,6 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
        http://www.mulesource.org/schema/mule/imap/2.0 http://www.mulesource.org/schema/mule/imap/2.0/mule-imap.xsd
        http://www.mulesource.org/schema/mule/jdbc/2.0 http://www.mulesource.org/schema/mule/jdbc/2.0/mule-jdbc.xsd
        http://www.mulesource.org/schema/mule/email/2.0 http://www.mulesource.org/schema/mule/email/2.0/mule-email.xsd
@@ -20,25 +18,27 @@
        http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"
         >
 
-    <global-property name="mail.host" value=" changeme"/>
-    <global-property name="mail.user" value="changeme"/>
-    <global-property name="mail.password" value="changeme"/>
+    <global-property name="imap.host" value="localhost"/>
+    <global-property name="imap.port" value="65433"/>
+    <global-property name="imap.user" value="bob"/>
+    <global-property name="imap.password" value="password"/>
 
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
-    </spring:beans>
+    </spring:beans> 
 
     <jdbc:connector name="jdbcConnector" dataSource-ref="dataSource">
         <jdbc:query key="statsInsert"
                     value="insert into alerts values (0,${map-payload:HOST},${map-payload:MESSAGE},${map-payload:TIMESTAMP})"/>
-    </jdbc:connector>
+    </jdbc:connector> 
 
-    <model name="Listing 3.1">
+    <model name="imapJdbcModel">
 
-        <service name="URL Alerting Service">
+        <service name="imapJdbcService">
             <inbound>
-                <imap:inbound-endpoint host="${mail.host}" user='${mail.user}'
-                                       password="${mail.password}">
+                <imap:inbound-endpoint host="${imap.host}" user='${imap.user}'
+                                       port="${imap.port}"
+                                       password="${imap.password}">
                     <email:email-to-string-transformer/>
                 </imap:inbound-endpoint>
             </inbound>
