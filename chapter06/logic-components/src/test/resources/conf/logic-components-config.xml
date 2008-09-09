@@ -67,13 +67,13 @@
 		<!-- <end id="LoCoShow-SSRIG"/> -->
 		
 		<!-- <start id="LoCoShow-MSC"/> -->
-		<service name="MuleServiceClient">
+		<service name="Md5FileHasherClient">
 			<inbound>
 				<vm:inbound-endpoint path="MSC.In" />
 			</inbound>
 			<component>
-				<singleton-object class="com.muleinaction.component.MuleServiceClient" />
-				<binding interface="com.muleinaction.component.Md5FileHasherService" method="hash">
+				<singleton-object class="com.clood.component.Md5FileHasherClient" />
+				<binding interface="com.clood.component.Md5FileHasherService" method="hash">
 					<vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true" />
 				</binding>
 			</component>
@@ -86,7 +86,7 @@
 				<vm:inbound-endpoint path="Md5FileHasher.In" />
 			</inbound>
 			<pooled-component>
-				<singleton-object class="com.muleinaction.component.Md5FileHasher">
+				<singleton-object class="com.clood.component.Md5FileHasher">
 					<property key="fileConnector" value-ref="NonDeletingFileConnector" />
 					<property key="sourceFolder" value="${java.io.tmpdir}" />
 				</singleton-object>
@@ -100,7 +100,7 @@
 				<vm:inbound-endpoint path="Md5FileHashers.In" />
 			</inbound>
 			<pooled-component>
-				<prototype-object class="com.muleinaction.component.Md5FileHasher">
+				<prototype-object class="com.clood.component.Md5FileHasher">
 					<property key="fileConnector" value-ref="NonDeletingFileConnector" />
 					<property key="sourceFolder" value="${java.io.tmpdir}" />
 				</prototype-object>

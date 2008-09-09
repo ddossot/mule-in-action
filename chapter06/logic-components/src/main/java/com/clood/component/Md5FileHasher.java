@@ -1,4 +1,4 @@
-package com.muleinaction.component;
+package com.clood.component;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mule.api.MuleEventContext;
