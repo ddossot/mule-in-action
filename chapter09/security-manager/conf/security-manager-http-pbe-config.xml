@@ -3,31 +3,49 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:pgp="http://www.mulesource.org/schema/mule/pgp/2.0"
+      xmlns:acegi="http://www.mulesource.org/schema/mule/acegi/2.0"
       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
-      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
-       http://www.mulesource.org/schema/mule/pgp/2.0 http://www.mulesource.org/schema/mule/pgp/2.0/mule-pgp.xsd
+       http://www.mulesource.org/schema/mule/acegi/2.0 http://www.mulesource.org/schema/mule/acegi/2.0/mule-acegi.xsd
        http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
        http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd
+       http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
        "
         >
 
-    <stdio:connector name="InputSystemStreamConnector" promptMessage="Enter Some Text: "/>
+    <spring:bean id="authDao" class="org.acegisecurity.userdetails.memory.InMemoryDaoImpl">
+        <spring:property name="userMap">
+            <spring:value>
+                john=password,ROLE_USER,ROLE_BLAH
+                david=password,ROLE_USER
+                admin=password,ROLE_ADMIN
+            </spring:value>
+        </spring:property>
+    </spring:bean>
+
+    <spring:bean id="memoryAuthProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+        <spring:property name="userDetailsService" ref="authDao"/>
+    </spring:bean>
+
+    <acegi:security-manager>
+        <acegi:delegate-security-provider name="auth-dao" delegate-ref="memoryAuthProvider"/>
+    </acegi:security-manager>
 
     <security-manager>
-        <password-encryption-strategy name="passwordEncryption" password="password"/>
+        <password-encryption-strategy name="passwordEncryption" password="password"/>        
     </security-manager>
 
     <model name="echoModel">
         <service name="in">
             <inbound>
-                <stdio:inbound-endpoint connector-ref="InputSystemStreamConnector" system="IN"/>
+                <http:inbound-endpoint address="http://localhost:8081/secure">
+                    <acegi:http-security-filter realm="mule"/>
+                </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <outbound-pass-through-router>
@@ -42,15 +60,9 @@
 
         <service name="out">
             <inbound>
-                <vm:inbound-endpoint address="vm://out">
-                    <decrypt-transformer strategy-ref="passwordEncryption"/>
-                </vm:inbound-endpoint>
+                <vm:inbound-endpoint address="vm://out"/>
             </inbound>
-            <outbound>
-                <outbound-pass-through-router>
-                    <stdio:outbound-endpoint system="OUT"/>
-                </outbound-pass-through-router>
-            </outbound>
+            <echo-component/>
         </service>
     </model>
 

@@ -15,7 +15,12 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" name="Default" comment="" />
+    <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/conf/security-manager-pbe-config.xml" afterPath="$PROJECT_DIR$/conf/security-manager-pbe-config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/security-manager.iws" afterPath="$PROJECT_DIR$/security-manager.iws" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/conf/security-manager-http-pbe-config.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/security-manager-http-pbe" />
+    </list>
     <ignored path="security-manager.iws" />
     <ignored path=".idea/workspace.xml" />
   </component>
@@ -137,7 +142,7 @@
       <file leaf-file-name="security-manager-pbe-config.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf/security-manager-pbe-config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="45" selection-start="1984" selection-end="2124" vertical-scroll-proportion="0.54989815">
+            <state line="57" column="0" selection-start="2743" selection-end="2743" vertical-scroll-proportion="0.8706721">
               <folding />
             </state>
           </provider>
@@ -260,31 +265,6 @@
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -302,6 +282,31 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="wholeProject" />
       </option>
+      <envs />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
       <envs />
     </configuration>
     <list size="0" />
@@ -333,6 +338,7 @@
     <option name="UPDATE_RUN_STATUS" value="false" />
     <option name="UPDATE_RECURSIVELY" value="true" />
     <option name="MERGE_DRY_RUN" value="false" />
+    <configuration useDefault="true">$PROJECT_DIR$/../../../../../.subversion</configuration>
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -355,7 +361,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="5" y="23" width="1920" height="1174" extended-state="0" />
+    <frame x="-10" y="22" width="1920" height="1174" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -468,13 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/security-manager-memory-dao-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="2135" selection-end="2135" vertical-scroll-proportion="0.6262729">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/conf/security-manager-jaas-config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="0" selection-start="1588" selection-end="1588" vertical-scroll-proportion="0.39714867">
@@ -482,9 +481,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conf/security-manager-memory-dao-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="0" selection-start="2135" selection-end="2135" vertical-scroll-proportion="0.6262729">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/conf/security-manager-pbe-config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="45" selection-start="1984" selection-end="2124" vertical-scroll-proportion="0.54989815">
+        <state line="57" column="0" selection-start="2743" selection-end="2743" vertical-scroll-proportion="0.8706721">
           <folding />
         </state>
       </provider>

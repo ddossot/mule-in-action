@@ -129,6 +129,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-ejb</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-cxf</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-file</artifactId>
 			<version>${mule-version}</version>
 		</dependency>
