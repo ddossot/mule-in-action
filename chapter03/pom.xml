@@ -18,13 +18,13 @@
 	<modules>
 	    <module>file</module>
 	    <module>stdio</module>
-	    <!--<module>smtp</module>-->
+	    <module>smtp</module>
 	    <module>http</module>
-	    <!--<module>imap</module>-->
+	    <module>imap</module>
 	    <!--<module>cxf</module>-->
 	    <module>ejb</module>
 	    <module>ftp</module>
-	    <!--<module>jdbc</module>-->
+	    <module>jdbc</module>
 	    <module>jms</module>
 	    <module>xmpp</module>
 	</modules>

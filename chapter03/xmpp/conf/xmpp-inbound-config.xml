@@ -24,7 +24,7 @@
 <model name="xmppInboundModel">
        <service name="xmppInboundService">
             <inbound>
-                <xmpp:inbound-endpoint user="mule" password="mule" host="localhost" port="5222" recipient="mule"/>
+                <xmpp:inbound-endpoint user="mule" password="mule" host="jabber.org"  recipient="mule"/>
             </inbound>
             <outbound>
                 <outbound-pass-through-router>
