@@ -26,8 +26,8 @@
        "
         >
 
-    <model name="cxf-simple">
-        <service name="GreetingService">
+    <model name="cxfSimpleModel">
+        <service name="cxfSimpleService">
 
             <inbound>
                <cxf:inbound-endpoint frontend="simple" address="http://localhost:8081/greeting" />
