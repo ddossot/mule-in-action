@@ -1,4 +1,4 @@
-package com.muleinaction.component;
+package com.clood.component;
 
 /**
  * @author David Dossot (david@dossot.net)

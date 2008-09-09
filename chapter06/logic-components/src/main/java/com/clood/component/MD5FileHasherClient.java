@@ -1,4 +1,4 @@
-package com.muleinaction.component;
+package com.clood.component;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class MuleServiceClient {
+public class MD5FileHasherClient {
 
 	private Md5FileHasherService md5hasher;
 
