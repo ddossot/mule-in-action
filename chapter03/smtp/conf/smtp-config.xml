@@ -25,7 +25,9 @@
     <file:connector name="FileConnector"
                     pollingFrequency="1000"/>
 
+
     <model name="smtpModel">
+        
         <service name="smtpService">
             <inbound>
                 <file:inbound-endpoint path="./data/invoice">
