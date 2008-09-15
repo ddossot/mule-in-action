@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+	xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
+       http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd">
+
+	<global-property name="seed" value="123" />
+    <global-property name="jms.url" value="vm://localhost"/>
+    
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
+	
+	<!-- <start id="LoCoShow-SSRIG-bean"/> -->
+	<spring:bean id="Random" class="java.util.Random">
+		<spring:constructor-arg value="${seed}" />
+	</spring:bean>
+	<!-- <end id="LoCoShow-SSRIG-bean"/> -->
+	
+	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
+
+	<model name="LogicComponentsShowcase">
+
+        <default-service-exception-strategy>
+            <jms:outbound-endpoint topic="business-errors"/>
+        </default-service-exception-strategy>
+		
+		<!-- <start id="LoCoShow-RIG"/> -->
+		<service name="RandomIntegerGenerator">
+			<inbound>
+				<vm:inbound-endpoint path="RIG.In" />
+			</inbound>
+			<component>
+				<no-arguments-entry-point-resolver>
+					<include-entry-point method="nextInt"/>
+				</no-arguments-entry-point-resolver>
+				<singleton-object class="java.util.Random" />
+			</component>
+		</service>
+		<!-- <end id="LoCoShow-RIG"/> -->
+		
+		<!-- <start id="LoCoShow-SRIG"/> -->
+		<service name="SeededRandomIntegerGenerator">
+			<inbound>
+				<vm:inbound-endpoint path="SRIG.In" />
+			</inbound>
+			<component>
+				<no-arguments-entry-point-resolver>
+					<include-entry-point method="nextInt"/>
+				</no-arguments-entry-point-resolver>
+				<singleton-object class="java.util.Random">
+					<property key="seed" value="${seed}" />
+				</singleton-object>
+			</component>
+		</service>
+		<!-- <end id="LoCoShow-SRIG"/> -->	
+		
+	</model>
+</mule>
