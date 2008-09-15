@@ -32,7 +32,7 @@
 	<model name="publicationModel">
 		<service name="publicationService">
 			<inbound>
-				<http:inbound-endpoint address="http://$[esb.bind.address]:$[esb.web.port]">
+				<http:inbound-endpoint address="http://$[esb.bind.address]:$[esb.web.port]/publicationService">
 					<transformer ref="ObjectToByteArray" />
 					<transformer ref="DocbookToFO" />
 					<transformer ref="ObjectToString" />
