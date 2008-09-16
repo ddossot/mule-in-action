@@ -1,6 +1,0 @@
-----------------------------------------------------------------
-2008-09-15 20:53:31.705 GMT:
- Booting Derby version The Apache Software Foundation - Apache Derby - 10.1.1.0 - (208786): instance c013800d-011c-67ca-1f8f-00003371dbd6
-on database directory /Users/johndemic/Development/Manning/muleinaction/chapter08/connection-strategy/activemq-data/localhost/derbydb 
-
-Database Class Loader started - derby.database.classpath=''
