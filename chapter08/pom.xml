@@ -17,5 +17,6 @@
 	
 	<modules>
 	    <module>exception-strategy</module>
+	    <module>connection-strategy</module>
 	</modules>
 </project>
