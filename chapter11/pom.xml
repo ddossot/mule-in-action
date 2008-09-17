@@ -17,5 +17,6 @@
 	
 	<modules>
 	    <module>publication-managed</module>
+	    <module>publication-activity</module>
 	</modules>
 </project>
