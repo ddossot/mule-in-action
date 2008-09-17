@@ -9,6 +9,7 @@
 		</layout>
 	</appender>
 
+	<!-- <start id="Publication-Activity-Chainsaw"/> -->
 	<appender name="CHAINSAW" class="org.apache.log4j.net.SocketAppender">
 		<param name="remoteHost" value="localhost" />
 		<param name="port" value="4445" />
@@ -19,6 +20,7 @@
 		<priority value="INFO" />
 		<appender-ref ref="CHAINSAW" />
 	</category>
+	<!-- <end id="Publication-Activity-Chainsaw"/> -->
 
 	<root>
 		<priority value="INFO" />
