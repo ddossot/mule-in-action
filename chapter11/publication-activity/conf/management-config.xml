@@ -12,11 +12,14 @@
 
 	<!-- <start id="Publication-Activity"/> -->
 	<notifications>
-		<notification event="COMPONENT-MESSAGE" />
 		<notification event="ENDPOINT-MESSAGE" />
 	</notifications>
 
-	<management:log4j-notifications logName="publication.mule.notifications" />
+	<management:log4j-notifications logName="publication.mule.notifications"
+							ignoreAdminNotifications="true" ignoreComponentNotifications="true"
+							ignoreConnectionNotifications="true" ignoreManagementNotifications="true"
+							ignoreManagerNotifications="true" ignoreModelNotifications="true"
+							ignoreSecurityNotifications="true" />
 	<!-- <end id="Publication-Activity"/> -->
 
 	<management:rmi-server
