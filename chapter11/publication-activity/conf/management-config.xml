@@ -2,11 +2,13 @@
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
 	xmlns:management="http://www.mulesource.org/schema/mule/management/2.0"
 	xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
 	xsi:schemaLocation="
 		http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
 		http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
 		http://www.mulesource.org/schema/mule/management/2.0 http://www.mulesource.org/schema/mule/management/2.0/mule-management.xsd">
 
@@ -40,6 +42,8 @@
 
 	<management:jmx-log4j />
 
+	<vm:endpoint name="AuditChannel" path="audit.channel" />
+
 	<model name="publicationManagementModel">
 		<service name="ping">
 			<inbound>
@@ -50,6 +54,17 @@
 			<component>
 				<singleton-object class="org.mule.component.simple.StaticComponent">
 					<property key="data" value="PONG" />
+				</singleton-object>
+			</component>
+		</service>
+
+		<service name="activityAuditer">
+			<inbound>
+				<inbound-endpoint ref="AuditChannel" />
+			</inbound>
+			<component>
+				<singleton-object class="com.clood.component.AuditComponent">
+					<property key="logName" value="publication.mule.audit" />
 				</singleton-object>
 			</component>
 		</service>

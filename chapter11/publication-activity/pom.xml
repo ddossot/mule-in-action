@@ -17,6 +17,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.muleinaction</groupId>
+			<artifactId>activity-audit</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>5.1.0</version>
@@ -65,7 +70,7 @@
               <overWriteReleases>false</overWriteReleases>
               <overWriteSnapshots>true</overWriteSnapshots>
               <excludeTransitive>true</excludeTransitive>
-	      <includeArtifactIds>activemq-core</includeArtifactIds>
+	      <includeArtifactIds>activemq-core,activity-audit</includeArtifactIds>
 	      <stripVersion>true</stripVersion>
             </configuration>
           </execution>

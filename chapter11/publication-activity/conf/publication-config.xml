@@ -2,6 +2,7 @@
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
+		xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
 		xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
 		xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
 		xmlns:spring="http://www.springframework.org/schema/beans"
@@ -9,6 +10,7 @@
 					http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
 					http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd
 					http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
+					http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
 					http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd">
 	
 	<spring:bean id="propertyConfigurer"
@@ -23,8 +25,9 @@
 		<spring:import resource="publication-jms-config.xml"/>
 	</spring:beans>
 	
-	<object-to-byte-array-transformer name="ObjectToByteArray" />
 	<object-to-string-transformer name="ObjectToString" />
+
+	<jms:object-to-jmsmessage-transformer name="ObjectToJmsMessage" />
 	
 	<xm:xslt-transformer name="DocbookToFO"
 			xsl-file="docbook-xsl/fo/docbook.xsl" />
@@ -33,16 +36,23 @@
 		<service name="publicationService">
 			<inbound>
 				<http:inbound-endpoint address="http://$[esb.bind.address]:$[esb.web.port]/publicationService">
-					<transformer ref="ObjectToByteArray" />
-					<transformer ref="DocbookToFO" />
 					<transformer ref="ObjectToString" />
 				</http:inbound-endpoint>															
 			</inbound>
 			<outbound>
-				<outbound-pass-through-router>
-					<jms:outbound-endpoint queue="publicationQueue"
-							connector-ref="publicationJmsConnector" />
-				</outbound-pass-through-router>
+				<multicasting-router>
+					<outbound-endpoint ref="AuditChannel"  synchronous="false" remoteSync="false">
+						<expression-transformer>
+							<return-argument evaluator="groovy" expression="'Uploaded title: '+org.apache.commons.lang.StringUtils.substringBetween(payload,'&lt;title&gt;','&lt;/title&gt;')"/>
+						</expression-transformer>
+					</outbound-endpoint>
+
+					<jms:outbound-endpoint queue="publicationQueue"	connector-ref="publicationJmsConnector"  synchronous="false" remoteSync="false">
+						<transformer ref="DocbookToFO" />
+						<transformer ref="ObjectToString" />
+						<transformer ref="ObjectToJmsMessage" />
+					</jms:outbound-endpoint>
+				</multicasting-router>
 			</outbound>
 		</service>
 	</model>

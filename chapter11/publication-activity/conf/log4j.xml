@@ -9,6 +9,20 @@
 		</layout>
 	</appender>
 
+	<appender name="LOGFILE" class="org.apache.log4j.FileAppender">
+		<param name="File" value="./log/audit.log" />
+		<param name="Append" value="false" />
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
+		</layout>
+	</appender>
+
+	<category name="publication.mule.audit" additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="LOGFILE" />
+	</category>
+
 	<!-- <start id="Publication-Activity-Chainsaw"/> -->
 	<appender name="CHAINSAW" class="org.apache.log4j.net.SocketAppender">
 		<param name="remoteHost" value="localhost" />
