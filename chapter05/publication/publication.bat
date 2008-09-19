@@ -8,12 +8,12 @@ if "%MULE_BASE%" == "" SET MULE_BASE=%MULE_HOME%
 
 REM This extends the classpath to include the configuration directory
 REM Any changes to the files in .\conf will take precedence over those deployed to %MULE_HOME%\lib\user
-SET MULE_LIB=.\conf
+SET MULE_LIB=.\conf;.\target\lib\activemq-core.jar
 
 # It is possible to name the particular instance of Mule that is started
 # This is extremely useful when you have several instances running on the same server
 SET MULE_APP="publication"
 
-call "%MULE_BASE%\bin\mule.bat" -config publication-config.xml,server-stub-config.xml
+call "%MULE_BASE%\bin\mule.bat" -config publication-config.xml,server-stub-config.xml -M-Dmule.serverId=Publication
 
 REM Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService
