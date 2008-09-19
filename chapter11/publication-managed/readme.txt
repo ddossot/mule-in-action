@@ -1,6 +1,9 @@
 Mule Managed Publication Application Demo
 -----------------------------------------
 
+You must first build this project with: mvn clean install
+
+
 Start this example with the script that is relevant for your OS.
 
 Test the ping service with: curl http://localhost:8080/ping
