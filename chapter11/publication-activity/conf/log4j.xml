@@ -16,7 +16,7 @@
 		<param name="locationInfo" value="true" />
 	</appender>
 	
-	<category name="publication.mule.notifications">
+	<category name="publication.mule.notifications" additivity="false">
 		<priority value="INFO" />
 		<appender-ref ref="CHAINSAW" />
 	</category>
