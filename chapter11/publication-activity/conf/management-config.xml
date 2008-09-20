@@ -12,6 +12,16 @@
 		http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
 		http://www.mulesource.org/schema/mule/management/2.0 http://www.mulesource.org/schema/mule/management/2.0/mule-management.xsd">
 
+	<spring:bean id="HtmlDashboardComponent" class="com.clood.component.HtmlDashboard">
+		<spring:property name="observedServices">
+			<spring:set>
+				<spring:ref bean="publicationService" />
+				<spring:ref bean="publicationApplication" />
+				<spring:ref bean="ping" />
+			</spring:set>
+		</spring:property>
+	</spring:bean>
+
 	<!-- <start id="Publication-Activity"/> -->
 	<notifications>
 		<notification event="ENDPOINT-MESSAGE" />
@@ -66,6 +76,17 @@
 				<singleton-object class="com.clood.component.AuditComponent">
 					<property key="logName" value="publication.mule.audit" />
 				</singleton-object>
+			</component>
+		</service>
+
+		<service name="htmlDashboard">
+			<inbound>
+				<http:inbound-endpoint
+					address="http://$[esb.bind.address]:$[esb.web.port]/dashboard"
+					synchronous="true" />
+			</inbound>
+			<component>
+				<spring-object bean="HtmlDashboardComponent" />
 			</component>
 		</service>
 	</model>

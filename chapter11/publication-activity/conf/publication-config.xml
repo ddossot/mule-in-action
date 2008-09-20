@@ -24,6 +24,8 @@
 		<spring:import resource="management-config.xml"/>
 		<spring:import resource="publication-jms-config.xml"/>
 	</spring:beans>
+
+	<vm:endpoint name="ErrorChannel" path="error.channel" />
 	
 	<object-to-string-transformer name="ObjectToString" />
 
