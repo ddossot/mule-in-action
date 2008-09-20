@@ -9,7 +9,7 @@
 		</layout>
 	</appender>
 
-	<appender name="LOGFILE" class="org.apache.log4j.FileAppender">
+	<appender name="AUDITLOGFILE" class="org.apache.log4j.FileAppender">
 		<param name="File" value="./log/audit.log" />
 		<param name="Append" value="false" />
 		<param name="Threshold" value="INFO" />
@@ -20,7 +20,7 @@
 
 	<category name="publication.mule.audit" additivity="false">
 		<priority value="INFO" />
-		<appender-ref ref="LOGFILE" />
+		<appender-ref ref="AUDITLOGFILE" />
 	</category>
 
 	<!-- <start id="Publication-Activity-Chainsaw"/> -->
