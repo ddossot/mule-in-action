@@ -67,6 +67,7 @@
 			</component>
 		</service>
 
+		<!-- <start id="Activity-Auditer"/> -->
 		<service name="activityAuditer">
 			<inbound>
 				<inbound-endpoint ref="AuditChannel" />
@@ -77,6 +78,7 @@
 				</singleton-object>
 			</component>
 		</service>
+		<!-- <end id="Activity-Auditer"/> -->
 
 		<service name="htmlDashboard">
 			<inbound>
