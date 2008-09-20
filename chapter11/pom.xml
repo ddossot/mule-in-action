@@ -17,5 +17,6 @@
 	    <module>publication-managed</module>
 	    <module>publication-activity</module>
     <module>activity-audit</module>
+    <module>html-dashboard</module>
   </modules>
 </project>
