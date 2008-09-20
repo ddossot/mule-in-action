@@ -43,6 +43,7 @@
 						<fileset>
 							<directory>${basedir}</directory>
 							<includes>
+								<include>out</include>
 								<include>log</include>
 								<include>activemq-data</include>
 								<include>.mule</include>

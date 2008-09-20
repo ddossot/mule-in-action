@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
+	xsi:schemaLocation="
+		http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd">
+
+	<spring:bean id="faviconInputStream" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	  <spring:property name="targetObject">
+			<spring:bean class="org.springframework.core.io.ClassPathResource">
+				<spring:constructor-arg value="org/mule/module/management/agent/http/xsl/favicon.ico" />
+			</spring:bean>	
+		</spring:property>
+    <spring:property name="targetMethod" value="getInputStream" />
+	</spring:bean>
+	
+	<spring:bean id="faviconBytes" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	  <spring:property name="targetClass" value="org.springframework.util.FileCopyUtils" />
+    <spring:property name="targetMethod" value="copyToByteArray" />
+		<spring:property name="arguments">
+			<spring:list>
+				<spring:ref bean="faviconInputStream"/>
+			</spring:list>
+		</spring:property>
+	</spring:bean>
+	
+	<spring:bean id="faviconComponent" class="org.mule.component.simple.StaticComponent">
+		<spring:property name="data" ref="faviconBytes" />
+	</spring:bean>
+
+	<model name="faviconModel">
+	
+		<service name="faviconService">
+			<inbound>
+				<http:inbound-endpoint
+					address="http://$[esb.bind.address]:$[esb.web.port]/favicon.ico"
+					synchronous="true">
+					<response-transformers>
+						<message-properties-transformer>
+							<add-message-property key="Content-Type" value="image/x-icon"/>
+						</message-properties-transformer>
+						<http:message-to-http-response-transformer />
+					</response-transformers>
+				</http:inbound-endpoint>
+			</inbound>
+			<component>
+				<spring-object bean="faviconComponent" />
+			</component>
+		</service>
+
+	</model>
+</mule>

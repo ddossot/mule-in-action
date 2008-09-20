@@ -22,10 +22,11 @@
 
 	<spring:beans>
 		<spring:import resource="management-config.xml"/>
+		<spring:import resource="favicon-config.xml"/>
 		<spring:import resource="publication-jms-config.xml"/>
 	</spring:beans>
 
-	<vm:endpoint name="ErrorChannel" path="error.channel" />
+	<vm:endpoint name="DocumentChannel" path="document.channel"  synchronous="false" />
 	
 	<object-to-string-transformer name="ObjectToString" />
 
@@ -38,23 +39,42 @@
 		<service name="publicationService">
 			<inbound>
 				<http:inbound-endpoint address="http://$[esb.bind.address]:$[esb.web.port]/publicationService">
-					<transformer ref="ObjectToString" />
-				</http:inbound-endpoint>															
+					<response-transformers>
+						<expression-transformer>
+							<return-argument evaluator="groovy" expression="'ACK'"/>
+						</expression-transformer>						
+					</response-transformers>
+				</http:inbound-endpoint>
 			</inbound>
 			<outbound>
-				<multicasting-router>
-					<outbound-endpoint ref="AuditChannel"  synchronous="false" remoteSync="false">
+				<outbound-pass-through-router>
+					<outbound-endpoint ref="DocumentChannel">
+						<transformer ref="ObjectToString" />
+					</outbound-endpoint>
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+		<service name="documentProcessor">
+			<inbound>
+				<inbound-endpoint ref="DocumentChannel" />
+				<wire-tap-router>
+					<outbound-endpoint ref="AuditChannel">
 						<expression-transformer>
-							<return-argument evaluator="groovy" expression="'Uploaded title: '+org.apache.commons.lang.StringUtils.substringBetween(payload,'&lt;title&gt;','&lt;/title&gt;')"/>
+							<return-argument
+									evaluator="groovy"
+									expression="'Uploaded title: '+org.apache.commons.lang.StringUtils.substringBetween(payload,'&lt;title&gt;','&lt;/title&gt;')"/>
 						</expression-transformer>
 					</outbound-endpoint>
-
-					<jms:outbound-endpoint queue="publicationQueue"	connector-ref="publicationJmsConnector"  synchronous="false" remoteSync="false">
+				</wire-tap-router>
+			</inbound>
+			<outbound>
+				<outbound-pass-through-router>
+					<jms:outbound-endpoint queue="publicationQueue"	connector-ref="publicationJmsConnector">
 						<transformer ref="DocbookToFO" />
 						<transformer ref="ObjectToString" />
 						<transformer ref="ObjectToJmsMessage" />
 					</jms:outbound-endpoint>
-				</multicasting-router>
+				</outbound-pass-through-router>
 			</outbound>
 		</service>
 	</model>
