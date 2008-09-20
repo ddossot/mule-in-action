@@ -16,7 +16,6 @@
 		<spring:property name="observedServices">
 			<spring:set>
 				<spring:ref bean="publicationService" />
-				<spring:ref bean="publicationApplication" />
 				<spring:ref bean="ping" />
 			</spring:set>
 		</spring:property>
