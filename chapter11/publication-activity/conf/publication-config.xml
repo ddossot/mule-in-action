@@ -57,6 +57,7 @@
 		<service name="documentProcessor">
 			<inbound>
 				<inbound-endpoint ref="DocumentChannel" />
+				<!-- <start id="Activity-Wiretap"/> -->
 				<wire-tap-router>
 					<outbound-endpoint ref="AuditChannel">
 						<expression-transformer>
@@ -66,6 +67,7 @@
 						</expression-transformer>
 					</outbound-endpoint>
 				</wire-tap-router>
+				<!-- <end id="Activity-Wiretap"/> -->
 			</inbound>
 			<outbound>
 				<outbound-pass-through-router>
