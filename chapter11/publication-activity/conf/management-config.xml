@@ -12,6 +12,7 @@
 		http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
 		http://www.mulesource.org/schema/mule/management/2.0 http://www.mulesource.org/schema/mule/management/2.0/mule-management.xsd">
 
+	<!-- <start id="Publication-Dashboard"/> -->
 	<spring:bean id="HtmlDashboardComponent" class="com.clood.component.HtmlDashboard">
 		<spring:property name="observedServices">
 			<spring:set>
@@ -21,6 +22,7 @@
 			</spring:set>
 		</spring:property>
 	</spring:bean>
+	<!-- <end id="Publication-Dashboard"/> -->
 		
 	<!-- <start id="Publication-Activity"/> -->
 	<notifications>
