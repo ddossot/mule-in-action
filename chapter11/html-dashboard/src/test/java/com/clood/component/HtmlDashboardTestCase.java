@@ -18,6 +18,8 @@ public class HtmlDashboardTestCase extends AbstractMuleTestCase {
 
         dashboard = new HtmlDashboard();
         dashboard.setObservedServices(Collections.singleton((AbstractService) getTestService()));
+        dashboard.setRefreshPeriod(1234);
+        dashboard.initialise();
     }
 
     public void testHtmlRendering() throws Exception {
@@ -29,8 +31,8 @@ public class HtmlDashboardTestCase extends AbstractMuleTestCase {
         assertTrue("<html>", dashboardContent.contains("<html>"));
         assertTrue("</html>", dashboardContent.contains("</html>"));
 
-        assertTrue("Refresh period", dashboardContent.contains("content=\""
-                + HtmlDashboard.DEFAULT_REFRESH_PERIOD + "\""));
+        assertTrue("Refresh period",
+                dashboardContent.contains("content=\"1234\""));
 
         assertTrue("Component name",
                 dashboardContent.contains(getTestService().getName()));
