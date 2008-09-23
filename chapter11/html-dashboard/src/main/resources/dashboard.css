@@ -38,6 +38,7 @@ td {
 
 .state {
 	width: 16px;
+	font-weight: bold;
 	text-align: center;
 }
 
