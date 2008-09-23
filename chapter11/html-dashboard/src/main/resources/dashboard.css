@@ -1,0 +1,66 @@
+body {
+    background-color: dimgray;
+    vertical-align: middle;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    text-align:center;
+}
+
+table, td {
+    font-size : 11px;
+    border-color: black;
+    border-style: solid;
+}
+
+table {
+    margin-left:auto;
+    margin-right:auto;
+    border-width: 1px 3px 3px 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+thead {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+}
+
+td {
+    margin: 0;
+    padding: 4px;
+    border-width: 1px 1px 0 0;
+    background-color: white;
+}
+
+.faded {
+	background-color : gainsboro;
+}
+
+.state {
+	width: 16px;
+	text-align: center;
+}
+
+.reset {
+	background-color : gray;
+}
+
+.idle {
+	background-color : lime;
+}
+
+.active {
+	background-color : yellow;
+}
+
+.increased {
+	background-color : orange;
+}
+
+.error {
+	background-color : red;
+}
+
+.dead {
+	background-color : black;
+}

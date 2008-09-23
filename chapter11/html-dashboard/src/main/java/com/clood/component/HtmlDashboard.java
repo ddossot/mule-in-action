@@ -1,7 +1,9 @@
 package com.clood.component;
 
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,17 +11,19 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.mule.api.MuleEventContext;
 import org.mule.api.lifecycle.Callable;
 import org.mule.api.service.Service;
 import org.mule.management.stats.ServiceStatistics;
 import org.mule.service.AbstractService;
+import org.springframework.util.FileCopyUtils;
 
 /**
  * A simple HTML dashboard for monitoring service activities.
  * 
- * Note: this will be refactored to use CSS.
+ * FIXME refactor: extract HTML and CSS providers
  * 
  * @author David Dossot (david@dossot.net)
  */
@@ -64,20 +68,36 @@ public class HtmlDashboard implements Callable {
     }
 
     public Object onCall(final MuleEventContext eventContext) throws Exception {
-        final String html = renderHtmlDashboard();
-
         eventContext.getMessage().clearProperties();
 
-        eventContext.getMessage().setStringProperty("Content-Type",
-                "text/html; charset=" + eventContext.getEncoding());
+        String content;
+
+        if (StringUtils.contains(
+                eventContext.getMessage().getPayloadAsString(), "css")) {
+
+            // TODO cache
+            content =
+                    FileCopyUtils.copyToString(new InputStreamReader(
+                            Thread.currentThread().getContextClassLoader().getResourceAsStream(
+                                    "dashboard.css"), Charset.defaultCharset()));
+
+            eventContext.getMessage().setStringProperty("Content-Type",
+                    "text/css; charset=" + eventContext.getEncoding());
+
+        } else {
+            content = renderHtmlDashboard();
+
+            eventContext.getMessage().setStringProperty("Content-Type",
+                    "text/html; charset=" + eventContext.getEncoding());
+        }
 
         eventContext.getMessage().setStringProperty(
                 "Content-Length",
-                Integer.toString(html.getBytes(eventContext.getEncoding()).length));
+                Integer.toString(content.getBytes(eventContext.getEncoding()).length));
 
         eventContext.setStopFurtherProcessing(true);
 
-        return html;
+        return content;
     }
 
     private String renderHtmlDashboard() {
@@ -92,25 +112,26 @@ public class HtmlDashboard implements Callable {
 
     private void renderHeader(final StringBuilder htmlBuilder) {
         htmlBuilder.append("<html><head>\n");
+        htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"dashboard/css\" />");
         htmlBuilder.append("<meta http-equiv=\"refresh\" content=\"");
         htmlBuilder.append(refreshPeriod);
         htmlBuilder.append("\" />\n");
-        htmlBuilder.append("</head><body><font size=\"2\">\n");
-        htmlBuilder.append("<h3>");
+        htmlBuilder.append("</head><body>\n");
+        htmlBuilder.append("<table>\n<thead>\n<tr><td colspan=\"2\" class=\"faded\">");
         htmlBuilder.append(hostName);
-        htmlBuilder.append("</h3><table border=\"1\" cellpadding=\"1\" cellspacing=\"0\">\n");
+        htmlBuilder.append("</td></tr>\n</thead>\n<tbody>\n");
     }
 
     private void renderServices(final StringBuilder htmlBuilder) {
-        final Map<Service, String> serviceColors = refreshServiceColors();
+        final Map<Service, String> serviceStates = refreshServiceStates();
 
         for (final Service observedService : observedServices) {
-            final String serviceColor = serviceColors.get(observedService);
+            final String serviceState = serviceStates.get(observedService);
 
-            htmlBuilder.append("<tr><td><font size=\"2\">");
+            htmlBuilder.append("<tr><td>");
             htmlBuilder.append(observedService.getName());
-            htmlBuilder.append("&nbsp;</font></td><td bgcolor=\"");
-            htmlBuilder.append(serviceColor != null ? serviceColor : "black");
+            htmlBuilder.append("</td><td class=\"state ");
+            htmlBuilder.append(serviceState != null ? serviceState : "dead");
             htmlBuilder.append("\">");
             htmlBuilder.append(getServiceSymbol(observedService));
             htmlBuilder.append("</td></tr>\n");
@@ -118,26 +139,25 @@ public class HtmlDashboard implements Callable {
     }
 
     private void renderFooter(final StringBuilder htmlBuilder) {
-        htmlBuilder.append("</table><br/>\n");
+        htmlBuilder.append("<tr><td colspan=\"2\" class=\"faded\">");
         htmlBuilder.append(new Date().toString());
-        htmlBuilder.append("\n");
-        htmlBuilder.append("</font></body></html>\n");
+        htmlBuilder.append("</td></tr>\n</tbody>\n</table>\n</body></html>");
     }
 
     private String getServiceSymbol(final Service service) {
         if (service == null) {
-            return "&nbsp;?&nbsp;&nbsp;";
+            return "?";
         } else if (!service.isStarted()) {
-            return "&nbsp;X&nbsp;";
+            return "X";
         } else if (service.isPaused()) {
-            return "&nbsp;=&nbsp;";
+            return "=";
         } else {
-            return "&nbsp;&nbsp;&nbsp;&nbsp;";
+            return StringUtils.EMPTY;
         }
     }
 
-    private Map<Service, String> refreshServiceColors() {
-        final Map<Service, String> serviceColors =
+    private Map<Service, String> refreshServiceStates() {
+        final Map<Service, String> serviceStates =
                 new HashMap<Service, String>();
 
         for (final AbstractService observedService : observedServices) {
@@ -145,17 +165,17 @@ public class HtmlDashboard implements Callable {
             final ServiceStatistics serviceStatistics =
                     observedService.getStatistics();
 
-            serviceColors.put(observedService, getColorForStatistics(
+            serviceStates.put(observedService, getStateForStatistics(
                     previousStatistics.get(observedService), serviceStatistics));
 
             previousStatistics.put(observedService,
                     new PreviouServiceStatistics(serviceStatistics));
         }
 
-        return serviceColors;
+        return serviceStates;
     }
 
-    private String getColorForStatistics(
+    private String getStateForStatistics(
             final PreviouServiceStatistics previousStatistics,
             final ServiceStatistics statistics) {
 
@@ -163,20 +183,20 @@ public class HtmlDashboard implements Callable {
 
             if ((statistics.getExecutionErrors() > previousStatistics.getExecutionErrors())
                     || (statistics.getFatalErrors() > previousStatistics.getFatalErrors())) {
-                return "red";
+                return "error";
             }
 
             if (statistics.getAverageQueueSize() > previousStatistics.getAverageQueueSize()) {
-                return "orange";
+                return "increased";
             }
 
             if (statistics.getExecutedEvents() > previousStatistics.getExecutedEvents()) {
-                return "yellow";
+                return "active";
             }
 
-            return "lime";
+            return "idle";
         } else {
-            return "gray";
+            return "reset";
         }
     }
 
