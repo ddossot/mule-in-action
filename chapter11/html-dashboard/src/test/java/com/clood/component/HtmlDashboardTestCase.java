@@ -36,4 +36,14 @@ public class HtmlDashboardTestCase extends AbstractMuleTestCase {
                 dashboardContent.contains(getTestService().getName()));
     }
 
+    public void testCssDelivery() throws Exception {
+        final String cssContent =
+                (String) dashboard.onCall(getTestEventContext("/foo.css"));
+
+        assertNotNull(cssContent);
+
+        assertTrue("body", cssContent.contains("body"));
+        assertTrue(".dead", cssContent.contains(".dead"));
+    }
+
 }
