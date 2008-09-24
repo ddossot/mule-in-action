@@ -5,7 +5,7 @@
 
 	<parent>
 		<groupId>com.muleinaction</groupId>
-		<artifactId>chapter11-parent</artifactId>
+		<artifactId>chapter11</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 

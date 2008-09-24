@@ -11,7 +11,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>chapter05-parent</artifactId>
+	<artifactId>chapter05</artifactId>
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 5</name>
 	

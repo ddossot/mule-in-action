@@ -9,7 +9,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>chapter07-parent</artifactId>
+	<artifactId>chapter07</artifactId>
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 7</name>
 	
