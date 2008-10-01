@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.0"
+	xmlns:http="http://www.mulesource.org/schema/mule/http/2.0"
+	xmlns:client="http://www.mulesource.org/schema/mule/client/2.0"
+	xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.0 http://www.mulesource.org/schema/mule/vm/2.0/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/http/2.0 http://www.mulesource.org/schema/mule/http/2.0/mule-http.xsd
+       http://www.mulesource.org/schema/mule/client/2.0 http://www.mulesource.org/schema/mule/client/2.0/mule-client.xsd">
+
+	<client:remote-dispatcher-agent>
+		<client:remote-endpoint address="tcp://localhost:5555"
+			synchronous="true" />
+	</client:remote-dispatcher-agent>
+
+	<vm:endpoint name="TickerLookupChannel" path="TickerLookup.In" />
+
+	<model name="RemoteTcpMuleClient">
+
+		<service name="TickerLookupService">
+			<inbound>
+				<inbound-endpoint ref="TickerLookupChannel">
+					<response-transformers>
+						<byte-array-to-string-transformer />
+					</response-transformers>
+				</inbound-endpoint>
+			</inbound>
+			<outbound>
+				<outbound-pass-through-router>
+					<http:outbound-endpoint
+						address="http://finance.google.com/finance/historical?q=${message:payload}&amp;histperiod=weekly&amp;output=csv" />
+				</outbound-pass-through-router>
+			</outbound>
+		</service>
+
+	</model>
+</mule>

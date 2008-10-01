@@ -11,7 +11,7 @@ import org.mule.tck.FunctionalTestCase;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class MuleClientShowCase extends FunctionalTestCase {
+public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
 
     private String expectedHash;
 
@@ -19,12 +19,11 @@ public class MuleClientShowCase extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
-        return "conf/muleclient-config.xml";
+        return "conf/in-vm-muleclient-config.xml";
     }
 
     @Override
     protected void doSetUp() throws Exception {
-        setDisposeManagerPerSuite(true);
         super.doSetUp();
 
         // prepare test file for MD5 File Hasher Service
