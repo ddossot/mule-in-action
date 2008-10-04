@@ -27,13 +27,16 @@ public class MuleClientMd5FileHasher implements Callable {
     public Object onCall(final MuleEventContext eventContext) throws Exception {
         eventContext.setStopFurtherProcessing(true);
 
-        final MuleMessage requestedFileMessage =
-                new MuleClient(eventContext.getMuleContext()).request(
-                        sourceFolderUri
-                                + eventContext.transformMessageToString()
-                                + "?connector=" + fileConnectorName, 0);
+        final MuleClient muleClient = new MuleClient(eventContext
+                .getMuleContext());
 
-        return requestedFileMessage != null ? DigestUtils.md5Hex(requestedFileMessage.getPayloadAsBytes())
-                : null;
+        final MuleMessage requestedFileMessage = muleClient.request(
+                sourceFolderUri + eventContext.transformMessageToString()
+                        + "?connector=" + fileConnectorName, 0);
+
+        muleClient.dispose();
+
+        return requestedFileMessage != null ? DigestUtils
+                .md5Hex(requestedFileMessage.getPayloadAsBytes()) : null;
     }
 }
