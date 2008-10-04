@@ -22,5 +22,7 @@ public class RawMuleClientTest {
         assertNotNull(response);
         assertTrue(response.getPayloadAsString().contains(
                 "Date,Open,High,Low,Close,Volume"));
+
+        muleClient.dispose();
     }
 }
