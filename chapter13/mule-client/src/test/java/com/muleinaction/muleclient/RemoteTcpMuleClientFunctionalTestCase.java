@@ -16,10 +16,12 @@ public class RemoteTcpMuleClientFunctionalTestCase extends FunctionalTestCase {
     }
 
     public void testTickerLookup() throws Exception {
+        // <start id="MuleClient-RDA"/>
         final MuleClient muleClient = new MuleClient(false);
 
         final RemoteDispatcher remoteDispatcher = muleClient
                 .getRemoteDispatcher("tcp://localhost:5555");
+        // <end id="MuleClient-RDA"/>
 
         final FutureMessageResult asyncResponse = remoteDispatcher
                 .sendAsyncRemote("TickerLookupChannel", "GOOG", null);
