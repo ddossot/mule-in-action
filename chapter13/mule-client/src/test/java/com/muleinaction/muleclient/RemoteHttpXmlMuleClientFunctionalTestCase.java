@@ -46,10 +46,12 @@ public class RemoteHttpXmlMuleClientFunctionalTestCase extends
     }
 
     public void testJmsAsynchronousRequest() throws Exception {
+        // <start id="MuleClient-RDA-HTTPXML"/>
         final MuleClient muleClient = new MuleClient(false);
 
         final RemoteDispatcher remoteDispatcher = muleClient
                 .getRemoteDispatcher("http://localhost:8181");
+        // <end id="MuleClient-RDA-HTTPXML"/>
 
         final Object response = remoteDispatcher.receiveRemote(
                 "jms://" + queueName, 1000).getPayloadAsString();
