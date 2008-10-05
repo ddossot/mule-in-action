@@ -12,12 +12,12 @@ import org.mule.transport.file.FileConnector;
  */
 public class MuleClientMd5FileHasher implements Callable {
 
-    private String sourceFolderUri;
+    private String sourceFolder;
 
     private String fileConnectorName;
 
     public void setSourceFolder(final String sourceFolder) {
-        this.sourceFolderUri = "file://" + sourceFolder + "/";
+        this.sourceFolder = sourceFolder;
     }
 
     public void setFileConnector(final FileConnector fileConnector) {
@@ -30,9 +30,13 @@ public class MuleClientMd5FileHasher implements Callable {
         final MuleClient muleClient = new MuleClient(eventContext
                 .getMuleContext());
 
-        final MuleMessage requestedFileMessage = muleClient.request(
-                sourceFolderUri + eventContext.transformMessageToString()
-                        + "?connector=" + fileConnectorName, 0);
+        final String fileName = eventContext.transformMessageToString();
+
+        // <start id="MuleClient-NonVMTransportCall"/>
+        final MuleMessage requestedFileMessage = muleClient.request("file://"
+                + sourceFolder + "/" + fileName + "?connector="
+                + fileConnectorName, 0);
+        // <end id="MuleClient-NonVMTransportCall"/>
 
         muleClient.dispose();
 
