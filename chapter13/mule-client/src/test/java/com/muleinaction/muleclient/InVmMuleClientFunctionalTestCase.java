@@ -48,7 +48,20 @@ public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
 
     public void testInMemoryVmCall() throws Exception {
         // this is prototypical for integration testing
+        // <start id="MuleClient-IntegrationTesting"/>
         final MuleClient muleClient = new MuleClient(muleContext);
+
+        assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
+                tempFileName, null).getPayload());
+
+        muleClient.dispose();
+        // <end id="MuleClient-IntegrationTesting"/>
+    }
+
+    public void testInMemoryVmCallWithContextDetection() throws Exception {
+        // <start id="MuleClient-CreationNoContext"/>
+        final MuleClient muleClient = new MuleClient();
+        // <end id="MuleClient-CreationNoContext"/>
 
         assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
                 tempFileName, null).getPayload());
