@@ -23,10 +23,6 @@
 <model name="logicalFilteringModel">
     <service name="logicalFilteringService">
         <inbound> 
-            <forwarding-catch-all-strategy> 
-                <jms:outbound-endpoint queue="errors"/> 
-            </forwarding-catch-all-strategy> 
-
             <jms:inbound-endpoint queue="messages">
                 <jms:jmsmessage-to-object-transformer/>
             </jms:inbound-endpoint> 
@@ -38,6 +34,11 @@
                     <expression-filter evaluator="jxpath" expression="/order/result = 'SUCCESS'"/>
                 </and-filter>
             </selective-consumer-router> 
+
+            <forwarding-catch-all-strategy> 
+                <jms:outbound-endpoint queue="errors"/> 
+            </forwarding-catch-all-strategy> 
+
       </inbound>
       <bridge-component/> 
       <outbound>
