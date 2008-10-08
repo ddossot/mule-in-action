@@ -14,7 +14,9 @@
        http://www.mulesource.org/schema/mule/acegi/2.1 http://www.mulesource.org/schema/mule/acegi/2.1/mule-acegi.xsd
        http://www.mulesource.org/schema/mule/jaas/2.1 http://www.mulesource.org/schema/mule/jaas/2.1/mule-jaas.xsd">
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="tcp://192.168.1.10:61616"/>
+    <global-property name="jms.url" value="vm://localhost"/>
+    
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
 
     <jaas:security-manager>
         <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf"/>       
@@ -40,8 +42,8 @@
     </acegi:security-manager>
 
 
-    <model name="jaasModel">
-        <service name="jaasService">
+    <model name="jaasPbeModel">
+        <service name="jaasPbeService">
             <inbound>
                 <jms:inbound-endpoint queue="messages">
                     <jaas:jaas-security-filter/>
