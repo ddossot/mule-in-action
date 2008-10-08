@@ -19,9 +19,12 @@
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd"
         >
+    
     <global-property name="http.host" value="localhost"/>
     <global-property name="http.port" value="8080"/>
-    <global-property name="jms.url" value="vm://localhost"/> 
+    <global-property name="jms.url" value="vm://localhost"/>
+
+
 
     <spring:bean id="retryConnectionStrategy"
                  class="org.mule.transport.SimpleRetryConnectionStrategy">
@@ -33,7 +36,9 @@
         <spring:property name="connectionStrategy" ref="retryConnectionStrategy"/> 
     </jms:activemq-connector>
 
+    
     <model name="jmsOutboundModel">
+
         <service name="jmsOutboundService">
             <inbound>
                 <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
