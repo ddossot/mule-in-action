@@ -33,8 +33,8 @@
         <acegi:delegate-security-provider name="auth-dao" delegate-ref="memoryAuthProvider"/>
     </acegi:security-manager>
 
-    <model name="httpModel">
-        <service name="httpService">
+    <model name="acegiHttpModel">
+        <service name="acegiHttpService">
             <inbound>
                 <http:inbound-endpoint address="http://localhost:8081/secure">
                     <acegi:http-security-filter realm="mule"/>

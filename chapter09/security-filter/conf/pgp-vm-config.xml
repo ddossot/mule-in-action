@@ -21,8 +21,8 @@
     <stdio:connector name="InputSystemStreamConnector" promptMessage="Enter Some Text: "/>
 
     <spring:bean id="pgpKeyManager" class="org.mule.module.pgp.PGPKeyRingImpl" init-method="initialise">
-        <spring:property name="publicKeyRingFileName" value="public.key.gpg"/>
-        <spring:property name="secretKeyRingFileName" value="secret.key.gpg"/>
+        <spring:property name="publicKeyRingFileName" value="conf/public.key.gpg"/>
+        <spring:property name="secretKeyRingFileName" value="conf/secret.key.gpg"/>
         <spring:property name="secretAliasId" value="0x6168F39C"/>
         <spring:property name="secretPassphrase" value="mule"/>
     </spring:bean>
@@ -33,8 +33,8 @@
         <pgp:keybased-encryption-strategy name="keyBasedEncryptionStrategy" keyManager-ref="pgpKeyManager"/>
     </pgp:security-manager>
 
-    <model name="echoModel">
-        <service name="in">
+    <model name="pgpModel">
+        <service name="pgpService">
             <inbound>
                 <stdio:inbound-endpoint connector-ref="InputSystemStreamConnector" system="IN">
                     <!--
