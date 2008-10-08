@@ -24,8 +24,9 @@
     <global-property name="http.port" value="8080"/>
     <global-property name="jms.url" value="vm://localhost"/>
 
+    <!-- TODO Update Connection Strategy Configuration for Mule 2.1.0 -->
 
-
+    <!--
     <spring:bean id="retryConnectionStrategy"
                  class="org.mule.transport.SimpleRetryConnectionStrategy">
         <spring:property name="retryCount" value="-1"/>
@@ -34,12 +35,12 @@
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}">
         <spring:property name="connectionStrategy" ref="retryConnectionStrategy"/> 
-    </jms:activemq-connector>
+    </jms:activemq-connector> -->
 
+     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
     
-    <model name="jmsOutboundModel">
-
-        <service name="jmsOutboundService">
+    <model name="jmsRetryModel">
+        <service name="jmsRetryService">
             <inbound>
                 <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
                     <byte-array-to-string-transformer/>
