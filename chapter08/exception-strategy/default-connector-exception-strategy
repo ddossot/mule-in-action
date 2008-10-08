@@ -21,7 +21,6 @@ fi
 # Any changes to the files in ./conf will take precedence over those deployed to $MULE_HOME/lib/user
 MULE_LIB=./conf
 export MULE_LIB
-
-exec "$MULE_BASE/bin/mule" -config default-connector-exception-strategy-config.xml
+exec "$MULE_BASE/bin/mule" -config default-connector-exception-strategy-config.xml -M-Dlog4j.debug
 
 # Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService

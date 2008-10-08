@@ -21,11 +21,20 @@
 	    <module>smtp</module>
 	    <module>http</module>
 	    <module>imap</module>
-	    <module>cxf</module>
+	    <!-- <module>cxf</module> -->
 	    <module>ejb</module>
 	    <module>ftp</module>
 	    <module>jdbc</module>
 	    <module>jms</module>
 	    <module>xmpp</module>
 	</modules>
+
+  <dependencies>
+    <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>[1.2,2.0)</version>
+    </dependency>
+  </dependencies>
+
 </project>

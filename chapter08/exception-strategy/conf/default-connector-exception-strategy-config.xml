@@ -30,20 +30,24 @@
         <default-connector-exception-strategy/>
         <service name="smtpService">
             <inbound>
+
                 <file:inbound-endpoint path="./data/invoice">
                     <file:file-to-string-transformer/>
+
                 </file:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <smtp:outbound-endpoint host="${smtp.host}" 
-                                            from="${smtp.from}" 
+                    <smtp:outbound-endpoint host="${smtp.host}"
+                                            from="${smtp.from}"
                                             subject="Accounting Invoice"
                                             to="${smtp.to}">
                         <email:string-to-email-transformer/>
                     </smtp:outbound-endpoint>
                 </pass-through-router>
+
             </outbound>
+            <default-connector-exception-strategy/>
         </service>
     </model>
 </mule>
