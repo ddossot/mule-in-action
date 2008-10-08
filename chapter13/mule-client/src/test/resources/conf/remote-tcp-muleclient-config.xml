@@ -17,7 +17,7 @@
 	</client:remote-dispatcher-agent>
 	<!-- <end id="MuleClient-RDA-Config" /> -->
 
-	<vm:endpoint name="TickerLookupChannel" path="TickerLookup.In" />
+	<vm:endpoint name="TickerLookupChannel" path="TickerLookup.In" synchronous="true" />
 
 	<model name="RemoteTcpMuleClient">
 
@@ -31,7 +31,7 @@
 			</inbound>
 			<outbound>
 				<pass-through-router>
-					<http:outbound-endpoint
+					<http:outbound-endpoint synchronous="true"
 						address="http://finance.google.com/finance/historical?q=${message:payload}&amp;histperiod=weekly&amp;output=csv" />
 				</pass-through-router>
 			</outbound>
