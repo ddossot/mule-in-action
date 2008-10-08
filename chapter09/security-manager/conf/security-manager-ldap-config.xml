@@ -61,6 +61,5 @@
     <acegi:security-manager>
         <acegi:delegate-security-provider name="auth-ldap" delegate-ref="ldapAuthProvider"/>
     </acegi:security-manager>
-
     <model/>
 </mule>

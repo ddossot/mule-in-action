@@ -40,8 +40,8 @@
         <password-encryption-strategy name="passwordEncryption" password="password"/>        
     </security-manager>
 
-    <model name="echoModel">
-        <service name="in">
+    <model name="securityManagerHttpPbeModel">
+        <service name="securityManagerHttpPbeService">
             <inbound>
                 <http:inbound-endpoint address="http://localhost:8081/secure">
                     <acegi:http-security-filter realm="mule"/>
