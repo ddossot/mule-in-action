@@ -27,6 +27,7 @@
 	    <module>jdbc</module>
 	    <module>jms</module>
 	    <module>xmpp</module>
+	    <!-- <module>vm</module> -->
 	</modules>
 
   <dependencies>

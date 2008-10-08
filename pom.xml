@@ -169,10 +169,24 @@
 			<artifactId>mule-transport-quartz</artifactId>
 			<version>${mule-version}</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-builders</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-acegi</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-pgp</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-jaas</artifactId>
 			<version>${mule-version}</version>
 		</dependency>
 		<dependency>
@@ -195,7 +209,6 @@
 			<artifactId>mule-module-xml</artifactId>
 			<version>${mule-version}</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
