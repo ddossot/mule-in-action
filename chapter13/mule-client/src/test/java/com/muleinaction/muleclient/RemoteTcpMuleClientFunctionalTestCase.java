@@ -21,10 +21,10 @@ public class RemoteTcpMuleClientFunctionalTestCase extends FunctionalTestCase {
 
         final RemoteDispatcher remoteDispatcher = muleClient
                 .getRemoteDispatcher("tcp://localhost:5555");
-        // <end id="MuleClient-RDA"/>
 
         final FutureMessageResult asyncResponse = remoteDispatcher
                 .sendAsyncRemote("TickerLookupChannel", "GOOG", null);
+        // <end id="MuleClient-RDA"/>
 
         // in a real application we would do something else and check for
         // availability of the response message from time to time
