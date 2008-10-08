@@ -32,7 +32,6 @@
                 <forwarding-router> 
                     <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/> 
                 </forwarding-router>
-                <inbound-pass-through-router/>
             </inbound> 
             <component> 
                 <spring-object bean="messageEnricher"/> 

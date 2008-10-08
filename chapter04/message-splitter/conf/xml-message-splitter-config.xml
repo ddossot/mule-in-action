@@ -7,7 +7,6 @@
       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
-      xmlns:mulexml="http://www.mulesource.org/schema/mule/xml/2.1"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -16,19 +15,19 @@
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
        "
->
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
-    
+        >
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+
     <model name="xmlMessageSplitterModel">
         <service name="xmlMessageSplitterService">
-            <inbound> 
+            <inbound>
                 <jms:inbound-endpoint queue="orders"/>
             </inbound>
-             
+
             <outbound>
-                <mulexml:message-splitter splitExpression="/orders/order">
+
+                <xm:filter-based-splitter splitExpression="/orders/order">
                     <jms:outbound-endpoint queue="orders.fulfilled">
                         <expression-filter evaluator="jxpath" expression="/order/status ='FULFILLED'"/>
                     </jms:outbound-endpoint>
@@ -36,9 +35,9 @@
                         <expression-filter evaluator="jxpath" expression="/order/status = 'PENDING'"/>
                     </jms:outbound-endpoint>
                     <jms:outbound-endpoint queue="orders.unknown"/>
-                </mulexml:message-splitter>
+                </xm:filter-based-splitter>
             </outbound>
-             
+
         </service>
     </model>
 </mule>

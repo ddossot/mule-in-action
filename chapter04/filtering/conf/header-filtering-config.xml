@@ -23,16 +23,16 @@
 <model name="headerFilteringModel">
     <service name="headerFilteringService">
         <inbound> 
-            <forwarding-catch-all-strategy> 
-                <jms:outbound-endpoint queue="errors"/> 
-            </forwarding-catch-all-strategy> 
-
             <jms:inbound-endpoint queue="messages"/> 
             <vm:inbound-endpoint  address="vm://messages"/>
 
             <selective-consumer-router>
                 <expression-filter evaluator="header" expression="${STATUS}='OK'"/>
             </selective-consumer-router> 
+
+            <forwarding-catch-all-strategy> 
+                <jms:outbound-endpoint queue="errors"/> 
+            </forwarding-catch-all-strategy> 
       </inbound>
       <bridge-component/> 
       <outbound>
