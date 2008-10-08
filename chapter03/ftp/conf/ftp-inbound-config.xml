@@ -1,19 +1,19 @@
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:spring="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
-       xmlns:ftp="http://www.mulesource.org/schema/mule/ftp/2.0"
-       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.0"
-       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+       xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
+       xmlns:ftp="http://www.mulesource.org/schema/mule/ftp/2.1"
+       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
+       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
     xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
-       http://www.mulesource.org/schema/mule/ftp/2.0 http://www.mulesource.org/schema/mule/ftp/2.0/mule-ftp.xsd
-       http://www.mulesource.org/schema/mule/xml/2.0 http://www.mulesource.org/schema/mule/xml/2.0/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd"
+       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
+       http://www.mulesource.org/schema/mule/ftp/2.1 http://www.mulesource.org/schema/mule/ftp/2.1/mule-ftp.xsd
+       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd"
 >
     <global-property name="ftp.host" value="localhost"/>
     <global-property name="ftp.port" value="21"/>
@@ -28,9 +28,9 @@
                  
             </inbound>
             <outbound> 
-                <outbound-pass-through-router> 
+                <pass-through-router> 
                     <file:outbound-endpoint path="./out"/>
-                </outbound-pass-through-router>
+                </pass-through-router>
             </outbound>
         </service>
     </model>

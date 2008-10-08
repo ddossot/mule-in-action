@@ -11,7 +11,7 @@
 	<name>Mule in Action</name>
 	
 	<properties>
-		<mule-version>2.0.2</mule-version>
+		<mule-version>2.1.0</mule-version>
 		<spring-version>2.5.5</spring-version>
 	</properties>
 	
@@ -23,6 +23,7 @@
 	    <module>chapter05</module>
 	    <module>chapter06</module>
 	    <module>chapter07</module>
+	    <module>chapter08</module>
 	    <module>chapter09</module>
 	    <module>chapter11</module>
 	    <module>chapter13</module>

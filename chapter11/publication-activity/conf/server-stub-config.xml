@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.0"
-		xmlns:file="http://www.mulesource.org/schema/mule/file/2.0"
-		xsi:schemaLocation="http://www.mulesource.org/schema/mule/file/2.0 http://www.mulesource.org/schema/mule/file/2.0/mule-file.xsd
-												http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
-												http://www.mulesource.org/schema/mule/jms/2.0 http://www.mulesource.org/schema/mule/jms/2.0/mule-jms.xsd">
+		xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
+		xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
+		xsi:schemaLocation="http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
+												http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+												http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd">
 	
 	<model name="publicationModel" inherit="true">
 		
@@ -15,9 +15,9 @@
 							connector-ref="publicationJmsConnector" />
 			</inbound>
 			<outbound>
-				<outbound-pass-through-router>
+				<pass-through-router>
 					<file:outbound-endpoint path="out" outputPattern="${UUID}.fo"/>
-				</outbound-pass-through-router>
+				</pass-through-router>
 			</outbound>
 		</service>
 	

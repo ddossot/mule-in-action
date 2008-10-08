@@ -1,13 +1,13 @@
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.0"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:spring="http://www.springframework.org/schema/beans"
-       xmlns:ejb="http://www.mulesource.org/schema/mule/ejb/2.0"
-       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.0"
+       xmlns:ejb="http://www.mulesource.org/schema/mule/ejb/2.1"
+       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
        xsi:schemaLocation="
                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-               http://www.mulesource.org/schema/mule/core/2.0 http://www.mulesource.org/schema/mule/core/2.0/mule.xsd
-               http://www.mulesource.org/schema/mule/stdio/2.0 http://www.mulesource.org/schema/mule/stdio/2.0/mule-stdio.xsd
-               http://www.mulesource.org/schema/mule/ejb/2.0 http://www.mulesource.org/schema/mule/ejb/2.0/mule-ejb.xsd">
+               http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+               http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
+               http://www.mulesource.org/schema/mule/ejb/2.1 http://www.mulesource.org/schema/mule/ejb/2.1/mule-ejb.xsd">
 
        <ejb:connector name="ejbConnector" securityPolicy="security.policy"/>
         
