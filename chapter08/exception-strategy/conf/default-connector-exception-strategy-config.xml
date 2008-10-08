@@ -26,9 +26,9 @@
                     pollingFrequency="1000"/>
 
 
-    <model name="smtpModel">
+    <model name="defaultConnectorExceptionStrategyModel">
         <default-connector-exception-strategy/>
-        <service name="smtpService">
+        <service name="defaultConnectorExceptionStrategyService">
             <inbound>
 
                 <file:inbound-endpoint path="./data/invoice">

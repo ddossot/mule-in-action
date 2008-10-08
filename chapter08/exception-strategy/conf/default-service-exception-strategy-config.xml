@@ -25,14 +25,14 @@
 	
 	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
 
-	<model name="LogicComponentsShowcase">
+	<model name="defaultServiceExceptionStrategyModel">
 
         <default-service-exception-strategy>
             <jms:outbound-endpoint topic="business-errors"/>
         </default-service-exception-strategy>
 		
 		<!-- <start id="LoCoShow-RIG"/> -->
-		<service name="RandomIntegerGenerator">
+		<service name="defaultServiceExceptionStrategyService">
 			<inbound>
 				<vm:inbound-endpoint path="RIG.In" />
 			</inbound>
