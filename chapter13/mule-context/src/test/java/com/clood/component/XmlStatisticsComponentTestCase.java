@@ -18,20 +18,35 @@ public class XmlStatisticsComponentTestCase extends FunctionalTestCase {
         return "conf/xml-statistics-config.xml";
     }
 
-    public void testRendersXmlStatistics() throws Exception {
+    public void testRendersAllXmlStatistics() throws Exception {
         final MuleClient muleClient = new MuleClient(muleContext);
 
         final String xmlStatistics =
                 muleClient.send("vm://XmlStats.IN", null, null).getPayloadAsString();
 
+        muleClient.dispose();
+
         assertNotNull(xmlStatistics);
 
-        assertEquals("XmlStatisticsDump",
-                XPathFactory.newInstance().newXPath().evaluate(
-                        "/Components/Service[@name='XmlStatisticsDump']/@name",
-                        new InputSource(new StringReader(xmlStatistics))));
+        assertEquals("2", XPathFactory.newInstance().newXPath().evaluate(
+                "count(/Components/Service)",
+                new InputSource(new StringReader(xmlStatistics))));
+
+    }
+
+    public void testRendersOneServiceXmlStatistics() throws Exception {
+        final MuleClient muleClient = new MuleClient(muleContext);
+
+        final String xmlStatistics =
+                muleClient.send("vm://XmlStats.IN", "Emailer", null).getPayloadAsString();
 
         muleClient.dispose();
+
+        assertNotNull(xmlStatistics);
+
+        assertEquals("1", XPathFactory.newInstance().newXPath().evaluate(
+                "count(/Components/Service)",
+                new InputSource(new StringReader(xmlStatistics))));
     }
 
 }

@@ -13,5 +13,12 @@
 			</inbound>
 			<component class="com.clood.component.XmlStatisticsComponent" />
 		</service>
+		
+		<service name="Emailer">
+			<inbound>
+				<vm:inbound-endpoint path="Dummy.IN" synchronous="true" />
+			</inbound>
+			<null-component />
+		</service>
 	</model>
 </mule>
