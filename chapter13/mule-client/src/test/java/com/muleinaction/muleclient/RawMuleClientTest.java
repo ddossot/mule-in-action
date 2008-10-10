@@ -13,16 +13,21 @@ import org.mule.module.client.MuleClient;
 public class RawMuleClientTest {
     @Test
     public void tapHttpTransport() throws Exception {
+        // <start id="MuleClient-Raw-Transport"/>
         final MuleClient muleClient = new MuleClient();
+
         final MuleMessage response = muleClient
                 .send(
                         "http://finance.google.com/finance/historical?q=GOOG&histperiod=weekly&output=csv",
                         null, null);
 
-        assertNotNull(response);
-        assertTrue(response.getPayloadAsString().contains(
-                "Date,Open,High,Low,Close,Volume"));
+        final String payload = response.getPayloadAsString();
 
         muleClient.dispose();
+        // <end id="MuleClient-Raw-Transport"/>
+
+        assertNotNull(response);
+        assertTrue(payload.contains("Date,Open,High,Low,Close,Volume"));
+
     }
 }
