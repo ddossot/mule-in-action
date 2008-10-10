@@ -10,7 +10,7 @@ import org.mule.module.client.MuleClient;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class RawMuleClientTest {
+public class RawHttpMuleClientTest {
     @Test
     public void tapHttpTransport() throws Exception {
         // <start id="MuleClient-Raw-Transport"/>
