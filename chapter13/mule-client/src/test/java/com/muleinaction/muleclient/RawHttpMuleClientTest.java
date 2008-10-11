@@ -1,5 +1,6 @@
 package com.muleinaction.muleclient;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -13,8 +14,8 @@ import org.mule.module.client.MuleClient;
 public class RawHttpMuleClientTest {
     @Test
     public void tapHttpTransport() throws Exception {
-        // <start id="MuleClient-Raw-Transport"/>
-        final MuleClient muleClient = new MuleClient();
+        // <start id="MuleClient-RawHttp-Transport"/>
+        final MuleClient muleClient = new MuleClient(true);
 
         final MuleMessage response = muleClient
                 .send(
@@ -24,10 +25,10 @@ public class RawHttpMuleClientTest {
         final String payload = response.getPayloadAsString();
 
         muleClient.dispose();
-        // <end id="MuleClient-Raw-Transport"/>
+        // <end id="MuleClient-RawHttp-Transport"/>
 
         assertNotNull(response);
         assertTrue(payload.contains("Date,Open,High,Low,Close,Volume"));
-
+        assertEquals("weekly", response.getStringProperty("histperiod", null));
     }
 }
