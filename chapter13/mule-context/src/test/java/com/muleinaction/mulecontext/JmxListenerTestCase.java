@@ -9,6 +9,7 @@ import javax.management.ObjectName;
 import org.mule.context.notification.MuleContextNotification;
 import org.mule.module.management.agent.JmxAgent;
 import org.mule.module.management.agent.JmxServerNotificationAgent;
+import org.mule.module.management.support.JmxSupport;
 import org.mule.tck.FunctionalTestCase;
 
 /**
@@ -21,21 +22,26 @@ public class JmxListenerTestCase extends FunctionalTestCase {
         return "conf/jmx-listener-config.xml";
     }
 
-    public void testRendersXmlStatistics() throws Exception {
-        final JmxAgent jmxAgent =
-                (JmxAgent) muleContext.getRegistry().lookupAgent("jmx-agent");
+    public void testJmxListenerMBean() throws Exception {
+        // <start id="Registry-LookupAgent"/>
+        final JmxAgent jmxAgent = (JmxAgent) muleContext.getRegistry()
+                .lookupAgent("jmx-agent");
 
         final MBeanServer mBeanServer = jmxAgent.getMBeanServer();
+        // <end id="Registry-LookupAgent"/>
 
-        final ObjectName listenerObjectName =
-                ObjectName.getInstance("Mule."
-                        + muleContext.getConfiguration().getId() + ":"
+        // <start id="Context-Configuration"/>
+        final String serverId = muleContext.getConfiguration().getId();
+
+        final ObjectName listenerObjectName = ObjectName
+                .getInstance(JmxSupport.DEFAULT_JMX_DOMAIN_PREFIX + "."
+                        + serverId + ":"
                         + JmxServerNotificationAgent.LISTENER_JMX_OBJECT_NAME);
+        // <end id="Context-Configuration"/>
 
         @SuppressWarnings("unchecked")
-        final List<Notification> bootNotifications =
-                (List<Notification>) mBeanServer.getAttribute(
-                        listenerObjectName, "NotificationsList");
+        final List<Notification> bootNotifications = (List<Notification>) mBeanServer
+                .getAttribute(listenerObjectName, "NotificationsList");
 
         assertNotNull(bootNotifications);
         assertTrue(bootNotifications.size() > 0);
