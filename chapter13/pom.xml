@@ -16,5 +16,6 @@
 	<modules>
     <module>mule-client</module>
     <module>mule-context</module>
+    <module>mule-lifecycle</module>
   </modules>
 </project>

@@ -9,15 +9,15 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>mule-context</artifactId>
+	<artifactId>mule-lifecycle</artifactId>
 	<packaging>jar</packaging>
-	<name>Mule in Action - Chapter 13 - Mule Context Samples</name>
-	
+	<name>Mule in Action - Chapter 13 - Mule Lifecycle Samples</name>
+
 	<dependencies>
-	  	<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>[1.2,2.0)</version>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-client</artifactId>
+			<version>${mule-version}</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -11,7 +11,7 @@
 
 	<artifactId>mule-client</artifactId>
 	<packaging>jar</packaging>
-	<name>Mule in Action - Chapter 13 - MuleClient Samples</name>
+	<name>Mule in Action - Chapter 13 - Mule Client Samples</name>
 
 	<dependencies>
 		<dependency>
