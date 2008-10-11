@@ -6,6 +6,7 @@ import org.mule.api.MuleContext;
 import org.mule.api.MuleEventContext;
 import org.mule.api.lifecycle.Callable;
 import org.mule.api.service.Service;
+import org.mule.management.stats.AllStatistics;
 import org.mule.management.stats.printers.XMLPrinter;
 import org.mule.transport.NullPayload;
 
@@ -24,14 +25,21 @@ public class XmlStatisticsComponent implements Callable {
         final MuleContext muleContext = eventContext.getMuleContext();
 
         if (payload instanceof NullPayload) {
-            muleContext.getStatistics().logSummary(
-                    new XMLPrinter(xmlStatisticsWriter));
+            // <start id="Context-Statistics"/>
+            final AllStatistics allStatistics = muleContext.getStatistics();
+
+            allStatistics.logSummary(new XMLPrinter(xmlStatisticsWriter));
+            // <end id="Context-Statistics"/>
         } else {
-            final Service service =
-                    muleContext.getRegistry().lookupService(payload.toString());
+            final String serviceName = payload.toString();
+
+            // <start id="Registry-Service-Statistics"/>
+            final Service service = muleContext.getRegistry().lookupService(
+                    serviceName);
 
             service.getStatistics().logSummary(
                     new XMLPrinter(xmlStatisticsWriter));
+            // <end id="Registry-Service-Statistics"/>
         }
 
         return xmlStatisticsWriter.toString();
