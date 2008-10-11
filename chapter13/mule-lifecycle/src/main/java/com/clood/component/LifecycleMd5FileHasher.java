@@ -16,8 +16,8 @@ import org.mule.transport.file.FileConnector;
 /**
  * @author David Dossot (david@dossot.net)
  */
-// <start id="LifecyleMd5FileHasher"/>
-public class LifecyleMd5FileHasher implements Initialisable, Disposable,
+// <start id="LifecycleMd5FileHasher"/>
+public class LifecycleMd5FileHasher implements Initialisable, Disposable,
         MuleContextAware, Callable {
 
     public void setMuleContext(final MuleContext context) {
@@ -37,7 +37,7 @@ public class LifecyleMd5FileHasher implements Initialisable, Disposable,
         muleClient = null;
     }
 
-    // <end id="LifecyleMd5FileHasher"/>
+    // <end id="LifecycleMd5FileHasher"/>
 
     private MuleContext context;
 

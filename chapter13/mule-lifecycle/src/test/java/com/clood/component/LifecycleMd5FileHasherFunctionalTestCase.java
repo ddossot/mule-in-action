@@ -20,7 +20,7 @@ public class LifecycleMd5FileHasherFunctionalTestCase extends
 
     @Override
     protected String getConfigResources() {
-        return "conf/lifecyle-md5fh-config.xml";
+        return "conf/lifecycle-md5fh-config.xml";
     }
 
     @Override
