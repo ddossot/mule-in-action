@@ -40,13 +40,13 @@ public class RawJmsMuleClientTest {
 
         // load a message in the test queue so we can fetch it via the remote
         // client
-        final ConnectionFactory connectionFactory =
-                new ActiveMQConnectionFactory(BROKER_URL);
+        final ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+                BROKER_URL);
 
         final Connection connection = connectionFactory.createConnection();
 
-        final Session session =
-                connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        final Session session = connection.createSession(false,
+                Session.AUTO_ACKNOWLEDGE);
 
         session.createProducer(session.createQueue(queueName)).send(
                 session.createTextMessage(expectedPayload));
@@ -61,19 +61,20 @@ public class RawJmsMuleClientTest {
 
     @Test
     public void tapJmsTransport() throws Exception {
-        final MuleClient muleClient =
-                new MuleClient("conf/raw-jms-muleclient-config.xml");
+        // <start id="MuleClient-RawJms-Transport"/>
+        final MuleClient muleClient = new MuleClient(
+                "conf/raw-jms-muleclient-config.xml");
 
         muleClient.getMuleContext().start();
 
-        final MuleMessage response =
-                muleClient.request("jms://" + queueName
-                        + "?connector=amqConnector", 1000);
+        final MuleMessage response = muleClient.request("jms://" + queueName
+                + "?connector=amqConnector", 1000);
+
+        muleClient.dispose();
+        // <end id="MuleClient-RawJms-Transport"/>
 
         final String actualPayload = response.getPayloadAsString();
 
         assertEquals(expectedPayload, actualPayload);
-
-        muleClient.dispose();
     }
 }
