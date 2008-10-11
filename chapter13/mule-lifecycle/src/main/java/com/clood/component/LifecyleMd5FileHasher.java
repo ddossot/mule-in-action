@@ -16,24 +16,9 @@ import org.mule.transport.file.FileConnector;
 /**
  * @author David Dossot (david@dossot.net)
  */
+// <start id="LifecyleMd5FileHasher"/>
 public class LifecyleMd5FileHasher implements Initialisable, Disposable,
         MuleContextAware, Callable {
-
-    private MuleContext context;
-
-    MuleClient muleClient;
-
-    private String sourceFolder;
-
-    private String fileConnectorName;
-
-    public void setSourceFolder(final String sourceFolder) {
-        this.sourceFolder = sourceFolder;
-    }
-
-    public void setFileConnector(final FileConnector fileConnector) {
-        this.fileConnectorName = fileConnector.getName();
-    }
 
     public void setMuleContext(final MuleContext context) {
         this.context = context;
@@ -52,17 +37,35 @@ public class LifecyleMd5FileHasher implements Initialisable, Disposable,
         muleClient = null;
     }
 
+    // <end id="LifecyleMd5FileHasher"/>
+
+    private MuleContext context;
+
+    private MuleClient muleClient;
+
+    private String sourceFolder;
+
+    private String fileConnectorName;
+
+    public void setSourceFolder(final String sourceFolder) {
+        this.sourceFolder = sourceFolder;
+    }
+
+    public void setFileConnector(final FileConnector fileConnector) {
+        this.fileConnectorName = fileConnector.getName();
+    }
+
     public Object onCall(final MuleEventContext eventContext) throws Exception {
         eventContext.setStopFurtherProcessing(true);
 
         final String fileName = eventContext.transformMessageToString();
 
-        final MuleMessage requestedFileMessage =
-                muleClient.request("file://" + sourceFolder + "/" + fileName
-                        + "?connector=" + fileConnectorName, 0);
+        final MuleMessage requestedFileMessage = muleClient.request("file://"
+                + sourceFolder + "/" + fileName + "?connector="
+                + fileConnectorName, 0);
 
-        return requestedFileMessage != null ? DigestUtils.md5Hex(requestedFileMessage.getPayloadAsBytes())
-                : null;
+        return requestedFileMessage != null ? DigestUtils
+                .md5Hex(requestedFileMessage.getPayloadAsBytes()) : null;
     }
 
 }
