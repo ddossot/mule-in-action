@@ -27,12 +27,12 @@ public class MuleClientMd5FileHasher implements Callable {
     public Object onCall(final MuleEventContext eventContext) throws Exception {
         eventContext.setStopFurtherProcessing(true);
 
-        final MuleClient muleClient = new MuleClient(eventContext
-                .getMuleContext());
-
         final String fileName = eventContext.transformMessageToString();
 
         // <start id="MuleClient-NonVMTransportCall"/>
+        final MuleClient muleClient = new MuleClient(eventContext
+                .getMuleContext());
+
         final MuleMessage requestedFileMessage = muleClient.request("file://"
                 + sourceFolder + "/" + fileName + "?connector="
                 + fileConnectorName, 0);
