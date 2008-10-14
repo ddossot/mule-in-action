@@ -17,5 +17,6 @@
     <module>mule-client</module>
     <module>mule-context</module>
     <module>mule-lifecycle</module>
+    <module>mule-event-context</module>
   </modules>
 </project>
