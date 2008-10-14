@@ -29,6 +29,9 @@ public class MuleClientMd5FileHasher implements Callable {
 
         final String fileName = eventContext.transformMessageToString();
 
+        // NB. this is not an efficient implementation of the Md5FileHasher,
+        // look at the one in mule-event-context
+
         // <start id="MuleClient-NonVMTransportCall"/>
         final MuleClient muleClient = new MuleClient(eventContext
                 .getMuleContext());
