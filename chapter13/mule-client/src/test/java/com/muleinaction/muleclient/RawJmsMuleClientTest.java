@@ -70,6 +70,7 @@ public class RawJmsMuleClientTest {
         final MuleMessage response = muleClient.request("jms://" + queueName
                 + "?connector=amqConnector", 1000);
 
+        muleClient.getMuleContext().dispose();
         muleClient.dispose();
         // <end id="MuleClient-RawJms-Transport"/>
 
