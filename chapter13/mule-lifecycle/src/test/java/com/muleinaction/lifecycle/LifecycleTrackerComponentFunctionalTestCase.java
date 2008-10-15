@@ -16,8 +16,8 @@ public class LifecycleTrackerComponentFunctionalTestCase {
         LifecycleTrackerComponent.getTracker().clear();
 
         // exercise the target component but do not test anything here
-        final MuleClient muleClient = new MuleClient(
-                "conf/lifecycle-config.xml");
+        final MuleClient muleClient =
+                new MuleClient("conf/lifecycle-config.xml");
         final MuleContext muleContext = muleClient.getMuleContext();
         muleContext.start();
 
@@ -26,11 +26,11 @@ public class LifecycleTrackerComponentFunctionalTestCase {
         muleContext.dispose();
         muleClient.dispose();
 
-        final String tracking = LifecycleTrackerComponent.getTracker()
-                .toString();
+        final String tracking =
+                LifecycleTrackerComponent.getTracker().toString();
 
         assertEquals(
-                "[springSetProperty, setMuleContext, springInitialize, initialise, start, start, stop, stop, dispose, dispose, springDestroy]",
+                "[springSetProperty, setMuleContext, springInitialize, setService, initialise, start, start, stop, stop, dispose, dispose, springDestroy]",
                 tracking);
     }
 
