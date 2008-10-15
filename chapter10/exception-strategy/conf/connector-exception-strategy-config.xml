@@ -1,0 +1,59 @@
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
+      xmlns:jdbc="http://www.mulesource.org/schema/mule/jdbc/2.1"
+      xmlns:jbossts="http://www.mulesource.org/schema/mule/jbossts/2.1"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+       http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/jdbc/2.1 http://www.mulesource.org/schema/mule/jdbc/2.1/mule-jdbc.xsd
+       http://www.mulesource.org/schema/mule/jbossts/2.1 http://www.mulesource.org/schema/mule/jbossts/2.1/mule-jbossts.xsd
+       ">
+
+    <spring:beans>
+        <spring:import resource="spring-config.xml"/>
+    </spring:beans>
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+
+    <jdbc:connector name="operationalJdbcConnector" dataSource-ref="operationalDataSource">
+        <jdbc:query key="operationalBillingInsert"
+                    value="
+      INSERT INTO billing_stats VALUES (0,${map-payload:STAT});"/>
+    </jdbc:connector>
+    <jdbc:connector name="warehouseJdbcConnector" dataSource-ref="warehouseDataSource">
+        <jdbc:query key="warehouseBillingInsert"
+                    value="
+      INSERT INTO billing_stats VALUES (0,${map-payload:STAT});"/>
+    </jdbc:connector>
+
+    <jbossts:transaction-manager/>
+    <model name="BillingModel">
+        <service name="BillingService">
+            <inbound>
+                <jms:inbound-endpoint queue="billing-data">
+                    <xa-transaction action="ALWAYS_BEGIN" timeout="60000"/>
+                </jms:inbound-endpoint>
+            </inbound>
+            <component class="com.clood.billing.BillingServiceImpl"/>
+            <outbound>
+                <static-recipient-list-router>
+                    <xa-transaction action="ALWAYS_JOIN"/>
+                    <recipients>
+                        <spring:value>jdbc://operational-database?connector=operationalDataSource</spring:value>
+                        <spring:value>jdbc://operational-database?connector=warehouseDataSource</spring:value>
+                    </recipients>
+                </static-recipient-list-router>
+            </outbound>
+
+            <default-connector-exception-strategy>
+                <commit-transaction exception-pattern="com.datawarehousingprovider.jdbc.NotAReallyImportantException"/>
+                <jms:outbound-endpoint queue="errors"/>
+            </default-connector-exception-strategy>
+        </service>
+    </model>
+</mule>
