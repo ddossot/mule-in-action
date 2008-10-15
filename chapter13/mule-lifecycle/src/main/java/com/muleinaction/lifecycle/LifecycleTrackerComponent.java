@@ -6,16 +6,19 @@ import java.util.List;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEventContext;
 import org.mule.api.MuleException;
+import org.mule.api.config.ConfigurationException;
 import org.mule.api.context.MuleContextAware;
 import org.mule.api.lifecycle.Callable;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.lifecycle.Lifecycle;
+import org.mule.api.service.Service;
+import org.mule.api.service.ServiceAware;
 
 /**
  * @author David Dossot (david@dossot.net)
  */
 public class LifecycleTrackerComponent implements Lifecycle, MuleContextAware,
-        Callable {
+        ServiceAware, Callable {
 
     private final static List<String> TRACKER = new ArrayList<String>();
 
@@ -29,6 +32,10 @@ public class LifecycleTrackerComponent implements Lifecycle, MuleContextAware,
 
     public void setMuleContext(final MuleContext context) {
         TRACKER.add("setMuleContext");
+    }
+
+    public void setService(final Service service) throws ConfigurationException {
+        TRACKER.add("setService");
     }
 
     public void springInitialize() {
