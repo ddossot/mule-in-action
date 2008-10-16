@@ -11,18 +11,16 @@ import org.mule.api.MuleEventContext;
 import org.mule.api.lifecycle.Callable;
 import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.InitialisationException;
-import org.mule.service.AbstractService;
+import org.mule.api.service.Service;
 
 /**
  * A simple HTML dashboard for monitoring service activities.
- * 
- * FIXME refactor: extract HTML and CSS providers
  * 
  * @author David Dossot (david@dossot.net)
  */
 public class HtmlDashboard implements Callable, Initialisable {
 
-    private Set<AbstractService> observedServices;
+    private Set<Service> observedServices;
 
     private int refreshPeriod = 60;
 
@@ -34,7 +32,7 @@ public class HtmlDashboard implements Callable, Initialisable {
         this.refreshPeriod = refreshPeriod;
     }
 
-    public void setObservedServices(final Set<AbstractService> observedServices) {
+    public void setObservedServices(final Set<Service> observedServices) {
         Validate.notEmpty(observedServices,
                 "The HTML Dashboard needs at least one service to observe!");
 

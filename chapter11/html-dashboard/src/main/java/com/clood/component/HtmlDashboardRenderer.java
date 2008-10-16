@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentMap;
 import org.apache.commons.lang.StringUtils;
 import org.mule.api.service.Service;
 import org.mule.management.stats.ServiceStatistics;
-import org.mule.service.AbstractService;
 
 /**
  * @author David Dossot (david@dossot.net)
@@ -21,13 +20,13 @@ class HtmlDashboardRenderer implements ContentProvider {
 
     private final int refreshPeriod;
 
-    private final Set<AbstractService> observedServices;
+    private final Set<Service> observedServices;
 
     private final ConcurrentMap<Service, PreviousServiceStatistics> previousStatistics;
 
     private final String hostName;
 
-    public HtmlDashboardRenderer(final Set<AbstractService> observedServices,
+    public HtmlDashboardRenderer(final Set<Service> observedServices,
             final int refreshPeriod) throws UnknownHostException {
         hostName = InetAddress.getLocalHost().getHostName();
 
@@ -99,7 +98,7 @@ class HtmlDashboardRenderer implements ContentProvider {
         final Map<Service, String> serviceStates =
                 new HashMap<Service, String>();
 
-        for (final AbstractService observedService : observedServices) {
+        for (final Service observedService : observedServices) {
 
             final ServiceStatistics serviceStatistics =
                     observedService.getStatistics();
