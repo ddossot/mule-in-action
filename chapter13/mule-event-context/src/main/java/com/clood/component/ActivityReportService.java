@@ -36,6 +36,7 @@ public class ActivityReportService implements Initialisable, Callable {
         }
     }
 
+    // <start id="EventContext-Validator"/>
     public Object onCall(final MuleEventContext eventContext) throws Exception {
         eventContext.setStopFurtherProcessing(true);
 
@@ -59,6 +60,8 @@ public class ActivityReportService implements Initialisable, Callable {
 
         return "OK";
     }
+
+    // <end id="EventContext-Validator"/>
 
     private void validatePayloadIsValidClient(final Object payload) {
         Validate.notNull(payload, "Payload is null");
