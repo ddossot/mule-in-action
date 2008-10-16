@@ -3,12 +3,12 @@ package com.clood.component;
 import org.apache.commons.lang.Validate;
 import org.mule.api.MuleEventContext;
 import org.mule.api.MuleException;
+import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.endpoint.EndpointException;
 import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.lifecycle.Callable;
 import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.InitialisationException;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
 
 import com.clood.model.Client;
 
@@ -17,20 +17,20 @@ import com.clood.model.Client;
  */
 public class ActivityReportService implements Initialisable, Callable {
 
-    private EndpointURIEndpointBuilder errorProcessorChannelBuilder;
+    private EndpointBuilder errorProcessorChannelBuilder;
 
     private OutboundEndpoint errorProcessorChannel;
 
     public void setErrorProcessorChannel(
-            final EndpointURIEndpointBuilder errorProcessorChannelBuilder) {
+            final EndpointBuilder errorProcessorChannelBuilder) {
 
         this.errorProcessorChannelBuilder = errorProcessorChannelBuilder;
     }
 
     public void initialise() throws InitialisationException {
         try {
-            errorProcessorChannel =
-                    errorProcessorChannelBuilder.buildOutboundEndpoint();
+            errorProcessorChannel = errorProcessorChannelBuilder
+                    .buildOutboundEndpoint();
         } catch (final EndpointException ee) {
             throw new InitialisationException(ee, this);
         }
