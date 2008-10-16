@@ -2,7 +2,6 @@ package com.clood.component;
 
 import java.util.Collections;
 
-import org.mule.service.AbstractService;
 import org.mule.tck.AbstractMuleTestCase;
 
 /**
@@ -17,7 +16,7 @@ public class HtmlDashboardTestCase extends AbstractMuleTestCase {
         super.doSetUp();
 
         dashboard = new HtmlDashboard();
-        dashboard.setObservedServices(Collections.singleton((AbstractService) getTestService()));
+        dashboard.setObservedServices(Collections.singleton(getTestService()));
         dashboard.setRefreshPeriod(1234);
         dashboard.initialise();
     }
