@@ -20,51 +20,50 @@ import org.mule.api.service.ServiceAware;
 public class LifecycleTrackerComponent implements Lifecycle, MuleContextAware,
         ServiceAware, Callable {
 
-    private final static List<String> TRACKER = new ArrayList<String>();
+    private final List<String> tracker = new ArrayList<String>();
 
-    public static List<String> getTracker() {
-        return TRACKER;
+    public List<String> getTracker() {
+        return tracker;
     }
 
     public void setProperty(final String value) {
-        TRACKER.add("springSetProperty");
+        tracker.add("springSetProperty");
     }
 
     public void setMuleContext(final MuleContext context) {
-        TRACKER.add("setMuleContext");
+        tracker.add("setMuleContext");
     }
 
     public void setService(final Service service) throws ConfigurationException {
-        TRACKER.add("setService");
+        tracker.add("setService");
     }
 
     public void springInitialize() {
-        TRACKER.add("springInitialize");
+        tracker.add("springInitialize");
     }
 
     public void springDestroy() {
-        TRACKER.add("springDestroy");
+        tracker.add("springDestroy");
     }
 
     public void initialise() throws InitialisationException {
-        TRACKER.add("initialise");
+        tracker.add("initialise");
     }
 
     public void start() throws MuleException {
-        TRACKER.add("start");
+        tracker.add("start");
     }
 
     public void stop() throws MuleException {
-        TRACKER.add("stop");
+        tracker.add("stop");
     }
 
     public void dispose() {
-        TRACKER.add("dispose");
+        tracker.add("dispose");
     }
 
     public Object onCall(final MuleEventContext eventContext) throws Exception {
-        // do nothing in particular
-        return null;
+        return "ACK";
     }
 
 }
