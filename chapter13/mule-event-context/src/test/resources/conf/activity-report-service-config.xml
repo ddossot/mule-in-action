@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+	xmlns:test="http://www.mulesource.org/schema/mule/test/2.1"
+	xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/test/2.1 http://www.mulesource.org/schema/mule/test/2.1/mule-test.xsd">
+
+	<vm:endpoint name="ErrorProcessorChannel" path="ErrorProcessor.In" />
+
+	<model name="ActivityReportServiceModel">
+
+		<service name="ActivityReportService">
+			<inbound>
+				<vm:inbound-endpoint path="ActivityReportService.In"
+					synchronous="true" />
+			</inbound>
+			<component>
+				<singleton-object class="com.clood.component.ActivityReportService">
+					<property key="errorProcessorChannel" value-ref="ErrorProcessorChannel" />
+				</singleton-object>
+			</component>
+			<outbound>
+				<pass-through-router>
+					<vm:outbound-endpoint path="ActivityReportProcessor.In"
+						synchronous="false" />
+				</pass-through-router>
+			</outbound>
+		</service>
+
+		<service name="ActivityReportProcessor">
+			<inbound>
+				<vm:inbound-endpoint path="ActivityReportProcessor.In" />
+			</inbound>
+			<test:component enableMessageHistory="true" />
+		</service>
+
+		<service name="ErrorProcessor">
+			<inbound>
+				<inbound-endpoint ref="ErrorProcessorChannel" />
+			</inbound>
+			<test:component enableMessageHistory="true" />
+		</service>
+
+	</model>
+</mule>
