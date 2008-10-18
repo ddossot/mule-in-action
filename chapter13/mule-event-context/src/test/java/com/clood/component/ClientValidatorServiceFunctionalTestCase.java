@@ -11,7 +11,8 @@ import com.clood.model.Client;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class ActivityReportServiceFunctionalTestCase extends FunctionalTestCase {
+public class ClientValidatorServiceFunctionalTestCase extends
+        FunctionalTestCase {
 
     private MuleClient muleClient;
 
@@ -21,7 +22,7 @@ public class ActivityReportServiceFunctionalTestCase extends FunctionalTestCase 
 
     @Override
     protected String getConfigResources() {
-        return "conf/activity-report-service-config.xml";
+        return "conf/client-validator-service-config.xml";
     }
 
     @Override
@@ -30,19 +31,18 @@ public class ActivityReportServiceFunctionalTestCase extends FunctionalTestCase 
 
         muleClient = new MuleClient(muleContext);
 
-        final DefaultJavaComponent activityReportProcessorJavaComponent =
-                (DefaultJavaComponent) muleContext.getRegistry().lookupService(
-                        "ActivityReportProcessor").getComponent();
+        final DefaultJavaComponent activityReportProcessorJavaComponent = (DefaultJavaComponent) muleContext
+                .getRegistry().lookupService("ActivityReportProcessor")
+                .getComponent();
 
-        activityReportProcessorComponent =
-                (FunctionalTestComponent) activityReportProcessorJavaComponent.getObjectFactory().getInstance();
+        activityReportProcessorComponent = (FunctionalTestComponent) activityReportProcessorJavaComponent
+                .getObjectFactory().getInstance();
 
-        final DefaultJavaComponent errorProcessorJavaComponent =
-                (DefaultJavaComponent) muleContext.getRegistry().lookupService(
-                        "ErrorProcessor").getComponent();
+        final DefaultJavaComponent errorProcessorJavaComponent = (DefaultJavaComponent) muleContext
+                .getRegistry().lookupService("ErrorProcessor").getComponent();
 
-        errorProcessorComponent =
-                (FunctionalTestComponent) errorProcessorJavaComponent.getObjectFactory().getInstance();
+        errorProcessorComponent = (FunctionalTestComponent) errorProcessorJavaComponent
+                .getObjectFactory().getInstance();
     }
 
     @Override
@@ -54,9 +54,9 @@ public class ActivityReportServiceFunctionalTestCase extends FunctionalTestCase 
 
     public void testValidClient() throws Exception {
 
-        final MuleMessage result =
-                muleClient.send("vm://ActivityReportService.In", new Client(
-                        123, "Mr.", "Doe"), null);
+        final MuleMessage result = muleClient.send(
+                "vm://ActivityReportService.In", new Client(123, "Mr.", "Doe"),
+                null);
 
         assertEquals("OK", result.getPayloadAsString());
 
@@ -68,12 +68,12 @@ public class ActivityReportServiceFunctionalTestCase extends FunctionalTestCase 
 
     public void testInvalidClient() throws Exception {
 
-        final MuleMessage result =
-                muleClient.send("vm://ActivityReportService.In", new Client(
-                        -123, "Mr.", "Doe"), null);
+        final MuleMessage result = muleClient.send(
+                "vm://ActivityReportService.In",
+                new Client(-123, "Mr.", "Doe"), null);
 
-        assertEquals("ERROR: Client ID must be a positive long",
-                result.getPayloadAsString());
+        assertEquals("ERROR: Client ID must be a positive long", result
+                .getPayloadAsString());
 
         waitUntilMessageHitsComponent(errorProcessorComponent);
 
@@ -83,9 +83,8 @@ public class ActivityReportServiceFunctionalTestCase extends FunctionalTestCase 
 
     public void testInvalidObject() throws Exception {
 
-        final MuleMessage result =
-                muleClient.send("vm://ActivityReportService.In", new Object(),
-                        null);
+        final MuleMessage result = muleClient.send(
+                "vm://ActivityReportService.In", new Object(), null);
 
         assertEquals(
                 "ERROR: Payload is not a: com.clood.model.Client but a: java.lang.Object",

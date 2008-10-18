@@ -15,7 +15,7 @@ import com.clood.model.Client;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class ActivityReportService implements Initialisable, Callable {
+public class ClientValidatorService implements Initialisable, Callable {
 
     private EndpointBuilder errorProcessorChannelBuilder;
 

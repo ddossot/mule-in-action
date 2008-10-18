@@ -17,7 +17,7 @@
 					synchronous="true" />
 			</inbound>
 			<component>
-				<singleton-object class="com.clood.component.ActivityReportService">
+				<singleton-object class="com.clood.component.ClientValidatorService">
 					<property key="errorProcessorChannel" value-ref="ErrorProcessorChannel" />
 				</singleton-object>
 			</component>
