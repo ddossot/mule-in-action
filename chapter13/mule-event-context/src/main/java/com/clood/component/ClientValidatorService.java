@@ -44,16 +44,16 @@ public class ClientValidatorService implements Initialisable, Callable {
 
         try {
             validatePayloadIsValidClient(payload);
-        } catch (final RuntimeException re) {
+        } catch (final IllegalArgumentException iae) {
 
             try {
                 eventContext.dispatchEvent(eventContext.getMessage(),
                         errorProcessorChannel);
             } catch (final MuleException me) {
-                return "ERROR: " + me.getMessage();
+                processMuleException(me);
             }
 
-            return "ERROR: " + re.getMessage();
+            return "ERROR: " + iae.getMessage();
         }
 
         eventContext.dispatchEvent(payload);
@@ -74,4 +74,7 @@ public class ClientValidatorService implements Initialisable, Callable {
                 "Client ID must be a positive long");
     }
 
+    private void processMuleException(final MuleException me) {
+        // do something smart with the exception
+    }
 }
