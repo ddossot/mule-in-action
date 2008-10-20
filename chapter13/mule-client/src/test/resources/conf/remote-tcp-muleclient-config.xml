@@ -32,7 +32,7 @@
 			<outbound>
 				<pass-through-router>
 					<http:outbound-endpoint synchronous="true"
-						address="http://finance.google.com/finance/historical?q=${message:payload}&amp;histperiod=weekly&amp;output=csv" />
+						address="http://finance.google.com/finance/historical?q=%23[message:payload]&amp;histperiod=weekly&amp;output=csv" />
 				</pass-through-router>
 			</outbound>
 		</service>
