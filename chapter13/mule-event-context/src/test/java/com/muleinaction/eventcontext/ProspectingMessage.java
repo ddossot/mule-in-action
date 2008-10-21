@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
 import java.util.Collections;
+import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -78,7 +79,8 @@ public class ProspectingMessage {
     public void stringPayloadAsBytesAndString() throws Exception {
         final String payload = "foo";
 
-        final MuleMessage message = new DefaultMuleMessage(payload);
+        final MuleMessage message = new DefaultMuleMessage(payload,
+                (Map<?, ?>) null);
 
         assertTrue(Arrays.equals(payload.getBytes(message.getEncoding()),
                 message.getPayloadAsBytes()));
@@ -94,7 +96,8 @@ public class ProspectingMessage {
     public void serializablePayloadAsBytesAndString() throws Exception {
         final BigInteger payload = BigInteger.valueOf(123L);
 
-        final MuleMessage message = new DefaultMuleMessage(payload);
+        final MuleMessage message = new DefaultMuleMessage(payload,
+                (Map<?, ?>) null);
 
         assertEquals(0, BITBT.usageCount);
 
@@ -134,7 +137,7 @@ public class ProspectingMessage {
                     public Object getPayload() {
                         return payload;
                     }
-                });
+                }, (Map<?, ?>) null);
 
         assertEquals(0, BITBT.usageCount);
 
