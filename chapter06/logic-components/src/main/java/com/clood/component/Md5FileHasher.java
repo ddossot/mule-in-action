@@ -10,7 +10,6 @@ import org.mule.transport.file.FileConnector;
 /**
  * @author David Dossot (david@dossot.net)
  */
-// <start id="LoCoShow-MD5H-java"/>
 public class Md5FileHasher implements Callable {
 
     private String sourceFolderUri;
@@ -28,18 +27,18 @@ public class Md5FileHasher implements Callable {
     public Object onCall(final MuleEventContext eventContext) throws Exception {
         eventContext.setStopFurtherProcessing(true);
 
-        final EndpointBuilder endpointBuilder =
-                eventContext.getMuleContext().getRegistry().lookupEndpointFactory().getEndpointBuilder(
-                        sourceFolderUri
-                                + eventContext.transformMessageToString());
+        final String fileName = eventContext.getMessageAsString();
+
+        final EndpointBuilder endpointBuilder = eventContext.getMuleContext()
+                .getRegistry().lookupEndpointFactory().getEndpointBuilder(
+                        sourceFolderUri + fileName);
 
         endpointBuilder.setConnector(fileConnector);
 
-        final MuleMessage requestedFileMessage =
-                endpointBuilder.buildInboundEndpoint().request(0);
+        final MuleMessage requestedFileMessage = endpointBuilder
+                .buildInboundEndpoint().request(0);
 
-        return requestedFileMessage != null ? DigestUtils.md5Hex(requestedFileMessage.getPayloadAsBytes())
-                : null;
+        return requestedFileMessage != null ? DigestUtils
+                .md5Hex(requestedFileMessage.getPayloadAsBytes()) : null;
     }
 }
-// <end id="LoCoShow-MD5H-java"/>

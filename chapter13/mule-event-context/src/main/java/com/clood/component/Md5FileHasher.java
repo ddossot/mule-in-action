@@ -26,7 +26,7 @@ public class Md5FileHasher implements Callable {
     // <start id="EventContext-Md5FileHasher"/>
     public Object onCall(final MuleEventContext eventContext) throws Exception {
 
-        final String fileName = eventContext.transformMessageToString();
+        final String fileName = eventContext.getMessageAsString();
 
         final MuleMessage requestedFileMessage = eventContext.requestEvent(
                 "file://" + sourceFolder + "/" + fileName + "?connector="

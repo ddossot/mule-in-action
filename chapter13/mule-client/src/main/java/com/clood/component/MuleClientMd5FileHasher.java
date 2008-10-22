@@ -27,7 +27,7 @@ public class MuleClientMd5FileHasher implements Callable {
     public Object onCall(final MuleEventContext eventContext) throws Exception {
         eventContext.setStopFurtherProcessing(true);
 
-        final String fileName = eventContext.transformMessageToString();
+        final String fileName = eventContext.getMessageAsString();
 
         // NB. this is not an efficient implementation of the Md5FileHasher,
         // look at the one in mule-event-context
