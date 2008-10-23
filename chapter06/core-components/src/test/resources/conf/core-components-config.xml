@@ -12,9 +12,9 @@
 	
 	<spring:bean id="SampleActivityReport" class="com.clood.statistic.ActivityReport" />
 
-	<vm:endpoint name="GenericChannel" path="GenericChannel" />
-	<vm:endpoint name="ClientLookupChannel" path="ClientLookupService.In" />
-	<vm:endpoint name="ActivityReportLookupChannel" path="ActivityReportLookupService.In" />
+	<vm:endpoint name="GenericChannel" path="GenericChannel" synchronous="true" />
+	<vm:endpoint name="ClientLookupChannel" path="ClientLookupService.In" synchronous="true" />
+	<vm:endpoint name="ActivityReportLookupChannel" path="ActivityReportLookupService.In" synchronous="true" />
 
 	<append-string-transformer name="Suffixer" message=" world!" />
 
@@ -23,7 +23,7 @@
 		<!-- <start id="CoCoShow-ExplicitBridge"/> -->
 		<service name="ExplicitBridge">
 			<inbound>
-				<vm:inbound-endpoint path="ExplicitBridge.In">
+				<vm:inbound-endpoint path="ExplicitBridge.In" synchronous="true">
 					<transformer ref="Suffixer" />
 				</vm:inbound-endpoint>
 			</inbound>
@@ -41,7 +41,7 @@
 		<!-- <start id="CoCoShow-ImplicitBridge"/> -->
 		<service name="ImplicitBridge">
 			<inbound>
-				<vm:inbound-endpoint path="ImplicitBridge.In">
+				<vm:inbound-endpoint path="ImplicitBridge.In" synchronous="true">
 					<transformer ref="Suffixer" />
 				</vm:inbound-endpoint>
 			</inbound>
@@ -57,7 +57,7 @@
 		<!-- <start id="CoCoShow-Echo"/> -->
 		<service name="Echo">
 			<inbound>
-				<vm:inbound-endpoint path="Echo.In">
+				<vm:inbound-endpoint path="Echo.In" synchronous="true">
 					<transformer ref="Suffixer" />
 				</vm:inbound-endpoint>
 			</inbound>
@@ -75,7 +75,7 @@
 		<!-- <start id="CoCoShow-Log"/> -->
 		<service name="Log">
 			<inbound>
-				<vm:inbound-endpoint path="Log.In">
+				<vm:inbound-endpoint path="Log.In" synchronous="true">
 					<transformer ref="Suffixer" />
 				</vm:inbound-endpoint>
 			</inbound>
@@ -93,7 +93,7 @@
 		<!-- <start id="CoCoNull-Log"/> -->
 		<service name="Null">
 			<inbound>
-				<vm:inbound-endpoint path="Null.In">
+				<vm:inbound-endpoint path="Null.In" synchronous="true">
 					<transformer ref="Suffixer" />
 				</vm:inbound-endpoint>
 			</inbound>
@@ -111,10 +111,12 @@
 		<!-- <start id="CoCoShow-Builder"/> -->
 		<service name="EmailContextBuilder">
 			<inbound>
-				<vm:inbound-endpoint path="EmailContextBuilder.In" />
+				<vm:inbound-endpoint path="EmailContextBuilder.In" synchronous="true" />
 			</inbound>
 
-			<component class="org.mule.component.builder.ReflectionMessageBuilder" />
+			<component>
+			  <singleton-object class="org.mule.component.builder.ReflectionMessageBuilder" />
+			</component>
 
 			<outbound>
 				<multicasting-router>
@@ -128,7 +130,7 @@
 		<!-- <start id="CoCoShow-Static"/> -->
 		<service name="Static">
 			<inbound>
-				<vm:inbound-endpoint path="Static.In" />
+				<vm:inbound-endpoint path="Static.In" synchronous="true" />
 			</inbound>
 
 			<component>

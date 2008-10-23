@@ -17,14 +17,14 @@ public class StringTargetComponent implements Callable {
     }
 
     public Object onCall(final MuleEventContext eventContext) throws Exception {
-        final String transformedMessageToString =
-                eventContext.transformMessageToString();
+        final String payloadToString = eventContext.getMessage()
+                .getPayload().toString();
 
-        if (!value.compareAndSet(null, transformedMessageToString)) {
+        if (!value.compareAndSet(null, payloadToString)) {
             throw new IllegalStateException("Can be called only once!");
         }
 
-        return transformedMessageToString;
+        return payloadToString;
     }
 
     public String getValue() {
