@@ -14,7 +14,7 @@ import com.muleinaction.test.StringTargetComponent;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class CoreComponentsFunctionalShowCase extends FunctionalTestCase {
+public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
 
     private StringTargetComponent target;
 
