@@ -25,16 +25,9 @@
 			</component>
 		</service>
 
-		<service name="MuleComponentService">
+		<service name="MuleSingletonService">
 			<inbound>
-				<vm:inbound-endpoint path="MuleComponentService.In" />
-			</inbound>
-			<component class="com.muleinaction.lifecycle.LifecycleTrackerComponent" />
-		</service>
-
-		<service name="MuleObjectService">
-			<inbound>
-				<vm:inbound-endpoint path="MuleObjectService.In" />
+				<vm:inbound-endpoint path="MuleSingletonService.In" />
 			</inbound>
 			<component>
 				<singleton-object class="com.muleinaction.lifecycle.LifecycleTrackerComponent" />

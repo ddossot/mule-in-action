@@ -11,7 +11,9 @@
 			<inbound>
 				<vm:inbound-endpoint path="XmlStats.IN" synchronous="true" />
 			</inbound>
-			<component class="com.clood.component.XmlStatisticsComponent" />
+			<component>
+			 <singleton-object class="com.clood.component.XmlStatisticsComponent" />
+			</component>
 		</service>
 		
 		<service name="Emailer">

@@ -63,7 +63,7 @@ public class LifecycleTrackerComponent implements Lifecycle, MuleContextAware,
     }
 
     public Object onCall(final MuleEventContext eventContext) throws Exception {
-        return "ACK";
+        return "ACK" + this.hashCode();
     }
 
 }

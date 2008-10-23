@@ -16,86 +16,86 @@ import com.muleinaction.test.StringTargetComponent;
  */
 public class CoreComponentsFunctionalShowCase extends FunctionalTestCase {
 
-	private StringTargetComponent target;
+    private StringTargetComponent target;
 
-	private MuleClient muleClient;
+    private MuleClient muleClient;
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/core-components-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/core-components-config.xml";
+    }
 
-	@Override
-	protected void doSetUp() throws Exception {
-		setDisposeManagerPerSuite(true);
+    @Override
+    protected void doSetUp() throws Exception {
+        setDisposeManagerPerSuite(true);
 
-		super.doSetUp();
+        super.doSetUp();
 
-		muleClient = new MuleClient(muleContext);
+        muleClient = new MuleClient(muleContext);
 
-		target = (StringTargetComponent) muleContext.getRegistry().lookupObject(
-				"StringTargetComponent");
+        target = (StringTargetComponent) muleContext.getRegistry()
+                .lookupObject("StringTargetComponent");
 
-		target.reset();
-	}
+        target.reset();
+    }
 
-	public void testExplicitBridge() throws Exception {
-		doTestComponent("vm://ExplicitBridge.In", "Hello world!", true, false);
-	}
+    public void testExplicitBridge() throws Exception {
+        doTestComponent("vm://ExplicitBridge.In", "Hello world!", true, false);
+    }
 
-	public void testImplicitBridge() throws Exception {
-		doTestComponent("vm://ImplicitBridge.In", "Hello world!", true, false);
-	}
+    public void testImplicitBridge() throws Exception {
+        doTestComponent("vm://ImplicitBridge.In", "Hello world!", true, false);
+    }
 
-	public void testEcho() throws Exception {
-		doTestComponent("vm://Echo.In", "Hello world!", true, false);
-	}
+    public void testEcho() throws Exception {
+        doTestComponent("vm://Echo.In", "Hello world!", true, false);
+    }
 
-	public void testLog() throws Exception {
-		doTestComponent("vm://Log.In", NullPayload.getInstance().toString(), false,
-				false);
-	}
+    public void testLog() throws Exception {
+        doTestComponent("vm://Log.In", NullPayload.getInstance().toString(),
+                true, false);
+    }
 
-	public void testNull() throws Exception {
-		doTestComponent("vm://Null.In", NullPayload.getInstance().toString(),
-				false, true);
-	}
+    public void testNull() throws Exception {
+        doTestComponent("vm://Null.In", NullPayload.getInstance().toString(),
+                false, true);
+    }
 
-	public void testStatic() throws Exception {
-		doTestComponent("vm://Static.In", "All I hear is static", true, false);
-	}
+    public void testStatic() throws Exception {
+        doTestComponent("vm://Static.In", "All I hear is static", true, false);
+    }
 
-	public void testBuilder() throws Exception {
-		final long clientId = new Random().nextLong();
+    public void testBuilder() throws Exception {
+        final long clientId = new Random().nextLong();
 
-		final ActivityEmailContext aec = new ActivityEmailContext(clientId);
+        final ActivityEmailContext aec = new ActivityEmailContext(clientId);
 
-		final MuleMessage response = muleClient.send("vm://EmailContextBuilder.In",
-				aec, null);
+        final MuleMessage response = muleClient.send(
+                "vm://EmailContextBuilder.In", aec, null);
 
-		assertNotNull(response);
-		assertSame(aec, response.getPayload());
-		assertEquals(clientId, aec.getClient().getId());
-		assertEquals(ActivityReport.class.getSimpleName(), aec.getActivityReport()
-				.toString());
-	}
+        assertNotNull(response);
+        assertSame(aec, response.getPayload());
+        assertEquals(clientId, aec.getClient().getId());
+        assertEquals(ActivityReport.class.getSimpleName(), aec
+                .getActivityReport().toString());
+    }
 
-	private void doTestComponent(final String inboundUri,
-			final String expectedResponse, final boolean expectedToReachTarget,
-			final boolean willGetException) throws Exception {
+    private void doTestComponent(final String inboundUri,
+            final String expectedResponse, final boolean expectedToReachTarget,
+            final boolean willGetException) throws Exception {
 
-		final MuleMessage response = muleClient.send(inboundUri, "Hello", null);
+        final MuleMessage response = muleClient.send(inboundUri, "Hello", null);
 
-		assertNotNull(response);
-		assertEquals(expectedResponse, response.getPayloadAsString());
+        assertNotNull(response);
+        assertEquals(expectedResponse, response.getPayloadAsString());
 
-		if (expectedToReachTarget) {
-			assertEquals(expectedResponse, target.getValue());
-		} else {
-			assertNull(target.getValue());
-		}
+        if (expectedToReachTarget) {
+            assertEquals(expectedResponse, target.getValue());
+        } else {
+            assertNull(target.getValue());
+        }
 
-		assertEquals(willGetException, response.getExceptionPayload() != null);
-	}
+        assertEquals(willGetException, response.getExceptionPayload() != null);
+    }
 
 }
