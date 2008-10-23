@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class MD5FileHasherClient {
+public class Md5FileHasherClient {
 
 	private Md5FileHasherService md5hasher;
 

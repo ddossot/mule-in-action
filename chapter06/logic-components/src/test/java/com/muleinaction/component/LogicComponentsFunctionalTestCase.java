@@ -12,7 +12,7 @@ import org.mule.tck.FunctionalTestCase;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class LogicComponentsFunctionalShowCase extends FunctionalTestCase {
+public class LogicComponentsFunctionalTestCase extends FunctionalTestCase {
 
 	private MuleClient muleClient;
 
