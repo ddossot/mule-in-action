@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mule.api.MuleContext;
+import org.mule.api.registry.MuleRegistry;
 import org.mule.component.DefaultJavaComponent;
 import org.mule.module.client.MuleClient;
 
@@ -14,28 +15,36 @@ public class LifecycleTrackerComponentFunctionalTestCase {
 
     @Test
     public void trackLifecycle() throws Exception {
-        final MuleClient muleClient = new MuleClient(
-                "conf/lifecycle-config.xml");
+        final MuleClient muleClient =
+                new MuleClient("conf/lifecycle-config.xml");
 
         final MuleContext muleContext = muleClient.getMuleContext();
         muleContext.start();
 
-        final LifecycleTrackerComponent springLTC = (LifecycleTrackerComponent) muleContext
-                .getRegistry().lookupObject(
-                        "SpringBeanLifecycleTrackerComponent");
+        final MuleRegistry registry = muleContext.getRegistry();
 
-        final DefaultJavaComponent muleSingletonJavaLTC = (DefaultJavaComponent) muleContext
-                .getRegistry().lookupService("MuleSingletonService")
-                .getComponent();
+        final LifecycleTrackerComponent springLT =
+                (LifecycleTrackerComponent) registry.lookupObject("SpringBeanLifecycleTracker");
 
-        final LifecycleTrackerComponent muleSingletonLTC = (LifecycleTrackerComponent) muleSingletonJavaLTC
-                .getObjectFactory().getInstance();
+        final LifecycleTrackerComponent springLTC =
+                (LifecycleTrackerComponent) registry.lookupObject("SpringBeanLifecycleTrackerComponent");
+
+        final DefaultJavaComponent muleSingletonJavaLTC =
+                (DefaultJavaComponent) registry.lookupService(
+                        "MuleSingletonService").getComponent();
+
+        final LifecycleTrackerComponent muleSingletonLTC =
+                (LifecycleTrackerComponent) muleSingletonJavaLTC.getObjectFactory().getInstance();
 
         exerciseComponent(muleClient, "SpringBeanService", springLTC);
         exerciseComponent(muleClient, "MuleSingletonService", muleSingletonLTC);
 
         muleContext.dispose();
         muleClient.dispose();
+
+        assertEquals(
+                "[springSetProperty, setMuleContext, springInitialize, start, stop, springDestroy]",
+                springLT.getTracker().toString());
 
         assertEquals(
                 "[springSetProperty, setMuleContext, springInitialize, setService, initialise, start, start, stop, stop, dispose, dispose, springDestroy]",
@@ -49,8 +58,9 @@ public class LifecycleTrackerComponentFunctionalTestCase {
             final String componentName, final LifecycleTrackerComponent ltc)
             throws Exception {
 
-        assertEquals(componentName, "ACK" + ltc.hashCode(), muleClient
-                .sendDirect(componentName, null, null, null)
-                .getPayloadAsString());
+        assertEquals(
+                componentName,
+                "ACK" + ltc.hashCode(),
+                muleClient.sendDirect(componentName, null, null, null).getPayloadAsString());
     }
 }
