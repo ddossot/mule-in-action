@@ -17,6 +17,8 @@ import com.clood.model.Client;
  */
 public class ClientValidatorService implements Initialisable, Callable {
 
+    private volatile boolean initialized = false;
+
     private EndpointBuilder errorProcessorChannelBuilder;
 
     private OutboundEndpoint errorProcessorChannel;
@@ -28,9 +30,15 @@ public class ClientValidatorService implements Initialisable, Callable {
     }
 
     public void initialise() throws InitialisationException {
+        if (initialized) {
+            return;
+        }
+
         try {
-            errorProcessorChannel = errorProcessorChannelBuilder
-                    .buildOutboundEndpoint();
+            errorProcessorChannel =
+                    errorProcessorChannelBuilder.buildOutboundEndpoint();
+
+            initialized = true;
         } catch (final EndpointException ee) {
             throw new InitialisationException(ee, this);
         }
