@@ -27,7 +27,7 @@ public class LifecycleTrackerComponent implements Lifecycle, MuleContextAware,
     }
 
     public void setProperty(final String value) {
-        tracker.add("springSetProperty");
+        tracker.add("setProperty");
     }
 
     public void setMuleContext(final MuleContext context) {
@@ -63,7 +63,9 @@ public class LifecycleTrackerComponent implements Lifecycle, MuleContextAware,
     }
 
     public Object onCall(final MuleEventContext eventContext) throws Exception {
-        return "ACK" + this.hashCode();
+        // dirty trick to get the component instance that was used for the
+        // request
+        return this;
     }
 
 }

@@ -27,7 +27,7 @@ public class LifecycleTrackerTransformer extends AbstractTransformer implements
     }
 
     public void setProperty(final String value) {
-        tracker.add("springSetProperty");
+        tracker.add("setProperty");
     }
 
     public void setMuleContext(final MuleContext context) {
@@ -36,14 +36,6 @@ public class LifecycleTrackerTransformer extends AbstractTransformer implements
 
     public void setService(final Service service) throws ConfigurationException {
         tracker.add("setService");
-    }
-
-    public void springInitialize() {
-        tracker.add("springInitialize");
-    }
-
-    public void springDestroy() {
-        tracker.add("springDestroy");
     }
 
     @Override
@@ -67,7 +59,7 @@ public class LifecycleTrackerTransformer extends AbstractTransformer implements
     protected Object doTransform(final Object src, final String encoding)
             throws TransformerException {
 
-        // dirty trick to get the transform instance that was used for the
+        // dirty trick to get the transformer instance that was used for the
         // request
         return this;
     }
