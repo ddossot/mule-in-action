@@ -17,9 +17,11 @@
 					synchronous="true" />
 			</inbound>
 			<component>
+				<!-- <start id="Component-Validator"/>  -->
 				<singleton-object class="com.clood.component.ClientValidatorService">
 					<property key="errorProcessorChannel" value-ref="ErrorProcessorChannel" />
 				</singleton-object>
+				<!-- <end id="Component-Validator"/>  -->
 			</component>
 			<outbound>
 				<pass-through-router>

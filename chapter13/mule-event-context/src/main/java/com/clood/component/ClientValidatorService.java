@@ -23,6 +23,7 @@ public class ClientValidatorService implements Initialisable, Callable {
 
     private OutboundEndpoint errorProcessorChannel;
 
+    // <start id="Lifecycle-Validator"/>
     public void setErrorProcessorChannel(
             final EndpointBuilder errorProcessorChannelBuilder) {
 
@@ -35,14 +36,16 @@ public class ClientValidatorService implements Initialisable, Callable {
         }
 
         try {
-            errorProcessorChannel =
-                    errorProcessorChannelBuilder.buildOutboundEndpoint();
+            errorProcessorChannel = errorProcessorChannelBuilder
+                    .buildOutboundEndpoint();
 
             initialized = true;
         } catch (final EndpointException ee) {
             throw new InitialisationException(ee, this);
         }
     }
+
+    // <end id="Lifecycle-Validator"/>
 
     // <start id="EventContext-Validator"/>
     public Object onCall(final MuleEventContext eventContext) throws Exception {
