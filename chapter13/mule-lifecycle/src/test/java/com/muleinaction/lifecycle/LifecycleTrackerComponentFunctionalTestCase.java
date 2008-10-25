@@ -23,16 +23,16 @@ public class LifecycleTrackerComponentFunctionalTestCase {
 
         final MuleRegistry registry = muleContext.getRegistry();
 
-        final LifecycleTrackerComponent springLT = (LifecycleTrackerComponent) registry
+        final AbstractLifecycleTracker springLT = (AbstractLifecycleTracker) registry
                 .lookupObject("SpringBeanLifecycleTracker");
 
-        final LifecycleTrackerComponent springLTC = exerciseComponent(
+        final AbstractLifecycleTracker springLTC = exerciseComponent(
                 muleClient, "SpringBeanService");
 
-        final LifecycleTrackerComponent muleSingletonLTC = exerciseComponent(
+        final AbstractLifecycleTracker muleSingletonLTC = exerciseComponent(
                 muleClient, "MuleSingletonService");
 
-        final LifecycleTrackerComponent mulePrototypeLTC = exerciseComponent(
+        final AbstractLifecycleTracker mulePrototypeLTC = exerciseComponent(
                 muleClient, "MulePrototypeService");
 
         muleContext.dispose();
@@ -58,11 +58,11 @@ public class LifecycleTrackerComponentFunctionalTestCase {
                 mulePrototypeLTC.getTracker().toString());
     }
 
-    private LifecycleTrackerComponent exerciseComponent(
+    private AbstractLifecycleTracker exerciseComponent(
             final MuleClient muleClient, final String componentName)
             throws Exception {
 
-        final LifecycleTrackerComponent ltc = (LifecycleTrackerComponent) muleClient
+        final AbstractLifecycleTracker ltc = (AbstractLifecycleTracker) muleClient
                 .sendDirect(componentName, null, null, null).getPayload();
 
         assertNotNull(ltc);
