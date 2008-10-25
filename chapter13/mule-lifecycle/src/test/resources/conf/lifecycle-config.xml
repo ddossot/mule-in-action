@@ -6,6 +6,8 @@
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+	<configuration defaultSynchronousEndpoints="true" defaultRemoteSync="true" />
+
 	<spring:bean id="SpringBeanLifecycleTracker" class="com.muleinaction.lifecycle.LifecycleTrackerComponent"
 		init-method="springInitialize" destroy-method="springDestroy" scope="singleton">
 		<spring:property name="property" value="sblt" />
@@ -29,7 +31,7 @@
 
 		<service name="SpringBeanService">
 			<inbound>
-				<vm:inbound-endpoint path="SpringBeanService.In" synchronous="true" />
+				<vm:inbound-endpoint path="SpringBeanService.In" />
 			</inbound>
 			<component>
 				<spring-object bean="SpringBeanLifecycleTrackerComponent" />
@@ -38,7 +40,7 @@
 
 		<service name="MulePrototypeService">
 			<inbound>
-				<vm:inbound-endpoint path="MulePrototypeService.In" synchronous="true" />
+				<vm:inbound-endpoint path="MulePrototypeService.In" />
 			</inbound>
 			<component>
 				<prototype-object class="com.muleinaction.lifecycle.LifecycleTrackerComponent">
@@ -49,7 +51,7 @@
 
 		<service name="MuleSingletonService">
 			<inbound>
-				<vm:inbound-endpoint path="MuleSingletonService.In" synchronous="true" />
+				<vm:inbound-endpoint path="MuleSingletonService.In" />
 			</inbound>
 			<component>
 				<singleton-object class="com.muleinaction.lifecycle.LifecycleTrackerComponent">
@@ -60,7 +62,7 @@
 
 		<service name="FilteredService">
 			<inbound>
-				<vm:inbound-endpoint path="FilteredService.In" synchronous="true">
+				<vm:inbound-endpoint path="FilteredService.In">
 					<filter ref="LifecycleTrackerFilter" />
 				</vm:inbound-endpoint>
 			</inbound>
@@ -69,8 +71,7 @@
 
 		<service name="EchoService">
 			<inbound>
-				<vm:inbound-endpoint path="EchoService.In" synchronous="true"
-					transformer-refs="LifecycleTrackerTransformer" />
+				<vm:inbound-endpoint path="EchoService.In" transformer-refs="LifecycleTrackerTransformer" />
 			</inbound>
 			<echo-component />
 		</service>
