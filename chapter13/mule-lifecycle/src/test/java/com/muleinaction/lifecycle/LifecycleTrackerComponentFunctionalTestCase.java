@@ -3,9 +3,9 @@ package com.muleinaction.lifecycle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mule.api.MuleContext;
-import org.mule.api.registry.MuleRegistry;
 import org.mule.module.client.MuleClient;
 
 /**
@@ -13,49 +13,60 @@ import org.mule.module.client.MuleClient;
  */
 public class LifecycleTrackerComponentFunctionalTestCase {
 
-    @Test
-    public void trackLifecycle() throws Exception {
-        final MuleClient muleClient = new MuleClient(
-                "conf/lifecycle-config.xml");
+    private MuleClient muleClient;
 
-        final MuleContext muleContext = muleClient.getMuleContext();
+    private MuleContext muleContext;
+
+    @Before
+    public void bootMule() throws Exception {
+        muleClient = new MuleClient("conf/lifecycle-config.xml");
+        muleContext = muleClient.getMuleContext();
         muleContext.start();
+    }
 
-        final MuleRegistry registry = muleContext.getRegistry();
+    @Test
+    public void trackSpringBeanServiceLifecycle() throws Exception {
+        trackComponentLifecycle(
+                "SpringBeanService",
+                "[setProperty, setMuleContext, springInitialize, setService, initialise, start, start, stop, stop, dispose, dispose, springDestroy]");
+    }
 
-        final AbstractLifecycleTracker springLT = (AbstractLifecycleTracker) registry
-                .lookupObject("SpringBeanLifecycleTracker");
+    @Test
+    public void trackMuleSingletonServiceLifecycle() throws Exception {
+        trackComponentLifecycle("MuleSingletonService",
+                "[setProperty, setService, initialise, start, stop, dispose, dispose]");
+    }
 
-        final AbstractLifecycleTracker springLTC = exerciseComponent(
-                muleClient, "SpringBeanService");
+    @Test
+    public void trackMulePooledSingletonServiceLifecycle() throws Exception {
+        trackComponentLifecycle(
+                "MulePooledSingletonService",
+                "[setProperty, setService, initialise, setService, initialise, setService, initialise, dispose, dispose, dispose]");
+    }
 
-        final AbstractLifecycleTracker muleSingletonLTC = exerciseComponent(
-                muleClient, "MuleSingletonService");
+    @Test
+    public void trackMulePrototypeServiceLifecycle() throws Exception {
+        trackComponentLifecycle("MulePrototypeService",
+                "[setProperty, setService, initialise, start, stop, dispose]");
+    }
 
-        final AbstractLifecycleTracker mulePrototypeLTC = exerciseComponent(
-                muleClient, "MulePrototypeService");
+    @Test
+    public void trackMulePooledPrototypeServiceLifecycle() throws Exception {
+        trackComponentLifecycle("MulePooledPrototypeService",
+                "[setProperty, setService, initialise, dispose]");
+    }
+
+    private void trackComponentLifecycle(final String serviceName,
+            final String expectedLifeCycle) throws Exception {
+
+        final AbstractLifecycleTracker tracker = exerciseComponent(muleClient,
+                serviceName);
 
         muleContext.dispose();
         muleClient.dispose();
 
-        assertEquals(
-                "SpringBeanLifecycleTracker",
-                "[setProperty, setMuleContext, springInitialize, start, stop, springDestroy]",
-                springLT.getTracker().toString());
-
-        assertEquals(
-                "SpringBeanService",
-                "[setProperty, setMuleContext, springInitialize, setService, initialise, start, start, stop, stop, dispose, dispose, springDestroy]",
-                springLTC.getTracker().toString());
-
-        assertEquals(
-                "MuleSingletonService",
-                "[setProperty, setService, initialise, start, stop, dispose, dispose]",
-                muleSingletonLTC.getTracker().toString());
-
-        assertEquals("MulePrototypeService",
-                "[setProperty, setService, initialise, start, stop, dispose]",
-                mulePrototypeLTC.getTracker().toString());
+        assertEquals(serviceName, expectedLifeCycle, tracker.getTracker()
+                .toString());
     }
 
     private AbstractLifecycleTracker exerciseComponent(
@@ -63,7 +74,7 @@ public class LifecycleTrackerComponentFunctionalTestCase {
             throws Exception {
 
         final AbstractLifecycleTracker ltc = (AbstractLifecycleTracker) muleClient
-                .sendDirect(componentName, null, null, null).getPayload();
+                .send("vm://" + componentName + ".In", null, null).getPayload();
 
         assertNotNull(ltc);
 
