@@ -8,50 +8,63 @@
 
 	<spring:bean id="SpringBeanLifecycleTracker" class="com.muleinaction.lifecycle.LifecycleTrackerComponent"
 		init-method="springInitialize" destroy-method="springDestroy" scope="singleton">
-		<spring:property name="property" value="foo" />
+		<spring:property name="property" value="sblt" />
 	</spring:bean>
 
 	<spring:bean id="SpringBeanLifecycleTrackerComponent" class="com.muleinaction.lifecycle.LifecycleTrackerComponent"
 		init-method="springInitialize" destroy-method="springDestroy" scope="singleton">
-		<spring:property name="property" value="bar" />
+		<spring:property name="property" value="sbltc" />
 	</spring:bean>
+
+	<custom-filter name="LifecycleTrackerFilter" class="com.muleinaction.lifecycle.LifecycleTrackerFilter">
+		<spring:property name="property" value="ltf" />
+	</custom-filter>
 
 	<custom-transformer name="LifecycleTrackerTransformer"
 		class="com.muleinaction.lifecycle.LifecycleTrackerTransformer">
-		<spring:property name="property" value="boo" />
+		<spring:property name="property" value="ltt" />
 	</custom-transformer>
 
 	<model name="MuleLifecyle">
 
 		<service name="SpringBeanService">
 			<inbound>
-				<vm:inbound-endpoint path="SpringBeanService.In" />
+				<vm:inbound-endpoint path="SpringBeanService.In" synchronous="true" />
 			</inbound>
 			<component>
 				<spring-object bean="SpringBeanLifecycleTrackerComponent" />
 			</component>
 		</service>
-		
+
 		<service name="MulePrototypeService">
 			<inbound>
-				<vm:inbound-endpoint path="MulePrototypeService.In" />
+				<vm:inbound-endpoint path="MulePrototypeService.In" synchronous="true" />
 			</inbound>
 			<component>
 				<prototype-object class="com.muleinaction.lifecycle.LifecycleTrackerComponent">
-					<property key="property" value="baz" />
+					<property key="property" value="mps" />
 				</prototype-object>
 			</component>
 		</service>
-		
+
 		<service name="MuleSingletonService">
 			<inbound>
-				<vm:inbound-endpoint path="MuleSingletonService.In" />
+				<vm:inbound-endpoint path="MuleSingletonService.In" synchronous="true" />
 			</inbound>
 			<component>
 				<singleton-object class="com.muleinaction.lifecycle.LifecycleTrackerComponent">
-					<property key="property" value="baz" />
+					<property key="property" value="mss" />
 				</singleton-object>
 			</component>
+		</service>
+
+		<service name="FilteredService">
+			<inbound>
+				<vm:inbound-endpoint path="FilteredService.In" synchronous="true">
+					<filter ref="LifecycleTrackerFilter" />
+				</vm:inbound-endpoint>
+			</inbound>
+			<echo-component />
 		</service>
 
 		<service name="EchoService">
