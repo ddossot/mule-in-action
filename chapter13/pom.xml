@@ -18,5 +18,6 @@
     <module>mule-context</module>
     <module>mule-lifecycle</module>
     <module>mule-event-context</module>
+    <module>component-interceptor</module>
   </modules>
 </project>

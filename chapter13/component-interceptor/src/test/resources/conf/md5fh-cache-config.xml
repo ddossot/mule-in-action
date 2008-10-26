@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+	xmlns:file="http://www.mulesource.org/schema/mule/file/2.1" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
+       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd">
+
+	<spring:bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+		p:cacheName="Md5FileHasher" />
+
+	<spring:bean id="selfPopulatingComponentInvokingCache" class="net.sf.ehcache.constructs.blocking.SelfPopulatingCache">
+		<spring:constructor-arg ref="ehCache" />
+		<spring:constructor-arg>
+			<spring:bean class="com.clood.interceptor.PayloadCacheEntryFactory" />
+		</spring:constructor-arg>
+	</spring:bean>
+
+	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
+
+	<interceptor-stack name="PayloadCacheInterceptors">
+		<timer-interceptor />
+		<custom-interceptor class="com.clood.interceptor.PayloadCacheInterceptor">
+			<spring:property name="cache" ref="selfPopulatingComponentInvokingCache" />
+		</custom-interceptor>
+	</interceptor-stack>
+
+	<model name="InVmMuleClient">
+
+		<service name="Md5FileHasher">
+			<inbound>
+				<vm:inbound-endpoint path="Md5FileHasher.In" />
+			</inbound>
+			<pooled-component>
+				<interceptor-stack ref="PayloadCacheInterceptors" />
+
+				<singleton-object class="com.clood.component.Md5FileHasher">
+					<property key="fileConnector" value-ref="NonDeletingFileConnector" />
+					<property key="sourceFolder" value="${java.io.tmpdir}" />
+				</singleton-object>
+				<pooling-profile initialisationPolicy="INITIALISE_ONE" maxActive="5" />
+			</pooled-component>
+		</service>
+
+	</model>
+</mule>
