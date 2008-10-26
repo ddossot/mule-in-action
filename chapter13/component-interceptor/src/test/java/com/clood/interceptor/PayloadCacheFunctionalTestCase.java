@@ -56,6 +56,9 @@ public class PayloadCacheFunctionalTestCase extends FunctionalTestCase {
         assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
                 tempFileName, null).getPayload());
 
+        assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
+                tempFileName, null).getPayload());
+
         muleClient.dispose();
     }
 
