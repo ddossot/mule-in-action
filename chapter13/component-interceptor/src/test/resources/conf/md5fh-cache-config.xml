@@ -11,23 +11,16 @@
 	<spring:bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
 		p:cacheName="Md5FileHasher" />
 
-	<spring:bean id="selfPopulatingComponentInvokingCache" class="net.sf.ehcache.constructs.blocking.SelfPopulatingCache">
-		<spring:constructor-arg ref="ehCache" />
-		<spring:constructor-arg>
-			<spring:bean class="com.clood.interceptor.PayloadCacheEntryFactory" />
-		</spring:constructor-arg>
-	</spring:bean>
-
-	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
-
 	<interceptor-stack name="PayloadCacheInterceptors">
 		<timer-interceptor />
 		<custom-interceptor class="com.clood.interceptor.PayloadCacheInterceptor">
-			<spring:property name="cache" ref="selfPopulatingComponentInvokingCache" />
+			<spring:property name="cache" ref="ehCache" />
 		</custom-interceptor>
 	</interceptor-stack>
 
-	<model name="InVmMuleClient">
+	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
+
+	<model name="Md5FileHasherWithCache">
 
 		<service name="Md5FileHasher">
 			<inbound>
