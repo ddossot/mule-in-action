@@ -38,13 +38,6 @@ public class LifecycleTrackerComponentFunctionalTestCase {
     }
 
     @Test
-    public void trackMulePooledSingletonServiceLifecycle() throws Exception {
-        trackComponentLifecycle(
-                "MulePooledSingletonService",
-                "[setProperty, setService, initialise, setService, initialise, setService, initialise, dispose, dispose, dispose]");
-    }
-
-    @Test
     public void trackMulePrototypeServiceLifecycle() throws Exception {
         trackComponentLifecycle("MulePrototypeService",
                 "[setProperty, setService, initialise, start, stop, dispose]");
@@ -59,22 +52,23 @@ public class LifecycleTrackerComponentFunctionalTestCase {
     private void trackComponentLifecycle(final String serviceName,
             final String expectedLifeCycle) throws Exception {
 
-        final AbstractLifecycleTracker tracker = exerciseComponent(muleClient,
-                serviceName);
+        final AbstractLifecycleTracker tracker =
+                exerciseComponent(muleClient, serviceName);
 
         muleContext.dispose();
         muleClient.dispose();
 
-        assertEquals(serviceName, expectedLifeCycle, tracker.getTracker()
-                .toString());
+        assertEquals(serviceName, expectedLifeCycle,
+                tracker.getTracker().toString());
     }
 
     private AbstractLifecycleTracker exerciseComponent(
             final MuleClient muleClient, final String componentName)
             throws Exception {
 
-        final AbstractLifecycleTracker ltc = (AbstractLifecycleTracker) muleClient
-                .send("vm://" + componentName + ".In", null, null).getPayload();
+        final AbstractLifecycleTracker ltc =
+                (AbstractLifecycleTracker) muleClient.send(
+                        "vm://" + componentName + ".In", null, null).getPayload();
 
         assertNotNull(ltc);
 
