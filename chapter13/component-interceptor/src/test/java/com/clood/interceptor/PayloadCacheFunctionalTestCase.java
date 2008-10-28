@@ -49,12 +49,13 @@ public class PayloadCacheFunctionalTestCase extends FunctionalTestCase {
     public void testMd5FileHasher() throws Exception {
         final MuleClient muleClient = new MuleClient(muleContext);
 
-        // TODO improve test to show cache effectiveness
         assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
                 tempFileName, null).getPayload());
 
-        assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
-                tempFileName, null).getPayload());
+        // a pretty harsh way to demonstrate that the hasher component does not
+        // hit the file transport anymore
+        muleClient.getMuleContext().getRegistry().lookupConnector(
+                "NonDeletingFileConnector").dispose();
 
         assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
                 tempFileName, null).getPayload());
