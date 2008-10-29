@@ -12,7 +12,8 @@ import org.mule.api.interceptor.Invocation;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class PayloadCacheInterceptor implements Interceptor {
+// <start id="PayloadCacheInterceptor"/>
+public final class PayloadCacheInterceptor implements Interceptor {
 
     private Ehcache cache;
 
@@ -38,5 +39,5 @@ public class PayloadCacheInterceptor implements Interceptor {
         cache.put(new Element(key, result.getPayload()));
         return result;
     }
-
 }
+// <end id="PayloadCacheInterceptor"/>

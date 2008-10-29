@@ -11,12 +11,14 @@
 	<spring:bean id="ehCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
 		p:cacheName="Md5FileHasher" />
 
+	<!-- <start id="PayloadCacheInterceptors-Stack"/> -->
 	<interceptor-stack name="PayloadCacheInterceptors">
 		<timer-interceptor />
 		<custom-interceptor class="com.clood.interceptor.PayloadCacheInterceptor">
 			<spring:property name="cache" ref="ehCache" />
 		</custom-interceptor>
 	</interceptor-stack>
+	<!-- <end id="PayloadCacheInterceptors-Stack"/> -->
 
 	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
 
