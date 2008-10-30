@@ -36,10 +36,7 @@
     <model name="pgpModel">
         <service name="pgpService">
             <inbound>
-                <stdio:inbound-endpoint connector-ref="InputSystemStreamConnector" system="IN">
-                    <!--
-                     -->
-                </stdio:inbound-endpoint>
+                 <vm:inbound-endpoint address="vm://secure"/> 
             </inbound>
             <outbound>
                 <pass-through-router>
