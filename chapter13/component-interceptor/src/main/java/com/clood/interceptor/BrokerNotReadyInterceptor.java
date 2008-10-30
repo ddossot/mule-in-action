@@ -14,7 +14,8 @@ import org.mule.context.notification.NotificationException;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class BrokerNotReadyInterceptor implements MuleContextAware,
+// <start id="BrokerNotReadyInterceptor"/>
+public final class BrokerNotReadyInterceptor implements MuleContextAware,
         MuleContextNotificationListener, Interceptor {
 
     private volatile boolean brokerReady = false;
@@ -42,5 +43,5 @@ public class BrokerNotReadyInterceptor implements MuleContextAware,
 
         return invocation.invoke();
     }
-
 }
+// <end id="BrokerNotReadyInterceptor"/>
