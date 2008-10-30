@@ -17,6 +17,7 @@
 	</spring:bean>
 	
 	<notifications>
+		<notification event="ROUTING" />
 		<notification-listener ref="correlationTimeOutListener" />
 	</notifications>
 	
