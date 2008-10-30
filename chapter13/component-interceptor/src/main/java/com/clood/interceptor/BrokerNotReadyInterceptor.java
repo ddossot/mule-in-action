@@ -38,7 +38,7 @@ public final class BrokerNotReadyInterceptor implements MuleContextAware,
             throws MuleException {
 
         if (!brokerReady) {
-            return null;
+            throw new IllegalStateException("Invocation of service " + invocation.getService().getName() + " impossible at this time!");
         }
 
         return invocation.invoke();
