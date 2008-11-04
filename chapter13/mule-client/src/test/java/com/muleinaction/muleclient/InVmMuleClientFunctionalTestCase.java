@@ -53,8 +53,6 @@ public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
 
         assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
                 tempFileName, null).getPayload());
-
-        muleClient.dispose();
         // <end id="MuleClient-IntegrationTesting"/>
     }
 
@@ -65,7 +63,5 @@ public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
 
         assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
                 tempFileName, null).getPayload());
-
-        muleClient.dispose();
     }
 }
