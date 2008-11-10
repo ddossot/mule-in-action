@@ -1,0 +1,15 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                ">
+
+    <bean id="crmAccountService" class="com.clood.it.CRMAccountService"/>
+    <bean id="hourEntryAccountService" class="com.clood.it.HourEntryAccountService"/>
+    <bean id="imapAccountService" class="com.clood.it.IMAPAccountService"/>
+    <bean id="ldapAccountService" class="com.clood.it.LDAPAccountService"/>
+    <bean id="sshAccountService" class="com.clood.it.SSHAccountService"/>
+    <bean id="ticketingAccountService" class="com.clood.it.TicketingAccountService"/>
+
+</beans>
