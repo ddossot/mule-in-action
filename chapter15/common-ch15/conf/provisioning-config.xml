@@ -7,6 +7,9 @@
       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
+      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.1"
+      xmlns:email="http://www.mulesource.org/schema/mule/email/2.1"
+      xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.1"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -15,9 +18,19 @@
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
+       http://www.mulesource.org/schema/mule/smtp/2.1 http://www.mulesource.org/schema/mule/smtp/2.1/mule-smtp.xsd
+       http://www.mulesource.org/schema/mule/email/2.1 http://www.mulesource.org/schema/mule/email/2.1/mule-email.xsd
+       http://www.mulesource.org/schema/mule/imap/2.1 http://www.mulesource.org/schema/mule/imap/2.1/mule-imap.xsd
        "
 >
-
+    <global-property name="smtp.host" value="localhost"/>
+    <global-property name="smtp.to" value="john.demic@gmail.com"/>
+    <global-property name="smtp.from" value="mule"/>
+    <global-property name="imap.host" value="localhost"/>
+    <global-property name="imap.port" value="65433"/>
+    <global-property name="imap.user" value="bob"/>
+    <global-property name="imap.password" value="password"/>
+ 
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
@@ -26,7 +39,7 @@
 
     <model name="accountProvisioningModel">
 
-        <service name="crmAccountService">
+        <service name="crmProvisioning">
             <inbound> 
                 <jms:inbound-endpoint queue="it.provisioning.crm"/>
             </inbound> 
@@ -35,7 +48,7 @@
             </component> 
         </service> 
 
-        <service name="hourEntryAccountService">
+        <service name="hourEntryProvisioning">
             <inbound> 
                 <jms:inbound-endpoint queue="it.provisioning.hour-entry"/>
             </inbound> 
@@ -44,7 +57,7 @@
             </component> 
         </service> 
 
-        <service name="ldapAccountService">
+        <service name="ldapAccountProvisioning">
             <inbound> 
                 <jms:inbound-endpoint queue="it.provisioning.directory"/>
             </inbound> 
@@ -53,7 +66,7 @@
             </component> 
         </service> 
 
-        <service name="sshAccountService">
+        <service name="sshAccountProvisioning">
             <inbound> 
                 <jms:inbound-endpoint queue="it.provisioning.ssh"/>
             </inbound> 
@@ -62,15 +75,51 @@
             </component> 
         </service> 
 
-        <service name="ticketingAccountService">
+        <service name="ticketingAccountProvisioning">
             <inbound> 
                 <jms:inbound-endpoint queue="it.provisioning.ticketing"/>
             </inbound> 
             <component> 
-                <spring-object bean="sshAccountService"/> 
+                <spring-object bean="ticketingAccountService"/> 
             </component> 
         </service> 
 
+        <service name="sendEmailConfirmation">
+            <inbound>
+                <jms:inbound-endpoint queue="it.provisioning.confirmation"/>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
+                                            to="${smtp.to}">
+                        <email:string-to-email-transformer/>
+                    </smtp:outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service>
+
+        <service name="sendEmailConfirmation">
+            <inbound>
+                <jms:inbound-endpoint queue="it.provisioning.confirmation"/>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
+                                            to="${smtp.to}">
+                        <email:string-to-email-transformer/>
+                    </smtp:outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service>
+
+        <service name="receiveEmailConfirmation">
+            <inbound>
+                <imap:inbound-endpoint host="${imap.host}" port="${imap.port}" user="${imap.user}" password="${imap.password}">
+                    <email:email-to-string-transformer/>
+                </imap:inbound-endpoint>
+            </inbound>
+        </service>
+ 
    </model>
 
 </mule>

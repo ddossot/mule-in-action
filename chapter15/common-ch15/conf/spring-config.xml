@@ -8,7 +8,7 @@
     <bean id="crmAccountService" class="com.clood.it.CRMAccountService"/>
     <bean id="hourEntryAccountService" class="com.clood.it.HourEntryAccountService"/>
     <bean id="imapAccountService" class="com.clood.it.IMAPAccountService"/>
-    <bean id="ldapAccountService" class="com.clood.it.LDAPAccountService"/>
+    <bean id="ldapAccountService" class="com.clood.it.LdapAccountService"/>
     <bean id="sshAccountService" class="com.clood.it.SSHAccountService"/>
     <bean id="ticketingAccountService" class="com.clood.it.TicketingAccountService"/>
 
