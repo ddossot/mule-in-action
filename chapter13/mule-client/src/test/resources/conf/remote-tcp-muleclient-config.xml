@@ -21,6 +21,7 @@
 
 	<model name="RemoteTcpMuleClient">
 
+		<!-- <start id="TickerLookupService" /> -->
 		<service name="TickerLookupService">
 			<inbound>
 				<inbound-endpoint ref="TickerLookupChannel">
@@ -32,10 +33,11 @@
 			<outbound>
 				<pass-through-router>
 					<http:outbound-endpoint synchronous="true"
-						address="http://finance.google.com/finance/historical?q=%23[message:payload]&amp;histperiod=weekly&amp;output=csv" />
+						address="http://finance.google.com/finance/historical?q=%23[payload:java.lang.String]&amp;histperiod=weekly&amp;output=csv" />
 				</pass-through-router>
 			</outbound>
 		</service>
+		<!-- <end id="TickerLookupService" /> -->
 
 	</model>
 </mule>
