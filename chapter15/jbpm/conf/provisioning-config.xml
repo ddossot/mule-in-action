@@ -114,38 +114,31 @@
             </inbound>
             <outbound>
                 <pass-through-router>
+                    <vm:outbound-endpoint address="vm://receive-email"/>
+                    <!--
                     <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
                                             to="${smtp.to}">
                         <email:string-to-email-transformer/>
-                    </smtp:outbound-endpoint>
+                    </smtp:outbound-endpoint> -->
                 </pass-through-router>
             </outbound>
         </service>
 
-        <!-- Uncomment the below to send and receive emails from the BPM -->
-        <!--
-        <service name="sendEmailConfirmation">
-            <inbound>
-                <jms:inbound-endpoint queue="it.provisioning.confirmation"/>
-            </inbound>
-            <outbound>
-                <pass-through-router>
-                    <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
-                                            to="${smtp.to}">
-                        <email:string-to-email-transformer/>
-                    </smtp:outbound-endpoint>
-                </pass-through-router>
-            </outbound>
-        </service>
 
         <service name="receiveEmailConfirmation">
             <inbound>
+                <vm:inbound-endpoint address="vm://receive-email"/>
+                <!--
                 <imap:inbound-endpoint host="${imap.host}" port="${imap.port}" user="${imap.user}" password="${imap.password}">
                     <email:email-to-string-transformer/>
-                </imap:inbound-endpoint>
+                </imap:inbound-endpoint> -->
             </inbound>
-        </service> -->
-
+            <outbound>
+                <pass-through-router>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioning/1"/>
+                </pass-through-router>
+            </outbound>
+        </service>
     </model>
 
 </mule>
