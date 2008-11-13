@@ -268,6 +268,15 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>jboss</id>
+            <name>JBoss Maven 2.x Release Repository</name>
+            <url>http://repository.jboss.com/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+ 
     </repositories>
 
 </project>
