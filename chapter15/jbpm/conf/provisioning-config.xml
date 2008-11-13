@@ -50,7 +50,7 @@
                 <spring:bean id="loanBroker"
                              class="org.springmodules.workflow.jbpm31.definition.ProcessDefinitionFactoryBean">
                     <spring:property name="definitionLocation">
-                        <spring:value>jbpm-provisioning-config.xml</spring:value>
+                        <spring:value>account-provisioning-process.xml</spring:value>
                     </spring:property>
                 </spring:bean>
             </spring:list>
