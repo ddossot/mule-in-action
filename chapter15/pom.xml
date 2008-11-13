@@ -16,6 +16,6 @@
 	<name>Mule in Action - Chapter 15</name>
 	
 	<modules>
-	    <module>common-ch15</module>
+	    <module>jbpm</module>
 	</modules>
 </project>
