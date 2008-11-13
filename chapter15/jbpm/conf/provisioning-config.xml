@@ -32,73 +32,9 @@
     <global-property name="imap.user" value="bob"/>
     <global-property name="imap.password" value="password"/>
 
-
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
-
-    <spring:bean id="jbpmConfig"
-                 class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
-        <spring:property name="sessionFactory">
-            <spring:ref local="jbpmSessionFactory"/>
-        </spring:property>
-        <spring:property name="configuration">
-            <spring:value>jbpm.cfg.xml</spring:value>
-        </spring:property>
-        <spring:property name="processDefinitions">
-            <spring:list>
-                <spring:bean id="loanBroker"
-                             class="org.springmodules.workflow.jbpm31.definition.ProcessDefinitionFactoryBean">
-                    <spring:property name="definitionLocation">
-                        <spring:value>account-provisioning-process.xml</spring:value>
-                    </spring:property>
-                </spring:bean>
-            </spring:list>
-        </spring:property>
-        <spring:property name="createSchema">
-            <spring:value>false</spring:value>
-        </spring:property>
-    </spring:bean>
-
-    <spring:bean id="jbpmDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <spring:property name="driverClassName">
-            <spring:value>org.hsqldb.jdbcDriver</spring:value>
-        </spring:property>
-        <spring:property name="url">
-            <spring:value>jdbc:hsqldb:mem:mule</spring:value>
-        </spring:property>
-    </spring:bean>
-
-    <spring:bean id="jbpmTypes" class="org.springframework.orm.hibernate3.TypeDefinitionBean">
-        <spring:property name="typeName">
-            <spring:value>string_max</spring:value>
-        </spring:property>
-        <spring:property name="typeClass">
-            <spring:value>org.jbpm.db.hibernate.StringMax</spring:value>
-        </spring:property>
-    </spring:bean>
-
-    <spring:bean id="jbpmSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <spring:property name="dataSource">
-            <spring:ref local="jbpmDataSource"/>
-        </spring:property>
-        <spring:property name="mappingLocations">
-            <spring:value>classpath*:/org/jbpm/**/*.hbm.xml</spring:value>
-        </spring:property>
-        <spring:property name="typeDefinitions">
-            <spring:ref local="jbpmTypes"/>
-        </spring:property>
-        <spring:property name="hibernateProperties">
-            <spring:props>
-                <spring:prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</spring:prop>
-                <spring:prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider
-                </spring:prop>
-                <!-- Create/update the database tables automatically when the JVM starts up -->
-                <spring:prop key="hibernate.hbm2ddl.auto">update</spring:prop>
-            </spring:props>
-        </spring:property>
-    </spring:bean>
-
 
     <spring:bean id="jbpm" class="org.mule.transport.bpm.jbpm.Jbpm" destroy-method="destroy">
         <spring:property name="jbpmConfiguration">
@@ -108,7 +44,7 @@
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
-    <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true" />
+    <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true"/>
 
     <model name="accountProvisioningModel">
 
@@ -142,10 +78,10 @@
                 <jms:inbound-endpoint queue="it.provisioning.hour-entry"/>
             </inbound>
             <echo-component/>
-       </service>
+        </service>
 
         <service name="ldapAccountProvisioning">
-            <inbound>   
+            <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.ldap"/>
             </inbound>
             <echo-component/>
@@ -186,6 +122,7 @@
             </outbound>
         </service>
 
+        <!-- Uncomment the below to send and receive emails from the BPM -->
         <!--
         <service name="sendEmailConfirmation">
             <inbound>
