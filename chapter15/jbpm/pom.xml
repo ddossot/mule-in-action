@@ -11,9 +11,9 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>common-ch15</artifactId>
+	<artifactId>jbpm</artifactId>
 	<packaging>jar</packaging>
-	<name>Mule in Action - Chapter 15 - Common</name>
+	<name>Mule in Action - Chapter 15 - jBPM</name>
 
 	<dependencies>
 		<dependency>
