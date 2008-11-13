@@ -6,11 +6,85 @@
                 ">
 
     <bean id="crmAccountService" class="com.clood.it.CRMAccountService"/>
+
     <bean id="hourEntryAccountService" class="com.clood.it.HourEntryAccountService"/>
+
     <bean id="imapAccountService" class="com.clood.it.IMAPAccountService"/>
+
     <bean id="ldapAccountService" class="com.clood.it.LdapAccountService"/>
+
     <bean id="sshAccountService" class="com.clood.it.SSHAccountService"/>
+    
     <bean id="ticketingAccountService" class="com.clood.it.TicketingAccountService"/>
 
- 
+
+    <bean id="jbpmConfig"
+          class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
+        <property name="sessionFactory">
+            <ref local="jbpmSessionFactory"/>
+        </property>
+        <property name="configuration">
+            <value>jbpm.cfg.xml</value>
+        </property>
+        <property name="processDefinitions">
+            <list>
+                <bean id="loanBroker"
+                      class="org.springmodules.workflow.jbpm31.definition.ProcessDefinitionFactoryBean">
+                    <property name="definitionLocation">
+                        <value>account-provisioning-process.xml</value>
+                    </property>
+                </bean>
+            </list>
+        </property>
+        <property name="createSchema">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="jbpmDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>org.hsqldb.jdbcDriver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:hsqldb:mem:mule</value>
+        </property>
+    </bean>
+
+    <bean id="jbpmTypes" class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+        <property name="typeName">
+            <value>string_max</value>
+        </property>
+        <property name="typeClass">
+            <value>org.jbpm.db.hibernate.StringMax</value>
+        </property>
+    </bean>
+
+    <bean id="jbpmSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref local="jbpmDataSource"/>
+        </property>
+        <property name="mappingLocations">
+            <value>classpath*:/org/jbpm/**/*.hbm.xml</value>
+        </property>
+        <property name="typeDefinitions">
+            <ref local="jbpmTypes"/>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider
+                </prop>
+                <!-- Create/update the database tables automatically when the JVM starts up -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="jbpm" class="org.mule.transport.bpm.jbpm.Jbpm" destroy-method="destroy">
+        <property name="jbpmConfiguration">
+            <ref bean="jbpmConfig"/>
+        </property>
+    </bean>
+
 </beans>
