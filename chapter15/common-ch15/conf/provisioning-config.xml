@@ -4,7 +4,7 @@
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
-      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
+      xmlns:bpm="http://www.mulesource.org/schema/mule/bpm/2.1"
       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
       xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.1"
@@ -15,14 +15,15 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
        http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/bpm/2.1 http://www.mulesource.org/schema/mule/bpm/2.1/mule-bpm.xsd
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        http://www.mulesource.org/schema/mule/smtp/2.1 http://www.mulesource.org/schema/mule/smtp/2.1/mule-smtp.xsd
        http://www.mulesource.org/schema/mule/email/2.1 http://www.mulesource.org/schema/mule/email/2.1/mule-email.xsd
        http://www.mulesource.org/schema/mule/imap/2.1 http://www.mulesource.org/schema/mule/imap/2.1/mule-imap.xsd
        "
->
+        >
+
     <global-property name="smtp.host" value="localhost"/>
     <global-property name="smtp.to" value="john.demic@gmail.com"/>
     <global-property name="smtp.from" value="mule"/>
@@ -30,59 +31,146 @@
     <global-property name="imap.port" value="65433"/>
     <global-property name="imap.user" value="bob"/>
     <global-property name="imap.password" value="password"/>
- 
+
+
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
+    <spring:bean id="jbpmConfig"
+                 class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
+        <spring:property name="sessionFactory">
+            <spring:ref local="jbpmSessionFactory"/>
+        </spring:property>
+        <spring:property name="configuration">
+            <spring:value>jbpm.cfg.xml</spring:value>
+        </spring:property>
+        <spring:property name="processDefinitions">
+            <spring:list>
+                <spring:bean id="loanBroker"
+                             class="org.springmodules.workflow.jbpm31.definition.ProcessDefinitionFactoryBean">
+                    <spring:property name="definitionLocation">
+                        <spring:value>jbpm-provisioning-config.xml</spring:value>
+                    </spring:property>
+                </spring:bean>
+            </spring:list>
+        </spring:property>
+        <spring:property name="createSchema">
+            <spring:value>false</spring:value>
+        </spring:property>
+    </spring:bean>
+
+    <spring:bean id="jbpmDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <spring:property name="driverClassName">
+            <spring:value>org.hsqldb.jdbcDriver</spring:value>
+        </spring:property>
+        <spring:property name="url">
+            <spring:value>jdbc:hsqldb:mem:mule</spring:value>
+        </spring:property>
+    </spring:bean>
+
+    <spring:bean id="jbpmTypes" class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+        <spring:property name="typeName">
+            <spring:value>string_max</spring:value>
+        </spring:property>
+        <spring:property name="typeClass">
+            <spring:value>org.jbpm.db.hibernate.StringMax</spring:value>
+        </spring:property>
+    </spring:bean>
+
+    <spring:bean id="jbpmSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <spring:property name="dataSource">
+            <spring:ref local="jbpmDataSource"/>
+        </spring:property>
+        <spring:property name="mappingLocations">
+            <spring:value>classpath*:/org/jbpm/**/*.hbm.xml</spring:value>
+        </spring:property>
+        <spring:property name="typeDefinitions">
+            <spring:ref local="jbpmTypes"/>
+        </spring:property>
+        <spring:property name="hibernateProperties">
+            <spring:props>
+                <spring:prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</spring:prop>
+                <spring:prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider
+                </spring:prop>
+                <!-- Create/update the database tables automatically when the JVM starts up -->
+                <spring:prop key="hibernate.hbm2ddl.auto">update</spring:prop>
+            </spring:props>
+        </spring:property>
+    </spring:bean>
+
+
+    <spring:bean id="jbpm" class="org.mule.transport.bpm.jbpm.Jbpm" destroy-method="destroy">
+        <spring:property name="jbpmConfiguration">
+            <spring:ref bean="jbpmConfig"/>
+        </spring:property>
+    </spring:bean>
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+
+    <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true" />
 
     <model name="accountProvisioningModel">
 
+        <service name="bpmSink">
+            <inbound>
+                <bpm:inbound-endpoint address="bpm://AccountProvisioning"/>
+            </inbound>
+            <echo-component/>
+        </service>
+
+        <service name="createAccount">
+            <inbound>
+                <stdio:inbound-endpoint system="IN" synchronous="false"/>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioning" synchronous="false"/>
+                </pass-through-router>
+            </outbound>
+        </service>
+
         <service name="crmProvisioning">
-            <inbound> 
+            <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.crm"/>
-            </inbound> 
-            <component> 
-                <spring-object bean="crmAccountService"/> 
-            </component> 
-        </service> 
+            </inbound>
+            <echo-component/>
+        </service>
 
         <service name="hourEntryProvisioning">
-            <inbound> 
+            <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.hour-entry"/>
-            </inbound> 
-            <component> 
-                <spring-object bean="hourEntryAccountService"/> 
-            </component> 
-        </service> 
+            </inbound>
+            <echo-component/>
+       </service>
 
         <service name="ldapAccountProvisioning">
-            <inbound> 
-                <jms:inbound-endpoint queue="it.provisioning.directory"/>
-            </inbound> 
-            <component> 
-                <spring-object bean="ldapAccountService"/> 
-            </component> 
-        </service> 
+            <inbound>   
+                <jms:inbound-endpoint queue="it.provisioning.ldap"/>
+            </inbound>
+            <echo-component/>
+        </service>
 
         <service name="sshAccountProvisioning">
-            <inbound> 
+            <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.ssh"/>
-            </inbound> 
-            <component> 
-                <spring-object bean="sshAccountService"/> 
-            </component> 
-        </service> 
+            </inbound>
+            <echo-component/>
+        </service>
 
         <service name="ticketingAccountProvisioning">
-            <inbound> 
+            <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.ticketing"/>
-            </inbound> 
-            <component> 
-                <spring-object bean="ticketingAccountService"/> 
-            </component> 
-        </service> 
+            </inbound>
+            <echo-component/>
+        </service>
+
+        <service name="imapAccountProvisioning">
+            <inbound>
+                <jms:inbound-endpoint queue="it.provisioning.imap"/>
+            </inbound>
+            <echo-component/>
+        </service>
 
         <service name="sendEmailConfirmation">
             <inbound>
@@ -98,6 +186,7 @@
             </outbound>
         </service>
 
+        <!--
         <service name="sendEmailConfirmation">
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.confirmation"/>
@@ -118,8 +207,8 @@
                     <email:email-to-string-transformer/>
                 </imap:inbound-endpoint>
             </inbound>
-        </service>
- 
-   </model>
+        </service> -->
+
+    </model>
 
 </mule>

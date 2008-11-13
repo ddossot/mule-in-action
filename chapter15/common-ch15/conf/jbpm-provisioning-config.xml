@@ -1,0 +1,84 @@
+<process-definition name="AccountProvisioning">
+
+    <start-state name="customerRequest">
+        <action class="org.mule.transport.bpm.jbpm.actions.StoreIncomingData">
+           <variable>incoming</variable>
+        </action>
+        <transition to='Create LDAP Account' />
+    </start-state>
+
+    <state name='Create LDAP Account'>
+        <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEventAndContinue">
+                <endpoint>jms://it.provisioning.ldap</endpoint> 
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action> 
+        </event> 
+        <transition to='Create Hour Entry Account'/> 
+    </state>
+
+    <state name='Create Hour Entry Account'>
+        <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEventAndContinue">
+                <endpoint>jms://it.provisioning.hour-entry</endpoint> 
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action> 
+        </event> 
+        <transition to='Check Group'/> 
+    </state>
+
+    <decision name="Check Group">  
+        <handler class="com.clood.it.ResolveGroup"/>
+        <transition name="Operations" to="Create SSH Account"/>
+        <transition name="Sales" to="Create CRM Account"/>
+    </decision>
+
+    <state name='Create SSH Account'>
+        <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEventAndContinue">
+                <endpoint>jms://it.provisioning.ssh</endpoint> 
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action> 
+        </event> 
+        <transition to="Create IMAP Account"/>
+    </state>
+
+    <state name='Create CRM Account'>
+        <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEventAndContinue">
+                <endpoint>jms://it.provisioning.crm</endpoint> 
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action> 
+        </event> 
+        <transition to="Create IMAP Account"/>
+    </state>
+
+     <state name='Create IMAP Account'>
+        <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEventAndContinue">
+                <endpoint>jms://it.provisioning.imap</endpoint>
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action>
+        </event>
+        <transition to='Send Email Confirmation'/>
+    </state>
+
+    <state name='Send Email Confirmation'>
+        <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEvent">
+                <endpoint>jms://it.provisioning.imap</endpoint>
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action>
+        </event>
+        <transition to='end'/>
+    </state>
+
+    <end-state name='end' />
+</process-definition>
+
