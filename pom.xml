@@ -26,8 +26,10 @@
 	    <module>chapter08</module>
 	    <module>chapter09</module>
 	    <module>chapter10</module>
-            <module>chapter11</module>
+        <module>chapter11</module>
 	    <module>chapter13</module>
+	    <module>chapter15</module>
+		<module>appendices</module>
 	</modules>
 	
 	<developers>
