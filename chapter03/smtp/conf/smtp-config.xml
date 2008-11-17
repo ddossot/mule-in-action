@@ -22,8 +22,9 @@
     <global-property name="smtp.to" value="john.demic@gmail.com"/>
     <global-property name="smtp.from" value="mule"/>
 
-    <file:connector name="FileConnector"
+    <file:connector name="FileConnector" streaming="false"
                     pollingFrequency="1000" autoDelete="true"/>
+
     <model name="smtpModel">
         
         <service name="smtpService">
