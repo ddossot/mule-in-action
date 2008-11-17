@@ -23,8 +23,9 @@
     <global-property name="smtp.from" value="mule"/>
 
     <file:connector name="FileConnector"
-                    pollingFrequency="1000"/>
-
+        streaming="false"
+        autoDelete="true"
+        pollingFrequency="1000"  />
 
     <model name="defaultConnectorExceptionStrategyModel">
         <default-connector-exception-strategy/>

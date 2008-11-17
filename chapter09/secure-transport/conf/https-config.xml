@@ -3,7 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:https="http://www.mulesource.org/schema/mule/https/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+      xmlns:imaps="http://www.mulesource.org/schema/mule/imaps/2.1"
       xmlns:test="http://www.mulesource.org/schema/mule/test/2.1"
       xmlns:acegi="http://www.mulesource.org/schema/mule/acegi/2.1"
       xsi:schemaLocation="
@@ -12,11 +12,17 @@
        http://www.mulesource.org/schema/mule/test/2.1 http://www.mulesource.org/schema/mule/test/2.1/mule-test.xsd
        http://www.mulesource.org/schema/mule/https/2.1 http://www.mulesource.org/schema/mule/https/2.1/mule-https.xsd
        http://www.mulesource.org/schema/mule/acegi/2.1 http://www.mulesource.org/schema/mule/acegi/2.1/mule-acegi.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd">
+       http://www.mulesource.org/schema/mule/imaps/2.1 http://www.mulesource.org/schema/mule/imaps/2.1/mule-imaps.xsd">
 
     <https:connector name="httpConnector">
+        
          <https:tls-key-store path="conf/mule.keystore" keyPassword="mulepassword" storePassword="mulepassword" /> 
    </https:connector>
+
+    <imaps:connector name="ads">
+
+        <imaps:tls-trust-store path="" storePassword="" keyPassword"/"
+    </imaps:connector>
     
     <model name="secureTransportModel">
         <service name="secureTransportService">
