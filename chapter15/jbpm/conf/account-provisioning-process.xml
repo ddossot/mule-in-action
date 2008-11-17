@@ -1,6 +1,10 @@
 <process-definition name="AccountProvisioning">
 
-    <start-state name="customerRequest">
+    <start-state name="Account Provisioning">
+        <action class="org.mule.transport.bpm.jbpm.actions.ValidateMessageSource">
+            <expectedSource>startProvisionRequest</expectedSource>
+        </action>
+
         <action class="org.mule.transport.bpm.jbpm.actions.StoreIncomingData">
             <variable>incoming</variable>
         </action>

@@ -17,5 +17,6 @@
 	
 	<modules>
 	    <module>jbpm</module>
+	    <module>bpel</module>
 	</modules>
 </project>
