@@ -23,6 +23,12 @@
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
         >
+
+    <file:connector name="FileConnector" 
+        streaming="false"
+        autoDelete="true"
+        pollingFrequency="1000"  />
+
     <global-property name="http.host" value="localhost"/>
     <global-property name="http.port" value="8080"/>
 

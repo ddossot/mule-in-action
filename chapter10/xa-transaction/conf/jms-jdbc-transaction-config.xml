@@ -20,12 +20,12 @@
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>    
 
-    <jdbc:connector name="operationalJdbcConnector" dataSource-ref="operationalDataSource">
+    <jdbc:connector name="operationalDb" dataSource-ref="operationalDataSource">
         <jdbc:query key="operationalBillingInsert"
                     value="
       INSERT INTO billing_stats VALUES (0,${map-payload:STAT});"/>
     </jdbc:connector>
-    <jdbc:connector name="warehouseJdbcConnector" dataSource-ref="warehouseDataSource">
+    <jdbc:connector name="warehouseDb" dataSource-ref="warehouseDataSource">
         <jdbc:query key="warehouseBillingInsert"
                     value="
       INSERT INTO billing_stats VALUES (0,${map-payload:STAT});"/>
@@ -44,8 +44,8 @@
                 <static-recipient-list-router>
                     <xa-transaction action="ALWAYS_JOIN"/>
                     <recipients>
-                        <spring:value>jdbc://operational-database?connector=operationalDataSource</spring:value>
-                        <spring:value>jdbc://operational-database?connector=warehouseDataSource</spring:value>                        
+                        <spring:value>jdbc://operationalDb</spring:value>
+                        <spring:value>jdbc://warehouseDb</spring:value>                        
                     </recipients>
                 </static-recipient-list-router>
             </outbound>

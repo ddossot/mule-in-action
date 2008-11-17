@@ -18,6 +18,8 @@
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd">
     
     <file:connector name="FileConnector" 
+    streaming="false"
+    autoDelete="true"
     pollingFrequency="1000"  />
     
     <model name="fileModel">
@@ -27,7 +29,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/archive" outputPattern="SNAPSHOT-[DATE]"/>
+                    <file:outbound-endpoint path="./data/archive" outputPattern="SNAPSHOT-[${function:date}]"/>
                 </pass-through-router>
             </outbound>
         </service>
