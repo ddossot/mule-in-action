@@ -61,7 +61,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <bpm:outbound-endpoint address="bpm://AccountProvisioning" synchronous="false"/>
+                    <bpm:outbound-endpoint name="startProvisionRequest" address="bpm://AccountProvisioning" synchronous="false"/>
                 </pass-through-router>
             </outbound>
         </service>
@@ -114,7 +114,9 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <vm:outbound-endpoint address="vm://receive-email"/>
+                    <vm:outbound-endpoint address="vm://receive-email">
+
+                    </vm:outbound-endpoint>
                     <!--
                     <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
                                             to="${smtp.to}">
@@ -135,7 +137,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <bpm:outbound-endpoint address="bpm://AccountProvisioning/1"/>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioning/#[message.processId]"/>
                 </pass-through-router>
             </outbound>
         </service>

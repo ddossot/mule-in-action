@@ -23,7 +23,7 @@ public class ResolveGroup implements DecisionHandler {
 
     public String decide(ExecutionContext executionContext) throws Exception {
 
-        String account = (String) executionContext.getContextInstance().getVariable("incoming");
+        String account = (String) executionContext.getContextInstance().getVariable("incoming");        
 
         SAXBuilder builder = new SAXBuilder();
         Document doc = builder.build(new ByteArrayInputStream(account.getBytes()));
