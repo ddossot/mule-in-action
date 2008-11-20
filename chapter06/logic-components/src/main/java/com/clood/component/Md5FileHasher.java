@@ -17,7 +17,7 @@ public class Md5FileHasher implements Callable {
     private FileConnector fileConnector;
 
     public void setSourceFolder(final String sourceFolder) {
-        this.sourceFolderUri = "file://" + sourceFolder + "/";
+        this.sourceFolderUri = "file://" + sourceFolder.replace('\\', '/') + "/";
     }
 
     public void setFileConnector(final FileConnector fileConnector) {

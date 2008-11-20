@@ -17,7 +17,7 @@ public class MuleClientMd5FileHasher implements Callable {
     private String fileConnectorName;
 
     public void setSourceFolder(final String sourceFolder) {
-        this.sourceFolder = sourceFolder;
+        this.sourceFolder = sourceFolder.replace('\\', '/');
     }
 
     public void setFileConnector(final FileConnector fileConnector) {
