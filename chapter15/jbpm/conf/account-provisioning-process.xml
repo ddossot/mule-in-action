@@ -1,4 +1,8 @@
-<process-definition name="AccountProvisioning">
+<process-definition name="AccountProvisioning"
+                    xmlns="http://jbpm.org/3/jpdl"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://jbpm.org/3/jpdl http://jbpm.org/jpdl-3.1.xsd"
+        >
 
     <start-state name="Account Provisioning">
         <action class="org.mule.transport.bpm.jbpm.actions.ValidateMessageSource">
@@ -75,12 +79,13 @@
     <state name='Send Email Confirmation'>
         <event type="node-enter">
             <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEvent">
-                <endpoint>jms://it.provisioning.confirmation</endpoint>
+                <endpoint>SendEmailConfirmationEndpoint</endpoint>
                 <payloadSource>incoming</payloadSource>
                 <synchronous>false</synchronous>
             </action>
         </event>
         <transition name="continue" to='end'/>
+
     </state>
 
     <end-state name='end'>
@@ -90,5 +95,6 @@
             </script>
         </event>
     </end-state>
+   
 </process-definition>
 
