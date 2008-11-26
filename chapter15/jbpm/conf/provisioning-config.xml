@@ -42,9 +42,11 @@
         </spring:property>
     </spring:bean>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="tcp://localhost:61616"/>
 
     <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true"/>
+
+    <vm:endpoint name="SendEmailConfirmationEndpoint" path="it.provisioning.confirmation"/>
 
     <model name="accountProvisioningModel">
 
@@ -57,7 +59,7 @@
 
         <service name="createAccount">
             <inbound>
-                <stdio:inbound-endpoint system="IN" synchronous="false"/>
+                <jms:inbound-endpoint queue="it.provisioning.requests"/>
             </inbound>
             <outbound>
                 <pass-through-router>
@@ -110,7 +112,7 @@
 
         <service name="sendEmailConfirmation">
             <inbound>
-                <jms:inbound-endpoint queue="it.provisioning.confirmation"/>
+                <vm:inbound-endpoint ref="SendEmailConfirmationEndpoint"/>
             </inbound>
             <outbound>
                 <pass-through-router>
