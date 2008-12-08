@@ -11,8 +11,7 @@
 	<global-property name="dlq.address" value="vm://DLQ.In" />
 	
 	<!-- <start id="CorrelationTimeOutListener-Conf"/> -->
-	<spring:bean name="correlationTimeOutListener" class="com.muleinaction.service.CorrelationTimeOutListener"
-		init-method="initialize">
+	<spring:bean name="correlationTimeOutListener" class="com.muleinaction.service.CorrelationTimeOutListener">
 		<spring:property name="dlqAddress" value="${dlq.address}" />
 	</spring:bean>
 

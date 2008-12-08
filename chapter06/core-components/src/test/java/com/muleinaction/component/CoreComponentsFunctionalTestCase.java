@@ -52,7 +52,7 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
     }
 
     public void testLog() throws Exception {
-        doTestComponent("vm://Log.In", NullPayload.getInstance().toString(),
+        doTestComponent("vm://Log.In", "Hello world!",
                 true, false);
     }
 
