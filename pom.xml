@@ -11,7 +11,7 @@
 	<name>Mule in Action</name>
 	
 	<properties>
-		<mule-version>2.1.1</mule-version>
+		<mule-version>2.1.2</mule-version>
 		<spring-version>2.5.5</spring-version>
 	</properties>
 	

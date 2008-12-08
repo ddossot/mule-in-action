@@ -41,7 +41,7 @@ public final class CorrelationTimeOutListener implements
                         .getProperty(propertyName.toString()));
             }
 
-            muleClient.sendNoReceive(dlqAddress, uncorrelatedMessage
+            new MuleClient().sendNoReceive(dlqAddress, uncorrelatedMessage
                     .getPayload(), properties);
 
         } catch (final MuleException me) {
@@ -53,13 +53,7 @@ public final class CorrelationTimeOutListener implements
 
     private String dlqAddress;
 
-    private MuleClient muleClient;
-
     public void setDlqAddress(final String dlqAddress) {
         this.dlqAddress = dlqAddress;
-    }
-
-    public void initialize() throws MuleException {
-        muleClient = new MuleClient();
     }
 }
