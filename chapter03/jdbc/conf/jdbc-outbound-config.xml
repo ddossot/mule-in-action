@@ -32,7 +32,7 @@
 <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
 
 <jdbc:connector name="jdbcConnector"  dataSource-ref="dataSource">
-    <jdbc:query key="alertInsert" value="insert into alerts values (0,'esb01',${payload})"/>
+    <jdbc:query key="alertInsert" value="insert into alerts values (0,'esb01',#[payload:java.lang.String])"/>
 </jdbc:connector>
 
 <model name="jdbcOutboundModel">
