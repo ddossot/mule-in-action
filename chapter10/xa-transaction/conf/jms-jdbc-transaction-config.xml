@@ -18,7 +18,7 @@
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>    
+    <jms:activemq-xa-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>    
 
     <jdbc:connector name="operationalDb" dataSource-ref="operationalDataSource">
         <jdbc:query key="operationalBillingInsert"
