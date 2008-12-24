@@ -18,12 +18,12 @@
                 http://www.springframework.org/schema/util/spring-util-2.5.xsd
                 ">
 
-    <bean id="operationalDataSource" class="org.enhydra.jdbc.standard.StandardDataSource" destroy-method="shutdown">
+    <bean id="operationalDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
         <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
         <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
     </bean>
 
-    <bean id="warehouseDataSource" class="org.enhydra.jdbc.standard.StandardDataSource" destroy-method="shutdown">
+    <bean id="warehouseDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
         <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
         <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
     </bean>
