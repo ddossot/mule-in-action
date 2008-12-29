@@ -15,7 +15,7 @@
     <custom-transformer name="velocityPayloadTransformer"
                         class="com.muleinaction.transformer.VelocityPayloadTransformer">
         <spring:property name="velocityEngine" ref="velocityEngine"/>
-        <spring:property name="templateName" value="test-payload.vm"/>
+        <spring:property name="templateName" value="templates/test-payload.vm"/>
     </custom-transformer>
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
