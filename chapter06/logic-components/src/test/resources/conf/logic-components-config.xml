@@ -86,11 +86,14 @@
 				<vm:inbound-endpoint path="Md5FileHasher.In" />
 			</inbound>
 			<pooled-component>
-				<singleton-object class="com.clood.component.Md5FileHasher">
+				<prototype-object class="com.clood.component.Md5FileHasher">
 					<property key="fileConnector" value-ref="NonDeletingFileConnector" />
 					<property key="sourceFolder" value="${java.io.tmpdir}" />
-				</singleton-object>
-				<pooling-profile initialisationPolicy="INITIALISE_ONE" maxActive="5" />
+				</prototype-object>
+				<pooling-profile initialisationPolicy="INITIALISE_ONE"
+				  maxActive="5"
+          exhaustedAction="WHEN_EXHAUSTED_WAIT"
+          maxWait="15000" /> 
 			</pooled-component>
 		</service>
 		<!-- <end id="LoCoShow-MD5H-conf"/> -->
