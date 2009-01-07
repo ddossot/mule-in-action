@@ -28,7 +28,7 @@
         <service name="idempotentReceiverService">
            <inbound>
                 <jms:inbound-endpoint queue="orders"/>
-                <idempotent-receiver-router idExpression="${header:orderId}"> 
+                <idempotent-receiver-router idExpression="#{header:orderId}"> 
                     <simple-text-file-store directory="./order-ids"/> 
                 </idempotent-receiver-router>
             </inbound> 
