@@ -23,26 +23,25 @@
     <global-property name="http.port" value="8080"/>
     <global-property name="jms.url" value="vm://localhost"/> 
 
-    <!-- TODO Update Connection Strategy Configuration for Mule 2.1.0 -->
 
-    <!--
-    <spring:bean id="retryConnectionStrategy"
-                 class="org.mule.transport.SimpleRetryConnectionStrategy">
-        <spring:property name="retryCount" value="-1"/>
-        <spring:property name="retryFrequency" value="60000"/>
-        <spring:property name="doThreading" value="true"/>
-    </spring:bean>
+    <spring:beans>
+        <spring:bean id="foreverRetryPolicyTemplate"
+                     class="org.mule.modules.common.retry.policies.ForeverRetryPolicyTemplate"/>
+
+        <spring:bean id="threadingPolicyTemplate"
+                     class="org.mule.modules.common.retry.policies.AdaptiveRetryPolicyTemplateWrapper">
+            <spring:property name="delegate" ref="foreverRetryPolicyTemplate"/>
+        </spring:bean>
+    </spring:beans>
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}">
-        <spring:property name="connectionStrategy" ref="retryConnectionStrategy"/> 
-    </jms:activemq-connector> -->
+        <spring:property name="retryPolicyTemplate" ref="threadingPolicyTemplate"/>
+    </jms:activemq-connector>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
-
-    <model name="jmsThreadingModel">
-        <service name="jmsThreadingService">
+    <model name="jmsThreadingRetryModel">
+        <service name="jmsThreadingRetryService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
@@ -52,6 +51,5 @@
                 </pass-through-router>
             </outbound>
         </service>
-
     </model>
 </mule>
