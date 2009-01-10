@@ -15,10 +15,10 @@ public class JmsThreadingFunctionalTestCase extends FunctionalTestCase {
 
 	public void testCorrectlyInitialized() throws Exception {
 		final Service service = muleContext.getRegistry().lookupService(
-				"jmsThreadingService");
+				"jmsThreadingRetryService");
 
 		assertNotNull(service);
-		assertEquals("jmsThreadingModel", service.getModel().getName());
+		assertEquals("jmsThreadingRetryModel", service.getModel().getName());
 	}
 
 }
