@@ -10,4 +10,4 @@ REM This extends the classpath to include the configuration directory
 REM Any changes to the files in .\conf will take precedence over those deployed to %MULE_HOME%\lib\user
 SET MULE_LIB=.\conf
 
-call "%MULE_BASE%\bin\mule.bat" -config echo-config.xml -builder org.mule.module.scripting.builders.ScriptConfigurationBuilder -M-Dorg.mule.script.engine=groovy
+call "%MULE_BASE%\bin\mule.bat" -config echo-config.groovy -builder org.mule.module.scripting.builders.ScriptConfigurationBuilder -M-Dorg.mule.script.engine=groovy
