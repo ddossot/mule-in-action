@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:scripting="http://www.mulesource.org/schema/mule/scripting/2.1"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
+      xmlns:lang="http://www.springframework.org/schema/lang"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+       http://www.mulesource.org/schema/mule/scripting/2.1 http://www.mulesource.org/schema/mule/scripting/2.1/mule-scripting.xsd
+       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
+       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+       "
+        >
+
+
+    <spring:beans>
+        <lang:groovy id="messageEnricher"
+                     script-source="file:script/messageEnricher.groovy"
+                     refresh-check-delay="2000"/>
+    </spring:beans>
+
+    <scripting:groovy-refreshable name="messageEnricherScript"
+                                  refreshableBean-ref="messageEnricher"/>
+
+    <model name="springMessageEnrichmentModel">
+
+        <service name="springMessageEnrichmentService">
+
+            <inbound>
+                <stdio:inbound-endpoint system="IN">
+                </stdio:inbound-endpoint>
+            </inbound>
+           
+            <component>
+                <spring-object bean="messageEnricher"/>
+            </component>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint path="out"/>
+                </pass-through-router>
+            </outbound>
+        </service>
+
+        <service name="in">
+            <inbound>
+                <vm:inbound-endpoint path="out"/>
+                <selective-consumer-router>
+                    <expression-filter evaluator="header" expression="PRIORITY=HIGH"/>
+                </selective-consumer-router>
+            </inbound>
+            <scripting:component>
+                
+                <scripting:script engine="js" >
+                    print(message.getProperty("PRIORITY"));
+                </scripting:script>
+            </scripting:component>
+        </service> 
+
+    </model>
+</mule>
