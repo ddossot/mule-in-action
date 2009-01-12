@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+      xmlns:scripting="http://www.mulesource.org/schema/mule/scripting/2.1"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/scripting/2.1 http://www.mulesource.org/schema/mule/scripting/2.1/mule-scripting.xsd
+       "
+        >
+
+    <model name="vmSimpleModel">
+        <service name="greeting">
+            <inbound>
+                <vm:inbound-endpoint path="MSC.In"/>
+            </inbound>
+            <scripting:component>
+               
+                <scripting:script>
+                    return Md5FileHasherService.hash(payload)
+                </scripting:script>
+                <scripting:java-interface-binding interface="com.clood.component.Md5FileHasherService" method="hash">
+                    <vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true"/>
+                </scripting:java-interface-binding>
+            </scripting:component>
+        </service>
+    </model>
+</mule>
