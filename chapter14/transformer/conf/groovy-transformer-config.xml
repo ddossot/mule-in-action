@@ -16,8 +16,6 @@
        "
         >
 
-
-
     <model name="groovyTransformerModel">
 
         <service name="groovyTransformerService">

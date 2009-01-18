@@ -18,11 +18,13 @@
        "
         >
 
-    <file:connector name="fileConnector" streaming="false"/>
-    <jms:activemq-connector name="activeMqConnector" brokerURL="vm://localhost"/>
+    <global-property name="jms.url" value="vm://localhost"/>
 
-    <model name="groovyTransformerModel">
-        <service name="groovyTransformerService">
+    <file:connector name="fileConnector" streaming="false"/>
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
+
+    <model name="orderTransformerModel">
+        <service name="orderTransformerService">
             <inbound>
                 <file:inbound-endpoint path="./data">
                     <byte-array-to-object-transformer/>
