@@ -14,6 +14,15 @@
 	<artifactId>chapter14</artifactId>
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 14</name>
+    
+    <dependencies>
+        <dependency>
+            <groupId>javax.script</groupId>
+            <artifactId>js-engine</artifactId>
+            <version>1.1</version>
+            <classifier>jdk14</classifier>
+        </dependency>
+    </dependencies>
 	
 	<modules>
 	    <module>component</module>

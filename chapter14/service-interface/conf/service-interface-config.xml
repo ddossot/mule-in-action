@@ -4,30 +4,52 @@
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
       xmlns:scripting="http://www.mulesource.org/schema/mule/scripting/2.1"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
+       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        http://www.mulesource.org/schema/mule/scripting/2.1 http://www.mulesource.org/schema/mule/scripting/2.1/mule-scripting.xsd
        "
         >
 
-    <model name="vmSimpleModel">
-        <service name="greeting">
+    <file:connector name="NonDeletingFileConnector" autoDelete="false" />
+
+    <model name="javaInterfaceBindingModel">
+        <service name="javaInterfaceBindingService">
             <inbound>
                 <vm:inbound-endpoint path="MSC.In"/>
             </inbound>
             <scripting:component>
-               
-                <scripting:script>
-                    return Md5FileHasherService.hash(payload)
+                <scripting:script engine="js">
+                    result = Md5FileHasherService.hash(payload)
                 </scripting:script>
+
                 <scripting:java-interface-binding interface="com.clood.component.Md5FileHasherService" method="hash">
                     <vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true"/>
-                </scripting:java-interface-binding>
+                </scripting:java-interface-binding> 
             </scripting:component>
         </service>
+
+        <service name="Md5FileHasher">
+            <inbound>
+                <vm:inbound-endpoint path="Md5FileHasher.In" />
+            </inbound>
+            <pooled-component>
+                <prototype-object class="com.clood.component.Md5FileHasher">
+                    <property key="fileConnector" value-ref="NonDeletingFileConnector" />
+                    <property key="sourceFolder" value="${java.io.tmpdir}" />
+                </prototype-object>
+                <pooling-profile initialisationPolicy="INITIALISE_ONE"
+                    maxActive="5"
+                    exhaustedAction="WHEN_EXHAUSTED_WAIT"
+                    maxWait="15000" />
+            </pooled-component>
+        </service>
+
     </model>
 </mule>

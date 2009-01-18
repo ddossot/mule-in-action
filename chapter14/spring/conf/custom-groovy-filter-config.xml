@@ -28,7 +28,7 @@
 
     <model name="springFilterModel">
 
-        <service name="in">
+        <service name="springFilterService">
             <inbound>
                 <vm:inbound-endpoint path="out"/>
                 <selective-consumer-router>
