@@ -22,8 +22,8 @@
     <jms:activemq-connector name="activeMqConnector" brokerURL="vm://localhost"/>
 
 
-    <model name="groovyTransformerModel">
-        <service name="groovyTransformerService">
+    <model name="reloadTransformerModel">
+        <service name="reloadTransformerService">
 
             <inbound>
                 <file:inbound-endpoint path="./data">

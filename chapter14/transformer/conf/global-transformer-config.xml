@@ -23,7 +23,6 @@
     </scripting:transformer>
 
     <model name="groovyTransformerModel">
-
         <service name="groovyTransformerService">
             <inbound>
                 <stdio:inbound-endpoint system="IN" transformer-refs="toUpperCase"/>
