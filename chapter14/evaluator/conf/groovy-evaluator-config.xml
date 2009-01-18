@@ -16,11 +16,11 @@
        "
         >
 
-    <model name="rhinoMessageEnrichmentModel">
-        <service name="rhinoMessageEnrichmentService">
+    <model name="groovyExpressionModel">
+        <service name="inService">
             <inbound>
-                <stdio:inbound-endpoint system="IN">
-                </stdio:inbound-endpoint>
+                <vm:inbound-endpoint path="in"/>
+                <stdio:inbound-endpoint system="IN"/>
             </inbound>
             <outbound>
                 <pass-through-router>
@@ -29,7 +29,7 @@
             </outbound>
         </service>
 
-        <service name="in">
+        <service name="groovyExpressionService">
             <inbound>
                 <vm:inbound-endpoint path="out"/>
                 <selective-consumer-router>
@@ -39,6 +39,5 @@
             </inbound>
             <echo-component/>
         </service>
-
     </model>
 </mule>

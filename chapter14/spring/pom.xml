@@ -26,6 +26,7 @@
         <configuration>
           <additionalClasspathElements>
                 <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
+                <additionalClasspathElement>${basedir}/script</additionalClasspathElement>
           </additionalClasspathElements>
         </configuration>
       </plugin>
