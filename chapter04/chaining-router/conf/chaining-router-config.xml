@@ -5,7 +5,7 @@
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:cxf="http://www.mulesource.org/schema/mule/cxf/2.1"
       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -13,23 +13,26 @@
        http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
        http://www.mulesource.org/schema/mule/cxf/2.1 http://www.mulesource.org/schema/mule/cxf/2.1/mule-cxf.xsd
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
->
+        >
 
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+    
     <model name="chainingRouterModel">
         <service name="chainingRouterService">
-            <inbound> 
-                <stdio:inbound-endpoint system="IN" />
-            </inbound> 
+            <inbound>
+                <jms:inbound-endpoint queue="weather.request" synchronous="true"/>
+            </inbound>
             <outbound>
                 <chaining-router>
-                    <outbound-endpoint address="http://www.webservicex.net/usweather.asmx?WSDL&amp;method=GetWeatherReport" />
-                    <stdio:outbound-endpoint system="OUT"/> 
+                    <outbound-endpoint
+                            address="http://www.webservicex.net/usweather.asmx?WSDL&amp;method=GetWeatherReport"/>
+                    <jms:outbound-endpoint queue="weather.report"/>
                 </chaining-router>
-            </outbound> 
-        </service> 
-   </model>
+            </outbound>
+        </service>
+    </model>
 
 </mule>
