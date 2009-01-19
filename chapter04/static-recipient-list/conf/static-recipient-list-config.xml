@@ -16,37 +16,37 @@
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
->
-    
+        >
+
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
-    
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
-    
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+
     <model name="staticRecipientListModel">
         <service name="staticRecipientListService">
-            <inbound> 
+            <inbound>
                 <vm:inbound-endpoint address="vm://quoteData"/>
             </inbound>
-             
-            <component> 
+
+            <component>
                 <spring-object bean="quoteService"/>
-                 
             </component>
-             
+
             <outbound>
-                <static-recipient-list-router> 
+
+                <static-recipient-list-router>
                     <recipients>
-                        <spring:value>jms://broker1</spring:value>
-                        <spring:value>jms://broker2</spring:value>
-                        <spring:value>jms://broker3</spring:value>
+                        <spring:value>jms://brokerage.house.1</spring:value>
+                        <spring:value>jms://brokerage.house.2</spring:value>
+                        <spring:value>jms://brokerage.house.3</spring:value>
                     </recipients>
                 </static-recipient-list-router>
             </outbound>
-             
+
         </service>
-         
+
     </model>
-    
+
 </mule>
