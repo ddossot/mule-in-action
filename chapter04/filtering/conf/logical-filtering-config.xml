@@ -16,53 +16,34 @@
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
->
+        >
 
-<jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
-<model name="logicalFilteringModel">
-    <service name="logicalFilteringService">
-        <inbound> 
-            <jms:inbound-endpoint queue="messages">
-                <jms:jmsmessage-to-object-transformer/>
-            </jms:inbound-endpoint> 
-            <vm:inbound-endpoint  address="vm://messages"/>
+    <model name="logicalFilteringModel">
+        <service name="logicalFilteringService">
+            <inbound>
+                <jms:inbound-endpoint queue="messages.in"/>
 
-            <selective-consumer-router>
-                <and-filter>
-                    <payload-type-filter expectedType="java.lang.String"/>
-                    <expression-filter evaluator="jxpath" expression="/order/result = 'SUCCESS'"/>
-                </and-filter>
-            </selective-consumer-router> 
+                <selective-consumer-router>
+                    <and-filter>
+                        <payload-type-filter expectedType="java.lang.String"/>
+                        <expression-filter evaluator="jxpath" expression="(order/status)='FULFILLED'"/>
+                    </and-filter>
+                </selective-consumer-router>
 
-            <forwarding-catch-all-strategy> 
-                <jms:outbound-endpoint queue="errors"/> 
-            </forwarding-catch-all-strategy> 
+                <forwarding-catch-all-strategy>
+                    <jms:outbound-endpoint queue="errors"/>
+                </forwarding-catch-all-strategy>
 
-      </inbound>
-      <bridge-component/> 
-      <outbound>
-          <pass-through-router> 
-              <stdio:outbound-endpoint system="OUT"/>
-          </pass-through-router> 
-       </outbound>
-    </service>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <jms:outbound-endpoint queue="messages.out"/>
+                </pass-through-router>
+            </outbound>
+        </service>
 
-    <!-- Uncomment the below to see messages going to the error channel from the
-         forwarding-catch-all-strategy -->
-
-    <!--
-    <service name="Error Channel">
-        <inbound>
-            <jms:inbound-endpoint queue="errors"/>
-        </inbound>
-        <outbound>
-          <pass-through-router> 
-              <stdio:outbound-endpoint system="OUT"/>
-          </pass-through-router> 
-       </outbound>
-    </service>
-    -->
-</model>
+    </model>
 
 </mule>
