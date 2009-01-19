@@ -22,6 +22,7 @@
     </spring:beans>
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+    <vm:connector name="vmConnector" queueEvents="true"/>
 
     <model name="wiretapModel">
         <service name="wiretapService">

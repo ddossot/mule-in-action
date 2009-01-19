@@ -26,7 +26,10 @@ public class WiretapFunctionalTestCase extends FunctionalTestCase {
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
         muleClient.sendAsync("jms://orders", "Order Data", null);
-     
+        MuleMessage response = muleClient.request("vm://billing.service.received", 2000);
+        assertNotNull(response);
+        response = muleClient.request("vm://order.service.received", 2000);        
+        assertNotNull(response);
     }
 
 }
