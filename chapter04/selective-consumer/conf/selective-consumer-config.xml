@@ -24,7 +24,7 @@
         <service name="selectiveConsumerService">
             <inbound>
 
-                <jms:inbound-endpoint queue="messages"/>
+                <jms:inbound-endpoint queue="messages.in"/>
                 <vm:inbound-endpoint address="vm://messages"/>
 
                 <selective-consumer-router>
@@ -38,26 +38,23 @@
             <bridge-component/>
             <outbound>
                 <pass-through-router>
-                    <stdio:outbound-endpoint system="OUT"/>
+                    <jms:outbound-endpoint queue="messages.out"/>
                 </pass-through-router>
             </outbound>
         </service>
 
-        <!-- Uncomment the below to see messages going to the error channel from the
-       forwarding-catch-all-strategy -->
-
-        <!--
         <service name="Error Channel">
             <inbound>
                 <jms:inbound-endpoint queue="errors"/>
             </inbound>
             <outbound>
               <pass-through-router>
-                  <stdio:outbound-endpoint system="OUT"/>
+                  <jms:outbound-endpoint queue="messages.errors"/>
               </pass-through-router>
            </outbound>
         </service>
-        -->
+
+
     </model>
 
 </mule>
