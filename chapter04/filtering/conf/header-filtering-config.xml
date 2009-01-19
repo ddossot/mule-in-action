@@ -23,11 +23,10 @@
 <model name="headerFilteringModel">
     <service name="headerFilteringService">
         <inbound> 
-            <jms:inbound-endpoint queue="messages"/> 
-            <vm:inbound-endpoint  address="vm://messages"/>
+            <jms:inbound-endpoint queue="messages.in"/>
 
             <selective-consumer-router>
-                <expression-filter evaluator="header" expression="${STATUS}='OK'"/>
+                <expression-filter evaluator="header" expression="STATUS=OK"/>
             </selective-consumer-router> 
 
             <forwarding-catch-all-strategy> 
@@ -37,24 +36,11 @@
       <bridge-component/> 
       <outbound>
           <pass-through-router> 
-              <stdio:outbound-endpoint system="OUT"/>
-          </pass-through-router> 
+              <jms:outbound-endpoint queue="messages.out"/> 
+          </pass-through-router>
        </outbound>
     </service>
-
-    <!-- Uncomment the below to see messages going to the error channel from the
-         forwarding-catch-all-strategy -->
-
-    <service name="Error Channel">
-        <inbound>
-            <jms:inbound-endpoint queue="errors"/>
-        </inbound>
-        <outbound>
-          <pass-through-router> 
-              <stdio:outbound-endpoint system="OUT"/>
-          </pass-through-router> 
-       </outbound>
-    </service>
+    
 </model>
 
 </mule>
