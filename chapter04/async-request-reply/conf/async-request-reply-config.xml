@@ -16,91 +16,75 @@
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
->
+        >
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
-    
+
     <model name="asyncRequestReplyModel">
-        
-        <service name="client"> 
-            <inbound> 
-                <stdio:inbound-endpoint system="IN" />
-                 
-            </inbound>
-            <outbound>
-                <chaining-router> 
-                    <vm:outbound-endpoint address="vm://flightRequests" remoteSync="true" />
-                    <stdio:outbound-endpoint system="OUT" />
-                     
-                </chaining-router>
-                 
-            </outbound>
-        </service>
-        
+
         <service name="asyncRequestReplyService">
-            <inbound> 
+            <inbound>
                 <vm:inbound-endpoint address="vm://flightRequests" synchronous="true">
                     <message-properties-transformer>
-                        <add-message-property key="MULE_CORRELATION_GROUP_SIZE" value="2" />
+                        <add-message-property key="MULE_CORRELATION_GROUP_SIZE" value="2"/>
                     </message-properties-transformer>
                 </vm:inbound-endpoint>
             </inbound>
             <outbound>
                 <multicasting-router>
-                    <vm:outbound-endpoint address="vm://airline1" remoteSync="true" />
-                    <vm:outbound-endpoint address="vm://airline2" remoteSync="true" />
-                     
-                    <vm:outbound-endpoint address="vm://airline3" remoteSync="true" />
-                     
+                    <vm:outbound-endpoint address="vm://airline1" />
+                    <vm:outbound-endpoint address="vm://airline2" />
+                    <vm:outbound-endpoint address="vm://airline3" />
+
                     <reply-to address="vm://flightResponses"/>
-                     
+
                 </multicasting-router>
             </outbound>
-            
-            <async-reply> 
+
+            <async-reply>
                 <vm:inbound-endpoint address="vm://flightResponses"/>
                 <custom-async-reply-router class="com.muleinaction.FareResponseAggregator"/>
             </async-reply>
-             
+
         </service>
-        
+
         <service name="airline1">
-            <inbound> 
-                <vm:inbound-endpoint address="vm://airline1" synchronous="true" />
+            <inbound>
+                <vm:inbound-endpoint address="vm://airline1" synchronous="true"/>
             </inbound>
-            <component> 
+            <component>
                 <method-entry-point-resolver>
                     <include-entry-point method="getFare"/>
                 </method-entry-point-resolver>
                 <spring-object bean="fareGenerationService1"/>
             </component>
         </service>
-        
+
         <service name="airline2">
-            <inbound> 
-                <vm:inbound-endpoint address="vm://airline2" synchronous="true" />
+            <inbound>
+                <vm:inbound-endpoint address="vm://airline2" synchronous="true"/>
             </inbound>
-            <component> 
+            <component>
                 <method-entry-point-resolver>
                     <include-entry-point method="getFare"/>
                 </method-entry-point-resolver>
                 <spring-object bean="fareGenerationService2"/>
             </component>
         </service>
-        
+
         <service name="airline3">
-            <inbound> 
-                <vm:inbound-endpoint address="vm://airline3" synchronous="true" />
+            <inbound>
+                <vm:inbound-endpoint address="vm://airline3" synchronous="true"/>
             </inbound>
-            <component> 
+            <component>
                 <method-entry-point-resolver>
                     <include-entry-point method="getFare"/>
                 </method-entry-point-resolver>
                 <spring-object bean="fareGenerationService3"/>
             </component>
         </service>
-        
+
     </model>
-    
+
 </mule>
