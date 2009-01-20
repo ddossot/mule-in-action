@@ -12,32 +12,24 @@ public class MulticastingRouterFunctionalTestCase extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
-        return "conf/selective-consumer-config.xml";
+        return "conf/multicasting-router-config.xml";
     }
 
     public void testCorrectlyInitialized() throws Exception {
         final Service service = muleContext.getRegistry().lookupService(
-                "selectiveConsumerService");
+                "multicastingRouterService");
 
         assertNotNull(service);
-        assertEquals("selectiveConsumerModel", service.getModel().getName());
+        assertEquals("multicastingRouterModel", service.getModel().getName());
     }
 
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://messages.in", "STATUS: OK", null);
+        muleClient.sendAsync("jms://messages.in", "message", null);
         MuleMessage response = muleClient.request("jms://messages.out", 2000);
         assertNotNull(response);
-    }
-
-    public void testMessageNotConsumed() throws Exception {
-        MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://messages.in", "STATUS: CRITICAL", null);
-        MuleMessage response = muleClient.request("jms://messages.out", 2000);
-        assertNull(response);
-        response = muleClient.request("jms://messages.errors", 2000);
+        response = muleClient.request("vm://messages.out", 2000);
         assertNotNull(response);
     }
-
 
 }
