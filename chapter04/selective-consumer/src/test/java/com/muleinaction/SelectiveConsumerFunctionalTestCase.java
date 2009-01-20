@@ -21,6 +21,7 @@ public class SelectiveConsumerFunctionalTestCase extends FunctionalTestCase {
 
         assertNotNull(service);
         assertEquals("selectiveConsumerModel", service.getModel().getName());
+
     }
 
     public void testMessageConsumed() throws Exception {
