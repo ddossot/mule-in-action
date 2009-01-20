@@ -22,5 +22,6 @@
         <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
         <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
     </bean>
+    
 </beans>
 
