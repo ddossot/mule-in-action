@@ -8,7 +8,7 @@ import org.mule.module.client.MuleClient;
 /**
  * @author John D'Emic (john.demic@gmail.com)
  */
-public class SelectiveConsumerFunctionalTestCase extends FunctionalTestCase {
+public class MulticastingRouterFunctionalTestCase extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
