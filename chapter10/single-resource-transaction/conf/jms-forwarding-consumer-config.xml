@@ -13,12 +13,15 @@
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
-    <model name="staticRecipientListModel">
-        <service name="staticRecipientListService">
+    <model name="forwardingConsumerModel">
+        <service name="forwardingConsumerService">
             <inbound>
                 <jms:inbound-endpoint queue="messages">
                     <jms:transaction action="ALWAYS_BEGIN"/>
                 </jms:inbound-endpoint>
+                <forwarding-router>
+                    <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/>
+                </forwarding-router>
             </inbound>
             <outbound>
                 <pass-through-router>
