@@ -31,13 +31,13 @@
     <jdbc:connector name="jdbcConnector" dataSource-ref="dataSource">
         <jdbc:query key="statsInsert"
                     value="
-          INSERT INTO hosts VALUES (0,${map-payload:HOST})
+          INSERT INTO hosts VALUES (0,#{map-payload:HOST})
                ON DUPLICATE KEY UPDATE host_name = host_name;
 
           INSERT INTO alerts VALUES(0,
-          (SELECT ID FROM hosts WHERE host_name = ${map-payload:HOST}),
-           ${map-payload:MESSAGE},
-           ${map-payload:TIMESTAMP});
+          (SELECT ID FROM hosts WHERE host_name = #{map-payload:HOST}),
+           #{map-payload:MESSAGE},
+           #{map-payload:TIMESTAMP});
 
            "/>
     </jdbc:connector>
@@ -54,7 +54,7 @@
             <outbound>
                 <pass-through-router>
                     <jdbc:outbound-endpoint queryKey="statsInsert">
-                        <jdbc:transaction action="ALWAYS_BEGIN" />
+                        <jdbc:transaction action="ALWAYS_BEGIN"/>
                     </jdbc:outbound-endpoint>
                 </pass-through-router>
             </outbound>

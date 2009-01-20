@@ -25,12 +25,12 @@
     <jdbc:connector name="operationalDb" dataSource-ref="operationalDataSource">
         <jdbc:query key="operationalBillingInsert"
                     value="
-      INSERT INTO billing_stats VALUES (0,${map-payload:STAT});"/>
+      INSERT INTO billing_stats VALUES (0,#{map-payload:STAT});"/>
     </jdbc:connector>
     <jdbc:connector name="warehouseDb" dataSource-ref="warehouseDataSource">
         <jdbc:query key="warehouseBillingInsert"
                     value="
-      INSERT INTO billing_stats VALUES (0,${map-payload:STAT});"/>
+      INSERT INTO billing_stats VALUES (0,#{map-payload:STAT});"/>
     </jdbc:connector>
 
     <jbossts:transaction-manager/>
