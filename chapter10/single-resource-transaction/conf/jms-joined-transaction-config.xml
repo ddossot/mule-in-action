@@ -30,13 +30,14 @@
             </inbound>
 
             <outbound>
-                <static-recipient-list-router>
-                    <jms:transaction action="ALWAYS_JOIN" timeout="1000"/>
-                    <recipients>
-                        <spring:value>jms://operational-database</spring:value>
-                        <spring:value>jms://data-warehouse</spring:value>
-                    </recipients>
-                </static-recipient-list-router>
+                <multicasting-router>
+                    <jms:outbound-endpoint queue="operational-database">
+                        <jms:transaction action="ALWAYS_JOIN" timeout="1000"/>
+                    </jms:outbound-endpoint>
+                    <jms:outbound-endpoint queue="data-warehouse">
+                        <jms:transaction action="ALWAYS_JOIN" timeout="1000"/>
+                    </jms:outbound-endpoint>
+                </multicasting-router>
             </outbound>
         </service>
     </model>
