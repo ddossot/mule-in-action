@@ -27,7 +27,7 @@
     <model name="collectionAggregatorModel">
         <service name="collectionAggregatorService">
             <inbound>
-                <jms:inbound-endpoint queue="fares" synchronous="true"/>
+                <jms:inbound-endpoint queue="fares" synchronous="true" />
                 <collection-aggregator-router timeout="5000"/>
             </inbound>
 
