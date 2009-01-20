@@ -22,7 +22,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint queue="processed-messages">
+                    <jms:outbound-endpoint queue="processed.messages">
                         <jms:transaction action="ALWAYS_JOIN"/>
                     </jms:outbound-endpoint>
                 </pass-through-router>
