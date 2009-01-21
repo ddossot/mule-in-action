@@ -21,7 +21,6 @@ public class JmsJdbcTransactionFunctionalTestCase extends FunctionalTestCase {
         super.suitePreSetUp();
     }
 
-
     @Override
     protected String getConfigResources() {
         return "conf/jms-jdbc-transaction-config.xml";
