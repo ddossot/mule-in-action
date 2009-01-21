@@ -29,7 +29,6 @@
     </dependencies>
 	
 	<modules>
-	    <module>common-ch10</module>
 	    <module>single-resource-transaction</module>
 	    <module>xa-transaction</module>
 	    <module>exception-strategy</module>
