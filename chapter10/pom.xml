@@ -14,8 +14,22 @@
 	<artifactId>chapter10</artifactId>
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 10</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-jbossts</artifactId>
+            <version>${mule-version}</version>
+        </dependency>
+    </dependencies>
 	
 	<modules>
+	    <module>common-ch10</module>
 	    <module>single-resource-transaction</module>
 	    <module>xa-transaction</module>
 	    <module>exception-strategy</module>
