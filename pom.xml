@@ -27,6 +27,7 @@
 	    <module>chapter09</module>
 	    <module>chapter10</module>
         <module>chapter11</module>
+        <module>chapter12</module>
 	    <module>chapter13</module>
 	    <module>chapter14</module>
 	    <module>chapter15</module>
@@ -214,6 +215,16 @@
 			<version>${mule-version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-jbossts</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-bpm</artifactId>
+			<version>${mule-version}</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
@@ -285,6 +296,15 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>mule-deps</id>
+            <name>Mule Dependencies</name>
+            <url>http://dist.codehaus.org/mule/dependencies/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
  
     </repositories>
 
