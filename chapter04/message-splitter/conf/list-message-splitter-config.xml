@@ -18,27 +18,30 @@
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
        "
->
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
-    
+        >
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+    <vm:connector name="vmConnector" queueEvents="true"/>
+
     <model name="listMessageSplitterModel">
         <service name="listMessageSplitterService">
-            <inbound> 
-                <jms:inbound-endpoint queue="orders"/>
+            <inbound>
+                <vm:inbound-endpoint path="orders"/>
             </inbound>
-             
+
             <outbound>
+
                 <list-message-splitter-router>
-                    <jms:outbound-endpoint queue="orders.fulfilled">
-                        <expression-filter evaluator="jxpath" expression="(status)='FULFILLED'"/>
-                    </jms:outbound-endpoint>
-                    <jms:outbound-endpoint queue="orders.pending">
-                        <expression-filter evaluator="jxpath" expression="(status)='PENDING'"/>
-                    </jms:outbound-endpoint>
-                    <jms:outbound-endpoint queue="orders.unknown"/>
+                    <vm:outbound-endpoint path="orders.fulfilled">
+                        <expression-filter evaluator="jxpath" expression="status = 'FULFILLED'"/>
+                    </vm:outbound-endpoint>
+                    <vm:outbound-endpoint path="orders.pending">
+                        <expression-filter evaluator="jxpath" expression="status = 'PENDING'"/>
+                    </vm:outbound-endpoint>
+                    <vm:outbound-endpoint path="orders.unknown"/>
                 </list-message-splitter-router>
+
             </outbound>
-             
+
         </service>
     </model>
 </mule>
