@@ -26,7 +26,6 @@
             </inbound>
 
             <outbound>
-
                 <xm:filter-based-splitter splitExpression="/orders/order">
                     <jms:outbound-endpoint queue="orders.fulfilled">
                         <expression-filter evaluator="jxpath" expression="/order/status ='FULFILLED'"/>
