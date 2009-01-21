@@ -26,8 +26,7 @@
 	<object-to-byte-array-transformer name="ObjectToByteArray" />
 	<object-to-string-transformer name="ObjectToString" />
 	
-	<xm:xslt-transformer name="DocbookToFO"
-			xsl-file="docbook-xsl/fo/docbook.xsl" />
+	<xm:xslt-transformer name="DocbookToFO"	xsl-file="docbook-fo.xsl" />
 	
 	<model name="publicationModel">
 		<service name="publicationService">
