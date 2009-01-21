@@ -62,6 +62,7 @@
                     </jdbc:outbound-endpoint>
                 </multicasting-router>
             </outbound>
+          
         </service>
     </model>
 

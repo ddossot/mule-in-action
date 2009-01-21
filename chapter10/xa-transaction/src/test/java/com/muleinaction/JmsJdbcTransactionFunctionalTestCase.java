@@ -1,7 +1,6 @@
 package com.muleinaction;
 
 import org.mule.api.service.Service;
-import org.mule.api.MuleException;
 import org.mule.api.FutureMessageResult;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.module.client.MuleClient;
@@ -20,6 +19,39 @@ public class JmsJdbcTransactionFunctionalTestCase extends FunctionalTestCase {
         createOperationalDatabase();
         createWarehouseDatabase();
         super.suitePreSetUp();
+    }
+
+
+    @Override
+    protected String getConfigResources() {
+        return "conf/jms-jdbc-transaction-config.xml";
+    }
+
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "BillingService");
+
+        assertNotNull(service);
+        assertEquals("BillingModel", service.getModel().getName());
+
+    }
+
+    public void testMessageConsumedTransactionally() throws Exception {
+        MuleClient muleClient = new MuleClient(muleContext);
+        FutureMessageResult result = muleClient.sendAsync("vm://billing.stat", "STATUS: OK", null);
+        result.getMessage(5000);
+        assertEquals(1, getTemplate("operationalDB", false).queryForList("SELECT * FROM BILLING_STATS").size());
+        assertEquals(1, getTemplate("warehouseDB", false).queryForList("SELECT * FROM BILLING_STATS").size());
+    }
+
+    public void testMessageRolledBack() throws Exception {
+        createOperationalDatabase();
+        createBrokenWarehouseDatabase();
+        MuleClient muleClient = new MuleClient(muleContext);
+        FutureMessageResult result = muleClient.sendAsync("vm://billing.stat", "STATUS: OK", null);
+        result.getMessage(5000);
+        assertEquals(0, getTemplate("operationalDB", false).queryForList("SELECT * FROM BILLING_STATS").size());
+        assertEquals(0, getTemplate("warehouseDB", false).queryForList("SELECT * FROM BILLING_STATS").size());
     }
 
     void createOperationalDatabase() throws SQLException {
@@ -42,6 +74,15 @@ public class JmsJdbcTransactionFunctionalTestCase extends FunctionalTestCase {
         template.update("CREATE TABLE BILLING_STATS (id BIGINT NOT NULL, stat VARCHAR(255))");
     }
 
+    void createBrokenWarehouseDatabase() throws SQLException {
+        JdbcTemplate template = getTemplate("warehouseDB", true);
+        try {
+            template.update("DROP TABLE BILLING_STATS");
+        } catch (BadSqlGrammarException ex) {
+            logger.info(ex);
+        }
+        template.update("CREATE TABLE BILLING_STATS (id BIGINT NOT NULL)");
+    }
 
     JdbcTemplate getTemplate(String database, boolean create) throws SQLException {
         StandardDataSource dataSource = new org.enhydra.jdbc.standard.StandardDataSource();
@@ -50,29 +91,6 @@ public class JmsJdbcTransactionFunctionalTestCase extends FunctionalTestCase {
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(dataSource);
         return template;
-    }
-
-    @Override
-    protected String getConfigResources() {
-        return "conf/jms-jdbc-transaction-config.xml";
-    }
-
-    public void testCorrectlyInitialized() throws Exception {
-        final Service service = muleContext.getRegistry().lookupService(
-                "BillingService");
-
-        assertNotNull(service);
-        assertEquals("BillingModel", service.getModel().getName());
-
-    }
-
-    public void testMessageConsumedTransactionally() throws Exception {
-        MuleClient muleClient = new MuleClient(muleContext);
-        FutureMessageResult result = muleClient.sendAsync("vm://billing.stat", "STATUS: OK", null);
-        result.getMessage(5000);
-        assertEquals(1, getTemplate("operationalDB", false).queryForList("SELECT * FROM BILLING_STATS").size());
-        assertEquals(1, getTemplate("warehouseDB", false).queryForList("SELECT * FROM BILLING_STATS").size());
-
     }
 
 
