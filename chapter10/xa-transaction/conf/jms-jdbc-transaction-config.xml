@@ -4,6 +4,7 @@
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
       xmlns:jdbc="http://www.mulesource.org/schema/mule/jdbc/2.1"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
       xmlns:jbossts="http://www.mulesource.org/schema/mule/jbossts/2.1"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -11,6 +12,7 @@
        http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
        http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
        http://www.mulesource.org/schema/mule/jdbc/2.1 http://www.mulesource.org/schema/mule/jdbc/2.1/mule-jdbc.xsd
+       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
        http://www.mulesource.org/schema/mule/jbossts/2.1 http://www.mulesource.org/schema/mule/jbossts/2.1/mule-jbossts.xsd
        ">
 
@@ -20,36 +22,45 @@
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
-    <jms:activemq-xa-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>    
-
     <jdbc:connector name="operationalDb" dataSource-ref="operationalDataSource">
         <jdbc:query key="operationalBillingInsert"
-                    value="
-      INSERT INTO billing_stats VALUES (0,#{map-payload:STAT});"/>
-    </jdbc:connector>
-    <jdbc:connector name="warehouseDb" dataSource-ref="warehouseDataSource">
-        <jdbc:query key="warehouseBillingInsert"
-                    value="
-      INSERT INTO billing_stats VALUES (0,#{map-payload:STAT});"/>
+                    value="INSERT INTO BILLING_STATS VALUES (0,#[map-payload:STAT])"/>
     </jdbc:connector>
 
+    <jdbc:connector name="warehouseDb" dataSource-ref="warehouseDataSource">
+        <jdbc:query key="warehouseBillingInsert"
+                    value="INSERT INTO BILLING_STATS VALUES (0,#[map-payload:STAT])"/>
+    </jdbc:connector>
+
+    <jms:activemq-xa-connector
+            brokerURL="${jms.url}"
+            name="jmsConnector"
+            specification="1.1"
+            numberOfConcurrentTransactedReceivers="1"
+            maxRedelivery="1"/>
+
     <jbossts:transaction-manager/>
+
     <model name="BillingModel">
         <service name="BillingService">
             <inbound>
-                <jms:inbound-endpoint queue="billing-data">
-                    <xa-transaction action="ALWAYS_BEGIN" timeout="60000"/>
+                <vm:inbound-endpoint path="billing.stat">
+                    <xa-transaction action="ALWAYS_BEGIN"/>
+                </vm:inbound-endpoint>
+                <jms:inbound-endpoint queue="billing.stat">
+                    <xa-transaction action="ALWAYS_BEGIN"/>
                 </jms:inbound-endpoint>
             </inbound>
             <component class="com.clood.billing.BillingServiceImpl"/>
-            <outbound>                                                            
-                <static-recipient-list-router>
-                    <xa-transaction action="ALWAYS_JOIN"/>
-                    <recipients>
-                        <spring:value>jdbc://operationalDb</spring:value>
-                        <spring:value>jdbc://warehouseDb</spring:value>                        
-                    </recipients>
-                </static-recipient-list-router>
+            <outbound>
+                <multicasting-router>
+                    <jdbc:outbound-endpoint connector-ref="operationalDb" queryKey="operationalBillingInsert">
+                        <xa-transaction action="ALWAYS_JOIN"/>
+                    </jdbc:outbound-endpoint>
+                    <jdbc:outbound-endpoint connector-ref="warehouseDb" queryKey="warehouseBillingInsert">
+                        <xa-transaction action="ALWAYS_JOIN"/>
+                    </jdbc:outbound-endpoint>
+                </multicasting-router>
             </outbound>
         </service>
     </model>

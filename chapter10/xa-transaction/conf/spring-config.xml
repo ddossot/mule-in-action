@@ -18,15 +18,28 @@
                 http://www.springframework.org/schema/util/spring-util-2.5.xsd
                 ">
 
-    <bean id="operationalDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
-        <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-        <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
+    <bean id="operationalDataSource" class="org.apache.derby.jdbc.EmbeddedXADataSource">
+        <property name="createDatabase" value="false"/>
+        <property name="databaseName" value="operationalDB"/>
     </bean>
 
-    <bean id="warehouseDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
-        <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-        <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
+    <bean id="warehouseDataSource" class="org.apache.derby.jdbc.EmbeddedXADataSource">
+        <property name="createDatabase" value="false"/>
+        <property name="databaseName" value="warehouseDB"/>
     </bean>
+
+
+    <!--
+   <bean id="operationalDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
+       <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+       <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
+   </bean> -->
+
+    <!--
+  <bean id="warehouseDataSource" class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
+      <property name="driverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="url" value="jdbc:derby:muleEmbeddedDB;create=true"/>
+  </bean>  -->
 
 </beans>
 
