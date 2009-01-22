@@ -30,7 +30,7 @@
         pollingFrequency="1000"  />
 
     <global-property name="http.host" value="localhost"/>
-    <global-property name="http.port" value="8080"/>
+    <global-property name="http.port" value="9765"/>
 
     <model name="httpOutboundModel">
         <service name="httpOutboundService">

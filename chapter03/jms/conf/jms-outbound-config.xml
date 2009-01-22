@@ -20,7 +20,7 @@
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd"
 >
     <global-property name="http.host" value="localhost"/>
-    <global-property name="http.port" value="8080"/>
+    <global-property name="http.port" value="9756"/>
     <global-property name="jms.url" value="vm://localhost"/>
     
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
