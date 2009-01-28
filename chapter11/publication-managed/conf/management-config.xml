@@ -12,20 +12,20 @@
 
 	<!-- <start id="Publication-Management"/> -->
 	<management:rmi-server
-		serverUri="rmi://$[esb.bind.address]:$[esb.jmxrmi.port]/server" />
+		serverUri="rmi://${esb.bind.address}:${esb.jmxrmi.port}/server" />
 
 	<management:jmx-server>
 		<management:connector-server
-			url="service:jmx:rmi:///jndi/rmi://$[esb.bind.address]:$[esb.jmxrmi.port]/server" />
+			url="service:jmx:rmi:///jndi/rmi://${esb.bind.address}:${esb.jmxrmi.port}/server" />
 
 		<management:credentials>
-			<spring:entry key="$[esb.admin.username]" value="$[esb.admin.password]" />
+			<spring:entry key="${esb.admin.username}" value="${esb.admin.password}" />
 		</management:credentials>
 	</management:jmx-server>
 
 	<management:jmx-mx4j-adaptor
-		jmxAdaptorUrl="http://$[esb.bind.address]:$[esb.console.port]" login="$[esb.admin.username]"
-		password="$[esb.admin.password]" />
+		jmxAdaptorUrl="http://${esb.bind.address}:${esb.console.port}" login="${esb.admin.username}"
+		password="${esb.admin.password}" />
 
 	<management:jmx-log4j />
 	<!-- <end id="Publication-Management"/> -->
@@ -35,7 +35,7 @@
 		<service name="ping">
 			<inbound>
 				<http:inbound-endpoint
-					address="http://$[esb.bind.address]:$[esb.web.port]/ping"
+					address="http://${esb.bind.address}:${esb.web.port}/ping"
 					synchronous="true" />
 			</inbound>
 			<component>
