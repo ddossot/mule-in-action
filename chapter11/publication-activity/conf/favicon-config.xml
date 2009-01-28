@@ -36,7 +36,7 @@
 		<service name="faviconService">
 			<inbound>
 				<http:inbound-endpoint
-					address="http://$[esb.bind.address]:$[esb.web.port]/favicon.ico"
+					address="http://${esb.bind.address}:${esb.web.port}/favicon.ico"
 					synchronous="true">
 					<response-transformers>
 						<message-properties-transformer>

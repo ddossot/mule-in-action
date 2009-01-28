@@ -16,7 +16,7 @@
 			</inbound>
 			<outbound>
 				<pass-through-router>
-					<file:outbound-endpoint path="out" outputPattern="${UUID}.fo"/>
+					<file:outbound-endpoint path="out" outputPattern="#[UUID].fo"/>
 				</pass-through-router>
 			</outbound>
 		</service>
