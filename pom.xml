@@ -38,7 +38,7 @@
 		<developer>
 			<id>ddossot</id>
 			<name>David Dossot</name>
-			<email>david@dossot.net</email>
+			<email>david@muleinaction.com</email>
 			<url>http://dossot.net</url>
 			<roles>
 				<role>Co-Author</role>
@@ -47,6 +47,7 @@
 		<developer>
 			<id>jdemic</id>
 			<name>John D'Emic</name>
+			<email>john@muleinaction.com</email>
 			<roles>
 				<role>Co-Author</role>
 			</roles>
@@ -74,6 +75,7 @@
 								<include>activemq-data</include>
 								<include>.mule</include>
 								<include>muleEmbeddedDB</include>
+								<include>out</include>
 							</includes>
 						</fileset>
 					</filesets>
