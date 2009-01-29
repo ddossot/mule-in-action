@@ -18,11 +18,12 @@
        "
         >
 
-
     <!-- Reference an external Spring configuratioon -->
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
+
+    <stdio:connector name="stdioConnector" messageDelayTime="1000"  promptMessage="Enter a destination: "/>
 
     <model name="asyncRequestReplyModel">
 
@@ -96,7 +97,7 @@
         <!-- A "client" to accept requests from the console and broker them to a VM endpoint -->
         <service name="asyncClient">
             <inbound>
-                <stdio:inbound-endpoint system="IN"/>
+                <stdio:inbound-endpoint name="client" system="IN" connector-ref="stdioConnector"/>
             </inbound>
             <outbound>
                 <chaining-router>
