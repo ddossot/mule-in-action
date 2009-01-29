@@ -35,9 +35,14 @@
 		<service name="publicationService">
 			<inbound>
 				<http:inbound-endpoint address="http://${esb.bind.address}:${esb.web.port}/publicationService">
+					<transformers>
+						<message-properties-transformer>
+							<add-message-property key="Response-Content" value="ACK" />
+						</message-properties-transformer>
+					</transformers>
 					<response-transformers>
 						<expression-transformer>
-							<return-argument evaluator="groovy" expression="'ACK'"/>
+							<return-argument evaluator="header" expression="Response-Content" />
 						</expression-transformer>						
 					</response-transformers>
 				</http:inbound-endpoint>
