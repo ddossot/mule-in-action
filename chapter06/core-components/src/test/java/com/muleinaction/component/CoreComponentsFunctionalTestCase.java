@@ -7,6 +7,7 @@ import org.mule.module.client.MuleClient;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.transport.NullPayload;
 
+import com.clood.model.Client;
 import com.clood.statistic.ActivityEmailContext;
 import com.clood.statistic.ActivityReport;
 import com.muleinaction.test.StringTargetComponent;
@@ -80,6 +81,19 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
                 .getActivityReport().toString());
     }
 
+    public void testGuidedEntryPointResolution() throws Exception {
+        final long clientId = new Random().nextLong();
+
+        final ActivityEmailContext aec = new ActivityEmailContext(clientId);
+
+        final MuleMessage response = muleClient.send(
+                "vm://ClientLookupService.In", aec, null);
+
+        assertNotNull(response);
+        Client client = (Client) response.getPayload();
+        assertEquals(clientId, client.getId());
+    }
+		
     private void doTestComponent(final String inboundUri,
             final String expectedResponse, final boolean expectedToReachTarget,
             final boolean willGetException) throws Exception {

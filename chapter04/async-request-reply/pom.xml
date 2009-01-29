@@ -15,6 +15,14 @@
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 4 - Async Request Reply Sample</name>
 
+				<dependencies>
+        <dependency>
+            <groupId>com.muleinaction</groupId>
+            <artifactId>common-ch04</artifactId>
+            <version>${version}</version>
+        </dependency>
+	</dependencies>
+	
   <build>
     <plugins>
       <plugin>

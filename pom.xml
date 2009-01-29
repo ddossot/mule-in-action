@@ -151,6 +151,11 @@
 				<artifactId>spring-aop</artifactId>
 				<version>${spring-version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring-version}</version>
+			</dependency>
 			
 			<dependency>
 				<groupId>org.mule.transports</groupId>
@@ -200,6 +205,11 @@
 			<dependency>
 				<groupId>org.mule.transports</groupId>
 				<artifactId>mule-transport-cxf</artifactId>
+				<version>${mule-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-axis</artifactId>
 				<version>${mule-version}</version>
 			</dependency>
 			<dependency>
@@ -322,7 +332,7 @@
 				<repository>
             <id>java.net</id>
             <name>java.net Maven Repository</name>
-            <url>http://download.java.net/maven/1/</url>
+            <url>http://download.java.net/maven/1</url>
             <layout>legacy</layout>
             <releases>
                 <enabled>true</enabled>
@@ -334,7 +344,7 @@
 				<repository>
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
+            <url>http://download.java.net/maven/2</url>
             <layout>default</layout>
         </repository>
         <repository>
