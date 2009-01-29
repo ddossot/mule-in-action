@@ -22,12 +22,12 @@
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
     <model name="collectionAggregatorModel">
         <service name="collectionAggregatorService">
             <inbound>
-                <jms:inbound-endpoint queue="fares" synchronous="true" />
+                <jms:inbound-endpoint queue="fares" synchronous="true"/>
                 <collection-aggregator-router timeout="5000"/>
             </inbound>
 
@@ -40,7 +40,7 @@
 
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint topic="cheapFares" />
+                    <jms:outbound-endpoint topic="cheapFares"/>
                 </pass-through-router>
             </outbound>
         </service>
