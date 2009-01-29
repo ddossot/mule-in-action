@@ -19,7 +19,7 @@ fi
 
 # This extends the classpath to include the configuration directory
 # Any changes to the files in ./conf will take precedence over those deployed to $MULE_HOME/lib/user
-MULE_LIB=./conf:./lib/activemq-core-5.1.0.jar:./lib/message-splitter-1.0-SNAPSHOT.jar:./lib/common-ch04-1.0-SNAPSHOT.jar
+MULE_LIB=./conf:./target/message-splitter-1.0-SNAPSHOT.jar:../common-ch04/target/common-ch04-1.0-SNAPSHOT.jar
 export MULE_LIB
 
 exec "$MULE_BASE/bin/mule" -config list-message-splitter-config.xml
