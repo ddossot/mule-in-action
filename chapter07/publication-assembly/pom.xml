@@ -19,9 +19,16 @@
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
-			<version>5.1.0</version>
 		</dependency>
-	</dependencies>
+				<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-jms</artifactId>
+		</dependency>
+				<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-http</artifactId>
+		</dependency>
+		</dependencies>
 	
 	<build>
 		<plugins>
