@@ -14,4 +14,15 @@
 	<artifactId>welcome</artifactId>
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 1 - Welcome to Mule</name>
+	
+	<dependencies>
+				<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-quartz</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-stdio</artifactId>
+			</dependency>
+	</dependencies>
 </project>
