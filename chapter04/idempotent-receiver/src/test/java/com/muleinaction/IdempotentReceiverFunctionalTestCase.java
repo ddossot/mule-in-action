@@ -7,6 +7,7 @@ import org.mule.module.client.MuleClient;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.UUID;
 
 import com.muleinaction.common.Order;
 
@@ -32,7 +33,9 @@ public class IdempotentReceiverFunctionalTestCase extends FunctionalTestCase {
         MuleClient muleClient = new MuleClient(muleContext);
         Map<String, String> properties = new HashMap<String, String>();
 
-        properties.put("orderId", "1234");
+        String uid = UUID.randomUUID().toString();
+
+        properties.put("orderId", uid);
         muleClient.sendAsync("jms://orders", getOrder(), properties);
         MuleMessage response = muleClient.request("jms://duplicate.orders", 2000);
         assertNull(response);
@@ -42,7 +45,9 @@ public class IdempotentReceiverFunctionalTestCase extends FunctionalTestCase {
         MuleClient muleClient = new MuleClient(muleContext);
         Map<String, String> properties = new HashMap<String, String>();
 
-        properties.put("orderId", "1234");
+        String uid = UUID.randomUUID().toString();
+
+        properties.put("orderId", uid);
         muleClient.sendAsync("jms://orders", getOrder(), properties);
         muleClient.sendAsync("jms://orders", getOrder(), properties);
 
