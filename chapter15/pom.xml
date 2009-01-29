@@ -15,6 +15,27 @@
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 15</name>
 	
+	<dependencies>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-jms</artifactId>
+			</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm.jbpm3</groupId>
+			<artifactId>jbpm-core</artifactId>
+			<version>3.3.0.CR1</version>
+		</dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+						<version>1.1</version>
+        </dependency>
+	</dependencies>
+	
 	<modules>
 	    <module>jbpm</module>
 	    <module>bpel</module>

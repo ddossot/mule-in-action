@@ -15,24 +15,6 @@
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 15 - jBPM</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jbpm.jbpm3</groupId>
-			<artifactId>jbpm-core</artifactId>
-			<version>3.3.0.CR1</version>
-		</dependency>
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom</artifactId>
-            <version>1.1</version>
-        </dependency>
-	</dependencies>
-
   <build>
     <plugins>
       <plugin>
