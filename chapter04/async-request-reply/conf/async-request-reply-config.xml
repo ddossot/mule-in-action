@@ -17,12 +17,17 @@
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
         >
+
+
+    <!-- Reference an external Spring configuratioon -->
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
     <model name="asyncRequestReplyModel">
 
+        <!-- Accept flight requests on a VM inbound endpoint and use the async-reply router to gather quotes
+        from remote airlines and accept then return the lowest -->
         <service name="asyncRequestReplyService">
             <inbound>
                 <vm:inbound-endpoint address="vm://flightRequests" synchronous="true">
@@ -33,12 +38,12 @@
             </inbound>
             <outbound>
                 <multicasting-router>
-                    <vm:outbound-endpoint address="vm://airline1" />
-                    <vm:outbound-endpoint address="vm://airline2" />
-                    <vm:outbound-endpoint address="vm://airline3" />
+                    <vm:outbound-endpoint address="vm://airline1"/>
+                    <vm:outbound-endpoint address="vm://airline2"/>
+                    <vm:outbound-endpoint address="vm://airline3"/>
 
+                    <!-- Replies from each outbound endpoint will be sent to this queue -->
                     <reply-to address="vm://flightResponses"/>
-
                 </multicasting-router>
             </outbound>
 
@@ -49,6 +54,7 @@
 
         </service>
 
+        <!-- Simulate an Airline -->
         <service name="airline1">
             <inbound>
                 <vm:inbound-endpoint address="vm://airline1" synchronous="true"/>
@@ -61,6 +67,7 @@
             </component>
         </service>
 
+        <!-- Simulate an Airline -->
         <service name="airline2">
             <inbound>
                 <vm:inbound-endpoint address="vm://airline2" synchronous="true"/>
@@ -73,6 +80,7 @@
             </component>
         </service>
 
+        <!-- Simulate an Airline -->
         <service name="airline3">
             <inbound>
                 <vm:inbound-endpoint address="vm://airline3" synchronous="true"/>
@@ -83,6 +91,19 @@
                 </method-entry-point-resolver>
                 <spring-object bean="fareGenerationService3"/>
             </component>
+        </service>
+
+        <!-- A "client" to accept requests from the console and broker them to a VM endpoint -->
+        <service name="asyncClient">
+            <inbound>
+                <stdio:inbound-endpoint system="IN"/>
+            </inbound>
+            <outbound>
+                <chaining-router>
+                    <vm:outbound-endpoint path="flightRequests"/>
+                    <stdio:outbound-endpoint system="OUT"/>
+                </chaining-router>
+            </outbound>
         </service>
 
     </model>
