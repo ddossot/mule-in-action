@@ -15,7 +15,29 @@
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 14</name>
     
+		<dependencyManagement>
+		<dependencies>
+		          <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1</version>
+        </dependency>
+				</dependencies>
+			</dependencyManagement>
+	
     <dependencies>
+				<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-stdio</artifactId>
+		</dependency>
+				<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-vm</artifactId>
+		</dependency>
+					<dependency>
+				<groupId>org.mule.modules</groupId>
+				<artifactId>mule-module-scripting</artifactId>
+			</dependency>
         <dependency>
             <groupId>javax.script</groupId>
             <artifactId>js-engine</artifactId>

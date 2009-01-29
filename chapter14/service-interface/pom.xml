@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.muleinaction</groupId>
             <artifactId>logic-components</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${version}</version>
         </dependency>
     </dependencies>
 
