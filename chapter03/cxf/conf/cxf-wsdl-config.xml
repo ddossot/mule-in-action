@@ -38,7 +38,9 @@
             <bridge-component/>
             <outbound>
                 <chaining-router>
-                    <outbound-endpoint address="wsdl-cxf:http://www.webservicex.net/stockquote.asmx?WSDL&amp;method=GetQuote"/>
+                    <outbound-endpoint 
+address="wsdl-cxf:http://www.webservicex.net/stockquote.asmx?
+WSDL&amp;method=GetQuote"/>
                     <stdio:outbound-endpoint system="OUT"/> 
                 </chaining-router>
             </outbound>
