@@ -17,6 +17,15 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-scripting</artifactId>
+		</dependency>
+		<dependency>
+		<groupId>org.mule.modules</groupId>
+		<artifactId>mule-module-management</artifactId>
+		</dependency>
+			
+		<dependency>
 			<groupId>com.muleinaction</groupId>
 			<artifactId>activity-audit</artifactId>
 			<version>${version}</version>
