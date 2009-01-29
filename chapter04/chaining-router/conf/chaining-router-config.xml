@@ -19,18 +19,40 @@
         >
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
-    
+
     <model name="chainingRouterModel">
         <service name="chainingRouterService">
             <inbound>
-                <jms:inbound-endpoint queue="weather.request" synchronous="true"/>
+                <jms:inbound-endpoint queue="weather.request" synchronous="true">
+                    <transformers>
+                        <jms:jmsmessage-to-object-transformer/>
+                    </transformers>
+                </jms:inbound-endpoint>
             </inbound>
             <outbound>
                 <chaining-router>
                     <outbound-endpoint
-                            address="http://www.webservicex.net/usweather.asmx?WSDL&amp;method=GetWeatherReport"/>
+                            address="wsdl-cxf:http://localhost:8081/weather?wsdl&amp;method=getWeatherReport"/>
                     <jms:outbound-endpoint queue="weather.report"/>
                 </chaining-router>
+            </outbound>
+        </service>
+
+        <service name="weatherService">
+            <inbound>
+                <cxf:inbound-endpoint frontend="simple" address="http://localhost:8081/weather"/>
+            </inbound>
+            <component class="com.muleinaction.WeatherServiceImpl"/>
+        </service>
+
+        <service name="chainingRouterClient">
+            <inbound>
+                <stdio:inbound-endpoint system="IN"/>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <jms:outbound-endpoint queue="weather.request"/>
+                </pass-through-router>
             </outbound>
         </service>
     </model>
