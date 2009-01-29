@@ -15,10 +15,19 @@
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 8</name>
 	
+	<dependencies>
+			<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+		</dependency>
+		<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-jms</artifactId>
+			</dependency>
+		</dependencies>
+	
 	<modules>
 	    <module>exception-strategy</module>
-        <!-- ToDo Figure out why the connection-strategy tests fail from the top level pom -->
-	    <!-- <module>connection-strategy</module> -->
-
+	    <module>connection-strategy</module>
 	</modules>
 </project>

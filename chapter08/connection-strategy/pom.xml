@@ -16,12 +16,11 @@
 	<name>Mule in Action - Chapter 8 - Connection Strategy Examples</name>
 
 	<dependencies>
-        <dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.1.0</version>
-		</dependency> 
-        <dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-http</artifactId>
+			</dependency>
+    <dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>commonretrypolicies</artifactId>
 			<version>1.0</version>
