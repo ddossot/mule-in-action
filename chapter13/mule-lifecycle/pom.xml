@@ -12,12 +12,4 @@
 	<artifactId>mule-lifecycle</artifactId>
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 13 - Mule Lifecycle Samples</name>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-client</artifactId>
-			<version>${mule-version}</version>
-		</dependency>
-	</dependencies>
 </project>
