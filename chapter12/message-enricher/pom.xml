@@ -12,7 +12,7 @@
     <artifactId>message-enricher</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>message-enricher</name>
+    <name>Mule in Action - Chapter 12 - Message Enricher</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>

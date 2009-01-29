@@ -28,14 +28,16 @@
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
-			<version>5.1.0</version>
 		</dependency>
-    <!--
-        <dependency>
-            <groupId>javax.j2ee</groupId>
-            <artifactId>j2ee</artifactId>
-            <version>1.4</version>
-        </dependency> -->
+		
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-ejb</artifactId>
+		</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-stdio</artifactId>
+			</dependency>		
 	</dependencies>
 
   <build>
