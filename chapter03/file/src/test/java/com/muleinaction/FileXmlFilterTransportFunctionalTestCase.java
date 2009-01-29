@@ -19,6 +19,11 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
     private static String SOURCE_DIRECTORY = "./data/snapshot";
     private static String DEST_DIRECTORY = "./data/archive";
 
+    protected void doSetUp() throws Exception {
+        super.doSetUp();
+        FileUtils.cleanDirectory(new File(SOURCE_DIRECTORY));
+        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
+    }
 
     @Override
     protected String getConfigResources() {
