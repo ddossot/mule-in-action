@@ -33,10 +33,13 @@
 	</build>
   
 	<dependencies>
+				<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+			</dependency>
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-servlet</artifactId>
-			<version>${mule-version}</version>
 		</dependency>
 	</dependencies>
 </project>
