@@ -18,7 +18,13 @@
        "
         >
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+    <jms:activemq-connector name="jmsConnector"
+                            specification="1.1"
+                            brokerURL="vm://localhost"/>
+
+    <stdio:connector name="stdioConnector"
+                     messageDelayTime="1000"
+                     promptMessage="Enter a zip code: "/>
 
     <model name="chainingRouterModel">
         <service name="chainingRouterService">
@@ -55,6 +61,25 @@
                 </pass-through-router>
             </outbound>
         </service>
+
+
+        <!-- Uncomment below to see the result printed to STDOUT -->
+
+        <!--
+        <service name="chainingRouterReceiver">
+            <inbound>
+                <jms:inbound-endpoint queue="weather.report"/>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <stdio:outbound-endpoint system="OUT">
+                        <transformers>
+                            <jms:jmsmessage-to-object-transformer/>
+                        </transformers>
+                    </stdio:outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service> -->
     </model>
 
 </mule>
