@@ -14,4 +14,15 @@
 	<artifactId>echo-world</artifactId>
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 2 - Echo World Sample</name>
+	
+	<dependencies>
+			<dependency>
+				<groupId>org.mule.modules</groupId>
+				<artifactId>mule-module-scripting</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-stdio</artifactId>
+			</dependency>
+	</dependencies>
 </project>
