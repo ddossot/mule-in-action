@@ -17,7 +17,6 @@
        http://www.mulesource.org/schema/mule/email/2.1 http://www.mulesource.org/schema/mule/email/2.1/mule-email.xsd
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd">
 
-
     <file:connector name="FileConnector"
                     streaming="false"
                     autoDelete="true"
