@@ -26,7 +26,7 @@
     <model name="jmsInboundModel">
         <service name="jmsInboundService">
             <inbound>
-                <jms:inbound-endpoint topic="backup-reports"> 
+                <jms:inbound-endpoint topic="backup-reports">
                     <jms:jmsmessage-to-object-transformer/>
                 </jms:inbound-endpoint>
             </inbound>

@@ -22,7 +22,6 @@
 	    <module>http</module>
 	    <module>imap</module>
 	    <module>cxf</module>
-	    <module>ejb</module>
 	    <module>ftp</module>
 	    <module>jdbc</module>
 	    <module>jms</module>
