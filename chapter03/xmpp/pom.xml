@@ -16,11 +16,6 @@
 	<name>Mule in Action - Chapter 3 - XMPP Transport Samples</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.1.0</version>
-		</dependency>
 	</dependencies>
 
   <build>

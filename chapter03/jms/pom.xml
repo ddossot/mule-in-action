@@ -20,6 +20,19 @@
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 		</dependency>
+		
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-jms</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-stdio</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-http</artifactId>
+			</dependency>
 	</dependencies>
 
   <build>

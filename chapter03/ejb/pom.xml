@@ -15,21 +15,7 @@
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 3 - EJB Transport Samples</name>
 
-    <repositories>
-        <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-		</dependency>
-		
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-ejb</artifactId>
