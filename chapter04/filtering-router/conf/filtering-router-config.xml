@@ -26,13 +26,16 @@
     <model name="filteringRouterModel">
         <service name="filteringRouterService">
             <inbound>
-                <jms:inbound-endpoint queue="fares"/>
-                <collection-aggregator-router timeout="600000"/>
+                <jms:inbound-endpoint queue="fares" synchronous="true" />
+                <collection-aggregator-router timeout="60000"/>
             </inbound>
+						<component>
+							<spring-object bean="fareSelectionService" />
+						</component>
             <outbound>
                 <filtering-router>
                     <jms:outbound-endpoint queue="cheapestFares"/>
-                    <payload-type-filter expectedType="java.lang.String"/>
+                    <payload-type-filter expectedType="com.muleinaction.common.Fare"/>
                 </filtering-router>
                 <logging-catch-all-strategy/>
             </outbound>

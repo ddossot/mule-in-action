@@ -24,4 +24,3 @@ export MULE_LIB
 
 exec "$MULE_BASE/bin/mule" -config multicasting-router-config.xml
 
-# Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService
