@@ -15,19 +15,6 @@
 	<packaging>jar</packaging>
 	<name>Mule in Action - Chapter 4 - Idempotent Receiver Sample</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.1.0</version>
-		</dependency>
-        <dependency>
-            <groupId>com.muleinaction</groupId>
-            <artifactId>common-ch04</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-	</dependencies>
-
   <build>
     <plugins>
       <plugin>

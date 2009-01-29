@@ -15,17 +15,41 @@
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 4</name>
 	
+	<dependencies>
+			<dependency>
+				<groupId>org.mule.modules</groupId>
+				<artifactId>mule-module-client</artifactId>
+			</dependency>
+						<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-core</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-jms</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-vm</artifactId>
+			</dependency>
+        <dependency>
+            <groupId>com.muleinaction</groupId>
+            <artifactId>common-ch04</artifactId>
+            <version>${version}</version>
+        </dependency>
+		</dependencies>
+	
 	<modules>
 	    <module>common-ch04</module>
 	    <module>selective-consumer</module>
 	    <module>filtering</module>
 	    <module>forwarding-consumer</module>
 	    <module>collection-aggregator</module>
-	    <!-- <module>idempotent-receiver</module>  -->
+	    <module>idempotent-receiver</module>
 	    <module>wiretap</module>
 	    <module>multicasting-router</module>
 	    <module>static-recipient-list</module>
-	    <!-- <module>chaining-router</module> -->
+	    <module>chaining-router</module>
 	    <module>message-splitter</module>
 	    <module>async-request-reply</module>
 	</modules>
