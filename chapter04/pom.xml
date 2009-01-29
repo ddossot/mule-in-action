@@ -44,9 +44,7 @@
 	    <module>wiretap</module>
 	    <module>multicasting-router</module>
 	    <module>static-recipient-list</module>
-			<!--
 	    <module>chaining-router</module>
-			-->
 	    <module>message-splitter</module>
 	    <module>async-request-reply</module>
 	</modules>
