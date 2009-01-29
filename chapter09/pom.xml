@@ -15,9 +15,34 @@
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 9</name>
 	
+	<dependencies>
+				<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-http</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.modules</groupId>
+				<artifactId>mule-module-acegi</artifactId>
+			</dependency>
+	</dependencies>
+	
 	<modules>
 	    <module>security-manager</module>
 	    <module>security-filter</module>
 	    <module>secure-transport</module>
 	</modules>
+	
+	  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <additionalClasspathElements>
+                <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
+          </additionalClasspathElements>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
