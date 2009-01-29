@@ -164,7 +164,7 @@
 			<inbound>
 				<vm:inbound-endpoint ref="ClientLookupChannel">
 					<expression-transformer>
-  					<return-argument evaluator="groovy" expression="payload.id" />
+  					<return-argument evaluator="bean" expression="id" />
 					</expression-transformer>
 				</vm:inbound-endpoint>
 			</inbound>

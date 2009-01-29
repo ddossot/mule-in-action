@@ -16,10 +16,22 @@
 	<name>Mule in Action - Chapter 5 - Publication Sample</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-		</dependency>
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-core</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-jms</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-http</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.modules</groupId>
+				<artifactId>mule-module-xml</artifactId>
+			</dependency>
 	</dependencies>
 
   <build>

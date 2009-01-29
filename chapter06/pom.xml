@@ -13,6 +13,17 @@
 	<packaging>pom</packaging>
 	<name>Mule in Action - Chapter 6</name>
 	
+	<dependencies>
+				<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-vm</artifactId>
+			</dependency>
+				<dependency>
+				<groupId>org.mule.modules</groupId>
+				<artifactId>mule-module-client</artifactId>
+			</dependency>
+		</dependencies>
+	
 	<modules>
     <module>core-components</module>
     <module>rest-component</module>

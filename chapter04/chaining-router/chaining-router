@@ -23,5 +23,3 @@ MULE_LIB=./conf:./lib/activemq-core-5.1.0.jar
 export MULE_LIB
 
 exec "$MULE_BASE/bin/mule" -config chaining-router-config.xml
-
-# Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService
