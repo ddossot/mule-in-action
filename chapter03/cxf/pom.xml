@@ -16,6 +16,19 @@
 	<name>Mule in Action - Chapter 3 - CXF Transport Samples</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-cxf</artifactId>
+		</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-stdio</artifactId>
+			</dependency>
+			
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+		</dependency>
     </dependencies>
 
   <build>
