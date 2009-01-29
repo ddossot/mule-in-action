@@ -1,4 +1,4 @@
-Mule Async Request Reply Example
+Mule Chaining Router Example
 ---------------------------------
 
 You must first build and install this project with: mvn clean install
