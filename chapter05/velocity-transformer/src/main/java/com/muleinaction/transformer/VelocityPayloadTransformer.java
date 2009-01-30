@@ -49,13 +49,13 @@ public final class VelocityPayloadTransformer extends AbstractTransformer {
 	}
 
 	@Override
-	protected Object doTransform(final Object src, final String encoding)
+	protected Object doTransform(final Object payload, final String encoding)
 			throws TransformerException {
 
 		try {
 			final StringWriter result = new StringWriter();
 
-			template.merge(new VelocityContext(Collections.singletonMap("src", src)),
+			template.merge(new VelocityContext(Collections.singletonMap("payload", payload)),
 					result);
 
 			return result.toString();
