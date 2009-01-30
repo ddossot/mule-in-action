@@ -60,7 +60,7 @@ public final class VelocityMessageTransformer extends
 
 			final Map<String, Object> context = new HashMap<String, Object>();
 			context.put("message", message);
-			context.put("src", message.getPayload());
+			context.put("payload", message.getPayload());
 
 			template.merge(new VelocityContext(context), result);
 
