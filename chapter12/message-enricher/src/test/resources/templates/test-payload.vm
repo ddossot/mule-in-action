@@ -1,1 +1,1 @@
-***[MESSAGE=${src.text}]***
+***[MESSAGE=${payload.text}]***
