@@ -53,12 +53,11 @@ public class CollectionAggregatorFunctionalTestCase extends FunctionalTestCase {
         muleClient.sendAsync("jms://fares", fare2, properties);
         muleClient.sendAsync("jms://fares", fare3, properties);
 
-        MuleMessage response = muleClient.request("jms://topic:cheapFares", 2000);
+        MuleMessage response = muleClient.request("jms://topic:cheapFares", 30000);
         assertNotNull(response);
         Fare fare = (Fare) response.getPayload();
         assertEquals(100.00, fare.getPrice());
         assertEquals("OCEANIC", fare.getAirline());
-        //System.out.println(response.getPayload()
     }
 
 }
