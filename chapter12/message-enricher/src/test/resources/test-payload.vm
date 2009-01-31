@@ -1,1 +1,1 @@
-***[payloadFoo=${src.text}]***
+***[payloadFoo=${payload.text}]***
