@@ -55,11 +55,13 @@
 			<inbound>
 				<vm:inbound-endpoint path="ExpressionParser.IN" synchronous="true" />
 			</inbound>
+			<!-- <start id="ExprParser-Config" /> -->
 			<component>
 				<singleton-object class="com.muleinaction.component.ExpressionParser">
 					<property key="expression" value="#[message:correlationId]@#[function:datestamp:yyyy-dd-MM]" />
 				</singleton-object>
 			</component>
+			<!-- <end id="ExprParser-Config" /> -->
 		</service>
 
 		<service name="TargetService">
