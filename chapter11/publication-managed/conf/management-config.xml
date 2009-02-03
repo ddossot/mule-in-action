@@ -11,24 +11,16 @@
 		http://www.mulesource.org/schema/mule/management/2.1 http://www.mulesource.org/schema/mule/management/2.1/mule-management.xsd">
 
 	<!-- <start id="Publication-Management"/> -->
-	<management:rmi-server
-		serverUri="rmi://${esb.bind.address}:${esb.jmxrmi.port}/server" />
-
-	<management:jmx-server>
-		<management:connector-server
-			url="service:jmx:rmi:///jndi/rmi://${esb.bind.address}:${esb.jmxrmi.port}/server" />
-
+	<management:jmx-default-config port="${esb.jmxrmi.port}" >
 		<management:credentials>
 			<spring:entry key="${esb.admin.username}" value="${esb.admin.password}" />
 		</management:credentials>
-	</management:jmx-server>
+  </management:jmx-default-config> 
 
 	<management:jmx-mx4j-adaptor
 		jmxAdaptorUrl="http://${esb.bind.address}:${esb.console.port}" login="${esb.admin.username}"
 		password="${esb.admin.password}" />
-
-	<management:jmx-log4j />
-	<!-- <end id="Publication-Management"/> -->
+  <!-- <end id="Publication-Management"/> -->
 
 	<model name="publicationManagementModel">
 	<!-- <start id="Publication-Ping"/> -->
