@@ -62,10 +62,6 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
                 false, true);
     }
 
-    public void testStatic() throws Exception {
-        doTestComponent("vm://Static.In", "All I hear is static", true, false);
-    }
-
     public void testBuilder() throws Exception {
         final long clientId = new Random().nextLong();
 
