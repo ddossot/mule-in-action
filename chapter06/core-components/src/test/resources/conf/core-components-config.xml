@@ -127,26 +127,6 @@
 		</service>
 		<!-- <end id="CoCoShow-Builder"/> -->
 
-		<!-- <start id="CoCoShow-Static"/> -->
-		<service name="Static">
-			<inbound>
-				<vm:inbound-endpoint path="Static.In" synchronous="true" />
-			</inbound>
-
-			<component>
-				<singleton-object class="org.mule.component.simple.StaticComponent">
-					<property key="data" value="All I hear is static" />
-				</singleton-object>
-			</component>
-
-			<outbound>
-				<pass-through-router>
-					<vm:outbound-endpoint ref="GenericChannel" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoShow-Static"/> -->
-
 	</model>
 
 	<model name="Stubs">
