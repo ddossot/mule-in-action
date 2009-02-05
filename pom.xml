@@ -233,6 +233,12 @@
 				<groupId>org.mule.transports</groupId>
 				<artifactId>mule-transport-cxf</artifactId>
 				<version>${mule-version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.ws.security</groupId>
+                        <artifactId>wss4j.osgi</artifactId>
+                    </exclusion>
+                </exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.mule.transports</groupId>
