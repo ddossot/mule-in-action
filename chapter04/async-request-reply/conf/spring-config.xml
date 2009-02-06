@@ -5,23 +5,16 @@
                 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                 ">
 
-
-    <bean id="fareGenerationService1" class="com.muleinaction.FareGenerationService">
-        <constructor-arg>
-               <value>airline1</value>
-          </constructor-arg>  
+    <bean id="farmService1" class="com.muleinaction.FarmService">
+        <property name="farmName" value="farm1"/>
     </bean>
 
-    <bean id="fareGenerationService2" class="com.muleinaction.FareGenerationService">
-        <constructor-arg>
-               <value>airline2</value>
-         </constructor-arg>  
+   <bean id="farmService2" class="com.muleinaction.FarmService">
+        <property name="farmName" value="farm2"/>
     </bean>
 
-    <bean id="fareGenerationService3" class="com.muleinaction.FareGenerationService">
-         <constructor-arg>
-               <value>airline3</value>
-         </constructor-arg>  
+    <bean id="farmService3" class="com.muleinaction.FarmService">
+        <property name="farmName" value="farm3"/>
     </bean>
 
 </beans>

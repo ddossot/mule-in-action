@@ -7,7 +7,7 @@ import org.mule.routing.EventCorrelatorCallback;
 import org.mule.routing.inbound.EventGroup;
 import org.mule.routing.response.ResponseCorrelationAggregator;
 
-public class FareResponseAggregator extends ResponseCorrelationAggregator
+public class FarmResponseAggregator extends ResponseCorrelationAggregator
 {
     protected EventCorrelatorCallback getCorrelatorCallback()
     {
@@ -18,8 +18,8 @@ public class FareResponseAggregator extends ResponseCorrelationAggregator
             {
                 try
                 {
-                    FareSelectionService selector = new FareSelectionService();
-                    return selector.selectFare(events);
+                    FarmSelectionService selector = new FarmSelectionService();
+                    return selector.selectFarmStatistics(events);
                 }
                 catch (Exception e)
                 {
