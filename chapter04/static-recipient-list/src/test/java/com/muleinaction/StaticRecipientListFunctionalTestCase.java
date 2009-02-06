@@ -25,12 +25,12 @@ public class StaticRecipientListFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("vm://quoteData", "JAVA: 100", null);
-        MuleMessage response = muleClient.request("jms://brokerage.house.1", 2000);
+        muleClient.sendAsync("vm://errors", "An error has occured!", null);
+        MuleMessage response = muleClient.request("jms://errors.ops", 2000);
         assertNotNull(response);
-        response = muleClient.request("jms://brokerage.house.2", 2000);
+        response = muleClient.request("jms://errors.engr", 2000);
         assertNotNull(response);
-        response = muleClient.request("jms://brokerage.house.3", 2000);
+        response = muleClient.request("jms://errors.reporting", 2000);
         assertNotNull(response); 
     }
 
