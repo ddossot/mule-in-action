@@ -23,15 +23,17 @@
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
-    <stdio:connector name="stdioConnector" messageDelayTime="1000"  promptMessage="Enter a destination: "/>
+    <stdio:connector name="stdioConnector" messageDelayTime="1000" promptMessage="Enter a destination: "/>
+
+    <jms:activemq-connector name="jmsConnector" brokerURL="vm://localhost"/>
 
     <model name="asyncRequestReplyModel">
 
-        <!-- Accept flight requests on a VM inbound endpoint and use the async-reply router to gather quotes
-        from remote airlines and accept then return the lowest -->
+        <!-- Accept farm requests on a VM inbound endpoint and use the async-reply router to gather VM counts
+        from remote VM farms and accept then return the lowest -->
         <service name="asyncRequestReplyService">
             <inbound>
-                <vm:inbound-endpoint address="vm://flightRequests" synchronous="true">
+                <vm:inbound-endpoint address="vm://farmRequests" synchronous="true">
                     <message-properties-transformer>
                         <add-message-property key="MULE_CORRELATION_GROUP_SIZE" value="2"/>
                     </message-properties-transformer>
@@ -39,58 +41,58 @@
             </inbound>
             <outbound>
                 <multicasting-router>
-                    <vm:outbound-endpoint address="vm://airline1"/>
-                    <vm:outbound-endpoint address="vm://airline2"/>
-                    <vm:outbound-endpoint address="vm://airline3"/>
+                    <vm:outbound-endpoint path="farm1"/>
+                    <vm:outbound-endpoint path="farm2" />
+                    <vm:outbound-endpoint path="farm3" />
 
                     <!-- Replies from each outbound endpoint will be sent to this queue -->
-                    <reply-to address="vm://flightResponses"/>
+                    <reply-to address="vm://farmResponses"/>
                 </multicasting-router>
             </outbound>
 
             <async-reply>
-                <vm:inbound-endpoint address="vm://flightResponses"/>
-                <custom-async-reply-router class="com.muleinaction.FareResponseAggregator"/>
+                <vm:inbound-endpoint address="vm://farmResponses"/>
+                <custom-async-reply-router class="com.muleinaction.FarmResponseAggregator"/>
             </async-reply>
 
         </service>
 
-        <!-- Simulate an Airline -->
-        <service name="airline1">
+        <!-- Simulate a VM Farm -->
+        <service name="farm1">
             <inbound>
-                <vm:inbound-endpoint address="vm://airline1" synchronous="true"/>
+                <vm:inbound-endpoint path="farm1" synchronous="true"/>
             </inbound>
             <component>
                 <method-entry-point-resolver>
-                    <include-entry-point method="getFare"/>
+                    <include-entry-point method="getFarmStatus"/>
                 </method-entry-point-resolver>
-                <spring-object bean="fareGenerationService1"/>
+                <spring-object bean="farmService1"/>
             </component>
         </service>
 
-        <!-- Simulate an Airline -->
-        <service name="airline2">
+        <!-- Simulate a VM Farm -->
+        <service name="farm2">
             <inbound>
-                <vm:inbound-endpoint address="vm://airline2" synchronous="true"/>
+                <vm:inbound-endpoint path="farm2" synchronous="true"/>
             </inbound>
             <component>
                 <method-entry-point-resolver>
-                    <include-entry-point method="getFare"/>
+                    <include-entry-point method="getFarmStatus"/>
                 </method-entry-point-resolver>
-                <spring-object bean="fareGenerationService2"/>
+                <spring-object bean="farmService2"/>
             </component>
         </service>
 
-        <!-- Simulate an Airline -->
-        <service name="airline3">
+        <!-- Simulate a VM Farm -->
+        <service name="farm3">
             <inbound>
-                <vm:inbound-endpoint address="vm://airline3" synchronous="true"/>
+                <vm:inbound-endpoint path="farm3" synchronous="true"/>
             </inbound>
             <component>
                 <method-entry-point-resolver>
-                    <include-entry-point method="getFare"/>
+                    <include-entry-point method="getFarmStatus"/>
                 </method-entry-point-resolver>
-                <spring-object bean="fareGenerationService3"/>
+                <spring-object bean="farmService3"/>
             </component>
         </service>
 
@@ -101,7 +103,7 @@
             </inbound>
             <outbound>
                 <chaining-router>
-                    <vm:outbound-endpoint path="flightRequests"/>
+                    <vm:outbound-endpoint path="farmRequests"/>
                     <stdio:outbound-endpoint system="OUT"/>
                 </chaining-router>
             </outbound>

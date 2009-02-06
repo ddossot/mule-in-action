@@ -4,6 +4,8 @@ import org.mule.api.service.Service;
 import org.mule.api.MuleMessage;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.module.client.MuleClient;
+import org.mule.transport.NullPayload;
+import com.muleinaction.common.FarmStatus;
 
 /**
  * @author John D'Emic (john.demic@gmail.com)
@@ -25,9 +27,9 @@ public class AsyncRequestReplyFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-       
-        MuleMessage response = muleClient.send("vm://flightRequests","JFK",null);
-        assertNotNull(response);
+
+        MuleMessage response = muleClient.send("vm://farmRequests","count",null);
+        assertFalse(response.getPayload() instanceof NullPayload);
     }
 
 
