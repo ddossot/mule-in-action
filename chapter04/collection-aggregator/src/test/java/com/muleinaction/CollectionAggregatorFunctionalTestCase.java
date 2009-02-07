@@ -8,6 +8,7 @@ import com.muleinaction.common.Fare;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Date;
 
 /**
  * @author John D'Emic (john.demic@gmail.com)
@@ -29,35 +30,23 @@ public class CollectionAggregatorFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageConsumed() throws Exception {
 
-        Fare fare1 = new Fare();
-        fare1.setAirline("OCEANIC");
-        fare1.setPrice(100.00);
-        fare1.setType("COACH");
-
-        Fare fare2 = new Fare();
-        fare2.setAirline("JBLUE");
-        fare2.setPrice(150.00);
-        fare2.setType("COACH");
-
-        Fare fare3 = new Fare();
-        fare3.setAirline("AA");
-        fare3.setPrice(170.00);
-        fare3.setType("COACH");
+        ResponseTimeMetric metric1 = new ResponseTimeMetric("RUN-123456","client1",1.567,new Date());
+        ResponseTimeMetric metric2 = new ResponseTimeMetric("RUN-123456","client2",2.345,new Date());
+        ResponseTimeMetric metric3 = new ResponseTimeMetric("RUN-123456","client3",0.334,new Date());
 
         Map properties = new HashMap();
-        properties.put("MULE_CORRELATION_ID", "AUS-2009010700");
+        properties.put("MULE_CORRELATION_ID", metric1.getJobId());
         properties.put("MULE_CORRELATION_GROUP_SIZE", "3");
 
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://fares", fare1, properties);
-        muleClient.sendAsync("jms://fares", fare2, properties);
-        muleClient.sendAsync("jms://fares", fare3, properties);
+        muleClient.sendAsync("jms://metrics.responsetimes", metric1, properties);
+        muleClient.sendAsync("jms://metrics.responsetimes", metric2, properties);
+        muleClient.sendAsync("jms://metrics.responsetimes", metric3, properties);
 
-        MuleMessage response = muleClient.request("jms://topic:cheapFares", 30000);
+        MuleMessage response = muleClient.request("jms://topic:metrics.avg.responsetimes", 3000);
         assertNotNull(response);
-        Fare fare = (Fare) response.getPayload();
-        assertEquals(100.00, fare.getPrice());
-        assertEquals("OCEANIC", fare.getAirline());
+        Double average = (Double) response.getPayload();
+        assertEquals(1.4153333333333336, average);
     }
 
 }

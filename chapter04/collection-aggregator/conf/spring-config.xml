@@ -5,6 +5,6 @@
                 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                 ">
 
-    <bean id="fareSelectionService" class="com.muleinaction.FareSelectionService"/>
+    <bean id="metricService" class="com.muleinaction.MetricService"/>
 
 </beans>
