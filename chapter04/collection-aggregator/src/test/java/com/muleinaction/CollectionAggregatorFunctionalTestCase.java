@@ -46,7 +46,7 @@ public class CollectionAggregatorFunctionalTestCase extends FunctionalTestCase {
         MuleMessage response = muleClient.request("jms://topic:metrics.avg.responsetimes", 3000);
         assertNotNull(response);
         Double average = (Double) response.getPayload();
-        assertEquals(1.4153333333333336, average);
+        assertEquals(1.4153333333333336, average, 0.000001);
     }
 
 }
