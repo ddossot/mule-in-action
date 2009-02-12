@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" skipped="0" tests="1" time="4.84" failures="0" name="com.muleinaction.MessageEnricherFunctionalTestCase">
+  <properties>
+    <property value="Apple Inc." name="java.vendor"/>
+    <property value="/Users/johndemic/.m2/repository" name="localRepository"/>
+    <property value="SUN_STANDARD" name="sun.java.launcher"/>
+    <property value="HotSpot Client Compiler" name="sun.management.compiler"/>
+    <property value="7947b0" name="env.SECURITYSESSIONID"/>
+    <property value="Mac OS X" name="os.name"/>
+    <property value="/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/ui.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/laf.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/sunrsasign.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jsse.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/jce.jar:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Classes/charsets.jar" name="sun.boot.class.path"/>
+    <property value="/var/folders/ED/EDq7izsPGCSVbFj76lTZG++++TI/-Tmp-/" name="env.TMPDIR"/>
+    <property value="/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component" name="env.PWD"/>
+    <property value="en_US.UTF-8" name="env.LANG"/>
+    <property value="Sun Microsystems Inc." name="java.vm.specification.vendor"/>
+    <property value="1.5.0_13-b05-237" name="java.runtime.version"/>
+    <property value="/tmp/launch-HO0zWc/Render" name="env.Apple_PubSub_Socket_Render"/>
+    <property value="/tmp/launch-Q6cyav/:0" name="env.DISPLAY"/>
+    <property value="johndemic" name="user.name"/>
+    <property value="johndemic" name="env.USER"/>
+    <property value="/bin/tcsh" name="env.SHELL"/>
+    <property value="0x1F5:0:0" name="env.__CF_USER_TEXT_ENCODING"/>
+    <property value="true" name="awt.nativeDoubleBuffering"/>
+    <property value="/Users/johndemic/Development/Tools/Maven/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/mysql/bin:/Users/johndemic/Development/Languages/Groovy/bin:/opt/local/lib/postgresql83/bin/:/Users/johndemic/Development/Languages/Scala/bin:/Users/johndemic/Development/Tools/Grails/bin" name="env.PATH"/>
+    <property value="en" name="user.language"/>
+    <property value="/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Libraries" name="sun.boot.library.path"/>
+    <property value="/Users/johndemic/Development/Tools/Maven/bin/m2.conf" name="classworlds.conf"/>
+    <property value="intel-pc" name="env.HOSTTYPE"/>
+    <property value="1.5.0_13" name="java.version"/>
+    <property value="America/New_York" name="user.timezone"/>
+    <property value="32" name="sun.arch.data.model"/>
+    <property value="local|*.local|169.254/16|*.169.254/16" name="http.nonProxyHosts"/>
+    <property value="/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib/endorsed" name="java.endorsed.dirs"/>
+    <property value="" name="sun.cpu.isalist"/>
+    <property value="MacRoman" name="sun.jnu.encoding"/>
+    <property value="sun.io" name="file.encoding.pkg"/>
+    <property value="1" name="env.SHLVL"/>
+    <property value="/" name="file.separator"/>
+    <property value="Java Platform API Specification" name="java.specification.name"/>
+    <property value="49.0" name="java.class.version"/>
+    <property value="US" name="user.country"/>
+    <property value="/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home" name="java.home"/>
+    <property value="mixed mode" name="java.vm.info"/>
+    <property value="johndemic" name="env.LOGNAME"/>
+    <property value="10.5.3" name="os.version"/>
+    <property value="240" name="env.TERM_PROGRAM_VERSION"/>
+    <property value="-Xmx1024m" name="env.JAVA_OPTS"/>
+    <property value=":" name="path.separator"/>
+    <property value="1.5.0_13-119" name="java.vm.version"/>
+    <property value="/System/Library/Frameworks/JavaVM.framework/Home/" name="env.JAVA_HOME"/>
+    <property value="apple.awt.CPrinterJob" name="java.awt.printerjob"/>
+    <property value="xterm-color" name="env.TERM"/>
+    <property value="UnicodeLittle" name="sun.io.unicode.encoding"/>
+    <property value="apple.awt.CToolkit" name="awt.toolkit"/>
+    <property value="darwin" name="env.OSTYPE"/>
+    <property value="local|*.local|169.254/16|*.169.254/16" name="socksNonProxyHosts"/>
+    <property value="local|*.local|169.254/16|*.169.254/16" name="ftp.nonProxyHosts"/>
+    <property value="/usr/share/man:/usr/local/share/man:/usr/X11/man" name="env.MANPATH"/>
+    <property value="/Users/johndemic" name="user.home"/>
+    <property value="/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component" name="env.OLDPWD"/>
+    <property value="Sun Microsystems Inc." name="java.specification.vendor"/>
+    <property value="Apple_Terminal" name="env.TERM_PROGRAM"/>
+    <property value="/Users/johndemic/Development/Mule/mule-2.1.2" name="env.MULE_HOME"/>
+    <property value=".:/Users/johndemic/Library/Java/Extensions:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java" name="java.library.path"/>
+    <property value="http://www.apple.com/" name="java.vendor.url"/>
+    <property value="Apple Inc." name="java.vm.vendor"/>
+    <property value="false" name="gopherProxySet"/>
+    <property value="/Users/johndemic/Development/Tools/Maven" name="maven.home"/>
+    <property value="Java(TM) 2 Runtime Environment, Standard Edition" name="java.runtime.name"/>
+    <property value="/Users/johndemic/Development/Tools/Maven/boot/classworlds-1.1.jar" name="java.class.path"/>
+    <property value="rivet.local" name="env.HOST"/>
+    <property value="org.codehaus.classworlds.Launcher" name="env.JAVA_MAIN_CLASS_32442"/>
+    <property value="Java Virtual Machine Specification" name="java.vm.specification.name"/>
+    <property value="1.0" name="java.vm.specification.version"/>
+    <property value="unknown" name="sun.os.patch.level"/>
+    <property value="little" name="sun.cpu.endian"/>
+    <property value="/Users/johndemic" name="env.HOME"/>
+    <property value="/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component/target/test-classes:/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component/target/classes:/Users/johndemic/.m2/repository/org/apache/activemq/activemq-core/5.1.0/activemq-core-5.1.0.jar:/Users/johndemic/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar:/Users/johndemic/.m2/repository/org/apache/camel/camel-core/1.3.0/camel-core-1.3.0.jar:/Users/johndemic/.m2/repository/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar:/Users/johndemic/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar:/Users/johndemic/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/johndemic/.m2/repository/com/sun/xml/bind/jaxb-impl/2.1.3/jaxb-impl-2.1.3.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1.1/geronimo-jms_1.1_spec-1.1.1.jar:/Users/johndemic/.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0.jar:/Users/johndemic/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar:/Users/johndemic/.m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar:/Users/johndemic/.m2/repository/logkit/logkit/1.0.1/logkit-1.0.1.jar:/Users/johndemic/.m2/repository/avalon-framework/avalon-framework/4.1.3/avalon-framework-4.1.3.jar:/Users/johndemic/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/Users/johndemic/.m2/repository/backport-util-concurrent/backport-util-concurrent/2.1/backport-util-concurrent-2.1.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-management_1.0_spec/1.0/geronimo-j2ee-management_1.0_spec-1.0.jar:/Users/johndemic/.m2/repository/org/apache/activemq/activeio-core/3.1.0/activeio-core-3.1.0-tests.jar:/Users/johndemic/.m2/repository/com/muleinaction/velocity-transformer/1.0-SNAPSHOT/velocity-transformer-1.0-SNAPSHOT.jar:/Users/johndemic/.m2/repository/org/mule/transports/mule-transport-vm/2.1.2/mule-transport-vm-2.1.2.jar:/Users/johndemic/.m2/repository/org/mule/modules/mule-module-xml/2.1.2/mule-module-xml-2.1.2.jar:/Users/johndemic/.m2/repository/org/mule/mule-core/2.1.2/mule-core-2.1.2.jar:/Users/johndemic/.m2/repository/commons-beanutils/commons-beanutils.osgi/1.7.0/commons-beanutils.osgi-1.7.0.jar:/Users/johndemic/.m2/repository/org/safehaus/jug/jug.osgi/2.0.0/jug.osgi-2.0.0.jar:/Users/johndemic/.m2/repository/backport-util-concurrent/backport-util-concurrent.osgi/3.1/backport-util-concurrent.osgi-3.1.jar:/Users/johndemic/.m2/repository/commons-cli/commons-cli.osgi/1.0/commons-cli.osgi-1.0.jar:/Users/johndemic/.m2/repository/commons-collections/commons-collections.osgi/3.2/commons-collections.osgi-3.2.jar:/Users/johndemic/.m2/repository/commons-io/commons-io.osgi/1.3.1/commons-io.osgi-1.3.1.jar:/Users/johndemic/.m2/repository/commons-lang/commons-lang.osgi/2.4/commons-lang.osgi-2.4.jar:/Users/johndemic/.m2/repository/commons-pool/commons-pool/1.4/commons-pool-1.4.jar:/Users/johndemic/.m2/repository/javax/activation/activation.osgi/1.1/activation.osgi-1.1.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.0.1B_spec.osgi/1.1/geronimo-jta_1.0.1B_spec.osgi-1.1.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-connector_1.5_spec.osgi/1.1/geronimo-j2ee-connector_1.5_spec.osgi-1.1.jar:/Users/johndemic/.m2/repository/org/slf4j/jcl104-over-slf4j/1.5.0/jcl104-over-slf4j-1.5.0.jar:/Users/johndemic/.m2/repository/org/slf4j/slf4j-api/1.5.0/slf4j-api-1.5.0.jar:/Users/johndemic/.m2/repository/org/slf4j/slf4j-log4j12/1.5.0/slf4j-log4j12-1.5.0.jar:/Users/johndemic/.m2/repository/org/mule/modules/mule-module-spring-config/2.1.2/mule-module-spring-config-2.1.2.jar:/Users/johndemic/.m2/repository/org/springframework/spring-context/2.5.6/spring-context-2.5.6.jar:/Users/johndemic/.m2/repository/org/springframework/spring-beans/2.5.6/spring-beans-2.5.6.jar:/Users/johndemic/.m2/repository/org/springframework/spring-core/2.5.6/spring-core-2.5.6.jar:/Users/johndemic/.m2/repository/dom4j/dom4j.osgi/1.6.1/dom4j.osgi-1.6.1.jar:/Users/johndemic/.m2/repository/commons-jxpath/commons-jxpath.osgi/1.2/commons-jxpath.osgi-1.2.jar:/Users/johndemic/.m2/repository/com/thoughtworks/xstream/xstream.osgi/1.2.2/xstream.osgi-1.2.2.jar:/Users/johndemic/.m2/repository/xpp3/xpp3_min.osgi/1.1.3.4.O/xpp3_min.osgi-1.1.3.4.O.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-stax-api_1.0_spec/1.0.1/geronimo-stax-api_1.0_spec-1.0.1.jar:/Users/johndemic/.m2/repository/org/codehaus/woodstox/wstx-asl.osgi/3.2.6/wstx-asl.osgi-3.2.6.jar:/Users/johndemic/.m2/repository/jaxen/jaxen.osgi/1.1.1/jaxen.osgi-1.1.1.jar:/Users/johndemic/.m2/repository/net/java/dev/stax-utils/stax-utils.osgi/20080702/stax-utils.osgi-20080702.jar:/Users/johndemic/.m2/repository/net/sf/saxon/saxon-all.osgi/8.9.0.4/saxon-all.osgi-8.9.0.4.jar:/Users/johndemic/.m2/repository/org/mule/modules/mule-module-client/2.1.2/mule-module-client-2.1.2.jar:/Users/johndemic/.m2/repository/org/springframework/spring-context-support/2.5.6/spring-context-support-2.5.6.jar:/Users/johndemic/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/johndemic/.m2/repository/org/apache/velocity/velocity/1.5/velocity-1.5.jar:/Users/johndemic/.m2/repository/commons-collections/commons-collections/3.1/commons-collections-3.1.jar:/Users/johndemic/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar:/Users/johndemic/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar:/Users/johndemic/.m2/repository/org/mule/modules/mule-module-builders/2.1.2/mule-module-builders-2.1.2.jar:/Users/johndemic/.m2/repository/org/springframework/spring-web/2.5.6/spring-web-2.5.6.jar:/Users/johndemic/.m2/repository/org/mule/transports/mule-transport-jms/2.1.2/mule-transport-jms-2.1.2.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-jms_1.1_spec.osgi/1.1/geronimo-jms_1.1_spec.osgi-1.1.jar:/Users/johndemic/.m2/repository/org/apache/geronimo/specs/geronimo-j2ee-management_1.0_spec.osgi/1.1/geronimo-j2ee-management_1.0_spec.osgi-1.1.jar:/Users/johndemic/.m2/repository/org/mule/tests/mule-tests-functional/2.1.2/mule-tests-functional-2.1.2.jar:/Users/johndemic/.m2/repository/junit/junit/4.4/junit-4.4.jar:/Users/johndemic/.m2/repository/org/mule/mule-core/2.1.2/mule-core-2.1.2-tests.jar:/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component/conf:" name="surefire.test.class.path"/>
+    <property value="/tmp" name="java.io.tmpdir"/>
+    <property value="http://bugreport.apple.com/" name="java.vendor.url.bug"/>
+    <property value="/tmp/launch-nI6rrF/Listeners" name="env.SSH_AUTH_SOCK"/>
+    <property value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" name="env.MAVEN_OPTS"/>
+    <property value="unix2003" name="env.COMMAND_MODE"/>
+    <property value="apple.awt.CGraphicsEnvironment" name="java.awt.graphicsenv"/>
+    <property value="i386" name="os.arch"/>
+    <property value="/Users/johndemic/Library/Java/Extensions:/Library/Java/Extensions:/System/Library/Java/Extensions:/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/lib/ext" name="java.ext.dirs"/>
+    <property value="ssh -l jdemic" name="env.SVN_SSH"/>
+    <property value="/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component" name="user.dir"/>
+    <property value="1040.1.5.0_13-237" name="mrj.version"/>
+    <property value="/Users/johndemic/Development/Tools/Maven" name="env.MAVEN_HOME"/>
+    <property value="
+" name="line.separator"/>
+    <property value="Java HotSpot(TM) Client VM" name="java.vm.name"/>
+    <property value="apple" name="env.VENDOR"/>
+    <property value="vi" name="env.EDITOR"/>
+    <property value="/Users/johndemic/Development/Manning/muleinaction/chapter12/test-component" name="basedir"/>
+    <property value="i386" name="env.MACHTYPE"/>
+    <property value="staff" name="env.GROUP"/>
+    <property value="MacRoman" name="file.encoding"/>
+    <property value="/Users/johndemic/Development/Tools/Grails" name="env.GRAILS_HOME"/>
+    <property value="1.5" name="java.specification.version"/>
+  </properties>
+  <testcase classname="com.muleinaction.MessageEnricherFunctionalTestCase" time="4.815" name=" message timed out "/>
+</testsuite>
