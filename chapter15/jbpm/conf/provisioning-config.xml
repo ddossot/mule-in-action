@@ -52,7 +52,7 @@
 
         <service name="bpmSink">
             <inbound>
-                <bpm:inbound-endpoint address="bpm://AccountProvisioning"/>
+                <bpm:inbound-endpoint address="bpm://AccountProvisioningProcess"/>
             </inbound>
             <echo-component/>
         </service>
@@ -63,7 +63,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <bpm:outbound-endpoint name="startProvisionRequest" address="bpm://AccountProvisioning" synchronous="false"/>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioningProcess" synchronous="false"/>
                 </pass-through-router>
             </outbound>
         </service>
@@ -72,42 +72,42 @@
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.crm"/>
             </inbound>
-            <echo-component/>
+            <log-component/>
         </service>
 
         <service name="hourEntryProvisioning">
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.hour-entry"/>
             </inbound>
-            <echo-component/>
+            <log-component/>
         </service>
 
         <service name="ldapAccountProvisioning">
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.ldap"/>
             </inbound>
-            <echo-component/>
+            <log-component/>
         </service>
 
         <service name="sshAccountProvisioning">
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.ssh"/>
             </inbound>
-            <echo-component/>
+            <log-component/>
         </service>
 
         <service name="ticketingAccountProvisioning">
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.ticketing"/>
             </inbound>
-            <echo-component/>
+            <log-component/>
         </service>
 
         <service name="imapAccountProvisioning">
             <inbound>
                 <jms:inbound-endpoint queue="it.provisioning.imap"/>
             </inbound>
-            <echo-component/>
+            <log-component/>
         </service>
 
         <service name="sendEmailConfirmation">
@@ -139,7 +139,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <bpm:outbound-endpoint address="bpm://AccountProvisioning/#[message.processId]"/>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioning/1"/>
                 </pass-through-router>
             </outbound>
         </service>

@@ -17,7 +17,6 @@
     
     <bean id="ticketingAccountService" class="com.clood.it.TicketingAccountService"/>
 
-
     <bean id="jbpmConfig"
           class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
         <property name="sessionFactory">
