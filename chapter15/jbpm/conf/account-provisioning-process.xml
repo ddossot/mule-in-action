@@ -1,25 +1,32 @@
-<process-definition name="Account Provisioning Process">
+<process-definition name="AccountProvisioningProcess">
 
-    <start-state name="Account Provisioning">
-        <action class="org.mule.transport.bpm.jbpm.actions.ValidateMessageSource">
-            <expectedSource>startProvisionRequest</expectedSource>
-        </action>
-
-        <action class="org.mule.transport.bpm.jbpm.actions.StoreIncomingData">
-            <variable>incoming</variable>
-        </action>
-        <transition to='Create LDAP Account'/>
+    <start-state name="provisioningRequest">
+        <transition to='Validate Account'/>
     </start-state>
+
+    <state name="Validate Account">
+       <event type="node-enter">
+            <action class="org.mule.transport.bpm.jbpm.actions.ValidateMessageSource">
+                <expectedSource>endpoint.jms.it.provisioning.requests</expectedSource>
+            </action>
+            <action class="org.mule.transport.bpm.jbpm.actions.StoreIncomingData">
+                <variable>incoming</variable>
+            </action>
+           <action class="org.mule.transport.bpm.jbpm.actions.Continue"/>           
+        </event>
+        <transition to='Create LDAP Account'/>
+    </state>
 
     <state name='Create LDAP Account'>
         <event type="node-enter">
+
             <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEventAndContinue">
                 <endpoint>jms://it.provisioning.ldap</endpoint>
                 <payloadSource>incoming</payloadSource>
                 <synchronous>false</synchronous>
             </action>
         </event>
-        <transition to='Create Hour Entry Account'/>
+        <transition to='Create Hour Entry Account'/> 
     </state>
 
     <state name='Create Hour Entry Account'>
@@ -32,6 +39,7 @@
         </event>
         <transition to='Check Group'/>
     </state>
+
 
     <decision name="Check Group">
         <handler class="com.clood.it.ResolveGroup"/>
@@ -80,8 +88,7 @@
                 <synchronous>false</synchronous>
             </action>
         </event>
-        <transition name="continue" to='end'/>
-
+        <transition to="end"/>
     </state>
 
     <end-state name='end'>
@@ -91,6 +98,6 @@
             </script>
         </event>
     </end-state>
-   
+
 </process-definition>
 
