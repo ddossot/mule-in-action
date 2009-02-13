@@ -42,7 +42,7 @@
         </spring:property>
     </spring:bean>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="tcp://localhost:61616"/>
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
     <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true"/>
 
