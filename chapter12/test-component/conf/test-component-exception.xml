@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
+      xmlns:test="http://www.mulesource.org/schema/mule/test/2.1"
+
+      xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+      	http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
+      	http://www.mulesource.org/schema/mule/test/2.1 http://www.mulesource.org/schema/mule/test/2.1/mule-test.xsd
+      	http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd">
+
+    <spring:bean name="velocityEngine"
+                 class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <spring:property name="resourceLoaderPath" value="classpath:templates"/>
+    </spring:bean>
+
+    <custom-transformer name="velocityPayloadTransformer"
+                        class="com.muleinaction.transformer.VelocityPayloadTransformer">
+        <spring:property name="velocityEngine" ref="velocityEngine"/>
+        <spring:property name="templateName" value="test-payload.vm"/>
+    </custom-transformer>
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+
+    <model name="FunctionalTestModel">
+
+        <default-service-exception-strategy>
+            <jms:outbound-endpoint queue="errors"/>
+        </default-service-exception-strategy>
+        <service name="FunctionalTestService">
+            <inbound>
+                <jms:inbound-endpoint queue="in"/>
+            </inbound>       
+            <test:component exceptionToThrow="java.lang.RuntimeException" throwException="true"/>
+            <outbound>
+                <pass-through-router>
+                    <jms:outbound-endpoint queue="out">
+                        <transformers>
+                            <transformer ref="velocityPayloadTransformer"/>
+                            <jms:object-to-jmsmessage-transformer/>
+                        </transformers>
+                    </jms:outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service>
+
+
+    </model>
+</mule>
