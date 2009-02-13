@@ -1,8 +1,4 @@
-<process-definition name="AccountProvisioning"
-                    xmlns="http://jbpm.org/3/jpdl"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:schemaLocation="http://jbpm.org/3/jpdl http://jbpm.org/jpdl-3.1.xsd"
-        >
+<process-definition name="Account Provisioning Process">
 
     <start-state name="Account Provisioning">
         <action class="org.mule.transport.bpm.jbpm.actions.ValidateMessageSource">
