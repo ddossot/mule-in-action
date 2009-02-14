@@ -20,6 +20,7 @@
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-jbpm</artifactId>
+						<version>${mule-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jbpm</groupId>
