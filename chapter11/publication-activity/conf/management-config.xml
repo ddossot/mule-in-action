@@ -15,7 +15,7 @@
 		http://www.mulesource.org/schema/mule/management/2.1 http://www.mulesource.org/schema/mule/management/2.1/mule-management.xsd">
 
 	<!-- <start id="Publication-Dashboard"/> -->
-	<spring:bean id="HtmlDashboardComponent" class="com.clood.component.HtmlDashboard">
+	<spring:bean id="HtmlDashboardComponent" class="com.clood.component.HtmlDashboard" init-method="initialise">
 		<spring:property name="observedServices">
 			<spring:set>
 				<spring:ref bean="publicationService" />
