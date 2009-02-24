@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:http="http://www.mulesource.org/schema/mule/http/2.1"
-		xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
-		xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
+		xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+		xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+		xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
 		xmlns:spring="http://www.springframework.org/schema/beans"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-												http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-												http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
-												http://www.mulesource.org/schema/mule/http/2.1 http://www.mulesource.org/schema/mule/http/2.1/mule-http.xsd
-												http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd">
+												http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+												http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+												http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+												http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd">
 	
+	<!-- <start id="PublicationApplication" /> -->
 	<spring:beans>
 		<spring:import resource="publication-jms-config.xml"/>
 	</spring:beans>
@@ -18,15 +19,29 @@
 	<object-to-byte-array-transformer name="ObjectToByteArray" />
 	<object-to-string-transformer name="ObjectToString" />
 	
+	<message-properties-transformer name="MessagePropertiesSanitizer">
+		<delete-message-property key="Content-Length" />
+		<delete-message-property key="Content-Type" />
+		<delete-message-property key="User-Agent" />
+		<delete-message-property key="http.context.path" />
+		<delete-message-property key="http.method" />
+		<delete-message-property key="http.request" />
+		<delete-message-property key="http.request.path" />
+		<delete-message-property key="http.version" />
+	</message-properties-transformer>
+	
 	<xm:xslt-transformer name="DocbookToFO"	xsl-file="docbook-fo.xsl" />
 	
 	<model name="publicationModel">
 		<service name="publicationService">
 			<inbound>
 				<http:inbound-endpoint host="localhost" port="8080">
-					<transformer ref="ObjectToByteArray" />
-					<transformer ref="DocbookToFO" />
-					<transformer ref="ObjectToString" />
+					<transformers>
+						<transformer ref="MessagePropertiesSanitizer" />
+						<transformer ref="ObjectToByteArray" />
+						<transformer ref="DocbookToFO" />
+						<transformer ref="ObjectToString" />
+					</transformers>
 				</http:inbound-endpoint>															
 			</inbound>
 			<outbound>
@@ -37,4 +52,5 @@
 			</outbound>
 		</service>
 	</model>
+	<!-- <end id="PublicationApplication" /> -->
 </mule>
