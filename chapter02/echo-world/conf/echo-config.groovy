@@ -34,6 +34,8 @@ muleContext.registry.registerObject(MuleProperties.OBJECT_DEFAULT_MESSAGE_RECEIV
             new ChainedThreadingProfile(defaultThreadingProfile))
 muleContext.registry.registerObject(MuleProperties.OBJECT_DEFAULT_MESSAGE_DISPATCHER_THREADING_PROFILE,
             new ChainedThreadingProfile(defaultThreadingProfile))
+muleContext.registry.registerObject(MuleProperties.OBJECT_DEFAULT_MESSAGE_REQUESTER_THREADING_PROFILE,
+            new ChainedThreadingProfile(defaultThreadingProfile))
 muleContext.registry.registerObject(MuleProperties.OBJECT_DEFAULT_RETRY_POLICY_TEMPLATE, new NoRetryPolicyTemplate())
 
 epFactory = muleContext.registry.lookupEndpointFactory()
