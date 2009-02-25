@@ -28,13 +28,13 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
     }
 
     public void testCorrectlyInitialized() throws Exception {
-        final Service service = muleContext.getRegistry().lookupService(
-                "MessageEntryPoint");
+        final Service service =
+                muleContext.getRegistry().lookupService("MessageEntryPoint");
 
         assertNotNull(service);
 
-        assertEquals("ConversationalFaultTolerance", service.getModel()
-                .getName());
+        assertEquals("ConversationalFaultTolerance",
+                service.getModel().getName());
     }
 
     public void testOriginalMessageSavedInDlq() throws Exception {
@@ -51,20 +51,21 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
             }
         };
 
-        final DefaultJavaComponent defaultComponent = (DefaultJavaComponent) muleContext
-                .getRegistry().lookupService("DlqProcessor").getComponent();
+        final DefaultJavaComponent defaultComponent =
+                (DefaultJavaComponent) muleContext.getRegistry().lookupService(
+                        "DlqProcessor").getComponent();
 
-        final FunctionalTestComponent testComponent = (FunctionalTestComponent) defaultComponent
-                .getObjectFactory().getInstance();
+        final FunctionalTestComponent testComponent =
+                (FunctionalTestComponent) defaultComponent.getObjectFactory().getInstance();
 
         testComponent.setEventCallback(callback);
 
         final Serializable payload = BigInteger.TEN;
         final MuleClient client = new MuleClient();
-        client.dispatch("vm://MessageReceiver.In", new DefaultMuleMessage(payload,
-                (Map<?, ?>) null));
+        client.dispatch("vm://MessageReceiver.In", new DefaultMuleMessage(
+                payload, (Map<?, ?>) null));
 
-        countDownLatch.await(30, TimeUnit.SECONDS);
+        countDownLatch.await(15, TimeUnit.SECONDS);
 
         assertEquals(1, receivedPayloads.size());
         assertEquals(payload, receivedPayloads.toArray()[0]);
