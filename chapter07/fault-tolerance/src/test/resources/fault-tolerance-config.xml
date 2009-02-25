@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1" xmlns:spring="http://www.springframework.org/schema/beans"
-	xmlns:http="http://www.mulesource.org/schema/mule/http/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2" xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
 	xsi:schemaLocation="
 			 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/http/2.1 http://www.mulesource.org/schema/mule/http/2.1/mule-http.xsd">
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd">
 
 	<global-property name="dlq.address" value="vm://DLQ.In" />
 	
@@ -21,9 +21,11 @@
 	</notifications>
 	<!-- <end id="CorrelationTimeOutListener-Conf"/> -->
 
+	<!--
 	<vm:connector name="persistedQueues" queueEvents="true">
 		<vm:queueProfile persistent="true" />
 	</vm:connector>
+	-->
 
 	<vm:endpoint name="DLQ" address="${dlq.address}" />
 
@@ -50,12 +52,10 @@
 			</inbound>
 			<outbound>
 				<chaining-router>
-					<http:outbound-endpoint address="http://localhost:8080">
-						<response-transformers>
-							<object-to-string-transformer />
-						</response-transformers>
-					</http:outbound-endpoint>
+					<http:outbound-endpoint address="http://localhost:8080" />
+					<!-- TODO reactivate
 					<vm:outbound-endpoint path="ResponseAggregator.In" />
+					 -->
 				</chaining-router>
 			</outbound>
 		</service>
@@ -63,7 +63,7 @@
 		<service name="ResponseAggregator">
 			<inbound>
 				<vm:inbound-endpoint path="ResponseAggregator.In" />
-				<collection-aggregator-router timeout="30000" />
+				<collection-aggregator-router timeout="5000" />
 			</inbound>
 			<outbound>
 				<pass-through-router>
@@ -96,7 +96,7 @@
 	<model name="ServiceStubs">
 		<service name="ServiceCaller">
 			<inbound>
-				<http:inbound-endpoint address="http://localhost:8080" synchronous="true" />
+				<http:inbound-endpoint address="http://localhost:8080" />
 			</inbound>
 			<component class="com.muleinaction.service.DodgyService" />
 		</service>

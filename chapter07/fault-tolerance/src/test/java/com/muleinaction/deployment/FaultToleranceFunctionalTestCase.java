@@ -61,7 +61,7 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
 
         final Serializable payload = BigInteger.TEN;
         final MuleClient client = new MuleClient();
-        client.send("vm://MessageReceiver.In", new DefaultMuleMessage(payload,
+        client.dispatch("vm://MessageReceiver.In", new DefaultMuleMessage(payload,
                 (Map<?, ?>) null));
 
         countDownLatch.await(30, TimeUnit.SECONDS);
