@@ -29,7 +29,7 @@
     <model name="httpInboundModel">
         <service name="httpInboundService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
