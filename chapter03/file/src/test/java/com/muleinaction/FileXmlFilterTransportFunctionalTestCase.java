@@ -33,7 +33,6 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
     public void testCorrectlyInitialized() throws Exception {
         final Service service = muleContext.getRegistry().lookupService(
                 "fileService");
-
         assertNotNull(service);
         assertEquals("fileModel", service.getModel().getName());
     }
@@ -44,11 +43,7 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
         out.write("data");
         out.close();
         Thread.sleep(2000);
-
-        assertEquals(1,
-                FileUtils.listFiles(new File(DEST_DIRECTORY),
-                        new WildcardFileFilter("*.xml"), null).size());
-
+        assertEquals(1,FileUtils.listFiles(new File(DEST_DIRECTORY),new WildcardFileFilter("*.xml"), null).size());
     }
 
 }
