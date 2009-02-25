@@ -9,7 +9,7 @@
        http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd">
 
 	<global-property name="dlq.address" value="vm://DLQ.In" />
-	
+
 	<!-- <start id="CorrelationTimeOutListener-Conf"/> -->
 	<spring:bean name="correlationTimeOutListener" class="com.muleinaction.service.CorrelationTimeOutListener">
 		<spring:property name="dlqAddress" value="${dlq.address}" />
@@ -21,11 +21,9 @@
 	</notifications>
 	<!-- <end id="CorrelationTimeOutListener-Conf"/> -->
 
-	<!--
 	<vm:connector name="persistedQueues" queueEvents="true">
 		<vm:queueProfile persistent="true" />
 	</vm:connector>
-	-->
 
 	<vm:endpoint name="DLQ" address="${dlq.address}" />
 
@@ -53,10 +51,22 @@
 			<outbound>
 				<chaining-router>
 					<http:outbound-endpoint address="http://localhost:8080" />
-					<!-- TODO reactivate
-					<vm:outbound-endpoint path="ResponseAggregator.In" />
-					 -->
+					<vm:outbound-endpoint path="DodgyServiceResponseAnalyzer.In" />
 				</chaining-router>
+			</outbound>
+		</service>
+
+		<service name="DodgyServiceResponseAnalyzer">
+			<inbound>
+				<vm:inbound-endpoint path="DodgyServiceResponseAnalyzer.In" />
+			</inbound>
+			<outbound>
+				<filtering-router>
+					<vm:outbound-endpoint path="ResponseAggregator.In">
+						<regex-filter pattern="ACK" />
+					</vm:outbound-endpoint>
+				</filtering-router>
+				<logging-catch-all-strategy />
 			</outbound>
 		</service>
 
