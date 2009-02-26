@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
-      xmlns:http="http://www.mulesource.org/schema/mule/http/2.1"
-      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.1"
-      xmlns:email="http://www.mulesource.org/schema/mule/email/2.1"
-      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
-      xmlns:cxf="http://www.mulesource.org/schema/mule/cxf/2.1"
-      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.2"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
-       http://www.mulesource.org/schema/mule/http/2.1 http://www.mulesource.org/schema/mule/http/2.1/mule-http.xsd
-       http://www.mulesource.org/schema/mule/smtp/2.1 http://www.mulesource.org/schema/mule/smtp/2.1/mule-smtp.xsd
-       http://www.mulesource.org/schema/mule/email/2.1 http://www.mulesource.org/schema/mule/email/2.1/mule-email.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/cxf/2.1 http://www.mulesource.org/schema/mule/cxf/2.1/mule-cxf.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.2 http://www.mulesource.org/schema/mule/file/2.2/mule-file.xsd
+       http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
        "
         >
 
     <file:connector name="FileConnector" 
         streaming="false"
-        autoDelete="true"
-        pollingFrequency="1000"  />
+        autoDelete="false"
+        pollingFrequency="300000"  />
 
     <global-property name="http.host" value="localhost"/>
     <global-property name="http.port" value="9765"/>
@@ -40,6 +30,22 @@
             <outbound>
                 <pass-through-router>
                     <http:outbound-endpoint address="http://${http.host}:${http.port}/backup-reports"/>
+                </pass-through-router>
+            </outbound>
+        </service>
+    </model>
+
+    <!-- Pick up the reports to test -->
+    <model name="httpInboundModel">
+        <service name="httpInboundService">
+            <inbound>
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
+                    <byte-array-to-string-transformer/>
+                </http:inbound-endpoint>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-[DATE].xml"/>
                 </pass-through-router>
             </outbound>
         </service>
