@@ -62,8 +62,8 @@ public class ClientValidatorServiceFunctionalTestCase extends
 
         waitUntilMessageHitsComponent(activityReportProcessorComponent);
 
-        assertEquals(1, activityReportProcessorComponent.getReceivedMessages());
-        assertEquals(0, errorProcessorComponent.getReceivedMessages());
+        assertEquals(1, activityReportProcessorComponent.getReceivedMessagesCount());
+        assertEquals(0, errorProcessorComponent.getReceivedMessagesCount());
     }
 
     public void testInvalidClient() throws Exception {
@@ -77,8 +77,8 @@ public class ClientValidatorServiceFunctionalTestCase extends
 
         waitUntilMessageHitsComponent(errorProcessorComponent);
 
-        assertEquals(0, activityReportProcessorComponent.getReceivedMessages());
-        assertEquals(1, errorProcessorComponent.getReceivedMessages());
+        assertEquals(0, activityReportProcessorComponent.getReceivedMessagesCount());
+        assertEquals(1, errorProcessorComponent.getReceivedMessagesCount());
     }
 
     public void testInvalidObject() throws Exception {
@@ -92,15 +92,15 @@ public class ClientValidatorServiceFunctionalTestCase extends
 
         waitUntilMessageHitsComponent(errorProcessorComponent);
 
-        assertEquals(0, activityReportProcessorComponent.getReceivedMessages());
-        assertEquals(1, errorProcessorComponent.getReceivedMessages());
+        assertEquals(0, activityReportProcessorComponent.getReceivedMessagesCount());
+        assertEquals(1, errorProcessorComponent.getReceivedMessagesCount());
     }
 
     private void waitUntilMessageHitsComponent(
             final FunctionalTestComponent expectedTestComponent)
             throws InterruptedException {
         int i = 0;
-        while ((expectedTestComponent.getReceivedMessages() == 0)
+        while ((expectedTestComponent.getReceivedMessagesCount() == 0)
                 && (++i < 100)) {
             // since dispatch is asynchronous, we must wait until we get the
             // message

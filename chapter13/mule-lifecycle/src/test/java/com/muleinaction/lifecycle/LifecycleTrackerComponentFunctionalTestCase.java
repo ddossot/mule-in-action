@@ -28,25 +28,25 @@ public class LifecycleTrackerComponentFunctionalTestCase {
     public void trackSpringBeanServiceLifecycle() throws Exception {
         trackComponentLifecycle(
                 "SpringBeanService",
-                "[setProperty, setMuleContext, springInitialize, setService, start, stop, springDestroy]");
+                "[setProperty, setMuleContext, springInitialize, setService, setMuleContext, start, stop, springDestroy]");
     }
 
     @Test
     public void trackMuleSingletonServiceLifecycle() throws Exception {
         trackComponentLifecycle("MuleSingletonService",
-                "[setProperty, setService, initialise, start, stop, dispose]");
+                "[setProperty, setService, setMuleContext, initialise, start, stop, dispose]");
     }
 
     @Test
     public void trackMulePrototypeServiceLifecycle() throws Exception {
         trackComponentLifecycle("MulePrototypeService",
-                "[setProperty, setService, initialise, start, stop, dispose]");
+                "[setProperty, setService, setMuleContext, initialise, start, stop, dispose]");
     }
 
     @Test
     public void trackMulePooledPrototypeServiceLifecycle() throws Exception {
         trackComponentLifecycle("MulePooledPrototypeService",
-                "[setProperty, setService, initialise, start, stop, dispose]");
+                "[setProperty, setService, setMuleContext, initialise, start, stop, dispose]");
     }
 
     private void trackComponentLifecycle(final String serviceName,
