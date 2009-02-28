@@ -15,6 +15,10 @@
     <global-property name="ftp.port" value="9879"/>
     <global-property name="ftp.path" value="files"/>
     <global-property name="ftp.freq" value="5000"/>
+
+     <notifications dynamic="true">
+        <notification event="ENDPOINT-MESSAGE"/>
+    </notifications>
  
     <model name="ftpModel"> 
         <service name="ftpService"> 
