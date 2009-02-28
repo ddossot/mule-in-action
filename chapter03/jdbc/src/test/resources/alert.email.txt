@@ -1,0 +1,36 @@
+This is a Zenoss notification
+
+Alert Time: 2008/08/08 16:53:22.000
+State: Error
+Host: SJCSYMPHMRPM01P
+Check: Service Control Manager
+IP: 10.128.109.21
+Group: |/Customers/clood
+Message: The IBMWAS61Service - RPM561 service was unable to log on as .\admin with the currently configured
+password due to the following error:
+The referenced account is currently locked out and may not be logged on to.
+
+To ensure that the service is
+configured properly, use the Services snap-in in Microsoft Management
+Console (MMC).
+Event Detail
+Acknowledge
+Delete
+Device Events
+
+
+Details
+Zenoss Location: SJC03
+Zenoss Server: localhost
+Event Class: /Status/WinService
+Event Group: System
+First Time: 2008/08/08 16:53:22.000
+Last Time: 2008/08/08 17:02:23.000
+State Change: 2008/08/08 20:02:23.000
+Count: 5
+Agent: zeneventlog
+Device Class: /Server/Windows/OpSource-Cust-Domain
+Location: /SJC03
+Systems: |
+DeDupID: SJCSYMPHMRPM01P|Service Control Manager|/Status/WinService||4|The IBMWAS61Service - RPM561 service was unable to log on as .\\admin with the currently configured\r\npassword due to the followin
+Event ID: d1225826371314ff2b93a845
