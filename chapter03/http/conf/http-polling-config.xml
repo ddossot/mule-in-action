@@ -13,6 +13,11 @@
        http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
        "
         >
+
+    <notifications dynamic="true">
+        <notification event="ENDPOINT-MESSAGE"/>
+    </notifications>
+
     <http:polling-connector name="pollingHttp" pollingFrequency="300000"/>
 
     <model name="httpPollingModel">
