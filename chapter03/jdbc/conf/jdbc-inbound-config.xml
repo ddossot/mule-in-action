@@ -1,24 +1,18 @@
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:spring="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
-       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
-       xmlns:jdbc="http://www.mulesource.org/schema/mule/jdbc/2.1"
-       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
-       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
-       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-    xsi:schemaLocation="
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:jdbc="http://www.mulesource.org/schema/mule/jdbc/2.2"
+      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+      xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
-       http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
-       http://www.mulesource.org/schema/mule/jdbc/2.1 http://www.mulesource.org/schema/mule/jdbc/2.1/mule-jdbc.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd"
->
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/jdbc/2.2 http://www.mulesource.org/schema/mule/jdbc/2.2/mule-jdbc.xsd
+       http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd"
+        >
     <global-property name="jms.url" value="vm://localhost"/>
     <global-property name="jdbc.username" value=""/>
     <global-property name="jdbc.password" value=""/>
@@ -26,17 +20,19 @@
     <global-property name="jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
 
     <spring:bean id="dataSource"
-          class="org.enhydra.jdbc.standard.StandardDataSource" destroy-method="shutdown">
+                 class="org.enhydra.jdbc.standard.StandardDataSource" destroy-method="shutdown">
         <spring:property name="driverName" value="${jdbc.driver}"/>
         <spring:property name="url" value="${jdbc.url}"/>
     </spring:bean>
 
-<!--     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" /> -->
-    
-    <jdbc:connector name="jdbcConnector"  dataSource-ref="dataSource">
-        <jdbc:query key="alertQuery" value="select host from alerts where DATE_SUB(NOW(),INTERVAL 1 HOUR) &lt; timestamp;"/>
+    <jdbc:connector name="jdbcConnector" dataSource-ref="dataSource">    
+         <jdbc:query key="alertQuery"
+                     value="select * from alerts where timestamp &gt; {fn TIMESTAMPADD( SQL_TSI_HOUR, -1, CURRENT_TIMESTAMP)}"/>
+
     </jdbc:connector>
-    
+        
+    <vm:connector name="vmConnector" queueEvents="true"/>
+
     <model name="jdbcInboundModel">
         <service name="jdbcInboundService">
             <inbound>
