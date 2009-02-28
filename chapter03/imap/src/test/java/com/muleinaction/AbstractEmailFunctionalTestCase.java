@@ -25,8 +25,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
-{
+public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase {
 
     protected static final String CONFIG_BASE = "-functional-test.xml";
     protected static final long DELIVERY_DELAY_MS = 1000L;
@@ -48,21 +47,18 @@ public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
     private String message;
     private String password;
 
-    protected AbstractEmailFunctionalTestCase(int port, boolean isMimeMessage, String protocol)
-    {
+    protected AbstractEmailFunctionalTestCase(int port, boolean isMimeMessage, String protocol) {
         this(port, isMimeMessage, protocol, protocol + CONFIG_BASE);
     }
 
-    protected AbstractEmailFunctionalTestCase(int port, boolean isMimeMessage, String protocol, String configFile)
-    {
+    protected AbstractEmailFunctionalTestCase(int port, boolean isMimeMessage, String protocol, String configFile) {
         this(port, isMimeMessage, protocol, configFile,
                 DEFAULT_EMAIL, DEFAULT_USER, DEFAULT_MESSAGE, DEFAULT_PASSWORD);
     }
 
     protected AbstractEmailFunctionalTestCase(int port, boolean isMimeMessage, String protocol, String configFile,
                                               String email, String user, String message,
-                                              String password)
-    {
+                                              String password) {
         this.isMimeMessage = isMimeMessage;
         this.protocol = protocol;
         this.port = port;
@@ -73,33 +69,26 @@ public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
         this.password = password;
     }
 
-    protected String getConfigResources()
-    {
+    protected String getConfigResources() {
         return configFile;
     }
 
     // @Override
-    protected void suitePreSetUp() throws Exception
-    {
+    protected void suitePreSetUp() throws Exception {
         startServer();
     }
 
 
     // @Override
-    protected void suitePostTearDown() throws Exception
-    {
+    protected void suitePostTearDown() throws Exception {
         stopServer();
     }
 
-    protected void doSend() throws Exception
-    {
+    protected void doSend() throws Exception {
         Object msg;
-        if (isMimeMessage)
-        {
+        if (isMimeMessage) {
             msg = GreenMailUtilities.toMessage(message, email);
-        }
-        else
-        {
+        } else {
             msg = message;
         }
 
@@ -114,52 +103,45 @@ public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
         verifyMessage(messages[0]);
     }
 
-    protected void verifyMessage(MimeMessage received) throws IOException, MessagingException
-    {
+    protected void verifyMessage(MimeMessage received) throws IOException, MessagingException {
         assertTrue("Did not receive a message with String contents",
-            received.getContent() instanceof String);
+                received.getContent() instanceof String);
         verifyMessage((String) received.getContent());
         assertNotNull(received.getRecipients(Message.RecipientType.TO));
         assertEquals(1, received.getRecipients(Message.RecipientType.TO).length);
         assertEquals(received.getRecipients(Message.RecipientType.TO)[0].toString(), email);
     }
 
-    protected void verifyMessage(String receivedText)
-    {
+    protected void verifyMessage(String receivedText) {
         // for some reason, something is adding a newline at the end of messages
         // so we need to strip that out for comparison
         assertEquals(message, receivedText.trim());
     }
 
-    protected void doRequest() throws Exception
-    {
+    protected void doRequest() throws Exception {
         assertEquals(1, server.getReceivedMessages().length);
 
         MuleClient client = new MuleClient();
         MuleMessage message = client.request("vm://receive", 5000);
-        
+
         assertNotNull(message);
         Object payload = message.getPayload();
-        if (isMimeMessage)
-        {
+        if (isMimeMessage) {
             assertTrue(payload instanceof MimeMessage);
             verifyMessage((MimeMessage) payload);
-        }
-        else
-        {
+        } else {
             assertTrue(payload instanceof String);
             verifyMessage((String) payload);
         }
     }
 
-    private void startServer() throws Exception
-    {
+    private void startServer() throws Exception {
         logger.debug("starting server on port " + port);
         ServerSetup setup = new ServerSetup(port, null, protocol);
         server = new GreenMail(setup);
+        server.stop();
         server.start();
-        if (protocol.startsWith(Pop3Connector.POP3) || protocol.startsWith(ImapConnector.IMAP))
-        {
+        if (protocol.startsWith(Pop3Connector.POP3) || protocol.startsWith(ImapConnector.IMAP)) {
             GreenMailUtilities.storeEmail(server.getManagers().getUserManager(),
                     email, user, password,
                     GreenMailUtilities.toMessage(message, email));
@@ -167,9 +149,9 @@ public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
         logger.debug("server started for protocol " + protocol);
     }
 
-    private void stopServer()
-    {
-        server.stop();
+    private void stopServer() {
+        if (server != null)
+            server.stop();
     }
 
 }

@@ -3,6 +3,10 @@ package com.clood.monitoring;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class URLAlertComponent {
 
@@ -10,8 +14,7 @@ public class URLAlertComponent {
         return getData((String) object);
     }
 
-
-    Map getData(String email) {
+    Map getData(String email) throws ParseException {
 
         Map result = new HashMap();
 
@@ -25,9 +28,13 @@ public class URLAlertComponent {
             if (field.matches("^Message:.*")) {
                 result.put("MESSAGE", splitField(field));
             }
+
+            if (field.matches("^Alert Time:.*")) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.S");
+                result.put("TIMESTAMP",new Timestamp(format.parse(splitField(field)).getTime()));
+            }
         }
 
-        result.put("TIMESTAMP", new Date());
         return result;
 
     }
