@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
-      xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.1"
-      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.1"
-      xmlns:email="http://www.mulesource.org/schema/mule/email/2.1"
-      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.2"
+      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.2"
+      xmlns:email="http://www.mulesource.org/schema/mule/email/2.2"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
-       http://www.mulesource.org/schema/mule/imap/2.1 http://www.mulesource.org/schema/mule/imap/2.1/mule-imap.xsd
-       http://www.mulesource.org/schema/mule/smtp/2.1 http://www.mulesource.org/schema/mule/smtp/2.1/mule-smtp.xsd
-       http://www.mulesource.org/schema/mule/email/2.1 http://www.mulesource.org/schema/mule/email/2.1/mule-email.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd">
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.2 http://www.mulesource.org/schema/mule/file/2.2/mule-file.xsd
+       http://www.mulesource.org/schema/mule/smtp/2.2 http://www.mulesource.org/schema/mule/smtp/2.2/mule-smtp.xsd
+       http://www.mulesource.org/schema/mule/email/2.2 http://www.mulesource.org/schema/mule/email/2.2/mule-email.xsd
+      ">
+
+     <notifications dynamic="true">
+        <notification event="ENDPOINT-MESSAGE"/>
+    </notifications>
 
     <global-property name="smtp.host" value="localhost"/>
     <global-property name="smtp.to" value="john.demic@gmail.com"/>
     <global-property name="smtp.from" value="mule"/>
+    <global-property name="smtp.port" value="65437"/>
 
     <file:connector name="FileConnector" streaming="false"
-                    pollingFrequency="1000" autoDelete="true"/>
+                    pollingFrequency="300000" autoDelete="false"/>
 
     <model name="smtpModel">
-        
         <service name="smtpService">
             <inbound>
                 <file:inbound-endpoint path="./data/invoice">
@@ -35,7 +36,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
+                    <smtp:outbound-endpoint host="${smtp.host}" port="${smtp.port}" from="${smtp.from}" subject="Accounting Invoice"
                                             to="${smtp.to}">
                         <email:string-to-email-transformer/>
                     </smtp:outbound-endpoint>
