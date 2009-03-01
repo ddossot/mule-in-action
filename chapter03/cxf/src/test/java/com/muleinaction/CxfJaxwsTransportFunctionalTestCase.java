@@ -10,6 +10,7 @@ import org.mule.module.client.MuleClient;
  */
 public class CxfJaxwsTransportFunctionalTestCase extends FunctionalTestCase {
 
+    
     @Override
     protected String getConfigResources() {
         return "conf/cxf-jaxws-config.xml";

@@ -23,10 +23,10 @@
 	    <module>imap</module>
 	    <module>cxf</module>
 	    <module>ftp</module>
-	    <module>jdbc</module>
+	    <module>jdbc</module> 
 	    <module>jms</module>
 	    <module>xmpp</module>
-	    <!-- <module>vm</module> -->
+	    <module>vm</module> 
 	</modules>
 
   <dependencies>
