@@ -11,7 +11,7 @@
        http://www.mulesource.org/schema/mule/file/2.2 http://www.mulesource.org/schema/mule/file/2.2/mule-file.xsd
        http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd">
 
-     <notifications dynamic="true">
+    <notifications dynamic="true">
         <notification event="ENDPOINT-MESSAGE"/>
     </notifications>
 
@@ -30,7 +30,7 @@
             <outbound>
                 <pass-through-router>
                     <file:outbound-endpoint path="./data/archive"
-                                            outputPattern="SNAPSHOT-[function:dateStamp]"/>
+                                            outputPattern="SNAPSHOT-#[function:dateStamp]"/>
                 </pass-through-router>
             </outbound>
         </service>
