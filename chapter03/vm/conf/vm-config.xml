@@ -1,55 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
-      xmlns:http="http://www.mulesource.org/schema/mule/http/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
-       http://www.mulesource.org/schema/mule/http/2.1 http://www.mulesource.org/schema/mule/http/2.1/mule-http.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
        "
         >
 
-   <stdio:connector name="SystemStreamConnector"
-        promptMessage="Please enter a stock ticker: "
-        messageDelayTime="1000"/>
-
     <vm:connector name="vmConnector" queueEvents="true"/>
+
+    <jms:activemq-connector name="jmsConnector" brokerURL="vm://localhost"/>
 
     <model name="vmModel">
         <service name="vmService">
             <inbound>
-                <http:inbound-endpoint address="http://localhost:8080/books">
+                <http:inbound-endpoint address="http://localhost:9756/orders" synchronous="true">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
+                <jms:inbound-endpoint queue="orders.in">
+                    <transformers>
+                        <jms:jmsmessage-to-object-transformer/>
+                    </transformers>
+                </jms:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <vm:outbound-endpoint address="vm://orders"/>
+                    <vm:outbound-endpoint address="vm://order.validation"/>
                 </pass-through-router>
             </outbound>
         </service>
 
-        <service name="Outbound Order Service">
+        <service name="Order Validation">
             <inbound>
-                <vm:inbound-endpoint address="vm://orders"/>
+                <vm:inbound-endpoint address="vm://order.validation"/>
             </inbound>
+            <component class="com.clood.order.OrderValidationService">
+                <method-entry-point-resolver>
+                    <include-entry-point method="validateOrder"/>
+                </method-entry-point-resolver>
+            </component>
             <outbound>
                 <pass-through-router>
-                    <outbound-endpoint address="wsdl-cxf:http://www.webservicex.net/stockquote.asmx?WSDL&amp;method=GetQuote"/>
+                    <vm:outbound-endpoint path="order.dispatch"/>
                 </pass-through-router>
             </outbound>
-
         </service>
 
-        <queue-profile persistent="true" maxOutstandingMessages="1000"/>
+        <service name="Order Dispatch">
+            <inbound>
+                <vm:inbound-endpoint path="vm:order.dispatch"/>
+            </inbound>
+            <outbound>
+                <static-recipient-list-router>
+                    <recipients>
+                        <spring:value>jms://order.submission.ops</spring:value>
+                        <spring:value>jms://order.submission.sales</spring:value>
+                    </recipients>
+                </static-recipient-list-router>
+            </outbound>
+        </service>
+
+        <!-- <queue-profile persistent="true" maxOutstandingMessages="1000"/> -->
     </model>
 </mule>
