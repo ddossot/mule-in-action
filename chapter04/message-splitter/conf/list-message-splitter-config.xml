@@ -22,7 +22,6 @@
             </inbound>
 
             <outbound>
-
                 <list-message-splitter-router>
                     <vm:outbound-endpoint path="orders.fulfilled">
                         <expression-filter evaluator="jxpath" expression="status = 'FULFILLED'"/>
@@ -32,7 +31,6 @@
                     </vm:outbound-endpoint>
                     <vm:outbound-endpoint path="orders.unknown"/>
                 </list-message-splitter-router>
-
             </outbound>
 
         </service>
