@@ -37,7 +37,6 @@
     </jdbc:connector>
 
     <model name="imapJdbcModel">
-
         <service name="imapJdbcService">
             <inbound>
                 <imap:inbound-endpoint host="${imap.host}" user='${imap.user}'
