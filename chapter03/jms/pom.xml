@@ -27,7 +27,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.mule.transports</groupId>
-				<artifactId>mule-transport-stdio</artifactId>
+				<artifactId>mule-transport-file</artifactId>
 			</dependency>
 			<dependency>
 				<groupId>org.mule.transports</groupId>

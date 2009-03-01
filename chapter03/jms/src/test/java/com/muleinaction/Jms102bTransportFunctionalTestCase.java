@@ -1,24 +1,34 @@
 package com.muleinaction;
 
 import org.mule.api.service.Service;
+import org.mule.api.MuleMessage;
 import org.mule.tck.FunctionalTestCase;
+import org.mule.module.client.MuleClient;
 
 /**
  * @author John D'Emic (john.demic@gmail.com)
  */
 public class Jms102bTransportFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/jms-102b-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/jms-102b-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"jms102bService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "jms102bService");
 
-		assertNotNull(service);
-		assertEquals("jms102bModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("jms102bModel", service.getModel().getName());
+    }
+
+    public void testMessageSent() throws Exception {
+        MuleClient client = new MuleClient(muleContext);
+        client.send("http://localhost:9756/backup-reports", "test", null);
+        MuleMessage message = client.request("jms://topic:backup-reports?connector=jmsTopicConnector", 15000);
+        assertNotNull(message);
+        assertEquals("test", message.getPayloadAsString());
+    }
 
 }

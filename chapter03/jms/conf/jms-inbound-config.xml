@@ -1,38 +1,47 @@
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:spring="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
-       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
-       xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.1"
-       xmlns:http="http://www.mulesource.org/schema/mule/http/2.1"
-       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
-       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
-    xsi:schemaLocation="
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.2"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
+      xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
-       http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
-       http://www.mulesource.org/schema/mule/smtp/2.1 http://www.mulesource.org/schema/mule/smtp/2.1/mule-smtp.xsd
-       http://www.mulesource.org/schema/mule/http/2.1 http://www.mulesource.org/schema/mule/http/2.1/mule-http.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd"
->
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/file/2.2 http://www.mulesource.org/schema/mule/file/2.2/mule-file.xsd
+       http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd"
+        >
+
+    <notifications dynamic="true">
+        <notification event="ENDPOINT-MESSAGE"/>
+    </notifications>
+
     <global-property name="jms.url" value="vm://localhost"/>
-    
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
-    
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
+
+     <file:connector name="FileConnector"
+                    streaming="false"
+                    autoDelete="true"
+                    pollingFrequency="1000">
+        <file:expression-filename-parser/>
+    </file:connector>
+
     <model name="jmsInboundModel">
         <service name="jmsInboundService">
             <inbound>
-                <jms:inbound-endpoint topic="backup-reports">
-                    <jms:jmsmessage-to-object-transformer/>
+                <jms:inbound-endpoint topic="backup-reports" >
+                    <transformers>
+                        <jms:jmsmessage-to-object-transformer/>
+                    </transformers>
                 </jms:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <stdio:outbound-endpoint system="OUT"/>
+                    <file:outbound-endpoint path="./data/reports"
+                                            outputPattern="BACKUP-REPORT-#[function:dateStamp]"/>
                 </pass-through-router>
             </outbound>
         </service>
