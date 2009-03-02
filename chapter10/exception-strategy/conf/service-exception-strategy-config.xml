@@ -44,9 +44,6 @@
                     </jms:outbound-endpoint>
                 </pass-through-router>
             </outbound>
-
         </service>
-
     </model>
-
 </mule>
