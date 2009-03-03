@@ -14,7 +14,7 @@
        "
         >
     <global-property name="http.host" value="localhost"/>
-    <global-property name="http.port" value="9765"/>
+    <global-property name="http.port" value="9765"/>    
 
     <model name="httpInboundModel">
         <service name="httpInboundService">
@@ -25,7 +25,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-[DATE].xml"/>
+                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-#[function:dateStamp].xml"/>
                 </pass-through-router>
             </outbound>
         </service>
