@@ -27,13 +27,13 @@
     <model name="jmsOutboundModel">
         <service name="jmsOutboundService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint topic="backup-reports"/>
+                    <jms:outbound-endpoint topic="backup-reports" />
                 </pass-through-router>
             </outbound>
         </service>
