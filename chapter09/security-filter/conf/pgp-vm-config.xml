@@ -6,6 +6,7 @@
       xmlns:pgp="http://www.mulesource.org/schema/mule/pgp/2.1"
       xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
       xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -14,6 +15,7 @@
        http://www.mulesource.org/schema/mule/pgp/2.1 http://www.mulesource.org/schema/mule/pgp/2.1/mule-pgp.xsd
        http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
        http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
        http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
        "
         >
@@ -23,7 +25,7 @@
     <spring:bean id="pgpKeyManager" class="org.mule.module.pgp.PGPKeyRingImpl" init-method="initialise">
         <spring:property name="publicKeyRingFileName" value="conf/public.key.gpg"/>
         <spring:property name="secretKeyRingFileName" value="conf/secret.key.gpg"/>
-        <spring:property name="secretAliasId" value="0x6168F39C"/>
+        <spring:property name="secretAliasId" value="0x7927DE78"/>
         <spring:property name="secretPassphrase" value="mule"/>
     </spring:bean>
     <spring:bean id="credentialAccessor" class="org.mule.security.MuleHeaderCredentialsAccessor"/>
@@ -34,16 +36,32 @@
     </pgp:security-manager>
 
     <model name="pgpModel">
+        <service name="InputConsole">
+            <inbound>
+                <stdio:inbound-endpoint system="IN"/>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint path="secure">
+
+                    </vm:outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service>
+
         <service name="pgpService">
             <inbound>
-                 <vm:inbound-endpoint address="vm://secure"/> 
+                <vm:inbound-endpoint address="vm://secure"/>
             </inbound>
             <outbound>
                 <pass-through-router>
                     <vm:outbound-endpoint address="vm://out">
-                        <message-properties-transformer>
-                            <add-message-property key="MULE_USER" value="Mule in Action &lt;john.demic@gmail.com&gt;"/>
-                        </message-properties-transformer>
+                        <transformers>
+                            <message-properties-transformer>
+                                <add-message-property key="MULE_USER"
+                                                      value="Mule in Action &lt;john.demic@gmail.com&gt;"/>
+                            </message-properties-transformer>
+                        </transformers>
                     </vm:outbound-endpoint>
                 </pass-through-router>
             </outbound>
@@ -53,7 +71,7 @@
             <inbound>
                 <vm:inbound-endpoint address="vm://out">
                     <pgp:security-filter strategyName="keyBasedEncryptionStrategy"
-                                         signRequired="no"
+                                         signRequired="false"
                                          keyManager-ref="pgpKeyManager"
                                          credentialsAccessor-ref="credentialAccessor"/>
                 </vm:inbound-endpoint>
