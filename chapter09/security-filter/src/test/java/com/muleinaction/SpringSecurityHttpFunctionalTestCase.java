@@ -13,7 +13,7 @@ public class SpringSecurityHttpFunctionalTestCase extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
-        return "conf/acegi-http-config.xml";
+        return "conf/spring-security-http-config.xml";
     }
 
     public void testCorrectlyInitialized() throws Exception {
