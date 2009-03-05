@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
-      xmlns:jaas="http://www.mulesource.org/schema/mule/jaas/2.1"
-      xmlns:test="http://www.mulesource.org/schema/mule/test/2.1"
-      xmlns:acegi="http://www.mulesource.org/schema/mule/acegi/2.1"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+      xmlns:jaas="http://www.mulesource.org/schema/mule/jaas/2.2"
+      xmlns:test="http://www.mulesource.org/schema/mule/test/2.2"
+      xmlns:mule-ss="http://www.mulesource.org/schema/mule/spring-security/2.2"
+      xmlns:ss="http://www.springframework.org/schema/security"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/test/2.1 http://www.mulesource.org/schema/mule/test/2.1/mule-test.xsd
-       http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
-       http://www.mulesource.org/schema/mule/acegi/2.1 http://www.mulesource.org/schema/mule/acegi/2.1/mule-acegi.xsd
-       http://www.mulesource.org/schema/mule/jaas/2.1 http://www.mulesource.org/schema/mule/jaas/2.1/mule-jaas.xsd">
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/test/2.2 http://www.mulesource.org/schema/mule/test/2.2/mule-test.xsd
+       http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/jaas/2.2 http://www.mulesource.org/schema/mule/jaas/2.2/mule-jaas.xsd
+       http://www.mulesource.org/schema/mule/spring-security/2.2
+       http://www.mulesource.org/schema/mule/spring-security/2.2/mule-spring-security.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.xsd
+       ">
 
     <global-property name="jms.url" value="vm://localhost"/>
-    
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
+
+     <notifications dynamic="true">
+        <notification event="COMPONENT-MESSAGE"/>
+    </notifications>
+
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
 
     <jaas:security-manager>
-        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf"/>       
-        <jaas:password-encryption-strategy name="PBE" password="password" />
+        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf" />
+        <jaas:password-encryption-strategy name="PBE" password="password" /> 
     </jaas:security-manager>
 
-    <spring:bean id="authDao" class="org.acegisecurity.userdetails.memory.InMemoryDaoImpl">
-        <spring:property name="userMap">
-            <spring:value>
-                john=password,ROLE_USER
-                david=password,ROLE_USER
-                admin=password,ROLE_ADMIN
-            </spring:value>
-        </spring:property>
-    </spring:bean>
+    <spring:beans>
+        <ss:authentication-manager alias="authenticationManager"/>
 
-    <spring:bean id="memoryAuthProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-        <spring:property name="userDetailsService" ref="authDao"/>
-    </spring:bean>
+        <ss:authentication-provider>
+            <ss:user-service id="userService">
+                <ss:user name="john" password="password" authorities="ROLE_ADMIN"/>
+            </ss:user-service>
+        </ss:authentication-provider>
 
-    <acegi:security-manager>
-        <acegi:delegate-security-provider name="auth-dao" delegate-ref="memoryAuthProvider"/>
-    </acegi:security-manager>
+        <mule-ss:security-manager>
+            <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
+        </mule-ss:security-manager>
 
+    </spring:beans>
 
     <model name="jaasPbeModel">
         <service name="jaasPbeService">
