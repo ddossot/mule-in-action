@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:acegi="http://www.mulesource.org/schema/mule/acegi/2.1"
-      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-      xmlns:http="http://www.mulesource.org/schema/mule/http/2.1"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+      xmlns:test="http://www.mulesource.org/schema/mule/test/2.2"
+      xmlns:mule-ss="http://www.mulesource.org/schema/mule/spring-security/2.2"
+      xmlns:ss="http://www.springframework.org/schema/security"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/acegi/2.1 http://www.mulesource.org/schema/mule/acegi/2.1/mule-acegi.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/http/2.1 http://www.mulesource.org/schema/mule/http/2.1/mule-http.xsd
-       "
-        >
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/test/2.2 http://www.mulesource.org/schema/mule/test/2.2/mule-test.xsd
+       http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/spring-security/2.2
+       http://www.mulesource.org/schema/mule/spring-security/2.2/mule-spring-security.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.xsd
+       ">
 
-    <spring:bean id="authDao" class="org.acegisecurity.userdetails.memory.InMemoryDaoImpl">
-        <spring:property name="userMap">
-            <spring:value>
-                john=password,ROLE_USER,ROLE_BLAH
-                david=password,ROLE_USER
-                admin=password,ROLE_ADMIN
-            </spring:value>
-        </spring:property>
-    </spring:bean>
+    <vm:connector name="vmConnector" queueEvents="true"/>
 
-    <spring:bean id="memoryAuthProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-        <spring:property name="userDetailsService" ref="authDao"/>
-    </spring:bean>
+    <spring:beans>
+        <ss:authentication-manager alias="authenticationManager"/>
 
-    <acegi:security-manager>
-        <acegi:delegate-security-provider name="auth-dao" delegate-ref="memoryAuthProvider"/>
-    </acegi:security-manager>
+        <ss:authentication-provider>
+            <ss:user-service id="userService">
+                <ss:user name="john" password="password" authorities="ROLE_ADMIN"/>
+            </ss:user-service>
+        </ss:authentication-provider>
+
+        <mule-ss:security-manager>
+            <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
+        </mule-ss:security-manager>
+
+    </spring:beans>
 
     <security-manager>
-        <password-encryption-strategy name="passwordEncryption" password="password"/>        
+        <password-encryption-strategy name="passwordEncryption" password="password"/>
     </security-manager>
 
     <model name="securityManagerHttpPbeModel">
         <service name="securityManagerHttpPbeService">
             <inbound>
-                <http:inbound-endpoint address="http://localhost:8081/secure">
-                    <acegi:http-security-filter realm="mule"/>
+                <http:inbound-endpoint address="http://localhost:8081/secure" synchronous="true">
+                    <mule-ss:http-security-filter realm="mule"/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <vm:outbound-endpoint address="vm://out">
+                    <vm:outbound-endpoint address="vm://encrypted">
                         <transformers>
                             <encrypt-transformer strategy-ref="passwordEncryption"/>
                         </transformers>
@@ -58,12 +58,6 @@
             </outbound>
         </service>
 
-        <service name="out">
-            <inbound>
-                <vm:inbound-endpoint address="vm://out"/>
-            </inbound>
-            <echo-component/>
-        </service>
     </model>
 
 </mule>
