@@ -1,65 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:acegi="http://www.mulesource.org/schema/mule/acegi/2.1"
-      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
+      xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+      xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+      xmlns:mule-ss="http://www.mulesource.org/schema/mule/spring-security/2.2"
+      xmlns:ss="http://www.springframework.org/schema/security"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/acegi/2.1 http://www.mulesource.org/schema/mule/acegi/2.1/mule-acegi.xsd
-       http://www.mulesource.org/schema/mule/xml/2.1 http://www.mulesource.org/schema/mule/xml/2.1/mule-xml.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+       http://www.mulesource.org/schema/mule/spring-security/2.2
+       http://www.mulesource.org/schema/mule/spring-security/2.2/mule-spring-security.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.xsd
        "
         >
 
-    <spring:bean id="initialDirContextFactory" class="org.acegisecurity.ldap.DefaultInitialDirContextFactory">
-        <spring:constructor-arg value="ldap://localhost"/>
-        <spring:property name="managerDn"
-                         value="cn=Manager,dc=muleinaction,dc=com"/>
-        <spring:property name="managerPassword" value="secret"/>
-    </spring:bean>
+    <spring:beans>
 
-    <spring:bean id="internalUserSearch"
-                 class="org.acegisecurity.ldap.search.FilterBasedLdapUserSearch">
-        <spring:constructor-arg index="0" value="dc=muleinaction,dc=com"/>
-        <spring:constructor-arg index="1" value="(uid={0})"/>
-        <spring:constructor-arg index="2">
-            <spring:ref local="initialDirContextFactory"/>
-        </spring:constructor-arg>
-        <spring:property name="searchSubtree" value="true"/>
-    </spring:bean>
+        <ss:ldap-server root="dc=clood,dc=com" ldif="file:src/test/resources/users.ldif"/>
 
-    <spring:bean id="ldapAuthProvider" class="org.acegisecurity.providers.ldap.LdapAuthenticationProvider">
-        <spring:constructor-arg>
-            <spring:bean class="org.acegisecurity.providers.ldap.authenticator.BindAuthenticator">
-                <spring:constructor-arg>
-                    <spring:ref local="initialDirContextFactory"/>
-                </spring:constructor-arg>
-                <spring:property name="userSearch">
-                    <spring:ref local="internalUserSearch"/>
-                </spring:property>
-            </spring:bean>
-        </spring:constructor-arg>
-        <spring:constructor-arg>
-            <spring:bean class="org.acegisecurity.providers.ldap.populator.DefaultLdapAuthoritiesPopulator">
-                <spring:constructor-arg>
-                    <spring:ref local="initialDirContextFactory"/>
-                </spring:constructor-arg>
-                <spring:constructor-arg value="dc=muleinaction,dc=com"/>
-                <spring:property name="groupRoleAttribute" value="CN"/>
-                <spring:property name="searchSubtree" value="true"/>
-            </spring:bean>
-        </spring:constructor-arg>
-    </spring:bean>
+        <ss:ldap-authentication-provider user-dn-pattern="uid={0},ou=people"/>
 
-    <acegi:security-manager>
-        <acegi:delegate-security-provider name="auth-ldap" delegate-ref="ldapAuthProvider"/>
-    </acegi:security-manager>
+        <ss:authentication-manager alias="authenticationManager"/>
+
+        <mule-ss:security-manager>
+            <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
+        </mule-ss:security-manager>
+
+    </spring:beans>
+
+
+    <model name="securityManagerHttpLdapModel">
+        <service name="securityManagerHttpLdapService">
+            <inbound>
+                <http:inbound-endpoint address="http://localhost:8081/secure" synchronous="true">
+                    <mule-ss:http-security-filter realm="mule"/> 
+                </http:inbound-endpoint>
+            </inbound>
+            <echo-component/>
+        </service>
+    </model>
+
+
     <model/>
 </mule>
