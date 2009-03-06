@@ -28,7 +28,6 @@ public class ServiceExceptionFunctionalTestCase extends FunctionalTestCase {
         muleClient.sendAsync("jms://messages.in", "STATUS: CANCELLED", null);
         MuleMessage response = muleClient.request("jms://messages.out", 2000);
         assertNull(response);
-        
     }
 
 
