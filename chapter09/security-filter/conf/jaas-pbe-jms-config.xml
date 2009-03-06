@@ -21,15 +21,15 @@
 
     <global-property name="jms.url" value="vm://localhost"/>
 
-     <notifications dynamic="true">
+    <notifications dynamic="true">
         <notification event="COMPONENT-MESSAGE"/>
     </notifications>
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
 
     <jaas:security-manager>
-        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf" />
-        <jaas:password-encryption-strategy name="PBE" password="password" /> 
+        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf"/>
+        <jaas:password-encryption-strategy name="PBE" password="password"/>
     </jaas:security-manager>
 
     <spring:beans>
