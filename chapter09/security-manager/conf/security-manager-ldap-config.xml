@@ -26,12 +26,13 @@
 
         <ss:ldap-server root="dc=clood,dc=com" ldif="file:src/test/resources/users.ldif"/>
 
-        <ss:ldap-authentication-provider user-dn-pattern="uid={0},ou=people"/>
+        <ss:ldap-authentication-provider user-dn-pattern="uid={0},ou=people" />
 
         <ss:authentication-manager alias="authenticationManager"/>
 
         <mule-ss:security-manager>
-            <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
+            <mule-ss:delegate-security-provider name="ldap" delegate-ref="authenticationManager"/>
+
         </mule-ss:security-manager>
 
     </spring:beans>

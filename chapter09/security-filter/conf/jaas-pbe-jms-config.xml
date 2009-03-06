@@ -4,13 +4,11 @@
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
       xmlns:jaas="http://www.mulesource.org/schema/mule/jaas/2.2"
-      xmlns:test="http://www.mulesource.org/schema/mule/test/2.2"
       xmlns:mule-ss="http://www.mulesource.org/schema/mule/spring-security/2.2"
       xmlns:ss="http://www.springframework.org/schema/security"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
-       http://www.mulesource.org/schema/mule/test/2.2 http://www.mulesource.org/schema/mule/test/2.2/mule-test.xsd
        http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
        http://www.mulesource.org/schema/mule/jaas/2.2 http://www.mulesource.org/schema/mule/jaas/2.2/mule-jaas.xsd
        http://www.mulesource.org/schema/mule/spring-security/2.2
@@ -32,21 +30,6 @@
         <jaas:password-encryption-strategy name="PBE" password="password"/>
     </jaas:security-manager>
 
-    <spring:beans>
-        <ss:authentication-manager alias="authenticationManager"/>
-
-        <ss:authentication-provider>
-            <ss:user-service id="userService">
-                <ss:user name="john" password="password" authorities="ROLE_ADMIN"/>
-            </ss:user-service>
-        </ss:authentication-provider>
-
-        <mule-ss:security-manager>
-            <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
-        </mule-ss:security-manager>
-
-    </spring:beans>
-
     <model name="jaasPbeModel">
         <service name="jaasPbeService">
             <inbound>
@@ -56,6 +39,5 @@
             </inbound>
             <echo-component/>
         </service>
-
     </model>
 </mule>
