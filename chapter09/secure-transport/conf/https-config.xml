@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      xmlns:https="http://www.mulesource.org/schema/mule/https/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-      xmlns:test="http://www.mulesource.org/schema/mule/test/2.1"
-      xmlns:acegi="http://www.mulesource.org/schema/mule/acegi/2.1"
+      xmlns:https="http://www.mulesource.org/schema/mule/https/2.2"
+      xmlns:test="http://www.mulesource.org/schema/mule/test/2.2"
+      xmlns:mule-ss="http://www.mulesource.org/schema/mule/spring-security/2.2"
+      xmlns:ss="http://www.springframework.org/schema/security"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/test/2.1 http://www.mulesource.org/schema/mule/test/2.1/mule-test.xsd
-       http://www.mulesource.org/schema/mule/https/2.1 http://www.mulesource.org/schema/mule/https/2.1/mule-https.xsd
-       http://www.mulesource.org/schema/mule/acegi/2.1 http://www.mulesource.org/schema/mule/acegi/2.1/mule-acegi.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd">
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/test/2.2 http://www.mulesource.org/schema/mule/test/2.2/mule-test.xsd
+       http://www.mulesource.org/schema/mule/https/2.2 http://www.mulesource.org/schema/mule/https/2.2/mule-https.xsd
+        http://www.mulesource.org/schema/mule/spring-security/2.2
+       http://www.mulesource.org/schema/mule/spring-security/2.2/mule-spring-security.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.xsd
+       "
+        >
 
-    <https:connector name="httpConnector">
-         <https:tls-key-store path="conf/mule.keystore" keyPassword="mulepassword" storePassword="mulepassword" /> 
-   </https:connector>
-    
+    <https:connector name="httpsConnector">
+        <!--
+            <https:tls-client path="clientKeystore" storePassword="mulepassword"/>
+            <https:tls-key-store path="serverKeystore" keyPassword="mulepassword" storePassword="mulepassword"/>
+            <https:tls-server path="trustStore" storePassword="mulepassword"/> -->
+    </https:connector>
+
     <model name="secureTransportModel">
         <service name="secureTransportService">
             <inbound>
-                <https:inbound-endpoint address="https://localhost:8081/secure" >
-                    <acegi:http-security-filter realm="mule"/>
-                </https:inbound-endpoint>
+                <https:inbound-endpoint address="https://localhost:8081/secure"/>
             </inbound>
             <echo-component/>
         </service>
