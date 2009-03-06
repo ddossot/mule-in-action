@@ -23,12 +23,11 @@
                 <ss:user name="john" password="password" authorities="ROLE_ADMIN"/>
             </ss:user-service>
         </ss:authentication-provider>
-        
-        <mule-ss:security-manager>
-            <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
-        </mule-ss:security-manager>
-
     </spring:beans>
+
+    <mule-ss:security-manager>
+        <mule-ss:delegate-security-provider name="memory-dao" delegate-ref="authenticationManager"/>
+    </mule-ss:security-manager>
 
     <model name="springSecurityHttpModel">
 
