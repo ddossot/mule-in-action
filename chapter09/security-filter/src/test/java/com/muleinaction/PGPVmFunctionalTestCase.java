@@ -9,6 +9,8 @@ import org.apache.commons.lang.StringUtils;
 import junit.framework.TestCase;
 
 import java.io.File;
+import java.util.Map;
+import java.util.HashMap;
 
 
 /**
@@ -32,7 +34,9 @@ public class PGPVmFunctionalTestCase extends FunctionalTestCase {
         MuleClient client = new MuleClient(muleContext);
         String decryptedMessage = FileUtils.readFileToString(new File("src/test/resources/test.txt"));
         String encryptedMessage = FileUtils.readFileToString(new File("src/test/resources/test.txt.asc"));
-        client.send("jms://messages.encrypted", encryptedMessage, null);
+        Map messageProperties = new HashMap();
+        messageProperties.put("MULE_USER","Mule in Action <john.demic@gmail.com>");
+        client.send("jms://messages.encrypted", encryptedMessage, messageProperties);
         MuleMessage message = client.request("jms://messages.decrypted", 15000);
         assertNotNull(message);
         assertEquals(decryptedMessage, message.getPayloadAsString());

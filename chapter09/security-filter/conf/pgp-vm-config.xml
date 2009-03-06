@@ -35,18 +35,11 @@
 
         <service name="pgpService">
             <inbound>
-                <jms:inbound-endpoint queue="messages.encrypted" />
+                <jms:inbound-endpoint queue="messages.encrypted"/>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <vm:outbound-endpoint path="services.decryption">
-                        <transformers>
-                            <message-properties-transformer>
-                                <add-message-property key="MULE_USER"
-                                                      value="Mule in Action &lt;john.demic@gmail.com&gt;"/>
-                            </message-properties-transformer>
-                        </transformers>
-                    </vm:outbound-endpoint>
+                    <vm:outbound-endpoint path="services.decryption"/>                        
                 </pass-through-router>
             </outbound>
         </service>
@@ -55,7 +48,7 @@
             <inbound>
                 <vm:inbound-endpoint path="services.decryption">
                     <pgp:security-filter strategyName="keyBasedEncryptionStrategy"
-                                         signRequired="false"
+                                         signRequired="true"
                                          keyManager-ref="pgpKeyManager"
                                          credentialsAccessor-ref="credentialAccessor"/>
                 </vm:inbound-endpoint>
