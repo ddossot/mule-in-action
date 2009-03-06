@@ -1,0 +1,25 @@
+dn: ou=people,dc=clood,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=groups,dc=clood,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=john,ou=people,dc=clood,dc=com
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: John D'Emic
+sn: D'Emic
+uid: john
+userPassword: password
+
+dn: cn=admin,ou=groups,dc=clood,dc=com
+objectClass: top
+objectClass: groupOfNames
+cn: admin
+member: uid=john,ou=people,dc=clood,dc=com
