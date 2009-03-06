@@ -11,11 +11,8 @@ public class MessageEnricherFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageTimedOut() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-
         muleClient.sendAsync("jms://in", "TEST_PAYLOAD", null);
-
         MuleMessage response = muleClient.request("jms://out", 2000);
         assertNull(response);
-
     }
 }
