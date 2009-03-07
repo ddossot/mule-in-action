@@ -47,35 +47,7 @@
                     <jms:outbound-endpoint topic="metrics.avg.responsetimes"/>
                 </pass-through-router>
             </outbound>
-        </service>
-
-        <!-- Uncomment the below to get input into and out of the service.  Note that uncommenting
-  this will break the unit tests -->
-        <!--
-        <service name="Console In">
-            <inbound>
-                <stdio:inbound-endpoint system="IN"/>
-            </inbound>
-            <outbound>
-                <pass-through-router>
-                    <jms:outbound-endpoint queue="metrics.responsetimes"/>
-                </pass-through-router>
-            </outbound>
-        </service>
-
-        <service name="Console Out">
-            <inbound>
-                <jms:inbound-endpoint queue="metrics.avg.responsetimes"/>
-            </inbound>
-            <outbound>
-                <pass-through-router>
-                    <stdio:outbound-endpoint system="OUT">
-                        <jms:jmsmessage-to-object-transformer/>
-                    </stdio:outbound-endpoint>
-                </pass-through-router>
-            </outbound>
-        </service> -->
-
+        </service>      
     </model>
 
 </mule>
