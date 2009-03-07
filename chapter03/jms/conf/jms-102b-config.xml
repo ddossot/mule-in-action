@@ -17,7 +17,7 @@
     <global-property name="http.port" value="9756"/>
     <global-property name="jms.url" value="vm://localhost"/>
 
-    <jms:activemq-connector name="jmsQueueConnector" specification="1.0.2b" brokerURL="${jms.url}"/>
+    <!-- <jms:activemq-connector name="jmsQueueConnector" specification="1.0.2b" brokerURL="${jms.url}"/> -->
     <jms:activemq-connector name="jmsTopicConnector" specification="1.0.2b" brokerURL="${jms.url}"/>
 
     <model name="jms102bModel">
