@@ -6,7 +6,10 @@ class MessageEnricher implements Callable {
     public Object onCall(MuleEventContext muleEventContext) {
         def message = muleEventContext.getMessage()
         if (message.payload =~ "STATUS: CRITICAL") {
-            message.setProperty("PRIORITY", 'HIGH')
+            message.setProperty("PRIORITY", 'NORMAL')
+        } else {
+            message.setProperty("PRIORITY", 'LOW')
+
         }
         return message
     }
