@@ -16,7 +16,6 @@ public class MD5PropertyEnricherFunctionalTestCase extends FunctionalTestCase {
 	public void testCorrectlyInitialized() throws Exception {
 		final Service service = muleContext.getRegistry().lookupService(
 				"rhinoMessageEnrichmentService");
-
 		assertNotNull(service);
 		assertEquals("rhinoMessageEnrichmentModel", service.getModel().getName());
 	}
