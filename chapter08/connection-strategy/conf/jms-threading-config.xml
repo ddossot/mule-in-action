@@ -13,7 +13,7 @@
        "
         >
     <global-property name="http.host" value="localhost"/>
-    <global-property name="http.port" value="8081"/>
+    <global-property name="http.port" value="9756"/>
     <global-property name="jms.url" value="vm://localhost"/>
 
     <spring:beans>
