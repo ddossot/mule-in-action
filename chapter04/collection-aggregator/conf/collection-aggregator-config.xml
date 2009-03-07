@@ -69,7 +69,9 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <stdio:outbound-endpoint system="OUT"/>
+                    <stdio:outbound-endpoint system="OUT">
+                        <jms:jmsmessage-to-object-transformer/>
+                    </stdio:outbound-endpoint>
                 </pass-through-router>
             </outbound>
         </service> -->
