@@ -15,24 +15,24 @@
     <packaging>jar</packaging>
     <name>Mule in Action - Chapter 15 - jBPM</name>
 
-
     <dependencies>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-jbpm</artifactId>
-						<version>${mule-version}</version>
+            <version>${mule-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jbpm</groupId>
-                    <artifactId>jbpm-jpdl.osgi</artifactId>
+                    <artifactId>jbpm-jpdl</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
         </dependency>
