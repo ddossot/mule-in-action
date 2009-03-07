@@ -13,19 +13,25 @@
        http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
        "
         >
+
+    <notifications dynamic="true">
+        <notification event="ENDPOINT-MESSAGE"/>
+    </notifications>
+
     <global-property name="http.host" value="localhost"/>
-    <global-property name="http.port" value="9765"/>    
+    <global-property name="http.port" value="9765"/>
 
     <model name="httpInboundModel">
         <service name="httpInboundService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-#[function:dateStamp].xml"/>
+                    <file:outbound-endpoint path="./data/reports"
+                                            outputPattern="backup-report-#[function:dateStamp].xml"/>
                 </pass-through-router>
             </outbound>
         </service>
