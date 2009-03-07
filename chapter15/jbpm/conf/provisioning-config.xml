@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.1"
-      xmlns:bpm="http://www.mulesource.org/schema/mule/bpm/2.1"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-      xmlns:stdio="http://www.mulesource.org/schema/mule/stdio/2.1"
-      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.1"
-      xmlns:email="http://www.mulesource.org/schema/mule/email/2.1"
-      xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.1"
+      xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+      xmlns:bpm="http://www.mulesource.org/schema/mule/bpm/2.2"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+      xmlns:smtp="http://www.mulesource.org/schema/mule/smtp/2.2"
+      xmlns:email="http://www.mulesource.org/schema/mule/email/2.2"
+      xmlns:imap="http://www.mulesource.org/schema/mule/imap/2.2"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/jms/2.1 http://www.mulesource.org/schema/mule/jms/2.1/mule-jms.xsd
-       http://www.mulesource.org/schema/mule/bpm/2.1 http://www.mulesource.org/schema/mule/bpm/2.1/mule-bpm.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/stdio/2.1 http://www.mulesource.org/schema/mule/stdio/2.1/mule-stdio.xsd
-       http://www.mulesource.org/schema/mule/smtp/2.1 http://www.mulesource.org/schema/mule/smtp/2.1/mule-smtp.xsd
-       http://www.mulesource.org/schema/mule/email/2.1 http://www.mulesource.org/schema/mule/email/2.1/mule-email.xsd
-       http://www.mulesource.org/schema/mule/imap/2.1 http://www.mulesource.org/schema/mule/imap/2.1/mule-imap.xsd
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/bpm/2.2 http://www.mulesource.org/schema/mule/bpm/2.2/mule-bpm.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/smtp/2.2 http://www.mulesource.org/schema/mule/smtp/2.2/mule-smtp.xsd
+       http://www.mulesource.org/schema/mule/email/2.2 http://www.mulesource.org/schema/mule/email/2.2/mule-email.xsd
+       http://www.mulesource.org/schema/mule/imap/2.2 http://www.mulesource.org/schema/mule/imap/2.2/mule-imap.xsd
        "
         >
 
@@ -44,7 +42,8 @@
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
-    <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true"/>
+    <bpm:connector name="jBpmConnector" bpms-ref="jbpm" allowGlobalReceiver="true" allowGlobalDispatcher="true"
+            />
 
     <vm:endpoint name="SendEmailConfirmationEndpoint" path="it.provisioning.confirmation"/>
 
@@ -59,7 +58,9 @@
 
         <service name="createAccount">
             <inbound>
-                <jms:inbound-endpoint queue="it.provisioning.requests"/>
+                <jms:inbound-endpoint queue="it.provisioning.requests">
+
+                </jms:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
@@ -116,9 +117,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <vm:outbound-endpoint address="vm://receive-email">
-
-                    </vm:outbound-endpoint>
+                    <vm:outbound-endpoint address="vm://receive-email"/>
                     <!--
                     <smtp:outbound-endpoint host="${smtp.host}" from="${smtp.from}" subject="Accounting Invoice"
                                             to="${smtp.to}">
@@ -128,7 +127,6 @@
             </outbound>
         </service>
 
-
         <service name="receiveEmailConfirmation">
             <inbound>
                 <vm:inbound-endpoint address="vm://receive-email"/>
@@ -137,9 +135,16 @@
                     <email:email-to-string-transformer/>
                 </imap:inbound-endpoint> -->
             </inbound>
+
             <outbound>
                 <pass-through-router>
-                    <bpm:outbound-endpoint address="bpm://AccountProvisioning/1"/>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioning">
+                        <transformers>
+                            <message-properties-transformer>
+                                <add-message-property key="MULE_BPM_PROCESS_ID" value="#[header:MULE_BPM_PROCESS_ID]"/>
+                            </message-properties-transformer>
+                        </transformers>
+                    </bpm:outbound-endpoint>
                 </pass-through-router>
             </outbound>
         </service>

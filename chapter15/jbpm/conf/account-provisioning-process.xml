@@ -93,9 +93,11 @@
 
     <end-state name='end'>
         <event type="node-enter">
-            <script>
-                System.out.println("Account Provisioned");
-            </script>
+             <action class="org.mule.transport.bpm.jbpm.actions.SendMuleEvent">
+                <endpoint>jms://it.provisioning.completed</endpoint>
+                <payloadSource>incoming</payloadSource>
+                <synchronous>false</synchronous>
+            </action>
         </event>
     </end-state>
 
