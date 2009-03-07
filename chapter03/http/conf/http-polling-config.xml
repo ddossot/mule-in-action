@@ -18,12 +18,14 @@
         <notification event="ENDPOINT-MESSAGE"/>
     </notifications>
 
+    <global-property name="http.host" value="www.cnn.com"/>
+
     <http:polling-connector name="pollingHttp" pollingFrequency="300000"/>
 
     <model name="httpPollingModel">
         <service name="httpPollingService">
             <inbound>
-                <http:inbound-endpoint address="http://www.cnn.com?connector=pollingHttp">
+                <http:inbound-endpoint address="http://${http.host}?connector=pollingHttp">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
