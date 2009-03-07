@@ -30,4 +30,8 @@ public class FarmStatus implements Serializable {
     public void setVmCount(long vmCount) {
         this.vmCount = vmCount;
     }
+
+    public String toString() {
+        return name + ": " + vmCount;
+    }
 }
