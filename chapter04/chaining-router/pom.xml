@@ -19,19 +19,19 @@
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-cxf</artifactId>
-        </dependency>
-         <dependency>
+        </dependency>          
+        <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-stdio</artifactId>
+        </dependency>        
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
         </dependency>
-				<dependency>
-				<groupId>xalan</groupId>
-				<artifactId>xalan</artifactId>
-			</dependency>
-						<dependency>
-			  <groupId>xalan</groupId>
-				<artifactId>serializer</artifactId>
-				</dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>serializer</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

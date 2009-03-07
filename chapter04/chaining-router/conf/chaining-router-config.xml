@@ -26,6 +26,9 @@
                      messageDelayTime="1000"
                      promptMessage="Enter a zip code: "/>
 
+    <cxf:connector name="cxfConnectorClient" createMultipleTransactedReceivers="true"/>
+    <cxf:connector name="cxfConnectorServer" createMultipleTransactedReceivers="true"/>
+
     <model name="chainingRouterModel">
         <service name="chainingRouterService">
             <inbound>
@@ -38,17 +41,10 @@
             <outbound>
                 <chaining-router>
                     <outbound-endpoint
-                            address="wsdl-cxf:http://localhost:8081/weather?wsdl&amp;method=getWeatherReport"/>
-                    <jms:outbound-endpoint queue="weather.report"/>
+                            address="wsdl-cxf:http://www.webservicex.net/usweather.asmx?WSDL&amp;method=GetWeatherReport"/>
+                    <jms:outbound-endpoint queue="weather.report" synchronous="true"/>
                 </chaining-router>
             </outbound>
-        </service>
-
-        <service name="weatherService">
-            <inbound>
-                <cxf:inbound-endpoint frontend="simple" address="http://localhost:8081/weather"/>
-            </inbound>
-            <component class="com.muleinaction.WeatherServiceImpl"/>
         </service>
 
         <service name="chainingRouterClient">
