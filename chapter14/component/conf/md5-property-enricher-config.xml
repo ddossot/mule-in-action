@@ -30,17 +30,6 @@
                 </pass-through-router>
             </outbound>
         </service>
-
-        <service name="in">
-            <inbound>
-                <vm:inbound-endpoint path="out"/>
-            </inbound>
-            <scripting:component>
-                <scripting:script engine="js">
-                    print(message.getProperty("MD5SUM"));
-                </scripting:script>
-            </scripting:component>
-        </service>
-
+          
     </model>
 </mule>
