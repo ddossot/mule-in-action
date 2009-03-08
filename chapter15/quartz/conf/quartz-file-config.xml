@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.1"
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:context="http://www.springframework.org/schema/context"
-      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.1"
-      xmlns:quartz="http://www.mulesource.org/schema/mule/quartz/2.1"
-      xmlns:file="http://www.mulesource.org/schema/mule/file/2.1"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+      xmlns:quartz="http://www.mulesource.org/schema/mule/quartz/2.2"
+      xmlns:file="http://www.mulesource.org/schema/mule/file/2.2"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.mulesource.org/schema/mule/core/2.1 http://www.mulesource.org/schema/mule/core/2.1/mule.xsd
-       http://www.mulesource.org/schema/mule/vm/2.1 http://www.mulesource.org/schema/mule/vm/2.1/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/quartz/2.1 http://www.mulesource.org/schema/mule/quartz/2.1/mule-quartz.xsd
-       http://www.mulesource.org/schema/mule/file/2.1 http://www.mulesource.org/schema/mule/file/2.1/mule-file.xsd
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+       http://www.mulesource.org/schema/mule/quartz/2.2 http://www.mulesource.org/schema/mule/quartz/2.2/mule-quartz.xsd
+       http://www.mulesource.org/schema/mule/file/2.2 http://www.mulesource.org/schema/mule/file/2.2/mule-file.xsd
        ">
 
 
+    <notifications dynamic="true">
+        <notification event="COMPONENT-MESSAGE"/>
+    </notifications>
+
+    <file:connector name="fileConnector" autoDelete="false" />
+
     <model name="quartzPollingFileModel">
-        <service name="quartzPollingFileService">
+
+        <service name="quartzPollingFileService">            
             <inbound>
-                <quartz:inbound-endpoint jobName="cron-job" cronExpression="0 0 6 ? * WED">
+                <quartz:inbound-endpoint jobName="cron-job" cronExpression="0/5 * * * * ?">
                     <quartz:endpoint-polling-job>
-                        <quartz:job-endpoint address="file://./data"/>
+                        <quartz:job-endpoint address="file://./data/in"/>
                     </quartz:endpoint-polling-job>
                 </quartz:inbound-endpoint>
             </inbound>
