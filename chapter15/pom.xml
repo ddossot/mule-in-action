@@ -38,7 +38,6 @@
 	
 	<modules>
 	    <module>jbpm</module>
-	    <module>bpel</module>
 	    <module>quartz</module>
 	</modules>
 </project>
