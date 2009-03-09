@@ -36,7 +36,7 @@ public class JmsOutboundFunctionalTestCase extends FunctionalTestCase {
     public void testMessageSent() throws Exception {
         MuleClient client = new MuleClient(muleContext);
         client.send("http://localhost:9756/backup-reports","test",null);
-        MuleMessage message = client.request("jms://topic:backup-reports",15000);
+        MuleMessage message = client.request("jms://topic:backup.reports",15000);
         assertNotNull(message);
         assertEquals("test", message.getPayloadAsString());
     }
