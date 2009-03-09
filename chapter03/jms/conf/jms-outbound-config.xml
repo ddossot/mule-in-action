@@ -22,7 +22,7 @@
     <global-property name="http.port" value="9756"/>
     <global-property name="jms.url" value="vm://localhost"/>
     
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" />
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}" durable="false" createMultipleTransactedReceivers="false" disableTemporaryReplyToDestinations="true" />
     
     <model name="jmsOutboundModel">
         <service name="jmsOutboundService">
@@ -33,7 +33,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint topic="backup-reports" />
+                    <jms:outbound-endpoint topic="backup.reports" />
                 </pass-through-router>
             </outbound>
         </service>
