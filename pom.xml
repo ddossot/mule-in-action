@@ -231,6 +231,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-xmpp</artifactId>
+				<version>${mule-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
 				<artifactId>mule-transport-cxf</artifactId>
 				<version>${mule-version}</version>
                 <exclusions>
@@ -305,6 +310,12 @@
 				<artifactId>mule-transport-bpm</artifactId>
 				<version>${mule-version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.mule.transports</groupId>
+				<artifactId>mule-transport-jbpm</artifactId>
+				<version>${mule-version}</version>
+			</dependency>
+	
 			<dependency>
 				<groupId>org.mule.tests</groupId>
 				<artifactId>mule-tests-functional</artifactId>
