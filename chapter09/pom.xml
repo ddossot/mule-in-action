@@ -33,7 +33,6 @@
     <modules>
         <module>security-manager</module>
         <module>security-filter</module>
-        <module>secure-transport</module>
     </modules>
     
     <build>
