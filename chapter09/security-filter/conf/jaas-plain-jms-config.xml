@@ -3,6 +3,8 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+      xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+
       xmlns:jaas="http://www.mulesource.org/schema/mule/jaas/2.2"
       xmlns:mule-ss="http://www.mulesource.org/schema/mule/spring-security/2.2"
       xmlns:ss="http://www.springframework.org/schema/security"
@@ -10,6 +12,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
        http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
        http://www.mulesource.org/schema/mule/jaas/2.2 http://www.mulesource.org/schema/mule/jaas/2.2/mule-jaas.xsd
        http://www.mulesource.org/schema/mule/spring-security/2.2
        http://www.mulesource.org/schema/mule/spring-security/2.2/mule-spring-security.xsd
@@ -19,22 +22,24 @@
 
     <global-property name="jms.url" value="vm://localhost"/>
 
+    
     <notifications dynamic="true">
         <notification event="COMPONENT-MESSAGE"/>
     </notifications>
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
 
+
     <jaas:security-manager>
-        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf"/>
+        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="conf/jaas.conf"/>
     </jaas:security-manager>
 
     <model name="jaasPlainModel">
         <service name="jaasPlainService">
             <inbound>
-                <jms:inbound-endpoint queue="messages">
+                <vm:inbound-endpoint path="messages">
                     <jaas:jaas-security-filter/>
-                </jms:inbound-endpoint>
+                </vm:inbound-endpoint>
             </inbound>
             <echo-component/>
         </service>

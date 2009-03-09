@@ -26,7 +26,7 @@
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="${jms.url}"/>
 
     <jaas:security-manager>
-        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="jaas.conf"/>
+        <jaas:security-provider name="jaas-simple" loginContextName="jaas-simple" loginConfig="conf/jaas.conf"/>
         <jaas:password-encryption-strategy name="PBE" password="password"/>
     </jaas:security-manager>
 

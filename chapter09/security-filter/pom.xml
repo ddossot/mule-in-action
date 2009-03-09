@@ -24,18 +24,33 @@
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-jms</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-jaas</artifactId>
-        </dependency>
+        </dependency>      
         <dependency>
             <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-pgp</artifactId>
+            <artifactId>mule-module-pgp</artifactId>          
         </dependency>
     </dependencies>
+    <!--
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build> -->
+
 
 </project>

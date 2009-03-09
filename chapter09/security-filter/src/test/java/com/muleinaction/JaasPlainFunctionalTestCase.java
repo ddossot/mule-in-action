@@ -3,8 +3,11 @@ package com.muleinaction;
 import org.mule.api.service.Service;
 import org.mule.api.context.notification.ComponentMessageNotificationListener;
 import org.mule.api.context.notification.ServerNotification;
+import org.mule.api.config.MuleProperties;
+import org.mule.api.EncryptionStrategy;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.module.client.MuleClient;
+import org.mule.security.MuleCredentials;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -44,11 +47,11 @@ public class JaasPlainFunctionalTestCase extends FunctionalTestCase {
     @SuppressWarnings({"unchecked"})
     public void testEndpointAuthenticated() throws Exception {
         MuleClient client = new MuleClient(muleContext);
-
+                         
         Map messageProperties = new HashMap();
         messageProperties.put("MULE_USER", "Plain john::password");
 
-        client.send("jms://messages", TEST_PAYLOAD, messageProperties);
+        client.sendAsync("vm://messages", TEST_PAYLOAD, messageProperties);
         assertTrue("Message did not reach component on time", latch.await(15, TimeUnit.SECONDS));
     }
 
