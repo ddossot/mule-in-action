@@ -33,9 +33,9 @@ public class HttpOutboundFunctionalTestCase extends FunctionalTestCase {
         FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
         muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
-                if ("httpOutboundService".equals(notification.getResourceIdentifier())) {
+                if ("httpInboundService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.http.localhost.9765.backup.reports")) {
+                    if (messageNotification.getEndpoint().getName().equals("endpoint.file.data.reports")) {
                         latch.countDown();
                     }
                 }
@@ -52,9 +52,11 @@ public class HttpOutboundFunctionalTestCase extends FunctionalTestCase {
     }
 
     public void testMessageSentAndReceived() throws Exception {
+        assertEquals(0, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).size());
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
         assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).size());
-        File file = (File) FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).toArray()[0];
+        File file = (File) FileUtils.listFiles(new File(DEST_DIRECTORY),
+                new WildcardFileFilter("*.xml"), null).toArray()[0];
         assertEquals(XML, FileUtils.readFileToString(file));
     }
 
