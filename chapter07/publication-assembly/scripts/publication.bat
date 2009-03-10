@@ -15,5 +15,3 @@ SET MULE_LIB=.\conf
 SET MULE_APP="publication"
 
 call "%MULE_BASE%\bin\mule.bat" -config publication-config.xml,server-stub-config.xml
-
-REM Send the test message with: wget --post-file='data/test.docbook' localhost:8080/publicationService

@@ -34,7 +34,7 @@
 	<model name="publicationModel">
 		<service name="publicationService">
 			<inbound>
-				<http:inbound-endpoint host="localhost" port="8080">
+				<http:inbound-endpoint host="localhost" port="9756">
 					<transformers>
 						<transformer ref="MessagePropertiesSanitizer" />
 						<transformer ref="ObjectToByteArray" />

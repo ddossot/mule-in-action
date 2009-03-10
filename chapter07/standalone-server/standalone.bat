@@ -11,5 +11,3 @@ REM Any changes to the files in .\conf will take precedence over those deployed 
 SET MULE_LIB=.\conf
 
 call "%MULE_BASE%\bin\mule.bat" -config .\conf\standalone-server-config.xml
-
-REM Browse http://localhost:8080/rig to see random integers generated

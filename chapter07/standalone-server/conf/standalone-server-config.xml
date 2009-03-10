@@ -9,7 +9,7 @@
     <model name="StandaloneServer">
 	<service name="RandomIntegerGenerator">
 		<inbound>
-			<jetty:inbound-endpoint address="http://localhost:8080/rig">
+			<jetty:inbound-endpoint address="http://localhost:9756/rig">
 				<response-transformers>
 					<object-to-string-transformer />
 				</response-transformers>
