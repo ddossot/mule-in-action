@@ -50,7 +50,7 @@
 			</inbound>
 			<outbound>
 				<chaining-router>
-					<http:outbound-endpoint address="http://localhost:8080" />
+					<http:outbound-endpoint address="http://localhost:9756" />
 					<vm:outbound-endpoint path="DodgyServiceResponseAnalyzer.In" />
 				</chaining-router>
 			</outbound>
@@ -106,7 +106,7 @@
 	<model name="ServiceStubs">
 		<service name="ServiceCaller">
 			<inbound>
-				<http:inbound-endpoint address="http://localhost:8080" />
+				<http:inbound-endpoint address="http://localhost:9756" />
 			</inbound>
 			<component class="com.muleinaction.service.DodgyService" />
 		</service>

@@ -23,5 +23,3 @@ MULE_LIB=./conf
 export MULE_LIB
 
 exec "$MULE_BASE/bin/mule" -config ./conf/standalone-server-config.xml
-
-# Browse http://localhost:8080/rig to see random integers generated
