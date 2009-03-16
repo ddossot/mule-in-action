@@ -41,11 +41,11 @@
             </inbound>
             <!--
             <component>
-				<no-arguments-entry-point-resolver>
-					<include-entry-point method="nextInt"/>
-				</no-arguments-entry-point-resolver>
-				<singleton-object class="java.util.Random" />
-			</component> -->
+                <no-arguments-entry-point-resolver>
+                    <include-entry-point method="nextInt"/>
+                </no-arguments-entry-point-resolver>
+                <singleton-object class="java.util.Random" />
+            </component> -->
             <!-- Use the test:component to throw an exception as to invoke the default-service-exception-strategy -->
             <test:component throwException="true" exceptionToThrow="java.lang.RuntimeException"/>
         </service>
@@ -60,13 +60,13 @@
             <test:component throwException="true" exceptionToThrow="java.lang.RuntimeException"/>
             <!--
             <component>
-				<no-arguments-entry-point-resolver>
-					<include-entry-point method="nextInt"/>
-				</no-arguments-entry-point-resolver>
-				<singleton-object class="java.util.Random">
-					<property key="seed" value="${seed}" />
-				</singleton-object>
-			</component> -->
+                <no-arguments-entry-point-resolver>
+                    <include-entry-point method="nextInt"/>
+                </no-arguments-entry-point-resolver>
+                <singleton-object class="java.util.Random">
+                    <property key="seed" value="${seed}" />
+                </singleton-object>
+            </component> -->
         </service>
         <!-- <end id="LoCoShow-SRIG"/> -->
 

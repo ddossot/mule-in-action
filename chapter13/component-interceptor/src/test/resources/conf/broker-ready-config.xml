@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spring="http://www.springframework.org/schema/beans"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-	xsi:schemaLocation="
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+    xsi:schemaLocation="
        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
 
-	<notifications>
-		<notification event="CONTEXT" />
-	</notifications>
+    <notifications>
+        <notification event="CONTEXT" />
+    </notifications>
 
-	<model name="BrokerReadinessModel">
+    <model name="BrokerReadinessModel">
 
-		<service name="BrokerReadinessService">
-			<inbound>
-				<vm:inbound-endpoint path="BrokerReadinessService.In" />
-			</inbound>
+        <service name="BrokerReadinessService">
+            <inbound>
+                <vm:inbound-endpoint path="BrokerReadinessService.In" />
+            </inbound>
 
-			<component>
-				<custom-interceptor
-					class="com.clood.interceptor.BrokerNotReadyInterceptor" />
+            <component>
+                <custom-interceptor
+                    class="com.clood.interceptor.BrokerNotReadyInterceptor" />
 
-				<singleton-object class="org.mule.component.simple.StaticComponent">
-					<property key="data" value="ACK" />
-				</singleton-object>
-			</component>
-		</service>
+                <singleton-object class="org.mule.component.simple.StaticComponent">
+                    <property key="data" value="ACK" />
+                </singleton-object>
+            </component>
+        </service>
 
-	</model>
+    </model>
 </mule>

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <project>
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.muleinaction</groupId>
-		<artifactId>chapter11</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>com.muleinaction</groupId>
+        <artifactId>chapter11</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>html-dashboard</artifactId>
-	<packaging>jar</packaging>
-	<name>Mule in Action - Chapter 11 - HTML Dashboard Component</name>
+    <artifactId>html-dashboard</artifactId>
+    <packaging>jar</packaging>
+    <name>Mule in Action - Chapter 11 - HTML Dashboard Component</name>
 </project>

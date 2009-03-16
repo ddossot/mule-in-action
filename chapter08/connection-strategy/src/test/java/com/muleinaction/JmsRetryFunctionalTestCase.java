@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class JmsRetryFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/jms-retry-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/jms-retry-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"jmsRetryService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "jmsRetryService");
 
-		assertNotNull(service);
-		assertEquals("jmsRetryModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("jmsRetryModel", service.getModel().getName());
+    }
 
 }

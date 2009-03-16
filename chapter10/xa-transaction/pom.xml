@@ -14,9 +14,9 @@
     <artifactId>xa-transaction</artifactId>
     <packaging>jar</packaging>
     <name>Mule in Action - Chapter 10 - XA Resource Transaction Examples</name>
-		
-		<dependencies>
-					<dependency>
+
+        <dependencies>
+                    <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
         </dependency>

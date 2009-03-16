@@ -27,10 +27,10 @@
   <xsl:variable name="label-width">
     <xsl:choose>
       <xsl:when test="$pi-label-width = ''">
-	<xsl:value-of select="$itemizedlist.label.width"/>
+    <xsl:value-of select="$itemizedlist.label.width"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$pi-label-width"/>
+    <xsl:value-of select="$pi-label-width"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -58,18 +58,18 @@
   <xsl:choose>
     <xsl:when test="ancestor::listitem">
       <fo:list-block id="{$id}" xsl:use-attribute-sets="itemizedlist.properties">
-	<xsl:attribute name="provisional-distance-between-starts">
-	  <xsl:value-of select="$label-width"/>
-	</xsl:attribute>
+    <xsl:attribute name="provisional-distance-between-starts">
+      <xsl:value-of select="$label-width"/>
+    </xsl:attribute>
         <xsl:copy-of select="$content"/>
       </fo:list-block>
     </xsl:when>
     <xsl:otherwise>
       <fo:list-block id="{$id}" xsl:use-attribute-sets="list.block.spacing itemizedlist.properties">
-	<xsl:attribute name="provisional-distance-between-starts">
-	  <xsl:value-of select="$label-width"/>
-	</xsl:attribute>
-	<xsl:copy-of select="$content"/>
+    <xsl:attribute name="provisional-distance-between-starts">
+      <xsl:value-of select="$label-width"/>
+    </xsl:attribute>
+    <xsl:copy-of select="$content"/>
       </fo:list-block>
     </xsl:otherwise>
   </xsl:choose>
@@ -190,10 +190,10 @@
   <xsl:variable name="label-width">
     <xsl:choose>
       <xsl:when test="$pi-label-width = ''">
-	<xsl:value-of select="$orderedlist.label.width"/>
+    <xsl:value-of select="$orderedlist.label.width"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$pi-label-width"/>
+    <xsl:value-of select="$pi-label-width"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -221,17 +221,17 @@
   <xsl:choose>
     <xsl:when test="ancestor::listitem">
       <fo:list-block id="{$id}" xsl:use-attribute-sets="orderedlist.properties">
-	<xsl:attribute name="provisional-distance-between-starts">
-	  <xsl:value-of select="$label-width"/>
-	</xsl:attribute>
+    <xsl:attribute name="provisional-distance-between-starts">
+      <xsl:value-of select="$label-width"/>
+    </xsl:attribute>
         <xsl:copy-of select="$content"/>
       </fo:list-block>
     </xsl:when>
     <xsl:otherwise>
       <fo:list-block id="{$id}" xsl:use-attribute-sets="list.block.spacing orderedlist.properties">
-	<xsl:attribute name="provisional-distance-between-starts">
-	  <xsl:value-of select="$label-width"/>
-	</xsl:attribute>
+    <xsl:attribute name="provisional-distance-between-starts">
+      <xsl:value-of select="$label-width"/>
+    </xsl:attribute>
         <xsl:copy-of select="$content"/>
       </fo:list-block>
     </xsl:otherwise>
@@ -591,7 +591,7 @@
   <xsl:variable name="explicit.table.width">
     <xsl:call-template name="dbfo-attribute">
       <xsl:with-param name="pis"
-		      select="processing-instruction('dbfo')"/>
+              select="processing-instruction('dbfo')"/>
       <xsl:with-param name="attribute" select="'list-width'"/>
     </xsl:call-template>
   </xsl:variable>
@@ -614,10 +614,10 @@
 
     <xsl:choose>
       <xsl:when test="$axf.extensions != 0 or $xep.extensions != 0">
-	<xsl:attribute name="table-layout">auto</xsl:attribute>
+    <xsl:attribute name="table-layout">auto</xsl:attribute>
         <xsl:if test="$explicit.table.width != ''">
           <xsl:attribute name="width"><xsl:value-of 
-	  select="$explicit.table.width"/></xsl:attribute>
+      select="$explicit.table.width"/></xsl:attribute>
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
@@ -672,13 +672,13 @@
     <xsl:choose>
       <xsl:when test="position() = last()"/> <!-- do nothing -->
       <xsl:otherwise>
-	<xsl:text>, </xsl:text>
-	<xsl:if test="position() = last() - 1">
-	  <xsl:if test="$localized-choice-separator != ''">
-	    <xsl:value-of select="$localized-choice-separator"/>
-	    <xsl:text> </xsl:text>
-	  </xsl:if>
-	</xsl:if>
+    <xsl:text>, </xsl:text>
+    <xsl:if test="position() = last() - 1">
+      <xsl:if test="$localized-choice-separator != ''">
+        <xsl:value-of select="$localized-choice-separator"/>
+        <xsl:text> </xsl:text>
+      </xsl:if>
+    </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:for-each></fo:inline>
@@ -1141,9 +1141,9 @@
                    provisional-label-separation="0.2em">
 
       <xsl:if test="$pi-label-width != ''">
-      	<xsl:attribute name="provisional-distance-between-starts">
-	  <xsl:value-of select="$pi-label-width"/>
-	</xsl:attribute>
+          <xsl:attribute name="provisional-distance-between-starts">
+      <xsl:value-of select="$pi-label-width"/>
+    </xsl:attribute>
       </xsl:if>
       
       <xsl:apply-templates select="callout

@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:spring="http://www.springframework.org/schema/beans"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-	xmlns:management="http://www.mulesource.org/schema/mule/management/2.2"
-	xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
-	xmlns:script="http://www.mulesource.org/schema/mule/scripting/2.2"
-	xsi:schemaLocation="
-		http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-		http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
-		http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
-		http://www.mulesource.org/schema/mule/scripting/2.2 http://www.mulesource.org/schema/mule/scripting/2.2/mule-scripting.xsd
-		http://www.mulesource.org/schema/mule/management/2.2 http://www.mulesource.org/schema/mule/management/2.2/mule-management.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+    xmlns:management="http://www.mulesource.org/schema/mule/management/2.2"
+    xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+    xmlns:script="http://www.mulesource.org/schema/mule/scripting/2.2"
+    xsi:schemaLocation="
+        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+        http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+        http://www.mulesource.org/schema/mule/scripting/2.2 http://www.mulesource.org/schema/mule/scripting/2.2/mule-scripting.xsd
+        http://www.mulesource.org/schema/mule/management/2.2 http://www.mulesource.org/schema/mule/management/2.2/mule-management.xsd">
 
-	<!-- <start id="Publication-Dashboard"/> -->
-	<spring:bean id="HtmlDashboardComponent" class="com.clood.component.HtmlDashboard" init-method="initialise">
-		<spring:property name="observedServices">
-			<spring:set>
-				<spring:ref bean="publicationService" />
-				<spring:ref bean="documentProcessor" />
-				<spring:ref bean="pingService" />
-			</spring:set>
-		</spring:property>
-	</spring:bean>
-	<!-- <end id="Publication-Dashboard"/> -->
-		
-	<!-- <start id="Publication-Activity"/> -->
-	<notifications>
-		<notification event="ENDPOINT-MESSAGE" />
-	</notifications>
+    <!-- <start id="Publication-Dashboard"/> -->
+    <spring:bean id="HtmlDashboardComponent" class="com.clood.component.HtmlDashboard" init-method="initialise">
+        <spring:property name="observedServices">
+            <spring:set>
+                <spring:ref bean="publicationService" />
+                <spring:ref bean="documentProcessor" />
+                <spring:ref bean="pingService" />
+            </spring:set>
+        </spring:property>
+    </spring:bean>
+    <!-- <end id="Publication-Dashboard"/> -->
 
-	<management:log4j-notifications logName="publication.mule.notifications"
-							ignoreAdminNotifications="true" ignoreComponentNotifications="true"
-							ignoreConnectionNotifications="true" ignoreManagementNotifications="true"
-							ignoreManagerNotifications="true" ignoreModelNotifications="true"
-							ignoreSecurityNotifications="true" />
-	<!-- <end id="Publication-Activity"/> -->
+    <!-- <start id="Publication-Activity"/> -->
+    <notifications>
+        <notification event="ENDPOINT-MESSAGE" />
+    </notifications>
 
-	<management:jmx-default-config port="${esb.jmxrmi.port}" >
-		<management:credentials>
-			<spring:entry key="${esb.admin.username}" value="${esb.admin.password}" />
-		</management:credentials>
+    <management:log4j-notifications logName="publication.mule.notifications"
+                            ignoreAdminNotifications="true" ignoreComponentNotifications="true"
+                            ignoreConnectionNotifications="true" ignoreManagementNotifications="true"
+                            ignoreManagerNotifications="true" ignoreModelNotifications="true"
+                            ignoreSecurityNotifications="true" />
+    <!-- <end id="Publication-Activity"/> -->
+
+    <management:jmx-default-config port="${esb.jmxrmi.port}" >
+        <management:credentials>
+            <spring:entry key="${esb.admin.username}" value="${esb.admin.password}" />
+        </management:credentials>
   </management:jmx-default-config> 
 
-	<management:jmx-mx4j-adaptor
-		jmxAdaptorUrl="http://${esb.bind.address}:${esb.console.port}" login="${esb.admin.username}"
-		password="${esb.admin.password}" />
+    <management:jmx-mx4j-adaptor
+        jmxAdaptorUrl="http://${esb.bind.address}:${esb.console.port}" login="${esb.admin.username}"
+        password="${esb.admin.password}" />
 
-	<vm:endpoint name="AuditChannel" path="audit.channel" />
+    <vm:endpoint name="AuditChannel" path="audit.channel" />
 
-	<model name="publicationManagementModel">
-		<service name="pingService">
-			<inbound>
-				<http:inbound-endpoint
-					address="http://${esb.bind.address}:${esb.web.port}/ping"
-					synchronous="true">
-					<response-transformers>
-						<expression-transformer>
-							<return-argument evaluator="string" expression="PONG" />
-						</expression-transformer>
-					</response-transformers>
-				</http:inbound-endpoint>
-			</inbound>
-		</service>
+    <model name="publicationManagementModel">
+        <service name="pingService">
+            <inbound>
+                <http:inbound-endpoint
+                    address="http://${esb.bind.address}:${esb.web.port}/ping"
+                    synchronous="true">
+                    <response-transformers>
+                        <expression-transformer>
+                            <return-argument evaluator="string" expression="PONG" />
+                        </expression-transformer>
+                    </response-transformers>
+                </http:inbound-endpoint>
+            </inbound>
+        </service>
 
-		<!-- <start id="Activity-Auditor"/> -->
-		<service name="activityAuditorService">
-			<inbound>
-				<inbound-endpoint ref="AuditChannel" />
-			</inbound>
-			<component>
-				<singleton-object class="com.clood.component.AuditComponent">
-					<property key="logName" value="publication.mule.audit" />
-				</singleton-object>
-			</component>
-		</service>
-		<!-- <end id="Activity-Auditor"/> -->
+        <!-- <start id="Activity-Auditor"/> -->
+        <service name="activityAuditorService">
+            <inbound>
+                <inbound-endpoint ref="AuditChannel" />
+            </inbound>
+            <component>
+                <singleton-object class="com.clood.component.AuditComponent">
+                    <property key="logName" value="publication.mule.audit" />
+                </singleton-object>
+            </component>
+        </service>
+        <!-- <end id="Activity-Auditor"/> -->
 
-		<service name="htmlDashboard">
-			<inbound>
-				<http:inbound-endpoint
-					address="http://${esb.bind.address}:${esb.web.port}/dashboard"
-					synchronous="true" />
-			</inbound>
-			<component>
-				<spring-object bean="HtmlDashboardComponent" />
-			</component>
-		</service>
-	</model>
+        <service name="htmlDashboard">
+            <inbound>
+                <http:inbound-endpoint
+                    address="http://${esb.bind.address}:${esb.web.port}/dashboard"
+                    synchronous="true" />
+            </inbound>
+            <component>
+                <spring-object bean="HtmlDashboardComponent" />
+            </component>
+        </service>
+    </model>
 </mule>

@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class JmsThreadingFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/jms-threading-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/jms-threading-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"jmsThreadingRetryService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "jmsThreadingRetryService");
 
-		assertNotNull(service);
-		assertEquals("jmsThreadingRetryModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("jmsThreadingRetryModel", service.getModel().getName());
+    }
 
 }

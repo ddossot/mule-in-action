@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>com.muleinaction</groupId>
-		<artifactId>mia-parent</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	
-	<artifactId>chapter11</artifactId>
-	<packaging>pom</packaging>
-	<name>Mule in Action - Chapter 11</name>
-	
-	<modules>
-	    <module>publication-managed</module>
-	    <module>publication-activity</module>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.muleinaction</groupId>
+        <artifactId>mia-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>chapter11</artifactId>
+    <packaging>pom</packaging>
+    <name>Mule in Action - Chapter 11</name>
+
+    <modules>
+        <module>publication-managed</module>
+        <module>publication-activity</module>
     <module>activity-audit</module>
     <module>html-dashboard</module>
   </modules>
   
   <dependencies>
-	<dependency>
-		<groupId>org.mule.transports</groupId>
-		<artifactId>mule-transport-vm</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.mule.transports</groupId>
-		<artifactId>mule-transport-http</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.mule.transports</groupId>
-		<artifactId>mule-transport-file</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.mule.transports</groupId>
-		<artifactId>mule-transport-jms</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.mule.modules</groupId>
-		<artifactId>mule-module-xml</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.mule.modules</groupId>
-		<artifactId>mule-module-scripting</artifactId>
-	</dependency>			
-  	<dependency>
-		<groupId>log4j</groupId>
-		<artifactId>log4j</artifactId>
-	</dependency>
+    <dependency>
+        <groupId>org.mule.transports</groupId>
+        <artifactId>mule-transport-vm</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.mule.transports</groupId>
+        <artifactId>mule-transport-http</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.mule.transports</groupId>
+        <artifactId>mule-transport-file</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.mule.transports</groupId>
+        <artifactId>mule-transport-jms</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.mule.modules</groupId>
+        <artifactId>mule-module-xml</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.mule.modules</groupId>
+        <artifactId>mule-module-scripting</artifactId>
+    </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+    </dependency>
   </dependencies>
 </project>

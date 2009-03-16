@@ -51,7 +51,7 @@
           <xsl:attribute name="force-page-count">
             <xsl:call-template name="force.page.count">
               <xsl:with-param name="master-reference" 
-	                      select="$master-reference"/>
+                          select="$master-reference"/>
             </xsl:call-template>
           </xsl:attribute>
 

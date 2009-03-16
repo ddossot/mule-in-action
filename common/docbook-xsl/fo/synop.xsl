@@ -274,10 +274,10 @@
   <xsl:param name="language">
     <xsl:choose>
       <xsl:when test="@language">
-	<xsl:value-of select="@language"/>
+    <xsl:value-of select="@language"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$default-classsynopsis-language"/>
+    <xsl:value-of select="$default-classsynopsis-language"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:param>
@@ -301,14 +301,14 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
-	<xsl:text>Unrecognized language on </xsl:text>
+    <xsl:text>Unrecognized language on </xsl:text>
         <xsl:value-of select="local-name(.)"/>
         <xsl:text>: </xsl:text>
-	<xsl:value-of select="$language"/>
+    <xsl:value-of select="$language"/>
       </xsl:message>
       <xsl:apply-templates select=".">
-	<xsl:with-param name="language"
-	  select="$default-classsynopsis-language"/>
+    <xsl:with-param name="language"
+      select="$default-classsynopsis-language"/>
       </xsl:apply-templates>
     </xsl:otherwise>
   </xsl:choose>
@@ -343,7 +343,7 @@
       <xsl:text>implements</xsl:text>
       <xsl:apply-templates select="oointerface" mode="java"/>
       <xsl:if test="ooexception">
-	<xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
+    <xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
       </xsl:if>
     </xsl:if>
     <xsl:if test="ooexception">
@@ -445,8 +445,8 @@
     <xsl:text>,&RE;</xsl:text>
     <xsl:if test="$indent &gt; 0">
       <xsl:call-template name="copy-string">
-	<xsl:with-param name="string">&nbsp;</xsl:with-param>
-	<xsl:with-param name="count" select="$indent + 1"/>
+    <xsl:with-param name="string">&nbsp;</xsl:with-param>
+    <xsl:with-param name="count" select="$indent + 1"/>
       </xsl:call-template>
     </xsl:if>
   </xsl:if>
@@ -509,14 +509,14 @@
       <xsl:text>: </xsl:text>
       <xsl:apply-templates select="ooclass[preceding-sibling::*]" mode="cpp"/>
       <xsl:if test="oointerface|ooexception">
-	<xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
+    <xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
       </xsl:if>
     </xsl:if>
     <xsl:if test="oointerface">
       <xsl:text> implements</xsl:text>
       <xsl:apply-templates select="oointerface" mode="cpp"/>
       <xsl:if test="ooexception">
-	<xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
+    <xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
       </xsl:if>
     </xsl:if>
     <xsl:if test="ooexception">
@@ -666,14 +666,14 @@
       <xsl:text>: </xsl:text>
       <xsl:apply-templates select="ooclass[preceding-sibling::*]" mode="idl"/>
       <xsl:if test="oointerface|ooexception">
-	<xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
+    <xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
       </xsl:if>
     </xsl:if>
     <xsl:if test="oointerface">
       <xsl:text> implements</xsl:text>
       <xsl:apply-templates select="oointerface" mode="idl"/>
       <xsl:if test="ooexception">
-	<xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
+    <xsl:text>&RE;&nbsp;&nbsp;&nbsp;&nbsp;</xsl:text>
       </xsl:if>
     </xsl:if>
     <xsl:if test="ooexception">

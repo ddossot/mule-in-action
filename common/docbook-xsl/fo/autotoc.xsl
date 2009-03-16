@@ -315,8 +315,8 @@
   </xsl:variable>
 
   <fo:block xsl:use-attribute-sets="toc.line.properties"
-	    margin-left="3em"
-	    text-indent="-3em"
+        margin-left="3em"
+        text-indent="-3em"
             end-indent="{$toc.indent.width}pt"
             last-line-end-indent="-{$toc.indent.width}pt">
     <fo:inline keep-with-next.within-line="always">
@@ -326,7 +326,7 @@
           <xsl:if test="$deflabel = 'number' and not(label)">
             <xsl:value-of select="$autotoc.label.separator"/>
           </xsl:if>
-	  <xsl:text> </xsl:text>
+      <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:copy-of select="$firstchunk"/>
       </fo:basic-link>

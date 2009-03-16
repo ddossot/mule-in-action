@@ -12,16 +12,16 @@
     <artifactId>message-enricher</artifactId>
     <packaging>jar</packaging>
     <name>Mule in Action - Chapter 12 - Message Enricher</name>
-		
+
     <dependencies>
-							<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-		</dependency>
-		<dependency>
-				<groupId>org.mule.transports</groupId>
-				<artifactId>mule-transport-jms</artifactId>
-			</dependency>
+                            <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+        </dependency>
+        <dependency>
+                <groupId>org.mule.transports</groupId>
+                <artifactId>mule-transport-jms</artifactId>
+            </dependency>
         <dependency>
             <groupId>com.muleinaction</groupId>
             <artifactId>velocity-transformer</artifactId>

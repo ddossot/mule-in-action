@@ -38,16 +38,16 @@ public class JmsInboundFunctionalTestCase extends FunctionalTestCase {
     }
 
     @Override
-	protected String getConfigResources() {
-		return "conf/jms-inbound-config.xml";
-	}
+    protected String getConfigResources() {
+        return "conf/jms-inbound-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"jmsInboundService");
-		assertNotNull(service);
-		assertEquals("jmsInboundModel", service.getModel().getName());
-	}
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "jmsInboundService");
+        assertNotNull(service);
+        assertEquals("jmsInboundModel", service.getModel().getName());
+    }
 
     public void testBackupReportReceived() throws Exception {
         MuleClient client = new MuleClient(muleContext);

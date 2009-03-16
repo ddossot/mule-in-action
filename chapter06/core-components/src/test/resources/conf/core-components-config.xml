@@ -1,170 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-	xmlns:spring="http://www.springframework.org/schema/beans"
-	xsi:schemaLocation="
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
        http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
 
-	<spring:bean id="StringTargetComponent" class="com.muleinaction.test.StringTargetComponent" />
-	
-	<spring:bean id="SampleActivityReport" class="com.clood.statistic.ActivityReport" />
+    <spring:bean id="StringTargetComponent" class="com.muleinaction.test.StringTargetComponent" />
 
-	<vm:endpoint name="GenericChannel" path="GenericChannel" synchronous="true" />
-	<vm:endpoint name="ClientLookupChannel" path="ClientLookupService.In" synchronous="true" />
-	<vm:endpoint name="ActivityReportLookupChannel" path="ActivityReportLookupService.In" synchronous="true" />
+    <spring:bean id="SampleActivityReport" class="com.clood.statistic.ActivityReport" />
 
-	<append-string-transformer name="Suffixer" message=" world!" />
+    <vm:endpoint name="GenericChannel" path="GenericChannel" synchronous="true" />
+    <vm:endpoint name="ClientLookupChannel" path="ClientLookupService.In" synchronous="true" />
+    <vm:endpoint name="ActivityReportLookupChannel" path="ActivityReportLookupService.In" synchronous="true" />
 
-	<model name="CoreComponentsShowcase">
+    <append-string-transformer name="Suffixer" message=" world!" />
 
-		<!-- <start id="CoCoShow-ExplicitBridge"/> -->
-		<service name="ExplicitBridge">
-			<inbound>
-				<vm:inbound-endpoint path="ExplicitBridge.In" synchronous="true">
-					<transformer ref="Suffixer" />
-				</vm:inbound-endpoint>
-			</inbound>
+    <model name="CoreComponentsShowcase">
 
-			<bridge-component />
+        <!-- <start id="CoCoShow-ExplicitBridge"/> -->
+        <service name="ExplicitBridge">
+            <inbound>
+                <vm:inbound-endpoint path="ExplicitBridge.In" synchronous="true">
+                    <transformer ref="Suffixer" />
+                </vm:inbound-endpoint>
+            </inbound>
 
-			<outbound>
-				<pass-through-router>
-					<vm:outbound-endpoint ref="GenericChannel" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoShow-ExplicitBridge"/> -->
+            <bridge-component />
 
-		<!-- <start id="CoCoShow-ImplicitBridge"/> -->
-		<service name="ImplicitBridge">
-			<inbound>
-				<vm:inbound-endpoint path="ImplicitBridge.In" synchronous="true">
-					<transformer ref="Suffixer" />
-				</vm:inbound-endpoint>
-			</inbound>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint ref="GenericChannel" />
+                </pass-through-router>
+            </outbound>
+        </service>
+        <!-- <end id="CoCoShow-ExplicitBridge"/> -->
 
-			<outbound>
-				<pass-through-router>
-					<vm:outbound-endpoint ref="GenericChannel" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoShow-ImplicitBridge"/> -->
+        <!-- <start id="CoCoShow-ImplicitBridge"/> -->
+        <service name="ImplicitBridge">
+            <inbound>
+                <vm:inbound-endpoint path="ImplicitBridge.In" synchronous="true">
+                    <transformer ref="Suffixer" />
+                </vm:inbound-endpoint>
+            </inbound>
 
-		<!-- <start id="CoCoShow-Echo"/> -->
-		<service name="Echo">
-			<inbound>
-				<vm:inbound-endpoint path="Echo.In" synchronous="true">
-					<transformer ref="Suffixer" />
-				</vm:inbound-endpoint>
-			</inbound>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint ref="GenericChannel" />
+                </pass-through-router>
+            </outbound>
+        </service>
+        <!-- <end id="CoCoShow-ImplicitBridge"/> -->
 
-			<echo-component />
+        <!-- <start id="CoCoShow-Echo"/> -->
+        <service name="Echo">
+            <inbound>
+                <vm:inbound-endpoint path="Echo.In" synchronous="true">
+                    <transformer ref="Suffixer" />
+                </vm:inbound-endpoint>
+            </inbound>
 
-			<outbound>
-				<pass-through-router>
-					<vm:outbound-endpoint ref="GenericChannel" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoShow-Echo"/> -->
+            <echo-component />
 
-		<!-- <start id="CoCoShow-Log"/> -->
-		<service name="Log">
-			<inbound>
-				<vm:inbound-endpoint path="Log.In" synchronous="true">
-					<transformer ref="Suffixer" />
-				</vm:inbound-endpoint>
-			</inbound>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint ref="GenericChannel" />
+                </pass-through-router>
+            </outbound>
+        </service>
+        <!-- <end id="CoCoShow-Echo"/> -->
 
-			<log-component />
+        <!-- <start id="CoCoShow-Log"/> -->
+        <service name="Log">
+            <inbound>
+                <vm:inbound-endpoint path="Log.In" synchronous="true">
+                    <transformer ref="Suffixer" />
+                </vm:inbound-endpoint>
+            </inbound>
 
-			<outbound>
-				<pass-through-router>
-					<vm:outbound-endpoint ref="GenericChannel" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoShow-Log"/> -->
+            <log-component />
 
-		<!-- <start id="CoCoNull-Log"/> -->
-		<service name="Null">
-			<inbound>
-				<vm:inbound-endpoint path="Null.In" synchronous="true">
-					<transformer ref="Suffixer" />
-				</vm:inbound-endpoint>
-			</inbound>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint ref="GenericChannel" />
+                </pass-through-router>
+            </outbound>
+        </service>
+        <!-- <end id="CoCoShow-Log"/> -->
 
-			<null-component />
+        <!-- <start id="CoCoNull-Log"/> -->
+        <service name="Null">
+            <inbound>
+                <vm:inbound-endpoint path="Null.In" synchronous="true">
+                    <transformer ref="Suffixer" />
+                </vm:inbound-endpoint>
+            </inbound>
 
-			<outbound>
-				<pass-through-router>
-					<vm:outbound-endpoint ref="GenericChannel" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoNull-Log"/> -->
+            <null-component />
 
-		<!-- <start id="CoCoShow-Builder"/> -->
-		<service name="EmailContextBuilder">
-			<inbound>
-				<vm:inbound-endpoint path="EmailContextBuilder.In" synchronous="true" />
-			</inbound>
+            <outbound>
+                <pass-through-router>
+                    <vm:outbound-endpoint ref="GenericChannel" />
+                </pass-through-router>
+            </outbound>
+        </service>
+        <!-- <end id="CoCoNull-Log"/> -->
 
-			<component>
-			  <singleton-object class="org.mule.component.builder.ReflectionMessageBuilder" />
-			</component>
+        <!-- <start id="CoCoShow-Builder"/> -->
+        <service name="EmailContextBuilder">
+            <inbound>
+                <vm:inbound-endpoint path="EmailContextBuilder.In" synchronous="true" />
+            </inbound>
 
-			<outbound>
-				<multicasting-router>
-					<vm:outbound-endpoint ref="ClientLookupChannel" />
-					<vm:outbound-endpoint ref="ActivityReportLookupChannel" />
-				</multicasting-router>
-			</outbound>
-		</service>
-		<!-- <end id="CoCoShow-Builder"/> -->
+            <component>
+              <singleton-object class="org.mule.component.builder.ReflectionMessageBuilder" />
+            </component>
 
-	</model>
+            <outbound>
+                <multicasting-router>
+                    <vm:outbound-endpoint ref="ClientLookupChannel" />
+                    <vm:outbound-endpoint ref="ActivityReportLookupChannel" />
+                </multicasting-router>
+            </outbound>
+        </service>
+        <!-- <end id="CoCoShow-Builder"/> -->
 
-	<model name="Stubs">
-		<service name="GenericChannelService">
-			<inbound>
-				<vm:inbound-endpoint ref="GenericChannel" />
-			</inbound>
-			<component>
-				<spring-object bean="StringTargetComponent" />
-			</component>
-		</service>
+    </model>
 
-		<!-- <start id="CoCoShow-CLS"/> -->
-		<service name="ClientLookupService">
-			<inbound>
-				<vm:inbound-endpoint ref="ClientLookupChannel">
-					<expression-transformer>
-  					<return-argument evaluator="bean" expression="id" />
-					</expression-transformer>
-				</vm:inbound-endpoint>
-			</inbound>
-			<component>
-				<reflection-entry-point-resolver />
-				<singleton-object class="com.clood.dao.ClientDao" />
-			</component>
-		</service>
-		<!-- <end id="CoCoShow-CLS"/> -->
+    <model name="Stubs">
+        <service name="GenericChannelService">
+            <inbound>
+                <vm:inbound-endpoint ref="GenericChannel" />
+            </inbound>
+            <component>
+                <spring-object bean="StringTargetComponent" />
+            </component>
+        </service>
 
-		<service name="ActivityReportLookupService">
-			<inbound>
-				<vm:inbound-endpoint ref="ActivityReportLookupChannel" />
-			</inbound>
-			<component>
-				<singleton-object class="org.mule.component.simple.StaticComponent">
-					<property key="data" value-ref="SampleActivityReport" />
-				</singleton-object>
-			</component>
-		</service>
-	</model>
+        <!-- <start id="CoCoShow-CLS"/> -->
+        <service name="ClientLookupService">
+            <inbound>
+                <vm:inbound-endpoint ref="ClientLookupChannel">
+                    <expression-transformer>
+                      <return-argument evaluator="bean" expression="id" />
+                    </expression-transformer>
+                </vm:inbound-endpoint>
+            </inbound>
+            <component>
+                <reflection-entry-point-resolver />
+                <singleton-object class="com.clood.dao.ClientDao" />
+            </component>
+        </service>
+        <!-- <end id="CoCoShow-CLS"/> -->
+
+        <service name="ActivityReportLookupService">
+            <inbound>
+                <vm:inbound-endpoint ref="ActivityReportLookupChannel" />
+            </inbound>
+            <component>
+                <singleton-object class="org.mule.component.simple.StaticComponent">
+                    <property key="data" value-ref="SampleActivityReport" />
+                </singleton-object>
+            </component>
+        </service>
+    </model>
 
 </mule>

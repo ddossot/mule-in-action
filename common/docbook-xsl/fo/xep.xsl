@@ -124,7 +124,7 @@
   <!-- Put the root element bookmark at the same level as its children -->
   <!-- If the object is a set or book, generate a bookmark for the toc -->
   <xsl:choose>
-    <xsl:when test="self::index and $generate.index = 0"/>	
+    <xsl:when test="self::index and $generate.index = 0"/>
     <xsl:when test="parent::*">
       <rx:bookmark internal-destination="{$id}">
         <rx:bookmark-label>

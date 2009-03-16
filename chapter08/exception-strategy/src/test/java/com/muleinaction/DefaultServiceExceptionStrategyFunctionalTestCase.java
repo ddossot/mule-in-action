@@ -10,17 +10,17 @@ import org.mule.module.client.MuleClient;
  */
 public class DefaultServiceExceptionStrategyFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/default-service-exception-strategy-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/default-service-exception-strategy-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"defaultServiceExceptionStrategyService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "defaultServiceExceptionStrategyService");
 
-		assertNotNull(service);
-		assertEquals("defaultServiceExceptionStrategyModel", service.getModel().getName());
+        assertNotNull(service);
+        assertEquals("defaultServiceExceptionStrategyModel", service.getModel().getName());
 
     }
 

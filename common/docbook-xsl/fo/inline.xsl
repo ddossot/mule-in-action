@@ -91,10 +91,10 @@
       <!-- Is it an olink ? -->
       <xsl:variable name="is.olink">
         <xsl:choose>
-	  <!-- If xlink:role="http://docbook.org/xlink/role/olink" -->
+      <!-- If xlink:role="http://docbook.org/xlink/role/olink" -->
           <!-- and if the href contains # -->
           <xsl:when test="contains($xhref,'#') and
-	       @xlink:role = $xolink.role">1</xsl:when>
+           @xlink:role = $xolink.role">1</xsl:when>
           <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
@@ -133,9 +133,9 @@
         </xsl:when>
 
         <xsl:when test="$is.olink = 1">
-	  <xsl:call-template name="olink">
-	    <xsl:with-param name="content" select="$content"/>
-	  </xsl:call-template>
+      <xsl:call-template name="olink">
+        <xsl:with-param name="content" select="$content"/>
+      </xsl:call-template>
         </xsl:when>
 
         <!-- otherwise it's a URI -->
@@ -874,7 +874,7 @@
 
       <xsl:variable name="targets"
                     select="//glossentry[normalize-space(glossterm)=$term
-			    or normalize-space(glossterm/@baseform)=$term]"/>
+                or normalize-space(glossterm/@baseform)=$term]"/>
 
       <xsl:variable name="target" select="$targets[1]"/>
 
@@ -1151,14 +1151,14 @@
           </xsl:call-template>
         </xsl:attribute>
 
-	<xsl:choose>
-	  <xsl:when test="$bibliography.numbered != 0">
-	    <xsl:apply-templates select="$target" mode="citation"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:call-template name="inline.charseq"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+    <xsl:choose>
+      <xsl:when test="$bibliography.numbered != 0">
+        <xsl:apply-templates select="$target" mode="citation"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="inline.charseq"/>
+      </xsl:otherwise>
+    </xsl:choose>
      
       </fo:basic-link>
       <xsl:text>]</xsl:text>
@@ -1188,8 +1188,8 @@
           </xsl:call-template>
         </xsl:attribute>
 
-	<xsl:call-template name="inline.charseq"/>
-	    
+    <xsl:call-template name="inline.charseq"/>
+
       </fo:basic-link>
       <xsl:text>]</xsl:text>
     </xsl:when>
@@ -1204,7 +1204,7 @@
 
 <xsl:template match="biblioentry|bibliomixed" mode="citation">
   <xsl:number from="bibliography" count="biblioentry|bibliomixed"
-	      level="any" format="1"/>
+          level="any" format="1"/>
 </xsl:template>
 
 <!-- ==================================================================== -->

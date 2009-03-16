@@ -52,7 +52,7 @@
       <xsl:choose>
         <xsl:when test="$level = 1">
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level1.properties">
+               use-attribute-sets="section.level1.properties">
             <xsl:attribute name="id"><xsl:value-of 
                                 select="$id"/></xsl:attribute>
             <xsl:call-template name="section.content"/>
@@ -60,7 +60,7 @@
         </xsl:when>
         <xsl:when test="$level = 2">
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level2.properties">
+               use-attribute-sets="section.level2.properties">
             <xsl:attribute name="id"><xsl:value-of 
                                 select="$id"/></xsl:attribute>
             <xsl:call-template name="section.content"/>
@@ -84,7 +84,7 @@
         </xsl:when>
         <xsl:when test="$level = 5">
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level5.properties">
+               use-attribute-sets="section.level5.properties">
             <xsl:attribute name="id"><xsl:value-of 
                                 select="$id"/></xsl:attribute>
             <xsl:call-template name="section.content"/>
@@ -92,7 +92,7 @@
         </xsl:when>
         <xsl:otherwise>
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level6.properties">
+               use-attribute-sets="section.level6.properties">
             <xsl:attribute name="id"><xsl:value-of 
                                 select="$id"/></xsl:attribute>
             <xsl:call-template name="section.content"/>
@@ -114,7 +114,7 @@
 
   <xsl:if test="contains($toc.params, 'toc')
                 and (count(ancestor::section)+1) &lt;= 
-		$generate.section.toc.level">
+        $generate.section.toc.level">
     <xsl:call-template name="section.toc">
       <xsl:with-param name="toc.title.p" 
                       select="contains($toc.params, 'title')"/>
@@ -199,7 +199,7 @@
 
       <xsl:if test="contains($toc.params, 'toc')
                     and (count(ancestor::section)+1) &lt;= 
-		    $generate.section.toc.level">
+            $generate.section.toc.level">
         <xsl:call-template name="section.toc">
           <xsl:with-param name="toc.title.p" 
                           select="contains($toc.params, 'title')"/>
@@ -442,7 +442,7 @@
   </xsl:variable>
 
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level2.properties">
+           use-attribute-sets="section.level2.properties">
     <xsl:attribute name="id"><xsl:value-of 
                         select="$id"/></xsl:attribute>
     <xsl:call-template name="sect2.titlepage"/>
@@ -472,7 +472,7 @@
   </xsl:variable>
 
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level3.properties">
+           use-attribute-sets="section.level3.properties">
     <xsl:attribute name="id"><xsl:value-of 
                         select="$id"/></xsl:attribute>
     <xsl:call-template name="sect3.titlepage"/>
@@ -502,7 +502,7 @@
   </xsl:variable>
 
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level4.properties">
+           use-attribute-sets="section.level4.properties">
     <xsl:attribute name="id"><xsl:value-of 
                         select="$id"/></xsl:attribute>
     <xsl:call-template name="sect4.titlepage"/>
@@ -532,7 +532,7 @@
   </xsl:variable>
 
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level5.properties">
+           use-attribute-sets="section.level5.properties">
     <xsl:attribute name="id"><xsl:value-of 
                         select="$id"/></xsl:attribute>
     <xsl:call-template name="sect5.titlepage"/>

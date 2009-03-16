@@ -10,18 +10,18 @@ import org.mule.module.client.MuleClient;
  */
 public class ChainingRouterFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/chaining-router-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/chaining-router-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"chainingRouterService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "chainingRouterService");
 
-		assertNotNull(service);
-		assertEquals("chainingRouterModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("chainingRouterModel", service.getModel().getName());
+    }
 
       public void testMessageGenerated() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);

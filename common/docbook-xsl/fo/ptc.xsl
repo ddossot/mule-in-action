@@ -1,6 +1,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		version="1.0">
+        xmlns:fo="http://www.w3.org/1999/XSL/Format"
+        version="1.0">
 
 <!-- ================================================================ -->
 <!--                                                                  -->
@@ -36,7 +36,7 @@
   <!-- If the object is a set or book, generate a bookmark for the toc -->
 
   <xsl:choose>
-    <xsl:when test="self::index and $generate.index = 0"/>	
+    <xsl:when test="self::index and $generate.index = 0"/>
     <xsl:when test="parent::*">
       <fo:bookmark internal-destination="{$id}">
         <fo:bookmark-title>

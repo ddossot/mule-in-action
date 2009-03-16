@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
-		xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-		xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
-		xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
-		xmlns:spring="http://www.springframework.org/schema/beans"
-		xmlns:context="http://www.springframework.org/schema/context"
-		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-					http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-					http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
-					http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
-					http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
-					http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
-					http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd">
-	
-	<context:property-placeholder location="publication.properties" />
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+        xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+        xmlns:jms="http://www.mulesource.org/schema/mule/jms/2.2"
+        xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
+        xmlns:spring="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                    http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+                    http://www.mulesource.org/schema/mule/jms/2.2 http://www.mulesource.org/schema/mule/jms/2.2/mule-jms.xsd
+                    http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+                    http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
+                    http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd">
 
-	<spring:beans>
-		<spring:import resource="management-config.xml"/>
-		<spring:import resource="favicon-config.xml"/>
-		<spring:import resource="publication-jms-config.xml"/>
-	</spring:beans>
+    <context:property-placeholder location="publication.properties" />
 
-	<vm:endpoint name="DocumentChannel" path="document.channel"  synchronous="false" />
-	
-	<object-to-string-transformer name="ObjectToString" />
+    <spring:beans>
+        <spring:import resource="management-config.xml"/>
+        <spring:import resource="favicon-config.xml"/>
+        <spring:import resource="publication-jms-config.xml"/>
+    </spring:beans>
 
-	<jms:object-to-jmsmessage-transformer name="ObjectToJmsMessage" />
-	
-	<message-properties-transformer name="MessagePropertiesSanitizer">
-		<delete-message-property key="Content-Length" />
-		<delete-message-property key="Content-Type" />
-		<delete-message-property key="User-Agent" />
-		<delete-message-property key="http.context.path" />
-		<delete-message-property key="http.method" />
-		<delete-message-property key="http.request" />
-		<delete-message-property key="http.request.path" />
-		<delete-message-property key="http.version" />
-	</message-properties-transformer>
-	
-	<xm:xslt-transformer name="DocbookToFO"	xsl-file="docbook-fo.xsl" />
-	
-	<model name="publicationModel">
-		<service name="publicationService">
-			<inbound>
-				<http:inbound-endpoint address="http://${esb.bind.address}:${esb.web.port}/publicationService">
-					<response-transformers>
-						<expression-transformer>
-							<return-argument evaluator="string" expression="ACK" />
-						</expression-transformer>						
-					</response-transformers>
-				</http:inbound-endpoint>
-			</inbound>
-			<outbound>
-				<pass-through-router>
-					<outbound-endpoint ref="DocumentChannel">
-						<transformer ref="ObjectToString" />
-					</outbound-endpoint>
-				</pass-through-router>
-			</outbound>
-		</service>
-		<service name="documentProcessor">
-			<inbound>
-				<inbound-endpoint ref="DocumentChannel" />
-				<!-- <start id="Activity-Wiretap"/> -->
-				<wire-tap-router>
-					<outbound-endpoint ref="AuditChannel">
-						<expression-transformer>
-							<return-argument
-									evaluator="groovy"
-									expression="'Uploaded title: '+org.apache.commons.lang.StringUtils.substringBetween(payload,'&lt;title&gt;','&lt;/title&gt;')"/>
-						</expression-transformer>
-					</outbound-endpoint>
-				</wire-tap-router>
-				<!-- <end id="Activity-Wiretap"/> -->
-			</inbound>
-			<outbound>
-				<pass-through-router>
-					<jms:outbound-endpoint queue="publicationQueue"	connector-ref="publicationJmsConnector">
-						<transformers>
-							<transformer ref="MessagePropertiesSanitizer" />
-							<transformer ref="DocbookToFO" />
-							<transformer ref="ObjectToString" />
-							<transformer ref="ObjectToJmsMessage" />
-						</transformers>
-					</jms:outbound-endpoint>
-				</pass-through-router>
-			</outbound>
-		</service>
-	</model>
+    <vm:endpoint name="DocumentChannel" path="document.channel"  synchronous="false" />
+
+    <object-to-string-transformer name="ObjectToString" />
+
+    <jms:object-to-jmsmessage-transformer name="ObjectToJmsMessage" />
+
+    <message-properties-transformer name="MessagePropertiesSanitizer">
+        <delete-message-property key="Content-Length" />
+        <delete-message-property key="Content-Type" />
+        <delete-message-property key="User-Agent" />
+        <delete-message-property key="http.context.path" />
+        <delete-message-property key="http.method" />
+        <delete-message-property key="http.request" />
+        <delete-message-property key="http.request.path" />
+        <delete-message-property key="http.version" />
+    </message-properties-transformer>
+
+    <xm:xslt-transformer name="DocbookToFO"    xsl-file="docbook-fo.xsl" />
+
+    <model name="publicationModel">
+        <service name="publicationService">
+            <inbound>
+                <http:inbound-endpoint address="http://${esb.bind.address}:${esb.web.port}/publicationService">
+                    <response-transformers>
+                        <expression-transformer>
+                            <return-argument evaluator="string" expression="ACK" />
+                        </expression-transformer>
+                    </response-transformers>
+                </http:inbound-endpoint>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <outbound-endpoint ref="DocumentChannel">
+                        <transformer ref="ObjectToString" />
+                    </outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service>
+        <service name="documentProcessor">
+            <inbound>
+                <inbound-endpoint ref="DocumentChannel" />
+                <!-- <start id="Activity-Wiretap"/> -->
+                <wire-tap-router>
+                    <outbound-endpoint ref="AuditChannel">
+                        <expression-transformer>
+                            <return-argument
+                                    evaluator="groovy"
+                                    expression="'Uploaded title: '+org.apache.commons.lang.StringUtils.substringBetween(payload,'&lt;title&gt;','&lt;/title&gt;')"/>
+                        </expression-transformer>
+                    </outbound-endpoint>
+                </wire-tap-router>
+                <!-- <end id="Activity-Wiretap"/> -->
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <jms:outbound-endpoint queue="publicationQueue"    connector-ref="publicationJmsConnector">
+                        <transformers>
+                            <transformer ref="MessagePropertiesSanitizer" />
+                            <transformer ref="DocbookToFO" />
+                            <transformer ref="ObjectToString" />
+                            <transformer ref="ObjectToJmsMessage" />
+                        </transformers>
+                    </jms:outbound-endpoint>
+                </pass-through-router>
+            </outbound>
+        </service>
+    </model>
 </mule>

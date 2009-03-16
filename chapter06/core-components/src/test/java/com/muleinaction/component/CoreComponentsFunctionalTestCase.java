@@ -89,7 +89,7 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
         Client client = (Client) response.getPayload();
         assertEquals(clientId, client.getId());
     }
-		
+
     private void doTestComponent(final String inboundUri,
             final String expectedResponse, final boolean expectedToReachTarget,
             final boolean willGetException) throws Exception {

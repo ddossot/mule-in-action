@@ -6,7 +6,7 @@ package com.clood.component;
 // <start id="LoCoShow-MFHS"/>
 public interface Md5FileHasherService {
 
-	String hash(String fileName);
+    String hash(String fileName);
 
 }
 // <end id="LoCoShow-MFHS"/>

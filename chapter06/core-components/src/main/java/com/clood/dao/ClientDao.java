@@ -9,9 +9,9 @@ import com.clood.model.Client;
  */
 public class ClientDao {
 
-	public Client findById(final Long id) {
-		return new Client(id, RandomStringUtils.randomAscii(5), RandomStringUtils
-				.randomAscii(10));
-	}
+    public Client findById(final Long id) {
+        return new Client(id, RandomStringUtils.randomAscii(5), RandomStringUtils
+                .randomAscii(10));
+    }
 
 }

@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class ConnectionExceptionStrategyFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/connector-exception-strategy-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/connector-exception-strategy-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"BillingService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "BillingService");
 
-		assertNotNull(service);
-		assertEquals("BillingModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("BillingModel", service.getModel().getName());
+    }
 
 }

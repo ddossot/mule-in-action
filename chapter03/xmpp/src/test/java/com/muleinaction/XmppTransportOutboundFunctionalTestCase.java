@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class XmppTransportOutboundFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/xmpp-outbound-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/xmpp-outbound-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"xmppOutboundService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "xmppOutboundService");
 
-		assertNotNull(service);
-		assertEquals("xmppOutboundModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("xmppOutboundModel", service.getModel().getName());
+    }
 
 }

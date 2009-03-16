@@ -7,20 +7,20 @@
        http://www.mulesource.org/schema/mule/servlet/2.2 http://www.mulesource.org/schema/mule/servlet/2.2/mule-servlet.xsd">
        
     <model name="WebApplication">
-	<service name="RandomIntegerGenerator">
-		<inbound>
-			<servlet:inbound-endpoint address="servlet://rig">
-				<response-transformers>
-					<object-to-string-transformer />
-				</response-transformers>
-			</servlet:inbound-endpoint>
-		</inbound>
-		<component>
-			<no-arguments-entry-point-resolver>
-				<include-entry-point method="nextInt"/>
-			</no-arguments-entry-point-resolver>
-			<singleton-object class="java.util.Random" />
-		</component>
-	</service>
+    <service name="RandomIntegerGenerator">
+        <inbound>
+            <servlet:inbound-endpoint address="servlet://rig">
+                <response-transformers>
+                    <object-to-string-transformer />
+                </response-transformers>
+            </servlet:inbound-endpoint>
+        </inbound>
+        <component>
+            <no-arguments-entry-point-resolver>
+                <include-entry-point method="nextInt"/>
+            </no-arguments-entry-point-resolver>
+            <singleton-object class="java.util.Random" />
+        </component>
+    </service>
     </model>
 </mule>

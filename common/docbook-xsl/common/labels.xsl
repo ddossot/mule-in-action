@@ -722,11 +722,11 @@ element label.</para>
             <xsl:apply-templates select="$pchap" mode="intralabel.punctuation"/>
           </xsl:if>
           <xsl:number format="1" count="equation[title or info/title]" 
-	              from="chapter|appendix" level="any"/>
+                  from="chapter|appendix" level="any"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:number format="1" count="equation[title or info/title]" 
-	              from="book|article" level="any"/>
+                  from="book|article" level="any"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -838,9 +838,9 @@ Custom stylesheets may override it to get more selective behavior.</para>
         <xsl:when test="$format='upperroman' or $format='I'">
           <xsl:value-of select="'I'"/>
         </xsl:when>      
-	<xsl:when test="$format='arabicindic' or $format='&#x661;'">
-	  <xsl:value-of select="'&#x661;'"/>
-	</xsl:when>
+    <xsl:when test="$format='arabicindic' or $format='&#x661;'">
+      <xsl:value-of select="'&#x661;'"/>
+    </xsl:when>
         <xsl:otherwise>
           <xsl:message>
             <xsl:text>Unexpected </xsl:text><xsl:value-of select="local-name(.)"/><xsl:text>.autolabel value: </xsl:text>

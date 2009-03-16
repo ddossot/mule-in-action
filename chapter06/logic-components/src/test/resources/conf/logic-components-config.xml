@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-	xmlns:spring="http://www.springframework.org/schema/beans"
-	xmlns:file="http://www.mulesource.org/schema/mule/file/2.2"
-	xsi:schemaLocation="
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:file="http://www.mulesource.org/schema/mule/file/2.2"
+    xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
        http://www.mulesource.org/schema/mule/file/2.2 http://www.mulesource.org/schema/mule/file/2.2/mule-file.xsd
        http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
 
-	<global-property name="seed" value="123" />
-	
-	<!-- <start id="LoCoShow-SSRIG-bean"/> -->
-	<spring:bean id="Random" class="java.util.Random">
-		<spring:constructor-arg value="${seed}" />
-	</spring:bean>
-	<!-- <end id="LoCoShow-SSRIG-bean"/> -->
-	
-	<file:connector name="NonDeletingFileConnector" autoDelete="false" />
+    <global-property name="seed" value="123" />
 
-	<model name="LogicComponentsShowcase">
-		
-		<!-- <start id="LoCoShow-RIG"/> -->
-		<service name="RandomIntegerGenerator">
-			<inbound>
-				<vm:inbound-endpoint path="RIG.In" />
-			</inbound>
-			<component>
-				<no-arguments-entry-point-resolver>
-					<include-entry-point method="nextInt"/>
-				</no-arguments-entry-point-resolver>
-				<singleton-object class="java.util.Random" />
-			</component>
-		</service>
-		<!-- <end id="LoCoShow-RIG"/> -->
-		
-		<!-- <start id="LoCoShow-SRIG"/> -->
-		<service name="SeededRandomIntegerGenerator">
-			<inbound>
-				<vm:inbound-endpoint path="SRIG.In" />
-			</inbound>
-			<component>
-				<no-arguments-entry-point-resolver>
-					<include-entry-point method="nextInt"/>
-				</no-arguments-entry-point-resolver>
-				<singleton-object class="java.util.Random">
-					<property key="seed" value="${seed}" />
-				</singleton-object>
-			</component>
-		</service>
-		<!-- <end id="LoCoShow-SRIG"/> -->	
-		
-		<!-- <start id="LoCoShow-SSRIG"/> -->
-		<service name="SpringSeededRandomIntegerGenerator">
-			<inbound>
-				<vm:inbound-endpoint path="SSRIG.In" />
-			</inbound>
-			<component>
-				<no-arguments-entry-point-resolver>
-					<include-entry-point method="nextInt"/>
-				</no-arguments-entry-point-resolver>
-				<spring-object bean="Random" />
-			</component>
-		</service>
-		<!-- <end id="LoCoShow-SSRIG"/> -->
-		
-		<!-- <start id="LoCoShow-MSC"/> -->
-		<service name="Md5FileHasherClient">
-			<inbound>
-				<vm:inbound-endpoint path="MSC.In" />
-			</inbound>
-			<component>
-				<singleton-object class="com.clood.component.Md5FileHasherClient" />
-				<binding interface="com.clood.component.Md5FileHasherService" method="hash">
-					<vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true" />
-				</binding>
-			</component>
-		</service>
-		<!-- <end id="LoCoShow-MSC"/> -->
-		
-		<!-- <start id="LoCoShow-MD5H-conf"/> -->
-		<service name="Md5FileHasher">
-			<inbound>
-				<vm:inbound-endpoint path="Md5FileHasher.In" />
-			</inbound>
-			<pooled-component>
-				<prototype-object class="com.clood.component.Md5FileHasher">
-					<property key="fileConnector" value-ref="NonDeletingFileConnector" />
-					<property key="sourceFolder" value="${java.io.tmpdir}" />
-				</prototype-object>
-				<pooling-profile initialisationPolicy="INITIALISE_ONE"
-				  maxActive="5"
+    <!-- <start id="LoCoShow-SSRIG-bean"/> -->
+    <spring:bean id="Random" class="java.util.Random">
+        <spring:constructor-arg value="${seed}" />
+    </spring:bean>
+    <!-- <end id="LoCoShow-SSRIG-bean"/> -->
+
+    <file:connector name="NonDeletingFileConnector" autoDelete="false" />
+
+    <model name="LogicComponentsShowcase">
+
+        <!-- <start id="LoCoShow-RIG"/> -->
+        <service name="RandomIntegerGenerator">
+            <inbound>
+                <vm:inbound-endpoint path="RIG.In" />
+            </inbound>
+            <component>
+                <no-arguments-entry-point-resolver>
+                    <include-entry-point method="nextInt"/>
+                </no-arguments-entry-point-resolver>
+                <singleton-object class="java.util.Random" />
+            </component>
+        </service>
+        <!-- <end id="LoCoShow-RIG"/> -->
+
+        <!-- <start id="LoCoShow-SRIG"/> -->
+        <service name="SeededRandomIntegerGenerator">
+            <inbound>
+                <vm:inbound-endpoint path="SRIG.In" />
+            </inbound>
+            <component>
+                <no-arguments-entry-point-resolver>
+                    <include-entry-point method="nextInt"/>
+                </no-arguments-entry-point-resolver>
+                <singleton-object class="java.util.Random">
+                    <property key="seed" value="${seed}" />
+                </singleton-object>
+            </component>
+        </service>
+        <!-- <end id="LoCoShow-SRIG"/> -->
+
+        <!-- <start id="LoCoShow-SSRIG"/> -->
+        <service name="SpringSeededRandomIntegerGenerator">
+            <inbound>
+                <vm:inbound-endpoint path="SSRIG.In" />
+            </inbound>
+            <component>
+                <no-arguments-entry-point-resolver>
+                    <include-entry-point method="nextInt"/>
+                </no-arguments-entry-point-resolver>
+                <spring-object bean="Random" />
+            </component>
+        </service>
+        <!-- <end id="LoCoShow-SSRIG"/> -->
+
+        <!-- <start id="LoCoShow-MSC"/> -->
+        <service name="Md5FileHasherClient">
+            <inbound>
+                <vm:inbound-endpoint path="MSC.In" />
+            </inbound>
+            <component>
+                <singleton-object class="com.clood.component.Md5FileHasherClient" />
+                <binding interface="com.clood.component.Md5FileHasherService" method="hash">
+                    <vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true" />
+                </binding>
+            </component>
+        </service>
+        <!-- <end id="LoCoShow-MSC"/> -->
+
+        <!-- <start id="LoCoShow-MD5H-conf"/> -->
+        <service name="Md5FileHasher">
+            <inbound>
+                <vm:inbound-endpoint path="Md5FileHasher.In" />
+            </inbound>
+            <pooled-component>
+                <prototype-object class="com.clood.component.Md5FileHasher">
+                    <property key="fileConnector" value-ref="NonDeletingFileConnector" />
+                    <property key="sourceFolder" value="${java.io.tmpdir}" />
+                </prototype-object>
+                <pooling-profile initialisationPolicy="INITIALISE_ONE"
+                  maxActive="5"
           exhaustedAction="WHEN_EXHAUSTED_WAIT"
           maxWait="15000" /> 
-			</pooled-component>
-		</service>
-		<!-- <end id="LoCoShow-MD5H-conf"/> -->
+            </pooled-component>
+        </service>
+        <!-- <end id="LoCoShow-MD5H-conf"/> -->
 
-		<service name="Md5FileHashers">
-			<inbound>
-				<vm:inbound-endpoint path="Md5FileHashers.In" />
-			</inbound>
-			<pooled-component>
-				<prototype-object class="com.clood.component.Md5FileHasher">
-					<property key="fileConnector" value-ref="NonDeletingFileConnector" />
-					<property key="sourceFolder" value="${java.io.tmpdir}" />
-				</prototype-object>
-				<pooling-profile initialisationPolicy="INITIALISE_ONE" maxActive="5" />
-			</pooled-component>
-		</service>
+        <service name="Md5FileHashers">
+            <inbound>
+                <vm:inbound-endpoint path="Md5FileHashers.In" />
+            </inbound>
+            <pooled-component>
+                <prototype-object class="com.clood.component.Md5FileHasher">
+                    <property key="fileConnector" value-ref="NonDeletingFileConnector" />
+                    <property key="sourceFolder" value="${java.io.tmpdir}" />
+                </prototype-object>
+                <pooling-profile initialisationPolicy="INITIALISE_ONE" maxActive="5" />
+            </pooled-component>
+        </service>
 
-	</model>
+    </model>
 </mule>

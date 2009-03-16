@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>com.muleinaction</groupId>
-		<artifactId>mia-parent</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	
-	<artifactId>chapter03</artifactId>
-	<packaging>pom</packaging>
-	<name>Mule in Action - Chapter 3</name>
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modules>
-	    <module>file</module>
-	    <module>stdio</module>
-	    <module>smtp</module>
-	    <module>http</module>
-	    <module>imap</module>
-	    <module>cxf</module>
-	    <module>ftp</module>
-	    <module>jdbc</module> 
-	    <module>jms</module>
-	    <module>xmpp</module>
-	    <module>vm</module> 
-	</modules>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.muleinaction</groupId>
+        <artifactId>mia-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>chapter03</artifactId>
+    <packaging>pom</packaging>
+    <name>Mule in Action - Chapter 3</name>
+
+    <modules>
+        <module>file</module>
+        <module>stdio</module>
+        <module>smtp</module>
+        <module>http</module>
+        <module>imap</module>
+        <module>cxf</module>
+        <module>ftp</module>
+        <module>jdbc</module>
+        <module>jms</module>
+        <module>xmpp</module>
+        <module>vm</module>
+    </modules>
 
   <dependencies>
     <dependency>
