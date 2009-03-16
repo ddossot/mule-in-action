@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-	xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
-	xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
-	xmlns:spring="http://www.springframework.org/schema/beans"
-	xsi:schemaLocation="
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+    xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+    xmlns:xm="http://www.mulesource.org/schema/mule/xml/2.2"
+    xmlns:spring="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="
        http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
        http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
        http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
        http://www.mulesource.org/schema/mule/xml/2.2 http://www.mulesource.org/schema/mule/xml/2.2/mule-xml.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<spring:bean id="RefererHeader" class="org.springframework.beans.factory.config.MapFactoryBean">
-	  <spring:property name="sourceMap">
-	      <spring:map>
-	        <spring:entry key="Referer" value="http://www.muleinaction.com"/>
-	      </spring:map>
-	  </spring:property>
-	</spring:bean>
+    <spring:bean id="RefererHeader" class="org.springframework.beans.factory.config.MapFactoryBean">
+      <spring:property name="sourceMap">
+          <spring:map>
+            <spring:entry key="Referer" value="http://www.muleinaction.com"/>
+          </spring:map>
+      </spring:property>
+    </spring:bean>
 
-	<model>
-	
-		<!-- <start id="RestServiceComponent"/> -->
-		<service name="GoogleSearch">
-			<inbound>
-				<vm:inbound-endpoint path="GoogleSearch.In">
-					<transformers>
-						<message-properties-transformer>
-							<add-message-property key="http.custom.headers" value-ref="RefererHeader" />
-						</message-properties-transformer>
-					</transformers>
-					<response-transformers>
-						<byte-array-to-string-transformer />
-						<custom-transformer class="com.muleinaction.transformer.JsonToXmlTransformer" />
-						<xm:jxpath-extractor-transformer expression="//titleNoFormatting/text()" singleResult="false" />
-					</response-transformers>
-				</vm:inbound-endpoint>
-			</inbound>
-			<http:rest-service-component httpMethod="GET" serviceUrl="http://ajax.googleapis.com/ajax/services/search/web?v=1.0">
-				<http:payloadParameterName value="q"/>
-			</http:rest-service-component>
-		</service>
-		<!-- <end id="RestServiceComponent"/> -->
-	
-	</model>
+    <model>
+
+        <!-- <start id="RestServiceComponent"/> -->
+        <service name="GoogleSearch">
+            <inbound>
+                <vm:inbound-endpoint path="GoogleSearch.In">
+                    <transformers>
+                        <message-properties-transformer>
+                            <add-message-property key="http.custom.headers" value-ref="RefererHeader" />
+                        </message-properties-transformer>
+                    </transformers>
+                    <response-transformers>
+                        <byte-array-to-string-transformer />
+                        <custom-transformer class="com.muleinaction.transformer.JsonToXmlTransformer" />
+                        <xm:jxpath-extractor-transformer expression="//titleNoFormatting/text()" singleResult="false" />
+                    </response-transformers>
+                </vm:inbound-endpoint>
+            </inbound>
+            <http:rest-service-component httpMethod="GET" serviceUrl="http://ajax.googleapis.com/ajax/services/search/web?v=1.0">
+                <http:payloadParameterName value="q"/>
+            </http:rest-service-component>
+        </service>
+        <!-- <end id="RestServiceComponent"/> -->
+
+    </model>
 
 </mule>

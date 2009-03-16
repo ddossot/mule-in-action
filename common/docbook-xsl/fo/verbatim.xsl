@@ -36,12 +36,12 @@
                       and $linenumbering.extension != '0'">
         <xsl:call-template name="number.rtf.lines">
           <xsl:with-param name="rtf">
-	    <xsl:call-template name="apply-highlighting"/>
+        <xsl:call-template name="apply-highlighting"/>
           </xsl:with-param>
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:call-template name="apply-highlighting"/>
+    <xsl:call-template name="apply-highlighting"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spring="http://www.springframework.org/schema/beans"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-      	http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
-      	http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+          http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
 
-	<spring:bean name="velocityEngine"
-		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-		<spring:property name="resourceLoaderPath" value="classpath:templates" />
-	</spring:bean>
+    <spring:bean name="velocityEngine"
+        class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <spring:property name="resourceLoaderPath" value="classpath:templates" />
+    </spring:bean>
 
-	<custom-transformer name="markingVelocityMessageTransformer"
-		class="com.muleinaction.transformer.MarkingVelocityMessageTransformer">
-		<spring:property name="velocityEngine" ref="velocityEngine" />
-		<spring:property name="templateName" value="test-message.vm" />
-		<spring:property name="timeStampPropertyName" value="transformationTime" />
-	</custom-transformer>
-	
-	<model name="FunctionalTestModel">
-		<service name="FunctionalTestService">
-			<inbound>
-				<vm:inbound-endpoint path="testChannel">
-					<transformer ref="markingVelocityMessageTransformer"/>
-				</vm:inbound-endpoint>
-			</inbound>
-			<echo-component />
-		</service>
-	</model>
+    <custom-transformer name="markingVelocityMessageTransformer"
+        class="com.muleinaction.transformer.MarkingVelocityMessageTransformer">
+        <spring:property name="velocityEngine" ref="velocityEngine" />
+        <spring:property name="templateName" value="test-message.vm" />
+        <spring:property name="timeStampPropertyName" value="transformationTime" />
+    </custom-transformer>
+
+    <model name="FunctionalTestModel">
+        <service name="FunctionalTestService">
+            <inbound>
+                <vm:inbound-endpoint path="testChannel">
+                    <transformer ref="markingVelocityMessageTransformer"/>
+                </vm:inbound-endpoint>
+            </inbound>
+            <echo-component />
+        </service>
+    </model>
 </mule>

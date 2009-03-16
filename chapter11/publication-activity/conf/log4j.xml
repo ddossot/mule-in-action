@@ -2,42 +2,42 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
 
-	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
-		</layout>
-	</appender>
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
+        </layout>
+    </appender>
 
-	<appender name="AUDITLOGFILE" class="org.apache.log4j.FileAppender">
-		<param name="File" value="./log/audit.log" />
-		<param name="Append" value="false" />
-		<param name="Threshold" value="INFO" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
-		</layout>
-	</appender>
+    <appender name="AUDITLOGFILE" class="org.apache.log4j.FileAppender">
+        <param name="File" value="./log/audit.log" />
+        <param name="Append" value="false" />
+        <param name="Threshold" value="INFO" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c] %m%n" />
+        </layout>
+    </appender>
 
-	<category name="publication.mule.audit" additivity="false">
-		<priority value="INFO" />
-		<appender-ref ref="AUDITLOGFILE" />
-	</category>
+    <category name="publication.mule.audit" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="AUDITLOGFILE" />
+    </category>
 
-	<!-- <start id="Publication-Activity-Chainsaw"/> -->
-	<appender name="CHAINSAW" class="org.apache.log4j.net.SocketAppender">
-		<param name="remoteHost" value="localhost" />
-		<param name="port" value="4445" />
-		<param name="locationInfo" value="true" />
-	</appender>
-	
-	<category name="publication.mule.notifications" additivity="false">
-		<priority value="INFO" />
-		<appender-ref ref="CHAINSAW" />
-	</category>
-	<!-- <end id="Publication-Activity-Chainsaw"/> -->
+    <!-- <start id="Publication-Activity-Chainsaw"/> -->
+    <appender name="CHAINSAW" class="org.apache.log4j.net.SocketAppender">
+        <param name="remoteHost" value="localhost" />
+        <param name="port" value="4445" />
+        <param name="locationInfo" value="true" />
+    </appender>
 
-	<root>
-		<priority value="INFO" />
-		<appender-ref ref="CONSOLE" />
-	</root>
+    <category name="publication.mule.notifications" additivity="false">
+        <priority value="INFO" />
+        <appender-ref ref="CHAINSAW" />
+    </category>
+    <!-- <end id="Publication-Activity-Chainsaw"/> -->
+
+    <root>
+        <priority value="INFO" />
+        <appender-ref ref="CONSOLE" />
+    </root>
 </log4j:configuration>

@@ -86,8 +86,8 @@
             <xsl:if test="$admon.textlabel != 0 or title or info/title">
               <fo:block xsl:use-attribute-sets="admonition.title.properties">
                 <xsl:apply-templates select="." mode="object.title.markup">
-		  <xsl:with-param name="allow-anchors" select="1"/>
-		</xsl:apply-templates>
+          <xsl:with-param name="allow-anchors" select="1"/>
+        </xsl:apply-templates>
               </fo:block>
             </xsl:if>
             <fo:block xsl:use-attribute-sets="admonition.properties">
@@ -110,8 +110,8 @@
       <fo:block keep-with-next.within-column='always'
                 xsl:use-attribute-sets="admonition.title.properties">
          <xsl:apply-templates select="." mode="object.title.markup">
-	   <xsl:with-param name="allow-anchors" select="1"/>
-	 </xsl:apply-templates>
+       <xsl:with-param name="allow-anchors" select="1"/>
+     </xsl:apply-templates>
       </fo:block>
     </xsl:if>
 

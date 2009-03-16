@@ -10,18 +10,18 @@ import org.mule.module.client.MuleClient;
  */
 public class GroovyTransformerFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/groovy-transformer-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/groovy-transformer-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"groovyTransformerService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "groovyTransformerService");
 
-		assertNotNull(service);
-		assertEquals("groovyTransformerModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("groovyTransformerModel", service.getModel().getName());
+    }
 
     public void testMessageTransformed() throws Exception {
         MuleClient client = new MuleClient(muleContext);

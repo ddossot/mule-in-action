@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class StandaloneServerFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/standalone-server-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/standalone-server-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"RandomIntegerGenerator");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "RandomIntegerGenerator");
 
-		assertNotNull(service);
-		assertEquals("StandaloneServer", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("StandaloneServer", service.getModel().getName());
+    }
 
 }

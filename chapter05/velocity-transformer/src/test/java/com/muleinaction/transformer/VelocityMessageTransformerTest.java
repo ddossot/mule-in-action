@@ -18,57 +18,57 @@ import org.springframework.ui.velocity.VelocityEngineFactory;
  */
 public class VelocityMessageTransformerTest extends AbstractTransformerTestCase {
 
-	static final Map<String, String> TEST_PROPERTIES = Collections.singletonMap(
-			"propFoo", "propBar");
+    static final Map<String, String> TEST_PROPERTIES = Collections.singletonMap(
+            "propFoo", "propBar");
 
-	static final String RESULT_DATA = "***[payloadFoo=payloadBar\u00EB+propFoo=propBar]***";
+    static final String RESULT_DATA = "***[payloadFoo=payloadBar\u00EB+propFoo=propBar]***";
 
-	static final Map<String, String> TEST_DATA = VelocityPayloadTransformerTest.TEST_DATA;
+    static final Map<String, String> TEST_DATA = VelocityPayloadTransformerTest.TEST_DATA;
 
-	@Override
-	protected MuleContext createMuleContext() throws Exception {
-		System.setProperty(MuleConfiguration.SYSTEM_PROPERTY_PREFIX
-				+ "transform.autoWrap", "false");
+    @Override
+    protected MuleContext createMuleContext() throws Exception {
+        System.setProperty(MuleConfiguration.SYSTEM_PROPERTY_PREFIX
+                + "transform.autoWrap", "false");
 
-		return super.createMuleContext();
-	}
+        return super.createMuleContext();
+    }
 
-	@Override
-	protected void doSetUp() throws Exception {
-		super.doSetUp();
+    @Override
+    protected void doSetUp() throws Exception {
+        super.doSetUp();
 
-		RequestContext.setEvent(new DefaultMuleEvent(new DefaultMuleMessage(
-				TEST_DATA, TEST_PROPERTIES), getTestOutboundEndpoint("test"),
-				MuleTestUtils.getTestSession(muleContext), true));
-	}
+        RequestContext.setEvent(new DefaultMuleEvent(new DefaultMuleMessage(
+                TEST_DATA, TEST_PROPERTIES), getTestOutboundEndpoint("test"),
+                MuleTestUtils.getTestSession(muleContext), true));
+    }
 
-	@Override
-	public Object getResultData() {
-		return RESULT_DATA;
-	}
+    @Override
+    public Object getResultData() {
+        return RESULT_DATA;
+    }
 
-	@Override
-	public Transformer getRoundTripTransformer() throws Exception {
-		return null;
-	}
+    @Override
+    public Transformer getRoundTripTransformer() throws Exception {
+        return null;
+    }
 
-	@Override
-	public Object getTestData() {
-		return TEST_DATA;
-	}
+    @Override
+    public Object getTestData() {
+        return TEST_DATA;
+    }
 
-	@Override
-	public Transformer getTransformer() throws Exception {
-		final VelocityEngineFactory velocityEngineFactory = new VelocityEngineFactory();
-		velocityEngineFactory.setResourceLoaderPath("classpath:templates");
+    @Override
+    public Transformer getTransformer() throws Exception {
+        final VelocityEngineFactory velocityEngineFactory = new VelocityEngineFactory();
+        velocityEngineFactory.setResourceLoaderPath("classpath:templates");
 
-		final VelocityMessageTransformer velocityTransformer = new VelocityMessageTransformer();
+        final VelocityMessageTransformer velocityTransformer = new VelocityMessageTransformer();
 
-		velocityTransformer.setVelocityEngine(velocityEngineFactory
-				.createVelocityEngine());
-		velocityTransformer.setTemplateName("test-message.vm");
-		velocityTransformer.initialise();
-		return velocityTransformer;
-	}
+        velocityTransformer.setVelocityEngine(velocityEngineFactory
+                .createVelocityEngine());
+        velocityTransformer.setTemplateName("test-message.vm");
+        velocityTransformer.initialise();
+        return velocityTransformer;
+    }
 
 }

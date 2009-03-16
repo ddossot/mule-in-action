@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class PublicationFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/publication-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/publication-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"publicationService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "publicationService");
 
-		assertNotNull(service);
-		assertEquals("publicationModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("publicationModel", service.getModel().getName());
+    }
 
 }

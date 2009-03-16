@@ -4,7 +4,7 @@
                 xmlns:redirect="http://xml.apache.org/xalan/redirect"
                 xmlns:exsl="http://exslt.org/common"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		version="1.0"
+        version="1.0"
                 exclude-result-prefixes="doc"
                 extension-element-prefixes="saxon redirect lxslt exsl">
 

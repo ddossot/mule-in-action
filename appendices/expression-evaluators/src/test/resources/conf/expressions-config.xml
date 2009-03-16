@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesource.org/schema/mule/core/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2" xmlns:test="http://www.mulesource.org/schema/mule/test/2.2"
-	xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
-	xsi:schemaLocation="
-								http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
+    xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2" xmlns:test="http://www.mulesource.org/schema/mule/test/2.2"
+    xmlns:http="http://www.mulesource.org/schema/mule/http/2.2"
+    xsi:schemaLocation="
+                                http://www.mulesource.org/schema/mule/http/2.2 http://www.mulesource.org/schema/mule/http/2.2/mule-http.xsd
                 http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
                 http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
                 http://www.mulesource.org/schema/mule/test/2.2 http://www.mulesource.org/schema/mule/test/2.2/mule-test.xsd">
 
-	<vm:endpoint name="TargetChannel" path="Target" />
-	<vm:endpoint name="LoggerChannel" path="Logger" />
+    <vm:endpoint name="TargetChannel" path="Target" />
+    <vm:endpoint name="LoggerChannel" path="Logger" />
 
-	<model name="ExpressionModel">
+    <model name="ExpressionModel">
 
-		<!-- <start id="ExprEval-Transformer" /> -->
-		<service name="AckingAsyncDispatcher">
-			<inbound>
-				<vm:inbound-endpoint path="AckingAsyncDispatcher.IN" synchronous="true">
-					<response-transformers>
-						<expression-transformer>
-							<return-argument evaluator="message" expression="correlationId" />
-						</expression-transformer>
-					</response-transformers>
-				</vm:inbound-endpoint>
-			</inbound>
+        <!-- <start id="ExprEval-Transformer" /> -->
+        <service name="AckingAsyncDispatcher">
+            <inbound>
+                <vm:inbound-endpoint path="AckingAsyncDispatcher.IN" synchronous="true">
+                    <response-transformers>
+                        <expression-transformer>
+                            <return-argument evaluator="message" expression="correlationId" />
+                        </expression-transformer>
+                    </response-transformers>
+                </vm:inbound-endpoint>
+            </inbound>
 
-			<outbound>
-				<pass-through-router>
-					<outbound-endpoint ref="TargetChannel" synchronous="false" />
-				</pass-through-router>
-			</outbound>
-		</service>
-		<!-- <end id="ExprEval-Transformer" /> -->
+            <outbound>
+                <pass-through-router>
+                    <outbound-endpoint ref="TargetChannel" synchronous="false" />
+                </pass-through-router>
+            </outbound>
+        </service>
+        <!-- <end id="ExprEval-Transformer" /> -->
 
-		<!-- <start id="ExprEval-Filter" /> -->
-		<service name="PayloadSizeFiltering">
-			<inbound>
-				<vm:inbound-endpoint path="PayloadSizeFiltering.IN" />
-			</inbound>
+        <!-- <start id="ExprEval-Filter" /> -->
+        <service name="PayloadSizeFiltering">
+            <inbound>
+                <vm:inbound-endpoint path="PayloadSizeFiltering.IN" />
+            </inbound>
 
-			<outbound>
-				<filtering-router>
-					<outbound-endpoint ref="TargetChannel" />
-					<expression-filter evaluator="groovy" expression="message.payloadAsBytes.length>1024" />
-				</filtering-router>
-				<forwarding-catch-all-strategy>
-					<outbound-endpoint ref="LoggerChannel" />
-				</forwarding-catch-all-strategy>
-			</outbound>
-		</service>
-		<!-- <end id="ExprEval-Filter" /> -->
+            <outbound>
+                <filtering-router>
+                    <outbound-endpoint ref="TargetChannel" />
+                    <expression-filter evaluator="groovy" expression="message.payloadAsBytes.length>1024" />
+                </filtering-router>
+                <forwarding-catch-all-strategy>
+                    <outbound-endpoint ref="LoggerChannel" />
+                </forwarding-catch-all-strategy>
+            </outbound>
+        </service>
+        <!-- <end id="ExprEval-Filter" /> -->
 
-		<service name="ExpressionParser">
-			<inbound>
-				<vm:inbound-endpoint path="ExpressionParser.IN" synchronous="true" />
-			</inbound>
-			<!-- <start id="ExprParser-Config" /> -->
-			<component>
-				<singleton-object class="com.muleinaction.component.ExpressionParser">
-					<property key="expression" value="#[message:correlationId]@#[function:datestamp:yyyy-dd-MM]" />
-				</singleton-object>
-			</component>
-			<!-- <end id="ExprParser-Config" /> -->
-		</service>
+        <service name="ExpressionParser">
+            <inbound>
+                <vm:inbound-endpoint path="ExpressionParser.IN" synchronous="true" />
+            </inbound>
+            <!-- <start id="ExprParser-Config" /> -->
+            <component>
+                <singleton-object class="com.muleinaction.component.ExpressionParser">
+                    <property key="expression" value="#[message:correlationId]@#[function:datestamp:yyyy-dd-MM]" />
+                </singleton-object>
+            </component>
+            <!-- <end id="ExprParser-Config" /> -->
+        </service>
 
-		<service name="TargetService">
-			<inbound>
-				<inbound-endpoint ref="TargetChannel" />
-			</inbound>
+        <service name="TargetService">
+            <inbound>
+                <inbound-endpoint ref="TargetChannel" />
+            </inbound>
 
-			<component>
-				<singleton-object class="org.mule.tck.functional.FunctionalTestComponent" />
-			</component>
-		</service>
+            <component>
+                <singleton-object class="org.mule.tck.functional.FunctionalTestComponent" />
+            </component>
+        </service>
 
-		<service name="LoggerService">
-			<inbound>
-				<inbound-endpoint ref="LoggerChannel" />
-			</inbound>
-			<log-component />
-		</service>
+        <service name="LoggerService">
+            <inbound>
+                <inbound-endpoint ref="LoggerChannel" />
+            </inbound>
+            <log-component />
+        </service>
 
-	</model>
+    </model>
 
 
 </mule>

@@ -1,53 +1,53 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<artifactId>chapter13</artifactId>
-		<groupId>com.muleinaction</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <artifactId>chapter13</artifactId>
+        <groupId>com.muleinaction</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>component-interceptor</artifactId>
-	<packaging>jar</packaging>
-	<name>Mule in Action - Chapter 13 - Component Interceptor</name>
+    <artifactId>component-interceptor</artifactId>
+    <packaging>jar</packaging>
+    <name>Mule in Action - Chapter 13 - Component Interceptor</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.muleinaction</groupId>
-			<artifactId>mule-event-context</artifactId>
-			<version>${version}</version>
-		</dependency>
-		<!-- EHCache dependencies -->
-					<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context-support</artifactId>
-			</dependency>
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>1.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version>3.2.1.ga</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.transaction</groupId>
-					<artifactId>jta</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.security</groupId>
-					<artifactId>jacc</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.ehcache</groupId>
-					<artifactId>ehcache</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.muleinaction</groupId>
+            <artifactId>mule-event-context</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <!-- EHCache dependencies -->
+                    <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+            </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>3.2.1.ga</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.security</groupId>
+                    <artifactId>jacc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

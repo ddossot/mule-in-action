@@ -5,10 +5,10 @@ package com.clood.statistic;
  * 
  */
 public class ActivityReport {
-	// some useful statistics
+    // some useful statistics
 
-	@Override
-	public String toString() {
-		return getClass().getSimpleName();
-	}
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

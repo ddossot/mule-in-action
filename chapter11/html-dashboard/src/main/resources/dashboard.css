@@ -33,35 +33,35 @@ td {
 }
 
 .faded {
-	background-color : gainsboro;
+    background-color : gainsboro;
 }
 
 .state {
-	width: 16px;
-	font-weight: bold;
-	text-align: center;
+    width: 16px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .reset {
-	background-color : gray;
+    background-color : gray;
 }
 
 .idle {
-	background-color : lime;
+    background-color : lime;
 }
 
 .active {
-	background-color : yellow;
+    background-color : yellow;
 }
 
 .increased {
-	background-color : orange;
+    background-color : orange;
 }
 
 .error {
-	background-color : red;
+    background-color : red;
 }
 
 .dead {
-	background-color : black;
+    background-color : black;
 }

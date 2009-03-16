@@ -20,51 +20,51 @@ import org.mule.transformer.AbstractTransformer;
 // <start id="VelocityPayloadTransformer"/>
 public final class VelocityPayloadTransformer extends AbstractTransformer {
 
-	private VelocityEngine velocityEngine;
+    private VelocityEngine velocityEngine;
 
-	private String templateName;
+    private String templateName;
 
-	private Template template;
+    private Template template;
 
-	public VelocityPayloadTransformer() {
-		registerSourceType(Object.class);
-		setReturnClass(String.class);
-	}
+    public VelocityPayloadTransformer() {
+        registerSourceType(Object.class);
+        setReturnClass(String.class);
+    }
 
-	public void setVelocityEngine(final VelocityEngine velocityEngine) {
-		this.velocityEngine = velocityEngine;
-	}
+    public void setVelocityEngine(final VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
+    }
 
-	public void setTemplateName(final String templateName) {
-		this.templateName = templateName;
-	}
+    public void setTemplateName(final String templateName) {
+        this.templateName = templateName;
+    }
 
-	@Override
-	public void initialise() throws InitialisationException {
-		try {
-			template = velocityEngine.getTemplate(templateName);
-		} catch (final Exception e) {
-			throw new InitialisationException(e, this);
-		}
-	}
+    @Override
+    public void initialise() throws InitialisationException {
+        try {
+            template = velocityEngine.getTemplate(templateName);
+        } catch (final Exception e) {
+            throw new InitialisationException(e, this);
+        }
+    }
 
-	@Override
-	protected Object doTransform(final Object payload, final String encoding)
-			throws TransformerException {
+    @Override
+    protected Object doTransform(final Object payload, final String encoding)
+            throws TransformerException {
 
-		try {
-			final StringWriter result = new StringWriter();
+        try {
+            final StringWriter result = new StringWriter();
 
-			template.merge(new VelocityContext(Collections.singletonMap("payload", payload)),
-					result);
+            template.merge(new VelocityContext(Collections.singletonMap("payload", payload)),
+                    result);
 
-			return result.toString();
+            return result.toString();
 
-		} catch (final Exception e) {
-			throw new TransformerException(MessageFactory
-					.createStaticMessage("Can not transform message with template: "
-							+ template), e);
-		}
-	}
+        } catch (final Exception e) {
+            throw new TransformerException(MessageFactory
+                    .createStaticMessage("Can not transform message with template: "
+                            + template), e);
+        }
+    }
 }
 // <end id="VelocityPayloadTransformer"/>

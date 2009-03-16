@@ -15,14 +15,14 @@
     <packaging>jar</packaging>
     <name>Mule in Action - Chapter 4 - Message Splitter Sample</name>
 
-					<dependencies>
+                    <dependencies>
         <dependency>
             <groupId>com.muleinaction</groupId>
             <artifactId>common-ch04</artifactId>
             <version>${version}</version>
         </dependency>
-	</dependencies>
-		
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

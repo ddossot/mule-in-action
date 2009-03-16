@@ -201,14 +201,14 @@ to be incomplete. Don't forget to read the source, too :-)</para>
     <xsl:when test="*|text()"><!--nop--></xsl:when>
     <xsl:otherwise>
       <xsl:if test="$linkend = ''">
-	<xsl:message>
-	  <xsl:text>Non-terminals with no content must point to </xsl:text>
-	  <xsl:text>production elements in the current document.</xsl:text>
-	</xsl:message>
-	<xsl:message>
-	  <xsl:text>Invalid xpointer for empty nt: </xsl:text>
-	  <xsl:value-of select="@def"/>
-	</xsl:message>
+    <xsl:message>
+      <xsl:text>Non-terminals with no content must point to </xsl:text>
+      <xsl:text>production elements in the current document.</xsl:text>
+    </xsl:message>
+    <xsl:message>
+      <xsl:text>Invalid xpointer for empty nt: </xsl:text>
+      <xsl:value-of select="@def"/>
+    </xsl:message>
       </xsl:if>
     </xsl:otherwise>
   </xsl:choose>
@@ -216,14 +216,14 @@ to be incomplete. Don't forget to read the source, too :-)</para>
   <xsl:variable name="href">
     <xsl:choose>
       <xsl:when test="$linkend != ''">
-	<xsl:variable name="targets" select="key('id',$linkend)"/>
-	<xsl:variable name="target" select="$targets[1]"/>
+    <xsl:variable name="targets" select="key('id',$linkend)"/>
+    <xsl:variable name="target" select="$targets[1]"/>
         <xsl:call-template name="object.id">
           <xsl:with-param name="object" select="$target"/>
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="@def"/>
+    <xsl:value-of select="@def"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -292,8 +292,8 @@ to be incomplete. Don't forget to read the source, too :-)</para>
       <xsl:variable name="targets" select="key('id',@linkend)"/>
       <xsl:variable name="target" select="$targets[1]"/>
       <xsl:if test="$target/@role">
-	<xsl:value-of select="$target/@role"/>
-	<xsl:text>: </xsl:text>
+    <xsl:value-of select="$target/@role"/>
+    <xsl:text>: </xsl:text>
       </xsl:if>
     </xsl:otherwise>
   </xsl:choose>

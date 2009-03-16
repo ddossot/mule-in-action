@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class StdioTransportFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/stdio-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/stdio-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"stdioService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "stdioService");
 
-		assertNotNull(service);
-		assertEquals("stdioModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("stdioModel", service.getModel().getName());
+    }
 
 }

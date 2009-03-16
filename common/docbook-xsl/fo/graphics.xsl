@@ -375,11 +375,11 @@
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
-	<xsl:otherwise>
-	  <xsl:message terminate="yes">
-	    <xsl:text>Cannot insert </xsl:text><xsl:value-of select="$filename"/>
-	    <xsl:text>. Check use.extensions and textinsert.extension parameters.</xsl:text> 
-	  </xsl:message>
+    <xsl:otherwise>
+      <xsl:message terminate="yes">
+        <xsl:text>Cannot insert </xsl:text><xsl:value-of select="$filename"/>
+        <xsl:text>. Check use.extensions and textinsert.extension parameters.</xsl:text>
+      </xsl:message>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
@@ -500,11 +500,11 @@
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-	  <xsl:message terminate="yes">
-	    <xsl:text>Cannot insert </xsl:text><xsl:value-of select="$filename"/>
-	    <xsl:text>. Check use.extensions and textinsert.extension parameters.</xsl:text> 
-	  </xsl:message>
-	</xsl:otherwise>
+      <xsl:message terminate="yes">
+        <xsl:text>Cannot insert </xsl:text><xsl:value-of select="$filename"/>
+        <xsl:text>. Check use.extensions and textinsert.extension parameters.</xsl:text>
+      </xsl:message>
+    </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
@@ -573,18 +573,18 @@
         <xsl:when test="element-available('xtext:insertfile')">
           <xtext:insertfile href="{$filename}"/>
         </xsl:when>
-	<xsl:otherwise>
-	  <xsl:message terminate="yes">
-	    <xsl:text>Don't know how to insert files with </xsl:text>
-	    <xsl:value-of select="$vendor"/>
-	  </xsl:message>
-	</xsl:otherwise>
+    <xsl:otherwise>
+      <xsl:message terminate="yes">
+        <xsl:text>Don't know how to insert files with </xsl:text>
+        <xsl:value-of select="$vendor"/>
+      </xsl:message>
+    </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message terminate="yes">
-	<xsl:text>Cannot insert </xsl:text><xsl:value-of select="$filename"/>
-	<xsl:text>. Check use.extensions and textinsert.extension parameters.</xsl:text> 
+    <xsl:text>Cannot insert </xsl:text><xsl:value-of select="$filename"/>
+    <xsl:text>. Check use.extensions and textinsert.extension parameters.</xsl:text>
       </xsl:message>
     </xsl:otherwise>
   </xsl:choose>

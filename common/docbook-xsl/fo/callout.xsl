@@ -137,7 +137,7 @@
                     and $conum &lt;= $callout.graphics.number.limit">
       <xsl:variable name="filename"
                     select="concat($callout.graphics.path, $conum,
-		                   $callout.graphics.extension)"/>
+                           $callout.graphics.extension)"/>
 
       <fo:external-graphic content-width="{$callout.icon.size}"
                            width="{$callout.icon.size}">

@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <project>
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<artifactId>chapter07</artifactId>
-		<groupId>com.muleinaction</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	
-		<dependencies>
-				<dependency>
-				<groupId>org.mule.transports</groupId>
-				<artifactId>mule-transport-http</artifactId>
-			</dependency>
-		</dependencies>
-	
-	<artifactId>fault-tolerance</artifactId>
-	<packaging>jar</packaging>
-	<name>Mule in Action - Chapter 7 - Fault tolerance</name>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>chapter07</artifactId>
+        <groupId>com.muleinaction</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+        <dependencies>
+                <dependency>
+                <groupId>org.mule.transports</groupId>
+                <artifactId>mule-transport-http</artifactId>
+            </dependency>
+        </dependencies>
+
+    <artifactId>fault-tolerance</artifactId>
+    <packaging>jar</packaging>
+    <name>Mule in Action - Chapter 7 - Fault tolerance</name>
 </project>

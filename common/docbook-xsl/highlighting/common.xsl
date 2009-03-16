@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:hl="java:net.sf.xslthl.ConnectorSaxon6"
+        xmlns:hl="java:net.sf.xslthl.ConnectorSaxon6"
                 xmlns:exsl="http://exslt.org/common"
-		exclude-result-prefixes="exsl hl"
+        exclude-result-prefixes="exsl hl"
                 version='1.0'>
 
 <!-- ********************************************************************
@@ -35,20 +35,20 @@
     <!-- Do we want syntax highlighting -->
     <xsl:when test="$highlight.source != 0 and function-available('hl:highlight')">
       <xsl:variable name="language">
-	<xsl:call-template name="language.to.xslthl">
-	  <xsl:with-param name="context" select="."/>
-	</xsl:call-template>
+    <xsl:call-template name="language.to.xslthl">
+      <xsl:with-param name="context" select="."/>
+    </xsl:call-template>
       </xsl:variable>
       <xsl:choose>
-	<xsl:when test="$language != ''">
-	  <xsl:variable name="content">
-	    <xsl:apply-templates/>
-	  </xsl:variable>
-	  <xsl:apply-templates select="hl:highlight($language, exsl:node-set($content))"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:apply-templates/>
-	</xsl:otherwise>
+    <xsl:when test="$language != ''">
+      <xsl:variable name="content">
+        <xsl:apply-templates/>
+      </xsl:variable>
+      <xsl:apply-templates select="hl:highlight($language, exsl:node-set($content))"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates/>
+    </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <!-- No syntax highlighting -->

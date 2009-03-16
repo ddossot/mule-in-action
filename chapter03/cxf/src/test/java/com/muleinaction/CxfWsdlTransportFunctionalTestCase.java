@@ -8,17 +8,17 @@ import org.mule.tck.FunctionalTestCase;
  */
 public class CxfWsdlTransportFunctionalTestCase extends FunctionalTestCase {
 
-	@Override
-	protected String getConfigResources() {
-		return "conf/cxf-wsdl-config.xml";
-	}
+    @Override
+    protected String getConfigResources() {
+        return "conf/cxf-wsdl-config.xml";
+    }
 
-	public void testCorrectlyInitialized() throws Exception {
-		final Service service = muleContext.getRegistry().lookupService(
-				"cxfWsdlService");
+    public void testCorrectlyInitialized() throws Exception {
+        final Service service = muleContext.getRegistry().lookupService(
+                "cxfWsdlService");
 
-		assertNotNull(service);
-		assertEquals("cxfWsdlModel", service.getModel().getName());
-	}
+        assertNotNull(service);
+        assertEquals("cxfWsdlModel", service.getModel().getName());
+    }
 
 }
