@@ -37,7 +37,8 @@ public class ForwardingConsumerFunctionalTestCase extends FunctionalTestCase {
         MuleClient muleClient = new MuleClient(muleContext);
         muleClient.sendAsync("jms://messages.in", "STATUS: CRITICAL", null);
         MuleMessage response = muleClient.request("jms://messages.out", 2000);
-        assertNull(response);
+        assertNotNull(response);
+        assertEquals(response.getPayloadAsString(),"STATUS: OK");
     }
 
 }

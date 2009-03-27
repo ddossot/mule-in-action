@@ -32,6 +32,9 @@
                 <forwarding-router>
                     <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/>
                 </forwarding-router>
+                <selective-consumer-router>
+                    <regex-filter pattern="^STATUS: (CRITICAL)$"/>
+                </selective-consumer-router>
             </inbound>
             <component>
                 <spring-object bean="messageEnricher"/>
