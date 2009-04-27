@@ -1,8 +1,10 @@
 package com.clood;
 
+import java.util.List;
+
 public class OrderServiceImpl {
 
-    public String getOrderStatus(String order) {
+    public String getOrderStatus(List order) {
         return "SUBMITTED";
     }
 
