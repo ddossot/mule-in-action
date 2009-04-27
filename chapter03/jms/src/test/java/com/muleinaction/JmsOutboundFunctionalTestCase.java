@@ -33,7 +33,9 @@ public class JmsOutboundFunctionalTestCase extends FunctionalTestCase {
         assertEquals("jmsOutboundModel", service.getModel().getName());
     }
 
-    // ToDo Fix this test...it fails when run under Maven
+    /* ToDo Fix this test...it fails when run under Maven under some platforms.  Seems to
+      happen when using topics or JMS 1.0.2b with the ActiveMQ embedded broker.    
+     */
     public void testMessageSent() throws Exception {
         /*
         MuleClient client = new MuleClient(muleContext);
