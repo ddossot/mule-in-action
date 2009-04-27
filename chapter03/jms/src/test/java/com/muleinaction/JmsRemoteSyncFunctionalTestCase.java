@@ -32,12 +32,11 @@ public class JmsRemoteSyncFunctionalTestCase extends FunctionalTestCase {
     }
 
     public void testMessageSent() throws Exception {
-        // ToDo Fix this...
-        /*
+
         MuleClient client = new MuleClient(muleContext);
         MuleMessage response = client.send("http://localhost:9765/orders?id=1",null,null);
         assertNotNull(response);
-        assertEquals("test",response.getPayloadAsString()); */
+        assertEquals("SUBMITTED",response.getPayloadAsString()); 
     }
 
 }
