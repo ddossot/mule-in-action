@@ -29,8 +29,13 @@ public final class BrokerNotReadyInterceptor implements MuleContextAware,
     }
 
     public void onNotification(final ServerNotification notification) {
-        if (notification.getAction() == MuleContextNotification.CONTEXT_STARTED) {
+		final int action = notification.getAction();
+		
+        if (action == MuleContextNotification.CONTEXT_STARTED) {
             brokerReady = true;
+        }
+        else if (action == MuleContextNotification.CONTEXT_STOPPED) {
+            brokerReady = false;
         }
     }
 
