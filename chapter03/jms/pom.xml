@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.muleinaction</groupId>
         <artifactId>chapter03</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>jms-transport</artifactId>
