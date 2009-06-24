@@ -4,13 +4,13 @@
     <groupId>com.muleinaction</groupId>
     <artifactId>mia-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <name>Mule in Action</name>
     
     <scm>
-    	<connection>scm:svn:http://muleinaction.googlecode.com/svn/tags/FirstEdition</connection>
-	<developerConnection>scm:svn:https://muleinaction.googlecode.com/svn/tags/FirstEdition</developerConnection>
-	<url>http://code.google.com/p/muleinaction/source/browse/tags/FirstEdition</url>
+    	<connection>scm:svn:http://muleinaction.googlecode.com/svn/trunk</connection>
+	<developerConnection>scm:svn:https://muleinaction.googlecode.com/svn/trunk</developerConnection>
+	<url>http://code.google.com/p/muleinaction/source/browse/</url>
     </scm>
 
     <properties>
