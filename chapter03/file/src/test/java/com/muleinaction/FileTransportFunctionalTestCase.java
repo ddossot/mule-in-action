@@ -28,6 +28,13 @@ public class FileTransportFunctionalTestCase extends FunctionalTestCase {
 
     protected void doSetUp() throws Exception {
         super.doSetUp();
+
+        FileUtils.deleteDirectory(new File(SOURCE_DIRECTORY));
+        FileUtils.deleteDirectory(new File(DEST_DIRECTORY));
+
+        new File(SOURCE_DIRECTORY).mkdirs();
+        new File(DEST_DIRECTORY).mkdirs();
+
         FileUtils.cleanDirectory(new File(SOURCE_DIRECTORY));
         FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
         muleContext.registerListener(new EndpointMessageNotificationListener() {
