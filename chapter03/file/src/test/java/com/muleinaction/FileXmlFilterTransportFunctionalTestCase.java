@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.util.UUID;
+import java.util.Iterator;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -28,13 +29,16 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
 
     protected void doSetUp() throws Exception {
         super.doSetUp();
-        
-        FileUtils.deleteDirectory(new File(SOURCE_DIRECTORY));
-        FileUtils.deleteDirectory(new File(DEST_DIRECTORY));
 
-        new File(SOURCE_DIRECTORY).mkdirs();
-        new File(DEST_DIRECTORY).mkdirs();
+        for (Object o : FileUtils.listFiles(new File(SOURCE_DIRECTORY), new String[]{"xml"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
 
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"bak"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
         muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("fileService".equals(notification.getResourceIdentifier())) {

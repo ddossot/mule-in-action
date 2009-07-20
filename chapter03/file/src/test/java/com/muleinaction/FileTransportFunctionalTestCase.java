@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.UUID;
+import java.util.Iterator;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -29,14 +30,16 @@ public class FileTransportFunctionalTestCase extends FunctionalTestCase {
     protected void doSetUp() throws Exception {
         super.doSetUp();
 
-        FileUtils.deleteDirectory(new File(SOURCE_DIRECTORY));
-        FileUtils.deleteDirectory(new File(DEST_DIRECTORY));
+        for (Object o : FileUtils.listFiles(new File(SOURCE_DIRECTORY), new String[]{"xml"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
 
-        new File(SOURCE_DIRECTORY).mkdirs();
-        new File(DEST_DIRECTORY).mkdirs();
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"xml"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
 
-        FileUtils.cleanDirectory(new File(SOURCE_DIRECTORY));
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
         muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("fileService".equals(notification.getResourceIdentifier())) {
@@ -51,7 +54,7 @@ public class FileTransportFunctionalTestCase extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
-        return "conf/file-xml-filter-config.xml";
+        return "conf/file-config.xml";
     }
 
     public void testCorrectlyInitialized() throws Exception {
