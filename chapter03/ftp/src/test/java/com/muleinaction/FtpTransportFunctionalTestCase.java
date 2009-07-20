@@ -37,8 +37,13 @@ public class FtpTransportFunctionalTestCase extends FunctionalTestCase {
 
     protected void doSetUp() throws Exception {
         super.doSetUp();
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
-         muleContext.registerListener(new EndpointMessageNotificationListener() {
+
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"dat"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
+
+        muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("ftpService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
@@ -63,7 +68,7 @@ public class FtpTransportFunctionalTestCase extends FunctionalTestCase {
                 "ftpService");
         assertNotNull(service);
         assertEquals("ftpModel", service.getModel().getName());
-        assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));        
+        assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
         assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.*"), null).size());
     }
 
