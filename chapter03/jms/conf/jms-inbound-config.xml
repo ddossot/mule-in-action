@@ -41,7 +41,7 @@
             <outbound>
                 <pass-through-router>
                     <file:outbound-endpoint path="./data/reports"
-                                            outputPattern="BACKUP-REPORT-#[function:dateStamp]"/>
+                                            outputPattern="BACKUP-REPORT-#[function:dateStamp].txt"/>
                 </pass-through-router>
             </outbound>
         </service>

@@ -20,11 +20,16 @@ public class JmsInboundFunctionalTestCase extends FunctionalTestCase {
 
     private static String DEST_DIRECTORY = "./data/reports";
 
-     private CountDownLatch latch = new CountDownLatch(1);
+    private CountDownLatch latch = new CountDownLatch(1);
 
     protected void doSetUp() throws Exception {
         super.doSetUp();
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
+
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"txt"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
+
         muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("jmsInboundService".equals(notification.getResourceIdentifier())) {
@@ -51,10 +56,10 @@ public class JmsInboundFunctionalTestCase extends FunctionalTestCase {
 
     public void testBackupReportReceived() throws Exception {
         MuleClient client = new MuleClient(muleContext);
-        assertEquals(0, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.*"), null).size());
-        client.dispatch("jms://topic:backup-reports","test",null);
+        assertEquals(0, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.txt"), null).size());
+        client.dispatch("jms://topic:backup-reports", "test", null);
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
-        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.*"), null).size());
+        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.txt"), null).size());
     }
 
 }
