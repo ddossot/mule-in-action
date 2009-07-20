@@ -23,7 +23,6 @@ public class HttpPollingFunctionalTestCase extends FunctionalTestCase {
 
     protected void doSetUp() throws Exception {
         super.doSetUp();
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
 
         for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"html"}, false)) {
             File file = (File) o;
