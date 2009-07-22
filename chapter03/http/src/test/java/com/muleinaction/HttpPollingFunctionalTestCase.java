@@ -21,10 +21,16 @@ public class HttpPollingFunctionalTestCase extends FunctionalTestCase {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
+    
     protected void doSetUp() throws Exception {
         super.doSetUp();
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
-         muleContext.registerListener(new EndpointMessageNotificationListener() {
+
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"html"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
+
+        muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("httpPollingService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;

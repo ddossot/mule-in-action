@@ -29,7 +29,8 @@
     
     <modules>
         <module>security-manager</module>
-        <module>security-filter</module>
+        <!--
+        <module>security-filter</module> -->
     </modules>
     
     <build>

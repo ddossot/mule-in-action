@@ -27,7 +27,12 @@ public class ImapTransportFunctionalTestCase extends AbstractEmailFunctionalTest
     protected void doSetUp() throws Exception {
         latch = new CountDownLatch(1);
         super.doSetUp();
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
+
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"txt"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
+        
         muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("imapService".equals(notification.getResourceIdentifier())) {

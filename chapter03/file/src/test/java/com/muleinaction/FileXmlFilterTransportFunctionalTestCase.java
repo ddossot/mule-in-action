@@ -28,8 +28,16 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
 
     protected void doSetUp() throws Exception {
         super.doSetUp();
-        FileUtils.cleanDirectory(new File(SOURCE_DIRECTORY));
-        FileUtils.cleanDirectory(new File(DEST_DIRECTORY));
+
+        for (Object o : FileUtils.listFiles(new File(SOURCE_DIRECTORY), new String[]{"xml"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
+
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"bak"}, false)) {
+            File file = (File) o;
+            file.delete();
+        }
         muleContext.registerListener(new EndpointMessageNotificationListener() {
             public void onNotification(final ServerNotification notification) {
                 if ("fileService".equals(notification.getResourceIdentifier())) {
@@ -60,7 +68,7 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
         out.write("data");
         out.close();
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
-        assertEquals(1,FileUtils.listFiles(new File(DEST_DIRECTORY),new WildcardFileFilter("*.xml"), null).size());
+        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).size());
     }
 
 }
