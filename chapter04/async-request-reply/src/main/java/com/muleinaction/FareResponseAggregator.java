@@ -16,7 +16,6 @@ public class FareResponseAggregator extends ResponseCorrelationAggregator
 
             public MuleMessage aggregateEvents(EventGroup events) throws AggregationException
             {
-                System.out.println("\n\n\n************************   EVENT SIZE: " +  events.size() + "******************* \n\n\n\n");
                 
                 try
                 {
