@@ -19,7 +19,7 @@ fi
 
 # This extends the classpath to include the configuration directory
 # Any changes to the files in ./conf will take precedence over those deployed to $MULE_HOME/lib/user
-MULE_LIB=./conf:./target/async-request-reply-1.0-SNAPSHOT.jar:../common-ch04/target/common-ch04-1.0-SNAPSHOT.jar
+MULE_LIB=./conf:./target/async-request-reply-1.1-SNAPSHOT.jar:../common-ch04/target/common-ch04-1.1-SNAPSHOT.jar
 export MULE_LIB
 
 exec "$MULE_BASE/bin/mule" -config async-request-reply-config.xml
