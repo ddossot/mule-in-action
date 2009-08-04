@@ -13,6 +13,7 @@
     <name>Mule in Action - Chapter 4 - Common</name>
 
   <build>
+    <finalName>${artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
