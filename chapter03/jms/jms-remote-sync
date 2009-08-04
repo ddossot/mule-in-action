@@ -19,7 +19,7 @@ fi
 
 # This extends the classpath to include the configuration directory
 # Any changes to the files in ./conf will take precedence over those deployed to $MULE_HOME/lib/user
-MULE_LIB=./conf:./target/jms-transport-1.0-SNAPSHOT.jar
+MULE_LIB=./conf:./target/jms-transport.jar
 export MULE_LIB
 
 exec "$MULE_BASE/bin/mule" -config jms-remote-sync-config.xml
