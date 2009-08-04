@@ -34,7 +34,9 @@
         <service name="asyncRequestReplyService">
             <inbound>
                 <vm:inbound-endpoint address="vm://farmRequests" synchronous="true">
-
+                    <message-properties-transformer>
+                        <add-message-property key="MULE_CORRELATION_GROUP_SIZE" value="3"/>
+                    </message-properties-transformer>
                 </vm:inbound-endpoint>
             </inbound>
             <outbound>
@@ -101,12 +103,7 @@
             </inbound>
             <outbound>
                 <chaining-router>
-                    <vm:outbound-endpoint path="farmRequests">
-                        <!--
-                        <message-properties-transformer>
-                            <add-message-property key="MULE_CORRELATION_GROUP_SIZE" value="3"/>
-                        </message-properties-transformer> -->
-                    </vm:outbound-endpoint>
+                    <vm:outbound-endpoint path="farmRequests"/>
                     <stdio:outbound-endpoint system="OUT"/>
                 </chaining-router>
             </outbound>
