@@ -1,31 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    
     <parent>
         <groupId>com.muleinaction</groupId>
         <artifactId>chapter12</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    
     <groupId>com.clood</groupId>
     <artifactId>message-enricher</artifactId>
     <packaging>jar</packaging>
     <name>Mule in Action - Chapter 12 - Message Enricher</name>
-
+    
     <dependencies>
-                            <dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-core</artifactId>
         </dependency>
         <dependency>
-                <groupId>org.mule.transports</groupId>
-                <artifactId>mule-transport-jms</artifactId>
-            </dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-jms</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.muleinaction</groupId>
             <artifactId>velocity-transformer</artifactId>
             <version>${version}</version>
         </dependency>
-   </dependencies>
+    </dependencies>
+    
+    <build>
+        <finalName>${artifactId}</finalName>       
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

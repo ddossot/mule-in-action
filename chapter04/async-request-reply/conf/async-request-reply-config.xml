@@ -33,7 +33,11 @@
         from remote VM farms and accept then return the lowest -->
         <service name="asyncRequestReplyService">
             <inbound>
-                <vm:inbound-endpoint address="vm://farmRequests" synchronous="true"/>
+                <vm:inbound-endpoint address="vm://farmRequests" synchronous="true">
+                    <message-properties-transformer>
+                        <add-message-property key="MULE_CORRELATION_GROUP_SIZE" value="3"/>
+                    </message-properties-transformer>
+                </vm:inbound-endpoint>
             </inbound>
             <outbound>
                 <multicasting-router>
@@ -46,7 +50,7 @@
                 </multicasting-router>
             </outbound>
 
-            <async-reply >
+            <async-reply>
                 <vm:inbound-endpoint address="vm://farmResponses"/>
                 <custom-async-reply-router class="com.muleinaction.FarmResponseAggregator"/>
             </async-reply>
