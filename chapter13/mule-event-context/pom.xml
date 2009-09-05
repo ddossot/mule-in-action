@@ -5,7 +5,7 @@
     <parent>
         <artifactId>chapter13</artifactId>
         <groupId>com.muleinaction</groupId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
 
   <artifactId>mule-event-context</artifactId>
