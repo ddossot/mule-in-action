@@ -41,6 +41,13 @@
 
     <jbossts:transaction-manager/>
 
+    <spring:bean name="contextStartingListener" class="com.clood.billing.ContextStartingListener"/>
+
+    <notifications>
+        <notification event="CONTEXT"/>
+        <notification-listener ref="contextStartingListener"/>
+    </notifications>
+
     <model name="BillingModel">
         <service name="BillingService">
             <inbound>
@@ -62,7 +69,7 @@
                     </jdbc:outbound-endpoint>
                 </multicasting-router>
             </outbound>
-          
+
         </service>
     </model>
 
