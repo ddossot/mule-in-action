@@ -40,7 +40,7 @@ public class JdbcTransportOutboundFunctionalTestCase extends AbstractEmailFuncti
             public void onNotification(final ServerNotification notification) {
                 if ("jdbcOutboundService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.jdbc.alertInsert")) {
+                    if (messageNotification.getEndpoint().contains("alertInsert")) {
                         latch.countDown();
                     }
                 }

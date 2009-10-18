@@ -69,7 +69,7 @@ public class ExpressionEvaluatorsTestCase extends FunctionalTestCase {
         final String payload = "fooPayload";
 
         final MuleMessage message =
-                new DefaultMuleMessage(payload, Collections.EMPTY_MAP);
+                new DefaultMuleMessage(payload, Collections.EMPTY_MAP, muleContext);
 
         message.setCorrelationId(id);
 
@@ -103,7 +103,7 @@ public class ExpressionEvaluatorsTestCase extends FunctionalTestCase {
         final String payload = "fooPayload";
 
         final MuleMessage message =
-                new DefaultMuleMessage(payload, Collections.EMPTY_MAP);
+                new DefaultMuleMessage(payload, Collections.EMPTY_MAP, muleContext);
 
         message.setCorrelationId(id);
 

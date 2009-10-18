@@ -40,7 +40,7 @@ public class ImapJdbcTransportFunctionalTestCase extends AbstractEmailFunctional
             public void onNotification(final ServerNotification notification) {
                 if ("imapJdbcService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.jdbc.statsInsert")) {
+                    if (messageNotification.getEndpoint().contains("statsInsert")) {
                         latch.countDown();
                     }
                 }

@@ -15,6 +15,7 @@ public class MarkingVelocityMessageTransformerTest extends
         velocityEngineFactory.setResourceLoaderPath("classpath:templates");
 
         final MarkingVelocityMessageTransformer velocityTransformer = new MarkingVelocityMessageTransformer();
+        velocityTransformer.setMuleContext(muleContext);
 
         velocityTransformer.setVelocityEngine(velocityEngineFactory
                 .createVelocityEngine());

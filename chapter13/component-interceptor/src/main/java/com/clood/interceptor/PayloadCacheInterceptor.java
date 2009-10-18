@@ -30,7 +30,7 @@ public final class PayloadCacheInterceptor implements Interceptor {
 
         if (cachedElement != null) {
             return new DefaultMuleMessage(cachedElement.getObjectValue(),
-                    currentMessage);
+                    currentMessage, currentMessage.getMuleContext());
         }
 
         // we don't synchronize so several threads can compete to fill the cache

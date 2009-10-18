@@ -30,7 +30,7 @@ public class SmtpTransportFunctionalTestCase extends AbstractEmailFunctionalTest
             public void onNotification(final ServerNotification notification) {
                 if ("smtpService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.smtp.localhost.65437")) {
+                    if (messageNotification.getEndpoint().contains("localhost")) {
                         latch.countDown();
                     }
                 }

@@ -27,8 +27,7 @@ public class VelocityMessageTransformerTest extends AbstractTransformerTestCase 
 
     @Override
     protected MuleContext createMuleContext() throws Exception {
-        System.setProperty(MuleConfiguration.SYSTEM_PROPERTY_PREFIX
-                + "transform.autoWrap", "false");
+        System.setProperty("mule.transform.autoWrap", "false");
 
         return super.createMuleContext();
     }
@@ -38,7 +37,7 @@ public class VelocityMessageTransformerTest extends AbstractTransformerTestCase 
         super.doSetUp();
 
         RequestContext.setEvent(new DefaultMuleEvent(new DefaultMuleMessage(
-                TEST_DATA, TEST_PROPERTIES), getTestOutboundEndpoint("test"),
+                TEST_DATA, TEST_PROPERTIES, muleContext), getTestOutboundEndpoint("test"),
                 MuleTestUtils.getTestSession(muleContext), true));
     }
 
@@ -63,6 +62,7 @@ public class VelocityMessageTransformerTest extends AbstractTransformerTestCase 
         velocityEngineFactory.setResourceLoaderPath("classpath:templates");
 
         final VelocityMessageTransformer velocityTransformer = new VelocityMessageTransformer();
+        velocityTransformer.setMuleContext(muleContext);
 
         velocityTransformer.setVelocityEngine(velocityEngineFactory
                 .createVelocityEngine());

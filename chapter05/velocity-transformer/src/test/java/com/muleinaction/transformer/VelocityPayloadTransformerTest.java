@@ -40,6 +40,7 @@ public class VelocityPayloadTransformerTest extends AbstractTransformerTestCase 
 
         final VelocityPayloadTransformer velocityTransformer =
                 new VelocityPayloadTransformer();
+        velocityTransformer.setMuleContext(muleContext);
         velocityTransformer.setVelocityEngine(velocityEngineFactory.createVelocityEngine());
         velocityTransformer.setTemplateName("test-payload.vm");
         velocityTransformer.initialise();

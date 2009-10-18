@@ -44,7 +44,7 @@ public class FileTransportFunctionalTestCase extends FunctionalTestCase {
             public void onNotification(final ServerNotification notification) {
                 if ("fileService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.file.data.archive")) {
+                    if (messageNotification.getEndpoint().contains("archive")) {
                         latch.countDown();
                     }
                 }

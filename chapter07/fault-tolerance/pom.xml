@@ -5,7 +5,7 @@
     <parent>
         <artifactId>chapter07</artifactId>
         <groupId>com.muleinaction</groupId>
-        <version>1.2-SNAPSHOT</version>
+        <version>2.0-SNAPSHOT</version>
     </parent>
 
         <dependencies>

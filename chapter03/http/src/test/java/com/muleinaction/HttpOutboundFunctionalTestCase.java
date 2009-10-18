@@ -41,7 +41,7 @@ public class HttpOutboundFunctionalTestCase extends FunctionalTestCase {
             public void onNotification(final ServerNotification notification) {
                 if ("httpInboundService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.file.data.reports")) {
+                    if (messageNotification.getEndpoint().contains("reports")) {
                         latch.countDown();
                     }
                 }

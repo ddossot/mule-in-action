@@ -80,7 +80,7 @@ public class ProspectingMessage {
         final String payload = "foo";
 
         final MuleMessage message = new DefaultMuleMessage(payload,
-                (Map<?, ?>) null);
+                (Map<?, ?>) null, muleContext);
 
         assertTrue(Arrays.equals(payload.getBytes(message.getEncoding()),
                 message.getPayloadAsBytes()));
@@ -97,7 +97,7 @@ public class ProspectingMessage {
         final BigInteger payload = BigInteger.valueOf(123L);
 
         final MuleMessage message = new DefaultMuleMessage(payload,
-                (Map<?, ?>) null);
+                (Map<?, ?>) null, muleContext);
 
         assertEquals(0, BITBT.usageCount);
 
@@ -137,7 +137,7 @@ public class ProspectingMessage {
                     public Object getPayload() {
                         return payload;
                     }
-                }, (Map<?, ?>) null);
+                }, (Map<?, ?>) null, muleContext);
 
         assertEquals(0, BITBT.usageCount);
 

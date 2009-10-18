@@ -47,6 +47,6 @@ public class FarmSelectionService {
             else if (currentFarmStatus.getVmCount() < bestFarmStatus.getVmCount())
                 bestFarmStatus = currentFarmStatus;
         }
-        return new DefaultMuleMessage(bestFarmStatus, event.getMessage());
+        return new DefaultMuleMessage(bestFarmStatus, event.getMessage(), event.getMuleContext());
     }
 }

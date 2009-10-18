@@ -33,7 +33,7 @@ public class HttpPollingFunctionalTestCase extends FunctionalTestCase {
             public void onNotification(final ServerNotification notification) {
                 if ("httpPollingService".equals(notification.getResourceIdentifier())) {
                     final EndpointMessageNotification messageNotification = (EndpointMessageNotification) notification;
-                    if (messageNotification.getEndpoint().getName().equals("endpoint.file.data.polling")) {
+                    if (messageNotification.getEndpoint().contains("polling")) {
                         latch.countDown();
                     }
                 }
