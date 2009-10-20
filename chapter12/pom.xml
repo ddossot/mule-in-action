@@ -13,7 +13,7 @@
     <name>Mule in Action - Chapter 12</name>
 
     <modules>
-        <!-- <module>message-enricher</module>  -->
-        <!-- <module>test-component</module> -->
+        <module>message-enricher</module>
+        <module>test-component</module>
     </modules>
 </project>
