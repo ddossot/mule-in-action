@@ -28,7 +28,7 @@ public class LifecycleTrackerComponentFunctionalTestCase {
     public void trackSpringBeanServiceLifecycle() throws Exception {
         trackComponentLifecycle(
                 "SpringBeanService",
-                "[setProperty, setMuleContext, springInitialize, setService, setMuleContext, start, stop, springDestroy]");
+                "[setProperty, setMuleContext, springInitialize, setService, start, stop, springDestroy]");
     }
 
     @Test

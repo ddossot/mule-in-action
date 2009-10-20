@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mule.DefaultMuleMessage;
+import org.mule.api.MuleContext;
 import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.module.client.MuleClient;
@@ -51,11 +52,15 @@ public class ProspectingMessage {
 
     private static BigIntegerToBytesTransformer BITBT = new BigIntegerToBytesTransformer();
 
+    private static MuleContext getMuleContext() {
+        return client.getMuleContext();
+    }
+    
     @BeforeClass
     public static void bootstrapMule() throws Exception {
         client = new MuleClient(true);
 
-        client.getMuleContext().getRegistry().registerTransformer(BITBT);
+        getMuleContext().getRegistry().registerTransformer(BITBT);
     }
 
     @Before
@@ -71,7 +76,7 @@ public class ProspectingMessage {
     @Test
     public void defaultTransformersExist() {
         // we should have more than our own transformer in the registry
-        assertTrue(client.getMuleContext().getRegistry().getTransformers()
+        assertTrue(getMuleContext().getRegistry().getTransformers()
                 .size() > 1);
     }
 
@@ -80,7 +85,7 @@ public class ProspectingMessage {
         final String payload = "foo";
 
         final MuleMessage message = new DefaultMuleMessage(payload,
-                (Map<?, ?>) null, muleContext);
+                (Map<?, ?>) null, getMuleContext());
 
         assertTrue(Arrays.equals(payload.getBytes(message.getEncoding()),
                 message.getPayloadAsBytes()));
@@ -97,7 +102,7 @@ public class ProspectingMessage {
         final BigInteger payload = BigInteger.valueOf(123L);
 
         final MuleMessage message = new DefaultMuleMessage(payload,
-                (Map<?, ?>) null, muleContext);
+                (Map<?, ?>) null, getMuleContext());
 
         assertEquals(0, BITBT.usageCount);
 
@@ -137,7 +142,7 @@ public class ProspectingMessage {
                     public Object getPayload() {
                         return payload;
                     }
-                }, (Map<?, ?>) null, muleContext);
+                }, (Map<?, ?>) null, getMuleContext());
 
         assertEquals(0, BITBT.usageCount);
 
