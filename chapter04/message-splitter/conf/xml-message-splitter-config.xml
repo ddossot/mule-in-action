@@ -14,7 +14,7 @@
        "
         >
 
-    <vm:connector name="vmConnector" queueEvents="true"/>
+    <vm:connector name="vmConnector" />
 
     <model name="xmlMessageSplitterModel">
         <service name="xmlMessageSplitterService">

@@ -14,7 +14,7 @@
        "
         >
 
-    <vm:connector name="vmConnector" queueEvents="true"/>
+    <vm:connector name="vmConnector" />
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
     <model name="multicastingRouterModel">

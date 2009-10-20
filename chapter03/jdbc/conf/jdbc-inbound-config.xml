@@ -31,7 +31,7 @@
 
     </jdbc:connector>
         
-    <vm:connector name="vmConnector" queueEvents="true"/>
+    <vm:connector name="vmConnector" />
 
     <model name="jdbcInboundModel">
         <service name="jdbcInboundService">

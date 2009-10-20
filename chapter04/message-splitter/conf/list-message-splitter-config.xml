@@ -13,7 +13,7 @@
        http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/3.0/mule-xml.xsd
        "
         >
-    <vm:connector name="vmConnector" queueEvents="true"/>
+    <vm:connector name="vmConnector" />
 
     <model name="listMessageSplitterModel">
         <service name="listMessageSplitterService">

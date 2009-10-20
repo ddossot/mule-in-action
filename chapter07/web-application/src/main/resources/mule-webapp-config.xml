@@ -9,7 +9,7 @@
     <model name="WebApplication">
     <service name="RandomIntegerGenerator">
         <inbound>
-            <servlet:inbound-endpoint address="servlet://rig">
+            <servlet:inbound-endpoint path="/rig">
                 <response-transformers>
                     <object-to-string-transformer />
                 </response-transformers>

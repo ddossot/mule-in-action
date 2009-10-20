@@ -18,7 +18,7 @@
        "
         >
 
-    <vm:connector name="vmConnector" queueEvents="true"/>
+    <vm:connector name="vmConnector" />
 
     <jms:activemq-connector name="jmsConnector" brokerURL="vm://localhost"/>
 
