@@ -60,6 +60,7 @@
             <inbound>
                 <vm:inbound-endpoint path="DodgyServiceResponseAnalyzer.In" />
             </inbound>
+            <!-- TODO correct this dispatch so it drops error messages
             <outbound>
                 <filtering-router>
                     <vm:outbound-endpoint path="ResponseAggregator.In">
@@ -68,12 +69,13 @@
                 </filtering-router>
                 <logging-catch-all-strategy />
             </outbound>
+            -->
         </service>
 
         <service name="ResponseAggregator">
             <inbound>
                 <vm:inbound-endpoint path="ResponseAggregator.In" />
-                <collection-aggregator-router timeout="5000" />
+                <collection-aggregator-router timeout="1000" />
             </inbound>
             <outbound>
                 <pass-through-router>
@@ -95,7 +97,7 @@
 
         <service name="DlqProcessor">
             <inbound>
-                <vm:inbound-endpoint ref="DLQ" />
+                <inbound-endpoint ref="DLQ" />
             </inbound>
             <component>
                 <singleton-object class="org.mule.tck.functional.FunctionalTestComponent" />

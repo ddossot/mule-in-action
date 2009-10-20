@@ -27,16 +27,6 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
         return "fault-tolerance-config.xml";
     }
 
-    public void testCorrectlyInitialized() throws Exception {
-        final Service service =
-                muleContext.getRegistry().lookupService("MessageEntryPoint");
-
-        assertNotNull(service);
-
-        assertEquals("ConversationalFaultTolerance",
-                service.getModel().getName());
-    }
-
     public void testOriginalMessageSavedInDlq() throws Exception {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
 
@@ -57,7 +47,8 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
 
         final FunctionalTestComponent testComponent =
                 (FunctionalTestComponent) defaultComponent.getObjectFactory().getInstance();
-
+                
+        testComponent.setLogMessageDetails(true);
         testComponent.setEventCallback(callback);
 
         final Serializable payload = BigInteger.TEN;
