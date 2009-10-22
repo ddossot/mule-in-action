@@ -41,6 +41,9 @@
         <service name="securityManagerHttpPbeService">
             <inbound>
                 <http:inbound-endpoint address="http://localhost:8081/secure" synchronous="true">
+                    <transformers>
+                        <object-to-byte-array-transformer />
+                    </transformers>
                     <mule-ss:http-security-filter realm="mule"/>
                 </http:inbound-endpoint>
             </inbound>
