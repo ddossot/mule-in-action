@@ -62,6 +62,8 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
                 false, true);
     }
 
+    /* The ReflectionMessageBuilder is gone in Mule 3
+    
     public void testBuilder() throws Exception {
         final long clientId = new Random().nextLong();
 
@@ -76,6 +78,7 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
         assertEquals(ActivityReport.class.getSimpleName(), aec
                 .getActivityReport().toString());
     }
+    */
 
     public void testGuidedEntryPointResolution() throws Exception {
         final long clientId = new Random().nextLong();

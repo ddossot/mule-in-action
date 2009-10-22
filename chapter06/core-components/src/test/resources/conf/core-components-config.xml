@@ -109,6 +109,7 @@
         <!-- <end id="CoCoNull-Log"/> -->
 
         <!-- <start id="CoCoShow-Builder"/> -->
+        <!-- The ReflectionMessageBuilder is gone in Mule 3
         <service name="EmailContextBuilder">
             <inbound>
                 <vm:inbound-endpoint path="EmailContextBuilder.In" />
@@ -125,6 +126,7 @@
                 </multicasting-router>
             </outbound>
         </service>
+        -->
         <!-- <end id="CoCoShow-Builder"/> -->
 
     </model>
