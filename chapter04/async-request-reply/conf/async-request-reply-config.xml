@@ -41,9 +41,9 @@
             </inbound>
             <outbound>
                 <multicasting-router>
-                    <vm:outbound-endpoint path="farm1"/>
-                    <vm:outbound-endpoint path="farm2"/>
-                    <vm:outbound-endpoint path="farm3"/>
+                    <vm:outbound-endpoint path="farm1" synchronous="true"/>
+                    <vm:outbound-endpoint path="farm2" synchronous="true"/>
+                    <vm:outbound-endpoint path="farm3" synchronous="true"/>
 
                     <!-- Replies from each outbound endpoint will be sent to this queue -->
                     <reply-to address="vm://farmResponses"/>
@@ -60,7 +60,7 @@
         <!-- Simulate a VM Farm -->
         <service name="farm1">
             <inbound>
-                <vm:inbound-endpoint path="farm1" synchronous="true"/>
+                <vm:inbound-endpoint path="farm1"/>
             </inbound>
             <component>
                 <method-entry-point-resolver>
@@ -73,7 +73,7 @@
         <!-- Simulate a VM Farm -->
         <service name="farm2">
             <inbound>
-                <vm:inbound-endpoint path="farm2" synchronous="true"/>
+                <vm:inbound-endpoint path="farm2"/>
             </inbound>
             <component>
                 <method-entry-point-resolver>
@@ -86,7 +86,7 @@
         <!-- Simulate a VM Farm -->
         <service name="farm3">
             <inbound>
-                <vm:inbound-endpoint path="farm3" synchronous="true"/>
+                <vm:inbound-endpoint path="farm3"/>
             </inbound>
             <component>
                 <method-entry-point-resolver>

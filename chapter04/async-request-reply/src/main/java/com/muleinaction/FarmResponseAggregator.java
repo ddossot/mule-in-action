@@ -11,7 +11,7 @@ public class FarmResponseAggregator extends ResponseCorrelationAggregator
 {
     protected EventCorrelatorCallback getCorrelatorCallback()
     {
-        return new CollectionCorrelatorCallback()
+        return new CollectionCorrelatorCallback(getMuleContext())
         {
 
             public MuleMessage aggregateEvents(EventGroup events) throws AggregationException
