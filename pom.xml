@@ -80,6 +80,7 @@
 								<include>.mule</include>
 								<include>muleEmbeddedDB</include>
 								<include>out</include>
+                                <include>derby.log</include>
 							</includes>
 						</fileset>
 					</filesets>
