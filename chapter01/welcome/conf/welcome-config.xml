@@ -10,9 +10,12 @@
             http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.0/mule-stdio.xsd
             http://www.mulesoft.org/schema/mule/quartz http://www.mulesoft.org/schema/mule/quartz/3.0/mule-quartz.xsd">
 
-    <spring:bean id="welcomeMessage" class="java.lang.String">
-        <spring:constructor-arg>
-            <spring:value><![CDATA[
+    <model name="welcomeModel">
+        <service name="welcomeService">
+            <inbound>
+                <quartz:inbound-endpoint jobName="welcome" repeatInterval="0" repeatCount="0">
+                    <quartz:event-generator-job>
+                        <quartz:payload><![CDATA[
  _    _      _                            _         ___  ___      _      _ 
 | |  | |    | |                          | |        |  \/  |     | |    | |
 | |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | .  . |_   _| | ___| |
@@ -20,17 +23,8 @@
 \  /\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |  | | |_| | |  __/_|
  \/  \/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  \_|  |_/\__,_|_|\___(_)
 
-            ]]>
-            </spring:value>
-        </spring:constructor-arg>
-    </spring:bean>
-
-    <model name="welcomeModel">
-        <service name="welcomeService">
-            <inbound>
-                <quartz:inbound-endpoint jobName="welcome" repeatInterval="0" repeatCount="0">
-                    <property key="payload" value-ref="welcomeMessage" />
-                    <quartz:event-generator-job />
+            ]]></quartz:payload>
+                    </quartz:event-generator-job>
                 </quartz:inbound-endpoint>
             </inbound>
             <outbound>
