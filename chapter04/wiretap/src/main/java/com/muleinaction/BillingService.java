@@ -15,9 +15,10 @@ import org.mule.module.client.MuleClient;
 public class BillingService implements Callable {
 
     public Object onCall(MuleEventContext muleEventContext) throws Exception {
+        System.out.println("Billing Service");
 
         MuleClient muleClient = new MuleClient(muleEventContext.getMuleContext());
-        muleClient.sendAsync("vm://billing.service.received", "message received", null);
+        muleClient.dispatch("vm://billing.service.received", "message received", null);
         return muleEventContext.getMessage();
     }
 

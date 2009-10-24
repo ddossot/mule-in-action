@@ -11,9 +11,10 @@ import org.mule.module.client.MuleClient;
 public class OrderProcessingService implements Callable {
 
   public Object onCall(MuleEventContext muleEventContext) throws Exception {
+        System.out.println("Order Processing Service");
 
         MuleClient muleClient = new MuleClient(muleEventContext.getMuleContext());
-        muleClient.sendAsync("vm://order.service.received", "message received", null);
+        muleClient.dispatch("vm://order.service.received", "message received", null);
         return muleEventContext.getMessage();
     }
 }
