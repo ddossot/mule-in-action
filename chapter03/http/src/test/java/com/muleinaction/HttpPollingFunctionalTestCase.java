@@ -53,7 +53,16 @@ public class HttpPollingFunctionalTestCase extends FunctionalTestCase {
         assertNotNull(service);
         assertEquals("httpPollingModel", service.getModel().getName());
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
-        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.*"), null).size());
+        
+        File destDir = new File(DEST_DIRECTORY);
+        waitForDirNotEmpty(destDir);
+        assertEquals(1, FileUtils.listFiles(destDir, new WildcardFileFilter("*.*"), null).size());
+    }
+
+    private void waitForDirNotEmpty(File destDir) throws Exception {
+        while(FileUtils.listFiles(destDir, new WildcardFileFilter("*.*"), null).size() == 0) {
+            Thread.sleep(250);
+        }
     }
 
 }

@@ -43,13 +43,13 @@
     <model name="httpInboundModel">
         <service name="httpInboundService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-[DATE].xml"/>
+                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-#[function:datestamp].xml"/>
                 </pass-through-router>
             </outbound>
         </service>

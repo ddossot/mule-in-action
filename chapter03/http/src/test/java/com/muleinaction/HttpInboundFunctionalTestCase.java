@@ -57,13 +57,22 @@ public class HttpInboundFunctionalTestCase extends FunctionalTestCase {
     }
 
     public void testMessageSentAndReceived() throws Exception {
+        File destDir = new File(DEST_DIRECTORY);
+
         MuleClient muleClient = new MuleClient(muleContext);
         MuleMessage response = muleClient.send("http://localhost:9765/backup-reports",
                 REPORT_XML, null);
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
-        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).size());
-        File file = (File) FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).toArray()[0];
+        waitForDirNotEmpty(destDir);
+        assertEquals(1, FileUtils.listFiles(destDir, new WildcardFileFilter("*.xml"), null).size());
+        File file = (File) FileUtils.listFiles(destDir, new WildcardFileFilter("*.xml"), null).toArray()[0];
         assertEquals(REPORT_XML, FileUtils.readFileToString(file));
+    }
+    
+    private void waitForDirNotEmpty(File destDir) throws Exception {
+        while(FileUtils.listFiles(destDir, new WildcardFileFilter("*.xml"), null).size() == 0) {
+            Thread.sleep(250);
+        }
     }
 
     private static String REPORT_XML = "<backup><host>esb01</host></backup>";

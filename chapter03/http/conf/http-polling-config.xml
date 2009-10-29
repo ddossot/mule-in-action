@@ -32,7 +32,7 @@
 
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/polling" outputPattern="www.cnn.com-[DATE].html"/>
+                    <file:outbound-endpoint path="./data/polling" outputPattern="www.cnn.com-#[function:datestamp].html"/>
                 </pass-through-router>
             </outbound>
         </service>
