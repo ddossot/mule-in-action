@@ -56,10 +56,18 @@ public class JmsInboundFunctionalTestCase extends FunctionalTestCase {
 
     public void testBackupReportReceived() throws Exception {
         MuleClient client = new MuleClient(muleContext);
-        assertEquals(0, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.txt"), null).size());
+        File destDir = new File(DEST_DIRECTORY);
+        assertEquals(0, FileUtils.listFiles(destDir, new WildcardFileFilter("*.txt"), null).size());
         client.dispatch("jms://topic:backup-reports", "test", null);
+        waitForDirNotEmpty(destDir);
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
-        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.txt"), null).size());
+        assertEquals(1, FileUtils.listFiles(destDir, new WildcardFileFilter("*.txt"), null).size());
+    }
+    
+    private void waitForDirNotEmpty(File destDir) throws Exception {
+        while(FileUtils.listFiles(destDir, new WildcardFileFilter("*.txt"), null).size() == 0) {
+            Thread.sleep(250);
+        }
     }
 
 }
