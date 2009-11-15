@@ -36,7 +36,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/out" outputPattern="EMAIL-[DATE].txt"/>
+                    <file:outbound-endpoint path="./data/out" outputPattern="EMAIL-#[function:datestamp].txt"/>
                 </pass-through-router>
             </outbound>
         </service>
