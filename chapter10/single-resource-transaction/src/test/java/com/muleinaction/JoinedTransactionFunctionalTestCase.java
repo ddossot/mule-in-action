@@ -25,13 +25,13 @@ public class JoinedTransactionFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://application-response-times", "DATA-1", null);
+        muleClient.dispatch("jms://application-response-times", "DATA-1", null);
         MuleMessage response = muleClient.request("jms://operational-database", 2000);
-        assertNotNull(response);
+        assertNotNull("message received in operational database",response);
         assertEquals("DATA-1",response.getPayloadAsString());
         response = muleClient.request("jms://data-warehouse", 2000);
-        assertNotNull(response);
-         assertEquals("DATA-1",response.getPayloadAsString());
+        assertNotNull("message received in data warehouse",response);
+        assertEquals("DATA-1",response.getPayloadAsString());
     }
 
 }

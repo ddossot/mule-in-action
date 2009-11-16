@@ -13,7 +13,8 @@
        http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.0/mule-vm.xsd"
         >
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"
+        disableTemporaryReplyToDestinations="true" maxRedelivery="10" />
 
     <model name="staticRecipientListModel">
         <service name="staticRecipientListService">
@@ -28,7 +29,7 @@
                     <jms:transaction action="ALWAYS_BEGIN"/>
                 </jms:inbound-endpoint>
             </inbound>
-
+            
             <outbound>
                 <multicasting-router>
                     <jms:outbound-endpoint queue="operational-database">

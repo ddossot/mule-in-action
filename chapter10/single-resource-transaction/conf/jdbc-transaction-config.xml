@@ -26,7 +26,8 @@
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
 
-    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>    
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"
+        disableTemporaryReplyToDestinations="true"/>    
 
     <jdbc:connector name="jdbcConnector" dataSource-ref="dataSource">
         <jdbc:query key="statsInsert"

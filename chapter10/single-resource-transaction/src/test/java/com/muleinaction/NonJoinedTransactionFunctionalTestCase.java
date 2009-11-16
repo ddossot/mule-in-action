@@ -25,7 +25,7 @@ public class NonJoinedTransactionFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://application-response-times", "DATA-1", null);
+        muleClient.dispatch("jms://application-response-times", "DATA-1", null);
 
         MuleMessage response = muleClient.request("jms://operational-database", 2000);
         assertNotNull(response);
