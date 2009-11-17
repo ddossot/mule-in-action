@@ -4,6 +4,7 @@
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
       xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio"
+      xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -14,8 +15,8 @@
         >
 
     <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"
-        disableTemporaryReplyToDestinations="true" maxRedelivery="10" />
-
+        disableTemporaryReplyToDestinations="true" />
+    
     <model name="staticRecipientListModel">
         <service name="staticRecipientListService">
             <inbound>
@@ -38,9 +39,18 @@
                     <jms:outbound-endpoint queue="data-warehouse">
                         <jms:transaction action="ALWAYS_JOIN" timeout="1000"/>
                     </jms:outbound-endpoint>
+                    <reply-to address="vm://LOGGER.IN"/>
                 </multicasting-router>
             </outbound>
         </service>
+        
+        <service name="logger">
+            <inbound>
+                <vm:inbound-endpoint path="LOGGER.IN" synchronous="false"/>
+            </inbound>
+            <log-component/>
+        </service>
+        
     </model>
 
 </mule>
