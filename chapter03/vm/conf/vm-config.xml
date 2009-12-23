@@ -20,23 +20,21 @@
 
     <vm:connector name="vmConnector" />
 
-    <jms:activemq-connector name="jmsConnector" brokerURL="vm://localhost"/>
+    <jms:activemq-connector name="jmsConnector" brokerURL="vm://localhost"
+            disableTemporaryReplyToDestinations="true" />
 
     <model name="vmModel">
         <service name="vmService">
             <inbound>
-                <http:inbound-endpoint address="http://localhost:9756/orders" synchronous="true">
+                <http:inbound-endpoint address="http://localhost:9756/orders">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
-                <jms:inbound-endpoint queue="orders.in">
-                    <transformers>
-                        <jms:jmsmessage-to-object-transformer/>
-                    </transformers>
-                </jms:inbound-endpoint>
+                <jms:inbound-endpoint queue="orders.in" />
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <vm:outbound-endpoint address="vm://order.validation"/>
+                    <vm:outbound-endpoint address="vm://order.validation"
+                                          synchronous="false" />
                 </pass-through-router>
             </outbound>
         </service>
