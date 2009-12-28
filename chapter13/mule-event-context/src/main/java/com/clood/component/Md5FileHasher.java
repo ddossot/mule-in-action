@@ -3,6 +3,7 @@ package com.clood.component;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mule.api.MuleEventContext;
 import org.mule.api.MuleMessage;
+import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.lifecycle.Callable;
 import org.mule.transport.file.FileConnector;
 
@@ -27,10 +28,13 @@ public class Md5FileHasher implements Callable {
     public Object onCall(final MuleEventContext eventContext) throws Exception {
 
         final String fileName = eventContext.getMessageAsString();
-
-        final MuleMessage requestedFileMessage = eventContext.requestEvent(
-                "file://" + sourceFolder + "/" + fileName + "?connector="
-                        + fileConnectorName, 0);
+        final String endpointUri = "file://" + sourceFolder + "/"
+            + fileName + "?connector=" + fileConnectorName;
+        
+        final InboundEndpoint endpoint = eventContext.getMuleContext()
+                .getRegistry().lookupEndpointFactory().getInboundEndpoint(endpointUri);
+        
+        final MuleMessage requestedFileMessage = eventContext.requestEvent(endpoint, 0);
 
         eventContext.setStopFurtherProcessing(true);
 
