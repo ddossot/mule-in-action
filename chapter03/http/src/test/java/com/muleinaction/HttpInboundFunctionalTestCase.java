@@ -64,6 +64,7 @@ public class HttpInboundFunctionalTestCase extends FunctionalTestCase {
         assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).size());
         File file = (File) FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.xml"), null).toArray()[0];
         assertEquals(REPORT_XML, FileUtils.readFileToString(file));
+        assertTrue(file.getName().matches("backup-report-\\d{2}-\\d{2}-\\d{2}_\\d{2}-\\d{2}-\\d{2}.\\d{3}.xml"));
     }
 
     private static String REPORT_XML = "<backup><host>esb01</host></backup>";
