@@ -29,10 +29,10 @@
             <outbound>
                 <pass-through-router>
                     <jms:outbound-endpoint queue="out">
-                        <transformers>
+                        
                             <transformer ref="velocityPayloadTransformer"/>
                             <jms:object-to-jmsmessage-transformer/>
-                        </transformers>
+                        
                     </jms:outbound-endpoint>
                 </pass-through-router>
             </outbound>

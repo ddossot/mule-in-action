@@ -10,9 +10,9 @@
     <service name="RandomIntegerGenerator">
         <inbound>
             <servlet:inbound-endpoint path="/rig">
-                <response-transformers>
+                <response>
                     <object-to-string-transformer />
-                </response-transformers>
+                </response>
             </servlet:inbound-endpoint>
         </inbound>
         <component>

@@ -25,9 +25,9 @@
         <service name="TickerLookupService">
             <inbound>
                 <inbound-endpoint ref="TickerLookupChannel">
-                    <response-transformers>
+                    <response>
                         <byte-array-to-string-transformer />
-                    </response-transformers>
+                    </response>
                 </inbound-endpoint>
             </inbound>
             <outbound>

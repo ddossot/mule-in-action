@@ -1,1 +1,1 @@
-***[payloadFoo=${payload.payloadFoo}+propFoo=${message.getProperty('propFoo')}]***
+***[payloadFoo=${payload.payloadFoo}+propFoo=${message.findPropertyInAnyScope('propFoo', '')}]***

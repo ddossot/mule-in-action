@@ -46,11 +46,11 @@
         <service name="publicationService">
             <inbound>
                 <http:inbound-endpoint address="http://${esb.bind.address}:${esb.web.port}/publicationService">
-                    <response-transformers>
+                    <response>
                         <expression-transformer>
                             <return-argument evaluator="string" expression="ACK" />
                         </expression-transformer>
-                    </response-transformers>
+                    </response>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
@@ -79,12 +79,12 @@
             <outbound>
                 <pass-through-router>
                     <jms:outbound-endpoint queue="publicationQueue"    connector-ref="publicationJmsConnector">
-                        <transformers>
+                        
                             <transformer ref="MessagePropertiesSanitizer" />
                             <transformer ref="DocbookToFO" />
                             <transformer ref="ObjectToString" />
                             <transformer ref="ObjectToJmsMessage" />
-                        </transformers>
+                        
                     </jms:outbound-endpoint>
                 </pass-through-router>
             </outbound>

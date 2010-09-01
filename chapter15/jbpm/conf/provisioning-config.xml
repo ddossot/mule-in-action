@@ -139,11 +139,11 @@
             <outbound>
                 <pass-through-router>
                     <bpm:outbound-endpoint address="bpm://AccountProvisioning">
-                        <transformers>
+                        
                             <message-properties-transformer>
                                 <add-message-property key="MULE_BPM_PROCESS_ID" value="#[header:MULE_BPM_PROCESS_ID]"/>
                             </message-properties-transformer>
-                        </transformers>
+                        
                     </bpm:outbound-endpoint>
                 </pass-through-router>
             </outbound>

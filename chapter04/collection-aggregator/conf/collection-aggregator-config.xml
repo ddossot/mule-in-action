@@ -28,9 +28,9 @@
         <service name="collectionAggregatorService">
             <inbound>
                 <jms:inbound-endpoint queue="metrics.responsetimes" exchange-pattern="request-response">
-                    <transformers>
+                    
                         <jms:jmsmessage-to-object-transformer/>
-                    </transformers>
+                    
                 </jms:inbound-endpoint>
                 <collection-aggregator-router timeout="5000"/>
             </inbound>

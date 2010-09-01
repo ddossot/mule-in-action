@@ -1,3 +1,4 @@
+
 package com.muleinaction.transformer;
 
 import java.util.Collections;
@@ -10,36 +11,38 @@ import org.springframework.ui.velocity.VelocityEngineFactory;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class VelocityPayloadTransformerTest extends AbstractTransformerTestCase {
+public class VelocityPayloadTransformerTest extends AbstractTransformerTestCase
+{
 
     static final String RESULT_DATA = "***[payloadFoo=payloadBar\u00EB]***";
 
-    static final Map<String, String> TEST_DATA =
-            Collections.singletonMap("payloadFoo", "payloadBar\u00EB");
+    static final Map<String, String> TEST_DATA = Collections.singletonMap("payloadFoo", "payloadBar\u00EB");
 
     @Override
-    public Object getResultData() {
+    public Object getResultData()
+    {
         return RESULT_DATA;
     }
 
     @Override
-    public Transformer getRoundTripTransformer() throws Exception {
+    public Transformer getRoundTripTransformer() throws Exception
+    {
         return null;
     }
 
     @Override
-    public Object getTestData() {
+    public Object getTestData()
+    {
         return TEST_DATA;
     }
 
     @Override
-    public Transformer getTransformer() throws Exception {
-        final VelocityEngineFactory velocityEngineFactory =
-                new VelocityEngineFactory();
+    public Transformer getTransformer() throws Exception
+    {
+        final VelocityEngineFactory velocityEngineFactory = new VelocityEngineFactory();
         velocityEngineFactory.setResourceLoaderPath("classpath:templates");
 
-        final VelocityPayloadTransformer velocityTransformer =
-                new VelocityPayloadTransformer();
+        final VelocityPayloadTransformer velocityTransformer = new VelocityPayloadTransformer();
         velocityTransformer.setMuleContext(muleContext);
         velocityTransformer.setVelocityEngine(velocityEngineFactory.createVelocityEngine());
         velocityTransformer.setTemplateName("test-payload.vm");

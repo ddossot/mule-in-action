@@ -33,9 +33,9 @@
         <service name="chainingRouterService">
             <inbound>
                 <jms:inbound-endpoint queue="weather.request" exchange-pattern="request-response">
-                    <transformers>
+                    
                         <jms:jmsmessage-to-object-transformer/>
-                    </transformers>
+                    
                 </jms:inbound-endpoint>
             </inbound>
             <outbound>
@@ -69,9 +69,9 @@
             <outbound>
                 <pass-through-router>
                     <stdio:outbound-endpoint system="OUT">
-                        <transformers>
+                        
                             <jms:jmsmessage-to-object-transformer/>
-                        </transformers>
+                        
                     </stdio:outbound-endpoint>
                 </pass-through-router>
             </outbound>

@@ -38,12 +38,12 @@
                 <http:inbound-endpoint
                     address="http://${esb.bind.address}:${esb.web.port}/favicon.ico"
                     exchange-pattern="request-response">
-                    <response-transformers>
+                    <response>
                         <message-properties-transformer>
                             <add-message-property key="Content-Type" value="image/x-icon"/>
                         </message-properties-transformer>
                         <http:message-to-http-response-transformer />
-                    </response-transformers>
+                    </response>
                 </http:inbound-endpoint>
             </inbound>
             <component>

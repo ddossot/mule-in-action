@@ -36,12 +36,12 @@
         <service name="publicationService">
             <inbound>
                 <http:inbound-endpoint host="localhost" port="9756">
-                    <transformers>
+                    
                         <transformer ref="MessagePropertiesSanitizer" />
                         <transformer ref="ObjectToByteArray" />
                         <transformer ref="DocbookToFO" />
                         <transformer ref="ObjectToString" />
-                    </transformers>
+                    
                 </http:inbound-endpoint>
             </inbound>
             <outbound>

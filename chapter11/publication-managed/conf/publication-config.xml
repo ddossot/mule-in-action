@@ -40,12 +40,12 @@
         <service name="publicationService">
             <inbound>
                 <http:inbound-endpoint address="http://${esb.bind.address}:${esb.web.port}/publicationService">
-                    <transformers>
+                    
                         <transformer ref="MessagePropertiesSanitizer" />
                         <transformer ref="ObjectToByteArray" />
                         <transformer ref="DocbookToFO" />
                         <transformer ref="ObjectToString" />
-                    </transformers>
+                    
                 </http:inbound-endpoint>
             </inbound>
             <outbound>

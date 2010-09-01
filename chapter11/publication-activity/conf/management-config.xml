@@ -56,11 +56,11 @@
                 <http:inbound-endpoint
                     address="http://${esb.bind.address}:${esb.web.port}/ping"
                     exchange-pattern="request-response">
-                    <response-transformers>
+                    <response>
                         <expression-transformer>
                             <return-argument evaluator="string" expression="PONG" />
                         </expression-transformer>
-                    </response-transformers>
+                    </response>
                 </http:inbound-endpoint>
             </inbound>
         </service>

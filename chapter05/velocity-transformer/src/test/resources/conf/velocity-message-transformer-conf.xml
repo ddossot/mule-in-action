@@ -21,7 +21,7 @@
     <model name="FunctionalTestModel">
         <service name="FunctionalTestService">
             <inbound>
-                <vm:inbound-endpoint path="testChannel">
+                <vm:inbound-endpoint path="testChannel" exchange-pattern="request-response">
                     <transformer ref="velocityMessageTransformer"/>
                 </vm:inbound-endpoint>
             </inbound>

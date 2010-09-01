@@ -41,18 +41,18 @@
         <service name="securityManagerHttpPbeService">
             <inbound>
                 <http:inbound-endpoint address="http://localhost:8081/secure" exchange-pattern="request-response">
-                    <transformers>
+                    
                         <object-to-byte-array-transformer />
-                    </transformers>
+                    
                     <mule-ss:http-security-filter realm="mule"/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
                     <vm:outbound-endpoint address="vm://encrypted">
-                        <transformers>
+                        
                             <encrypt-transformer strategy-ref="passwordEncryption"/>
-                        </transformers>
+                        
                     </vm:outbound-endpoint>
                 </pass-through-router>
             </outbound>

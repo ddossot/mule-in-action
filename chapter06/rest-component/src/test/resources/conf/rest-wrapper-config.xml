@@ -26,16 +26,16 @@
         <service name="GoogleSearch">
             <inbound>
                 <vm:inbound-endpoint path="GoogleSearch.In">
-                    <transformers>
+                    
                         <message-properties-transformer>
                             <add-message-property key="http.custom.headers" value-ref="RefererHeader" />
                         </message-properties-transformer>
-                    </transformers>
-                    <response-transformers>
+                    
+                    <response>
                         <byte-array-to-string-transformer />
                         <custom-transformer class="com.muleinaction.transformer.JsonToXmlTransformer" />
                         <xm:jxpath-extractor-transformer expression="//titleNoFormatting/text()" singleResult="false" />
-                    </response-transformers>
+                    </response>
                 </vm:inbound-endpoint>
             </inbound>
             <http:rest-service-component httpMethod="GET" serviceUrl="http://ajax.googleapis.com/ajax/services/search/web?v=1.0">

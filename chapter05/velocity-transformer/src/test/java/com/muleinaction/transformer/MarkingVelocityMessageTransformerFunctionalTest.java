@@ -1,3 +1,4 @@
+
 package com.muleinaction.transformer;
 
 import java.util.HashMap;
@@ -9,26 +10,26 @@ import org.mule.tck.FunctionalTestCase;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class MarkingVelocityMessageTransformerFunctionalTest extends
-        FunctionalTestCase {
+public class MarkingVelocityMessageTransformerFunctionalTest extends FunctionalTestCase
+{
 
     @Override
-    protected String getConfigResources() {
+    protected String getConfigResources()
+    {
         return "conf/marking-velocity-message-transformer-conf.xml";
     }
 
-    public void testMessageTransformation() throws Exception {
-        final MuleMessage result = new MuleClient(muleContext).send(
-                "vm://testChannel", VelocityMessageTransformerTest.TEST_DATA,
-                // Why this copy? Because MuleClient expects a
-                // modifiable map!
-                new HashMap<String, String>(
-                        VelocityMessageTransformerTest.TEST_PROPERTIES));
+    public void testMessageTransformation() throws Exception
+    {
+        final MuleMessage result = new MuleClient(muleContext).send("vm://testChannel",
+            VelocityMessageTransformerTest.TEST_DATA,
+            // Why this copy? Because MuleClient expects a
+            // modifiable map!
+            new HashMap<String, Object>(VelocityMessageTransformerTest.TEST_PROPERTIES));
 
-        assertEquals(VelocityMessageTransformerTest.RESULT_DATA, result
-                .getPayload());
+        assertEquals(VelocityMessageTransformerTest.RESULT_DATA, result.getPayload());
 
-        assertFalse(result.getLongProperty("transformationTime", Long.MIN_VALUE) == Long.MIN_VALUE);
+        assertFalse(result.findPropertyInAnyScope("transformationTime", Long.MIN_VALUE) == Long.MIN_VALUE);
     }
 
 }

@@ -31,10 +31,10 @@
             <outbound>
                 <pass-through-router>
                     <jms:outbound-endpoint queue="services.decryption">
-                        <transformers>
+                        
                             <encrypt-transformer strategy-ref="PBE"/>
                             <jms:object-to-jmsmessage-transformer/>                                                                                
-                        </transformers>
+                        
                     </jms:outbound-endpoint>
                 </pass-through-router>
             </outbound>
@@ -43,10 +43,10 @@
         <service name="pbeOutService">
             <inbound>
                 <jms:inbound-endpoint queue="services.decryption">
-                    <transformers>
+                    
                         <jms:jmsmessage-to-object-transformer/>                                                    
                         <decrypt-transformer strategy-ref="PBE"/>
-                    </transformers>
+                    
                 </jms:inbound-endpoint>
             </inbound>
             <outbound>

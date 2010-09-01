@@ -10,9 +10,9 @@
     <service name="RandomIntegerGenerator">
         <inbound>
             <jetty:inbound-endpoint address="http://localhost:9756/rig">
-                <response-transformers>
+                <response>
                     <object-to-string-transformer />
-                </response-transformers>
+                </response>
             </jetty:inbound-endpoint>
         </inbound>
         <component>

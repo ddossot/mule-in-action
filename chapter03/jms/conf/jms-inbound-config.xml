@@ -33,9 +33,9 @@
         <service name="jmsInboundService">
             <inbound>
                 <jms:inbound-endpoint topic="backup-reports" >
-                    <transformers>
+                    
                         <jms:jmsmessage-to-object-transformer/>
-                    </transformers>
+                    
                 </jms:inbound-endpoint>
             </inbound>
             <outbound>
