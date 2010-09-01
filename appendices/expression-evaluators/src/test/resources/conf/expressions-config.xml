@@ -3,7 +3,7 @@
     xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:test="http://www.mulesoft.org/schema/mule/test"
     xmlns:http="http://www.mulesoft.org/schema/mule/http"
     xsi:schemaLocation="
-                                http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
+                http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
                 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.0/mule.xsd
                 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.0/mule-vm.xsd
                 http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/3.0/mule-test.xsd">
@@ -16,18 +16,18 @@
         <!-- <start id="ExprEval-Transformer" /> -->
         <service name="AckingAsyncDispatcher">
             <inbound>
-                <vm:inbound-endpoint path="AckingAsyncDispatcher.IN" synchronous="true">
-                    <response-transformers>
+                <vm:inbound-endpoint path="AckingAsyncDispatcher.IN" exchange-pattern="request-response">
+                    <response>
                         <expression-transformer>
                             <return-argument evaluator="message" expression="correlationId" />
                         </expression-transformer>
-                    </response-transformers>
+                    </response>
                 </vm:inbound-endpoint>
             </inbound>
 
             <outbound>
                 <pass-through-router>
-                    <outbound-endpoint ref="TargetChannel" synchronous="false" />
+                    <outbound-endpoint ref="TargetChannel" exchange-pattern="one-way" />
                 </pass-through-router>
             </outbound>
         </service>
@@ -53,7 +53,7 @@
 
         <service name="ExpressionParser">
             <inbound>
-                <vm:inbound-endpoint path="ExpressionParser.IN" synchronous="true" />
+                <vm:inbound-endpoint path="ExpressionParser.IN" exchange-pattern="request-response" />
             </inbound>
             <!-- <start id="ExprParser-Config" /> -->
             <component>
