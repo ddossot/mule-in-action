@@ -35,7 +35,7 @@ public class FileXmlFilterTransportFunctionalTestCase extends FunctionalTestCase
             file.delete();
         }
 
-        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"bak"}, false)) {
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"bak","xml"}, false)) {
             File file = (File) o;
             file.delete();
         }

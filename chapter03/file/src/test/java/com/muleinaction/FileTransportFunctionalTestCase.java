@@ -35,7 +35,7 @@ public class FileTransportFunctionalTestCase extends FunctionalTestCase {
             file.delete();
         }
 
-        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"xml"}, false)) {
+        for (Object o : FileUtils.listFiles(new File(DEST_DIRECTORY), new String[]{"bak","xml"}, false)) {
             File file = (File) o;
             file.delete();
         }
@@ -70,7 +70,7 @@ public class FileTransportFunctionalTestCase extends FunctionalTestCase {
         out.write("data");
         out.close();
         assertTrue("Message did not reach directory on time", latch.await(15, TimeUnit.SECONDS));
-        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.*"), null).size());
+        assertEquals(1, FileUtils.listFiles(new File(DEST_DIRECTORY), new WildcardFileFilter("*.bak"), null).size());
     }
 
 
