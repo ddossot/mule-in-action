@@ -1,33 +1,34 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.muleinaction</groupId>
-        <artifactId>chapter11</artifactId>
-        <version>3.0-SNAPSHOT</version>
-    </parent>
+  <parent>
+    <groupId>com.muleinaction</groupId>
+    <artifactId>chapter11</artifactId>
+    <version>3.0-SNAPSHOT</version>
+  </parent>
 
-    <artifactId>publication-managed</artifactId>
-    <packaging>jar</packaging>
-    <name>Mule in Action - Chapter 11 - Management Sample</name>
+  <artifactId>publication-managed</artifactId>
+  <packaging>jar</packaging>
+  <name>Mule in Action - Chapter 11 - Management Sample</name>
 
-    <dependencies>
-        <dependency>
-        <groupId>org.mule.modules</groupId>
-        <artifactId>mule-module-management</artifactId>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>org.mule.modules</groupId>
+      <artifactId>mule-module-management</artifactId>
+    </dependency>
 
-        <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-core</artifactId>
-        </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-core</artifactId>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
 
-     <plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
@@ -38,12 +39,12 @@
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <outputDirectory>${MULE_HOME}/lib/user</outputDirectory>
               <overWriteReleases>false</overWriteReleases>
               <overWriteSnapshots>true</overWriteSnapshots>
-              <excludeTransitive>true</excludeTransitive>
-          <includeArtifactIds>activemq-core</includeArtifactIds>
-          <stripVersion>true</stripVersion>
+              <excludeTransitive>false</excludeTransitive>
+              <includeGroupIds>org.apache.activemq</includeGroupIds>
+              <stripVersion>false</stripVersion>
             </configuration>
           </execution>
         </executions>
@@ -54,7 +55,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <additionalClasspathElements>
-                <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
+            <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
           </additionalClasspathElements>
         </configuration>
       </plugin>

@@ -8,7 +8,7 @@ if "%MULE_BASE%" == "" SET MULE_BASE=%MULE_HOME%
 
 REM This extends the classpath to include the configuration directory
 REM Any changes to the files in .\conf will take precedence over those deployed to %MULE_HOME%\lib\user
-SET MULE_LIB=.\conf;.\target\lib\activemq-core.jar;.\target\lib\activity-audit.jar;.\target\lib\html-dashboard.jar
+SET MULE_LIB=.\conf
 
 # It is possible to name the particular instance of Mule that is started
 # This is extremely useful when you have several instances running on the same server
