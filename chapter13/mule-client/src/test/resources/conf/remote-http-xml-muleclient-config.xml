@@ -26,7 +26,7 @@
         <client:xml-wire-format />
     </client:remote-dispatcher-agent>
 
-    <http:endpoint name="RemoteDispatcherChannel" host="localhost" port="8181" synchronous="true" />
+    <http:endpoint name="RemoteDispatcherChannel" host="localhost" port="8181" exchange-pattern="request-response" />
     <!-- <end id="MuleClient-RDA-HTTPXML-Config" /> -->
 
 </mule>

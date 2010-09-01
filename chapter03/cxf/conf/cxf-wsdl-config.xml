@@ -24,7 +24,7 @@
     <model name="cxfWsdlModel">
         <service name="cxfWsdlService">
             <inbound>
-               <stdio:inbound-endpoint system="IN" synchronous="true"/>
+               <stdio:inbound-endpoint system="IN" exchange-pattern="request-response"/>
             </inbound>
             <bridge-component/>
             <outbound>

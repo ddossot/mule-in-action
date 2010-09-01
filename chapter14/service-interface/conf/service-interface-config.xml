@@ -22,21 +22,21 @@
     <model name="javaInterfaceBindingModel">
         <service name="javaInterfaceBindingService">
             <inbound>
-                <vm:inbound-endpoint path="MSC.In" synchronous="true"/>
+                <vm:inbound-endpoint path="MSC.In" exchange-pattern="request-response"/>
             </inbound>
             <scripting:component>
                 <scripting:script engine="js">
                     result = Md5FileHasherService.hash(payload)
                 </scripting:script>
                 <scripting:java-interface-binding interface="com.clood.component.Md5FileHasherService" method="hash">
-                    <vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true"/>
+                    <vm:outbound-endpoint path="Md5FileHasher.In" exchange-pattern="request-response"/>
                 </scripting:java-interface-binding> 
             </scripting:component>
         </service>
 
         <service name="Md5FileHasher">
             <inbound>
-                <vm:inbound-endpoint path="Md5FileHasher.In" synchronous="true" />
+                <vm:inbound-endpoint path="Md5FileHasher.In" exchange-pattern="request-response" />
             </inbound>
             <pooled-component>
                 <prototype-object class="com.clood.component.Md5FileHasher">

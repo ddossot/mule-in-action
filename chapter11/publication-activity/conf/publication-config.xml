@@ -23,7 +23,7 @@
         <spring:import resource="publication-jms-config.xml"/>
     </spring:beans>
 
-    <vm:endpoint name="DocumentChannel" path="document.channel"  synchronous="false" />
+    <vm:endpoint name="DocumentChannel" path="document.channel"  exchange-pattern="one-way" />
 
     <object-to-string-transformer name="ObjectToString" />
 

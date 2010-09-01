@@ -41,7 +41,7 @@
     <model name="securityManagerHttpLdapModel">
         <service name="securityManagerHttpLdapService">
             <inbound>
-                <http:inbound-endpoint address="http://localhost:8081/secure" synchronous="true">
+                <http:inbound-endpoint address="http://localhost:8081/secure" exchange-pattern="request-response">
                     <mule-ss:http-security-filter realm="mule"/> 
                 </http:inbound-endpoint>
             </inbound>

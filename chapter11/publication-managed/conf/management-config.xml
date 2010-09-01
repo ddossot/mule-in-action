@@ -30,7 +30,7 @@
             <inbound>
                 <http:inbound-endpoint
                     address="http://${esb.bind.address}:${esb.web.port}/ping"
-                    synchronous="true">
+                    exchange-pattern="request-response">
                     <response-transformers>
                         <expression-transformer>
                             <return-argument evaluator="string" expression="PONG" />

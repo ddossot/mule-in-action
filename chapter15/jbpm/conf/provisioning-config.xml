@@ -64,7 +64,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <bpm:outbound-endpoint address="bpm://AccountProvisioningProcess" synchronous="false"/>
+                    <bpm:outbound-endpoint address="bpm://AccountProvisioningProcess" exchange-pattern="one-way"/>
                 </pass-through-router>
             </outbound>
         </service>

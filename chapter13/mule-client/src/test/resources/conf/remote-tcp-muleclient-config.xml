@@ -13,11 +13,11 @@
     <!-- <start id="MuleClient-RDA-Config" /> -->
     <client:remote-dispatcher-agent>
         <client:remote-endpoint address="tcp://localhost:5555"
-            synchronous="true" />
+            exchange-pattern="request-response" />
     </client:remote-dispatcher-agent>
     <!-- <end id="MuleClient-RDA-Config" /> -->
 
-    <vm:endpoint name="TickerLookupChannel" path="TickerLookup.In" synchronous="true" />
+    <vm:endpoint name="TickerLookupChannel" path="TickerLookup.In" exchange-pattern="request-response" />
 
     <model name="RemoteTcpMuleClient">
 
@@ -32,7 +32,7 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <http:outbound-endpoint synchronous="true"
+                    <http:outbound-endpoint exchange-pattern="request-response"
                         address="http://www.google.com/finance/historical?q=#[payload:java.lang.String]&amp;histperiod=weekly&amp;output=csv" />
                 </pass-through-router>
             </outbound>

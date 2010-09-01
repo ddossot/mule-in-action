@@ -37,7 +37,7 @@
             <inbound>
                 <http:inbound-endpoint
                     address="http://${esb.bind.address}:${esb.web.port}/favicon.ico"
-                    synchronous="true">
+                    exchange-pattern="request-response">
                     <response-transformers>
                         <message-properties-transformer>
                             <add-message-property key="Content-Type" value="image/x-icon"/>

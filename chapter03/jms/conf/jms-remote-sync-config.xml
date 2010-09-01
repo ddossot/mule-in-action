@@ -24,18 +24,18 @@
     <model name="jmsRemoteSyncModel">
         <service name="jmsRemoteSyncService">
             <inbound>
-                <http:inbound-endpoint address="http://localhost:9765/orders" synchronous="true" method="GET"/>
+                <http:inbound-endpoint address="http://localhost:9765/orders" exchange-pattern="request-response" method="GET"/>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint queue="messages" synchronous="true"/>
+                    <jms:outbound-endpoint queue="messages" exchange-pattern="request-response"/>
                 </pass-through-router>
             </outbound>
         </service>
 
         <service name="Order Service">
             <inbound>
-                <jms:inbound-endpoint queue="messages" synchronous="true"/>
+                <jms:inbound-endpoint queue="messages" exchange-pattern="request-response"/>
             </inbound>
             <component class="com.clood.OrderServiceImpl">
                 <method-entry-point-resolver>

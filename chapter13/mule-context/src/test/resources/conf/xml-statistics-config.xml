@@ -9,7 +9,7 @@
     <model name="MuleContextModel">
         <service name="XmlStatisticsDump">
             <inbound>
-                <vm:inbound-endpoint path="XmlStats.IN" synchronous="true" />
+                <vm:inbound-endpoint path="XmlStats.IN" exchange-pattern="request-response" />
             </inbound>
             <component>
              <singleton-object class="com.clood.component.XmlStatisticsComponent" />
@@ -18,7 +18,7 @@
 
         <service name="Emailer">
             <inbound>
-                <vm:inbound-endpoint path="Dummy.IN" synchronous="true" />
+                <vm:inbound-endpoint path="Dummy.IN" exchange-pattern="request-response" />
             </inbound>
             <null-component />
         </service>

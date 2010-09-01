@@ -27,7 +27,7 @@
     <model name="collectionAggregatorModel">
         <service name="collectionAggregatorService">
             <inbound>
-                <jms:inbound-endpoint queue="metrics.responsetimes" synchronous="true">
+                <jms:inbound-endpoint queue="metrics.responsetimes" exchange-pattern="request-response">
                     <transformers>
                         <jms:jmsmessage-to-object-transformer/>
                     </transformers>

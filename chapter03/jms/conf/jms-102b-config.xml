@@ -23,7 +23,7 @@
     <model name="jms102bModel">
         <service name="jms102bService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" exchange-pattern="request-response">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>

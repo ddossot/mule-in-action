@@ -74,7 +74,7 @@
             <component>
                 <singleton-object class="com.clood.component.Md5FileHasherClient" />
                 <binding interface="com.clood.component.Md5FileHasherService" method="hash">
-                    <vm:outbound-endpoint path="Md5FileHasher.In" synchronous="true" />
+                    <vm:outbound-endpoint path="Md5FileHasher.In" exchange-pattern="request-response" />
                 </binding>
             </component>
         </service>

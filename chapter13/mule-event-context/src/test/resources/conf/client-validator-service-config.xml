@@ -14,7 +14,7 @@
         <service name="ActivityReportService">
             <inbound>
                 <vm:inbound-endpoint path="ActivityReportService.In"
-                    synchronous="true" />
+                    exchange-pattern="request-response" />
             </inbound>
             <component>
                 <!-- <start id="Component-Validator"/>  -->
@@ -26,7 +26,7 @@
             <outbound>
                 <pass-through-router>
                     <vm:outbound-endpoint path="ActivityReportProcessor.In"
-                        synchronous="false" />
+                        exchange-pattern="one-way" />
                 </pass-through-router>
             </outbound>
         </service>

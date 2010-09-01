@@ -26,7 +26,7 @@
     <model name="jmsRetryModel">
         <service name="jmsRetryService">
             <inbound>
-                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" synchronous="true">
+                <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports" exchange-pattern="request-response">
                     <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>

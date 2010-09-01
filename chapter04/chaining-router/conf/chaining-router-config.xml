@@ -32,7 +32,7 @@
     <model name="chainingRouterModel">
         <service name="chainingRouterService">
             <inbound>
-                <jms:inbound-endpoint queue="weather.request" synchronous="true">
+                <jms:inbound-endpoint queue="weather.request" exchange-pattern="request-response">
                     <transformers>
                         <jms:jmsmessage-to-object-transformer/>
                     </transformers>
@@ -42,7 +42,7 @@
                 <chaining-router>
                     <outbound-endpoint
                             address="wsdl-cxf:http://www.webservicex.net/usweather.asmx?WSDL&amp;method=GetWeatherReport"/>
-                    <jms:outbound-endpoint queue="weather.report" synchronous="true"/>
+                    <jms:outbound-endpoint queue="weather.report" exchange-pattern="request-response"/>
                 </chaining-router>
             </outbound>
         </service>

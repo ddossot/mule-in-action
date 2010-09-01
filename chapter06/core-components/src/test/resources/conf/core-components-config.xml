@@ -12,9 +12,9 @@
 
     <spring:bean id="SampleActivityReport" class="com.clood.statistic.ActivityReport" />
 
-    <vm:endpoint name="GenericChannel" path="GenericChannel" synchronous="true" />
-    <vm:endpoint name="ClientLookupChannel" path="ClientLookupService.In" synchronous="true" />
-    <vm:endpoint name="ActivityReportLookupChannel" path="ActivityReportLookupService.In" synchronous="true" />
+    <vm:endpoint name="GenericChannel" path="GenericChannel" exchange-pattern="request-response" />
+    <vm:endpoint name="ClientLookupChannel" path="ClientLookupService.In" exchange-pattern="request-response" />
+    <vm:endpoint name="ActivityReportLookupChannel" path="ActivityReportLookupService.In" exchange-pattern="request-response" />
 
     <append-string-transformer name="Suffixer" message=" world!" />
 
@@ -23,7 +23,7 @@
         <!-- <start id="CoCoShow-ExplicitBridge"/> -->
         <service name="ExplicitBridge">
             <inbound>
-                <vm:inbound-endpoint path="ExplicitBridge.In" synchronous="true">
+                <vm:inbound-endpoint path="ExplicitBridge.In" exchange-pattern="request-response">
                     <transformer ref="Suffixer" />
                 </vm:inbound-endpoint>
             </inbound>
@@ -41,7 +41,7 @@
         <!-- <start id="CoCoShow-ImplicitBridge"/> -->
         <service name="ImplicitBridge">
             <inbound>
-                <vm:inbound-endpoint path="ImplicitBridge.In" synchronous="true">
+                <vm:inbound-endpoint path="ImplicitBridge.In" exchange-pattern="request-response">
                     <transformer ref="Suffixer" />
                 </vm:inbound-endpoint>
             </inbound>
@@ -57,7 +57,7 @@
         <!-- <start id="CoCoShow-Echo"/> -->
         <service name="Echo">
             <inbound>
-                <vm:inbound-endpoint path="Echo.In" synchronous="true">
+                <vm:inbound-endpoint path="Echo.In" exchange-pattern="request-response">
                     <transformer ref="Suffixer" />
                 </vm:inbound-endpoint>
             </inbound>
@@ -75,7 +75,7 @@
         <!-- <start id="CoCoShow-Log"/> -->
         <service name="Log">
             <inbound>
-                <vm:inbound-endpoint path="Log.In" synchronous="true">
+                <vm:inbound-endpoint path="Log.In" exchange-pattern="request-response">
                     <transformer ref="Suffixer" />
                 </vm:inbound-endpoint>
             </inbound>
@@ -93,7 +93,7 @@
         <!-- <start id="CoCoNull-Log"/> -->
         <service name="Null">
             <inbound>
-                <vm:inbound-endpoint path="Null.In" synchronous="true">
+                <vm:inbound-endpoint path="Null.In" exchange-pattern="request-response">
                     <transformer ref="Suffixer" />
                 </vm:inbound-endpoint>
             </inbound>

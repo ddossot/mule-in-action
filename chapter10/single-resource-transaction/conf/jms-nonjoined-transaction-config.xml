@@ -46,7 +46,7 @@
         
         <service name="logger">
             <inbound>
-                <vm:inbound-endpoint path="LOGGER.IN" synchronous="false"/>
+                <vm:inbound-endpoint path="LOGGER.IN" exchange-pattern="one-way"/>
             </inbound>
             <log-component/>
         </service>
