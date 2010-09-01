@@ -1,17 +1,17 @@
-import org.mule.transport.stdio.*
-import org.mule.util.queue.*
+import org.mule.*
 import org.mule.config.*
+import org.mule.construct.builder.*
 import org.mule.api.config.*
-import org.mule.transport.*
-import org.mule.security.*
-import org.mule.util.queue.*
-import org.mule.endpoint.*
 import org.mule.api.model.*
 import org.mule.api.service.*
+import org.mule.endpoint.*
+import org.mule.retry.policies.*
 import org.mule.routing.inbound.*
 import org.mule.routing.outbound.*
-import org.mule.model.seda.*
-import org.mule.retry.policies.*
+import org.mule.transport.*
+import org.mule.transport.stdio.*
+import org.mule.util.queue.*
+import org.mule.security.*
 
 // Register required system objects
 queueManager = new TransactionalQueueManager()
@@ -38,30 +38,20 @@ muleContext.registry.registerObject(MuleProperties.OBJECT_DEFAULT_MESSAGE_REQUES
             new ChainedThreadingProfile(defaultThreadingProfile))
 muleContext.registry.registerObject(MuleProperties.OBJECT_DEFAULT_RETRY_POLICY_TEMPLATE, new NoRetryPolicyTemplate())
 
-epFactory = muleContext.registry.lookupEndpointFactory()
-
 // Register connector
-c = new PromptStdioConnector()
+c = new PromptStdioConnector(muleContext)
 c.name = "SystemStreamConnector"
 c.promptMessage="Please enter something: "
 c.messageDelayTime=1000
 muleContext.registry.registerConnector(c)
 
-// Register model
-model = new SedaModel()
-model.name = "echoSample"
-muleContext.registry.registerModel(model)
-
 // Echo service
-service = new SedaService()
-service.model = model
-service.name = "echoService"
+service = new BridgeBuilder()
+  .name("echoService")
+  .inboundAddress("stdio://IN")
+  .outboundAddress("stdio://OUT")
+  .exchangePattern(MessageExchangePattern.ONE_WAY)
+  .build(muleContext)
 
-service.inboundRouter = new DefaultInboundRouterCollection()
-service.inboundRouter.addEndpoint(epFactory.getInboundEndpoint("stdio://IN"))
+muleContext.registry.registerObject(service.name, service)
 
-outboundRouter = new OutboundPassThroughRouter()
-outboundRouter.addEndpoint(epFactory.getOutboundEndpoint("stdio://OUT"))
-service.outboundRouter.addRouter(outboundRouter)
-
-muleContext.registry.registerService(service)
