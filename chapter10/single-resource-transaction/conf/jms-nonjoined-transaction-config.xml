@@ -39,16 +39,8 @@
                     <jms:outbound-endpoint queue="data-warehouse">
                         <jms:transaction action="ALWAYS_BEGIN" timeout="1000"/>
                     </jms:outbound-endpoint>
-                    <reply-to address="vm://LOGGER.IN"/>
                 </multicasting-router>
             </outbound>
-        </service>
-        
-        <service name="logger">
-            <inbound>
-                <vm:inbound-endpoint path="LOGGER.IN" exchange-pattern="one-way"/>
-            </inbound>
-            <log-component/>
         </service>
     </model>
 

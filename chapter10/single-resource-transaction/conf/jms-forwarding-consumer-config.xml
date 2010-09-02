@@ -19,9 +19,9 @@
                 <jms:inbound-endpoint queue="messages">
                     <jms:transaction action="ALWAYS_BEGIN"/>
                 </jms:inbound-endpoint>
-                <forwarding-router>
+                <selective-consumer-router>
                     <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/>
-                </forwarding-router>
+                </selective-consumer-router>
             </inbound>
             <outbound>
                 <pass-through-router>

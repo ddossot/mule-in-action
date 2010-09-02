@@ -39,20 +39,9 @@
                     <jms:outbound-endpoint queue="data-warehouse">
                         <jms:transaction action="ALWAYS_JOIN" timeout="1000"/>
                     </jms:outbound-endpoint>
-                    <!-- TODO this service should work without a reply-to router 
-                    <reply-to address="vm://LOGGER.IN"/>
-                    -->
                 </multicasting-router>
             </outbound>
         </service>
-        
-        <service name="logger">
-            <inbound>
-                <vm:inbound-endpoint path="LOGGER.IN" exchange-pattern="one-way"/>
-            </inbound>
-            <log-component/>
-        </service>
-        
     </model>
 
 </mule>
