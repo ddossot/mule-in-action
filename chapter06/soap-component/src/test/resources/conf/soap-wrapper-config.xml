@@ -13,7 +13,7 @@
         <!-- <start id="SoapServiceWrapperComponent"/> -->
         <service name="GeoCoderSearch">
             <inbound>
-                <vm:inbound-endpoint path="GeoCoderSearch.In" />
+                <vm:inbound-endpoint path="GeoCoderSearch.In" exchange-pattern="request-response" />
             </inbound>
             <axis:wrapper-component
                 address="http://rpc.geocoder.us/service/soap/?method=geocode"

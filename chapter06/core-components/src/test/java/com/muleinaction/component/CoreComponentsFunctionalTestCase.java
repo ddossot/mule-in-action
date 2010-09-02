@@ -40,9 +40,11 @@ public class CoreComponentsFunctionalTestCase extends FunctionalTestCase {
         target.reset();
     }
 
+    /* The <bridge-component /> is gone in Mule 3
     public void testExplicitBridge() throws Exception {
         doTestComponent("vm://ExplicitBridge.In", "Hello world!", true, false);
     }
+    */
 
     public void testImplicitBridge() throws Exception {
         doTestComponent("vm://ImplicitBridge.In", "Hello world!", true, false);

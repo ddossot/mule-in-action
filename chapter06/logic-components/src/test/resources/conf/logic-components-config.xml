@@ -25,7 +25,7 @@
         <!-- <start id="LoCoShow-RIG"/> -->
         <service name="RandomIntegerGenerator">
             <inbound>
-                <vm:inbound-endpoint path="RIG.In" />
+                <vm:inbound-endpoint path="RIG.In" exchange-pattern="request-response" />
             </inbound>
             <component>
                 <no-arguments-entry-point-resolver>
@@ -39,7 +39,7 @@
         <!-- <start id="LoCoShow-SRIG"/> -->
         <service name="SeededRandomIntegerGenerator">
             <inbound>
-                <vm:inbound-endpoint path="SRIG.In" />
+                <vm:inbound-endpoint path="SRIG.In" exchange-pattern="request-response" />
             </inbound>
             <component>
                 <no-arguments-entry-point-resolver>
@@ -55,7 +55,7 @@
         <!-- <start id="LoCoShow-SSRIG"/> -->
         <service name="SpringSeededRandomIntegerGenerator">
             <inbound>
-                <vm:inbound-endpoint path="SSRIG.In" />
+                <vm:inbound-endpoint path="SSRIG.In" exchange-pattern="request-response" />
             </inbound>
             <component>
                 <no-arguments-entry-point-resolver>
@@ -69,7 +69,7 @@
         <!-- <start id="LoCoShow-MSC"/> -->
         <service name="Md5FileHasherClient">
             <inbound>
-                <vm:inbound-endpoint path="MSC.In" />
+                <vm:inbound-endpoint path="MSC.In" exchange-pattern="request-response" />
             </inbound>
             <component>
                 <singleton-object class="com.clood.component.Md5FileHasherClient" />
@@ -83,7 +83,7 @@
         <!-- <start id="LoCoShow-MD5H-conf"/> -->
         <service name="Md5FileHasher">
             <inbound>
-                <vm:inbound-endpoint path="Md5FileHasher.In" />
+                <vm:inbound-endpoint path="Md5FileHasher.In" exchange-pattern="request-response" />
             </inbound>
             <pooled-component>
                 <prototype-object class="com.clood.component.Md5FileHasher">
@@ -100,7 +100,7 @@
 
         <service name="Md5FileHashers">
             <inbound>
-                <vm:inbound-endpoint path="Md5FileHashers.In" />
+                <vm:inbound-endpoint path="Md5FileHashers.In" exchange-pattern="request-response" />
             </inbound>
             <pooled-component>
                 <prototype-object class="com.clood.component.Md5FileHasher">

@@ -92,7 +92,9 @@
 								<include>.mule</include>
 								<include>muleEmbeddedDB</include>
 								<include>out</include>
-                <include>derby.log</include>
+                                                                <include>derby.log</include>
+                                                                <include>log</include>
+                                                                <include>.bak</include>
 							</includes>
 						</fileset>
 					</filesets>
@@ -427,14 +429,6 @@
 			<url>http://repository.muleforge.org</url>
 			<snapshots>
 				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>mule-deps</id>
-			<name>Mule Dependencies</name>
-			<url>http://dist.codehaus.org/mule/dependencies/maven2</url>
-			<snapshots>
-				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 	</repositories>

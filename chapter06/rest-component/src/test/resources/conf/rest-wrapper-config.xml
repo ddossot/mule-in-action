@@ -25,12 +25,10 @@
         <!-- <start id="RestServiceComponent"/> -->
         <service name="GoogleSearch">
             <inbound>
-                <vm:inbound-endpoint path="GoogleSearch.In">
-                    
-                        <message-properties-transformer>
-                            <add-message-property key="http.custom.headers" value-ref="RefererHeader" />
-                        </message-properties-transformer>
-                    
+                <vm:inbound-endpoint path="GoogleSearch.In" exchange-pattern="request-response">
+                    <message-properties-transformer>
+                        <add-message-property key="http.custom.headers" value-ref="RefererHeader" />
+                    </message-properties-transformer>
                     <response>
                         <byte-array-to-string-transformer />
                         <custom-transformer class="com.muleinaction.transformer.JsonToXmlTransformer" />
