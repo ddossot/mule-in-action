@@ -67,6 +67,18 @@
 					<projectNameTemplate>${parent.artifactId}-[artifactId]</projectNameTemplate>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2</version>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.5</version>
+      </plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -80,7 +92,7 @@
 								<include>.mule</include>
 								<include>muleEmbeddedDB</include>
 								<include>out</include>
-                                <include>derby.log</include>
+                <include>derby.log</include>
 							</includes>
 						</fileset>
 					</filesets>

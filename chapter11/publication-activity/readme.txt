@@ -1,10 +1,13 @@
 Mule Publication Activity Monitoring Demo
 -----------------------------------------
 
+*** Logging to Chainsaw fails because of http://www.mulesoft.org/jira/browse/MULE-4137 ***
+
+
 You must first build this project with: mvn clean install
 
 
-Start Chainsaw with: mvn exec:java
+Start Chainsaw with: mvn -Pcs exec:exec
 
 
 Then, in another console, start the publication application with the script that is relevant for your OS.

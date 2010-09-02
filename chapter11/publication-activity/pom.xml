@@ -71,37 +71,20 @@
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.1</version>
+        <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
           <execution>
+            <id>add-resource</id>
+            <phase>generate-resources</phase>
             <goals>
-              <goal>java</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <mainClass>org.apache.log4j.chainsaw.Main</mainClass>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
+              <goal>add-resource</goal>
             </goals>
             <configuration>
-              <outputDirectory>${MULE_HOME}/lib/user</outputDirectory>
-              <overWriteReleases>false</overWriteReleases>
-              <overWriteSnapshots>true</overWriteSnapshots>
-              <excludeTransitive>false</excludeTransitive>
-              <includeGroupIds>org.apache.activemq</includeGroupIds>
-              <stripVersion>false</stripVersion>
+              <resources>
+                <resource>
+                  <directory>conf</directory>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
@@ -109,4 +92,67 @@
 
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>cs</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <mainClass></mainClass>
+              <executable>java</executable>
+              <arguments>
+                <argument>-Dlog4j.defaultInitOverride=true</argument>
+                <argument>-classpath</argument>
+                <classpath>
+                  <dependency>log4j:log4j</dependency>
+                </classpath>
+                <argument>org.apache.log4j.chainsaw.Main</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>run</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <argument>-Dmule.serverId=Publication</argument>
+                <argument>-classpath</argument>
+                <classpath />
+                <argument>org.mule.MuleServer</argument>
+                <argument>-config</argument>
+                <argument>publication-config.xml,server-stub-config.xml</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

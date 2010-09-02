@@ -29,25 +29,47 @@
     <plugins>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>copy-dependencies</id>
-            <phase>package</phase>
+            <id>add-resource</id>
+            <phase>generate-resources</phase>
             <goals>
-              <goal>copy-dependencies</goal>
+              <goal>add-resource</goal>
             </goals>
             <configuration>
-              <outputDirectory>${MULE_HOME}/lib/user</outputDirectory>
-              <overWriteReleases>false</overWriteReleases>
-              <overWriteSnapshots>true</overWriteSnapshots>
-              <excludeTransitive>false</excludeTransitive>
-              <includeGroupIds>org.apache.activemq</includeGroupIds>
-              <stripVersion>false</stripVersion>
+              <resources>
+                <resource>
+                  <directory>conf</directory>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Dmule.serverId=Publication</argument>
+            <argument>-classpath</argument>
+            <classpath />
+            <argument>org.mule.MuleServer</argument>
+            <argument>-config</argument>
+            <argument>publication-config.xml,server-stub-config.xml</argument>
+          </arguments>
+        </configuration>
       </plugin>
 
       <plugin>
