@@ -13,6 +13,10 @@
   <packaging>jar</packaging>
   <name>Mule in Action - Chapter 11 - Activity Monitoring Sample</name>
 
+  <properties>
+    <mx4jVersion>2.1.1</mx4jVersion>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.mule.modules</groupId>
@@ -22,7 +26,26 @@
       <groupId>org.mule.modules</groupId>
       <artifactId>mule-module-management</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>mx4j</groupId>
+      <artifactId>mx4j-jmx</artifactId>
+      <version>${mx4jVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>mx4j</groupId>
+      <artifactId>mx4j-impl</artifactId>
+      <version>${mx4jVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>mx4j</groupId>
+      <artifactId>mx4j-tools</artifactId>
+      <version>${mx4jVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>mx4j</groupId>
+      <artifactId>mx4j-remote</artifactId>
+      <version>${mx4jVersion}</version>
+    </dependency>
     <dependency>
       <groupId>com.muleinaction</groupId>
       <artifactId>activity-audit</artifactId>

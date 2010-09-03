@@ -1,9 +1,6 @@
 Mule Publication Activity Monitoring Demo
 -----------------------------------------
 
-*** Logging to Chainsaw fails because of http://www.mulesoft.org/jira/browse/MULE-4137 ***
-
-
 You must first build this project with: mvn clean install
 
 
