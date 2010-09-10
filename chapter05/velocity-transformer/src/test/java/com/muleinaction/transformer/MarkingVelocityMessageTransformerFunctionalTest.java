@@ -23,12 +23,10 @@ public class MarkingVelocityMessageTransformerFunctionalTest extends FunctionalT
     {
         final MuleMessage result = new MuleClient(muleContext).send("vm://testChannel",
             VelocityMessageTransformerTest.TEST_DATA,
-            // Why this copy? Because MuleClient expects a
-            // modifiable map!
+            // Why this copy? Because MuleClient expects a modifiable map!
             new HashMap<String, Object>(VelocityMessageTransformerTest.TEST_PROPERTIES));
-
+        
         assertEquals(VelocityMessageTransformerTest.RESULT_DATA, result.getPayload());
-
         assertFalse(result.findPropertyInAnyScope("transformationTime", Long.MIN_VALUE) == Long.MIN_VALUE);
     }
 

@@ -87,7 +87,7 @@ public final class MarkingVelocityMessageTransformer extends AbstractMessageTran
 
             template.merge(new VelocityContext(context), result);
 
-            message.setInvocationProperty(timeStampPropertyName, System.currentTimeMillis());
+            message.setOutboundProperty(timeStampPropertyName, System.currentTimeMillis());
 
             return result.toString();
 
