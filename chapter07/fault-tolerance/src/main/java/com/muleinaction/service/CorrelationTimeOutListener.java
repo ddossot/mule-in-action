@@ -1,16 +1,13 @@
 package com.muleinaction.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
-//import org.mule.api.MuleMessageCollection;
 import org.mule.api.context.MuleContextAware;
 import org.mule.api.context.notification.RoutingNotificationListener;
-import org.mule.api.context.notification.ServerNotification;
 import org.mule.context.notification.RoutingNotification;
 import org.mule.module.client.MuleClient;
 
@@ -19,7 +16,7 @@ import org.mule.module.client.MuleClient;
  */
 // <start id="CorrelationTimeOutListener"/>
 public final class CorrelationTimeOutListener implements
-        RoutingNotificationListener, MuleContextAware {
+        RoutingNotificationListener<RoutingNotification>, MuleContextAware {
    
     private MuleContext muleContext;
     
@@ -27,7 +24,7 @@ public final class CorrelationTimeOutListener implements
         this.muleContext = muleContext;
     }
 
-    public void onNotification(final ServerNotification notification) {
+    public void onNotification(final RoutingNotification notification) {
         if (notification.getAction() != RoutingNotification.CORRELATION_TIMEOUT) {
             return;
         }
@@ -38,17 +35,11 @@ public final class CorrelationTimeOutListener implements
         try {
             // we assume here that we care only about the first message of the
             // aggregation collection
-            Object uncorrelatedPayload = ((List)uncorrelatedMessage.getPayload()).toArray()[0];
+            @SuppressWarnings("unchecked")
+            final Object uncorrelatedPayload = ((List<Object>)uncorrelatedMessage.getPayload()).toArray()[0];
 
-            final Map<String, Object> properties = new HashMap<String, Object>();
-
-            for (final Object propertyName : uncorrelatedMessage
-                    .getPropertyNames()) {
-                properties.put(propertyName.toString(), uncorrelatedMessage
-                        .getProperty(propertyName.toString()));
-            }
-
-            new MuleClient(muleContext).sendNoReceive(dlqAddress, uncorrelatedPayload, properties);
+            new MuleClient(muleContext).send(dlqAddress,
+                                             new DefaultMuleMessage(uncorrelatedPayload, uncorrelatedMessage, muleContext));
 
         } catch (final MuleException me) {
             // here we should log a serialized form of the message, using a

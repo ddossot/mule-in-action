@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleEventContext;
-import org.mule.api.service.Service;
 import org.mule.component.DefaultJavaComponent;
 import org.mule.module.client.MuleClient;
 import org.mule.tck.FunctionalTestCase;
@@ -46,15 +45,15 @@ public class FaultToleranceFunctionalTestCase extends FunctionalTestCase {
                         "DlqProcessor").getComponent();
 
         final FunctionalTestComponent testComponent =
-                (FunctionalTestComponent) defaultComponent.getObjectFactory().getInstance();
+                (FunctionalTestComponent) defaultComponent.getObjectFactory().getInstance(muleContext);
                 
         testComponent.setLogMessageDetails(true);
         testComponent.setEventCallback(callback);
 
         final Serializable payload = BigInteger.TEN;
-        final MuleClient client = new MuleClient();
+        final MuleClient client = new MuleClient(muleContext);
         client.dispatch("vm://MessageReceiver.In", new DefaultMuleMessage(
-                payload, (Map<?, ?>) null, muleContext));
+                payload, (Map<String,Object>) null, muleContext));
 
         countDownLatch.await(15, TimeUnit.SECONDS);
 
