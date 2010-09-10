@@ -49,7 +49,7 @@
                     <filter ref="md5Filter"/>
                 </selective-consumer-router>
             </inbound>
-            <test:component enableNotifications="true"/>
+            <test:component />
         </service>
 
 
