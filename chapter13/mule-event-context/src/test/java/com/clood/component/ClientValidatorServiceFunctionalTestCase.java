@@ -1,3 +1,4 @@
+
 package com.clood.component;
 
 import org.mule.api.MuleMessage;
@@ -11,52 +12,51 @@ import com.clood.model.Client;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class ClientValidatorServiceFunctionalTestCase extends
-        FunctionalTestCase {
-
+public class ClientValidatorServiceFunctionalTestCase extends FunctionalTestCase
+{
     private MuleClient muleClient;
-
     private FunctionalTestComponent activityReportProcessorComponent;
-
     private FunctionalTestComponent errorProcessorComponent;
 
     @Override
-    protected String getConfigResources() {
+    protected String getConfigResources()
+    {
         return "conf/client-validator-service-config.xml";
     }
 
     @Override
-    protected void doSetUp() throws Exception {
+    protected void doSetUp() throws Exception
+    {
         super.doSetUp();
 
         muleClient = new MuleClient(muleContext);
 
-        final DefaultJavaComponent activityReportProcessorJavaComponent = (DefaultJavaComponent) muleContext
-                .getRegistry().lookupService("ActivityReportProcessor")
-                .getComponent();
+        final DefaultJavaComponent activityReportProcessorJavaComponent = (DefaultJavaComponent) muleContext.getRegistry()
+            .lookupService("ActivityReportProcessor")
+            .getComponent();
 
-        activityReportProcessorComponent = (FunctionalTestComponent) activityReportProcessorJavaComponent
-                .getObjectFactory().getInstance();
+        activityReportProcessorComponent = (FunctionalTestComponent) activityReportProcessorJavaComponent.getObjectFactory()
+            .getInstance(muleContext);
 
-        final DefaultJavaComponent errorProcessorJavaComponent = (DefaultJavaComponent) muleContext
-                .getRegistry().lookupService("ErrorProcessor").getComponent();
+        final DefaultJavaComponent errorProcessorJavaComponent = (DefaultJavaComponent) muleContext.getRegistry()
+            .lookupService("ErrorProcessor")
+            .getComponent();
 
-        errorProcessorComponent = (FunctionalTestComponent) errorProcessorJavaComponent
-                .getObjectFactory().getInstance();
+        errorProcessorComponent = (FunctionalTestComponent) errorProcessorJavaComponent.getObjectFactory()
+            .getInstance(muleContext);
     }
 
     @Override
-    protected void doTearDown() throws Exception {
+    protected void doTearDown() throws Exception
+    {
         muleClient.dispose();
-
         super.doTearDown();
     }
 
-    public void testValidClient() throws Exception {
-
-        final MuleMessage result = muleClient.send(
-                "vm://ActivityReportService.In", new Client(123, "Mr.", "Doe"),
-                null);
+    public void testValidClient() throws Exception
+    {
+        final MuleMessage result = muleClient.send("vm://ActivityReportService.In", new Client(123, "Mr.",
+            "Doe"), null);
 
         assertEquals("OK", result.getPayloadAsString());
 
@@ -66,14 +66,12 @@ public class ClientValidatorServiceFunctionalTestCase extends
         assertEquals(0, errorProcessorComponent.getReceivedMessagesCount());
     }
 
-    public void testInvalidClient() throws Exception {
+    public void testInvalidClient() throws Exception
+    {
+        final MuleMessage result = muleClient.send("vm://ActivityReportService.In", new Client(-123, "Mr.",
+            "Doe"), null);
 
-        final MuleMessage result = muleClient.send(
-                "vm://ActivityReportService.In",
-                new Client(-123, "Mr.", "Doe"), null);
-
-        assertEquals("ERROR: Client ID must be a positive long", result
-                .getPayloadAsString());
+        assertEquals("ERROR: Client ID must be a positive long", result.getPayloadAsString());
 
         waitUntilMessageHitsComponent(errorProcessorComponent);
 
@@ -81,14 +79,12 @@ public class ClientValidatorServiceFunctionalTestCase extends
         assertEquals(1, errorProcessorComponent.getReceivedMessagesCount());
     }
 
-    public void testInvalidObject() throws Exception {
+    public void testInvalidObject() throws Exception
+    {
+        final MuleMessage result = muleClient.send("vm://ActivityReportService.In", new Object(), null);
 
-        final MuleMessage result = muleClient.send(
-                "vm://ActivityReportService.In", new Object(), null);
-
-        assertEquals(
-                "ERROR: Payload is not a: com.clood.model.Client but a: java.lang.Object",
-                result.getPayloadAsString());
+        assertEquals("ERROR: Payload is not a: com.clood.model.Client but a: java.lang.Object",
+            result.getPayloadAsString());
 
         waitUntilMessageHitsComponent(errorProcessorComponent);
 
@@ -96,12 +92,12 @@ public class ClientValidatorServiceFunctionalTestCase extends
         assertEquals(1, errorProcessorComponent.getReceivedMessagesCount());
     }
 
-    private void waitUntilMessageHitsComponent(
-            final FunctionalTestComponent expectedTestComponent)
-            throws InterruptedException {
+    private void waitUntilMessageHitsComponent(final FunctionalTestComponent expectedTestComponent)
+        throws InterruptedException
+    {
         int i = 0;
-        while ((expectedTestComponent.getReceivedMessagesCount() == 0)
-                && (++i < 100)) {
+        while ((expectedTestComponent.getReceivedMessagesCount() == 0) && (++i < 100))
+        {
             // since dispatch is asynchronous, we must wait until we get the
             // message
             Thread.sleep(50);

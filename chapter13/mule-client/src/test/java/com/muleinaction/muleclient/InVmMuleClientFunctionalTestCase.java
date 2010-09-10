@@ -1,3 +1,4 @@
+
 package com.muleinaction.muleclient;
 
 import java.io.File;
@@ -11,19 +12,22 @@ import org.mule.tck.FunctionalTestCase;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
+public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase
+{
 
     private String expectedHash;
 
     private String tempFileName;
 
     @Override
-    protected String getConfigResources() {
+    protected String getConfigResources()
+    {
         return "conf/in-vm-muleclient-config.xml";
     }
 
     @Override
-    protected void doSetUp() throws Exception {
+    protected void doSetUp() throws Exception
+    {
         super.doSetUp();
 
         // prepare test file for MD5 File Hasher Service
@@ -34,11 +38,14 @@ public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
 
         FileOutputStream fos = null;
 
-        try {
+        try
+        {
             fos = new FileOutputStream(tempFile);
             fos.write(fileData.getBytes("US-ASCII"));
             fos.flush();
-        } finally {
+        }
+        finally
+        {
             fos.close();
         }
 
@@ -46,22 +53,24 @@ public class InVmMuleClientFunctionalTestCase extends FunctionalTestCase {
         tempFileName = tempFile.getName();
     }
 
-    public void testInMemoryVmCall() throws Exception {
+    public void testInMemoryVmCall() throws Exception
+    {
         // this is prototypical for integration testing
         // <start id="MuleClient-IntegrationTesting"/>
         final MuleClient muleClient = new MuleClient(muleContext);
 
-        assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
-                tempFileName, null).getPayload());
+        assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In", tempFileName, null).getPayload());
         // <end id="MuleClient-IntegrationTesting"/>
     }
 
-    public void testInMemoryVmCallWithContextDetection() throws Exception {
-        // <start id="MuleClient-CreationNoContext"/>
-        final MuleClient muleClient = new MuleClient();
-        // <end id="MuleClient-CreationNoContext"/>
-
-        assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
-                tempFileName, null).getPayload());
-    }
+    // not supported by Mule 3 anymore
+    // public void testInMemoryVmCallWithContextDetection() throws Exception
+    // {
+    // // <start id="MuleClient-CreationNoContext"/>
+    // final MuleClient muleClient = new MuleClient();
+    // // <end id="MuleClient-CreationNoContext"/>
+    //
+    // assertEquals(expectedHash, muleClient.send("vm://Md5FileHasher.In",
+    // tempFileName, null).getPayload());
+    // }
 }

@@ -15,7 +15,7 @@
 
         <service name="BrokerReadinessService">
             <inbound>
-                <vm:inbound-endpoint path="BrokerReadinessService.In" />
+                <vm:inbound-endpoint path="BrokerReadinessService.In" exchange-pattern="request-response" />
             </inbound>
 
             <component>

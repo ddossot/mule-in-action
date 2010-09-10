@@ -1,3 +1,4 @@
+
 package com.clood.component;
 
 import org.apache.commons.lang.Validate;
@@ -15,7 +16,8 @@ import com.clood.model.Client;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class ClientValidatorService implements Initialisable, Callable {
+public class ClientValidatorService implements Initialisable, Callable
+{
 
     private volatile boolean initialized = false;
 
@@ -24,23 +26,27 @@ public class ClientValidatorService implements Initialisable, Callable {
     private OutboundEndpoint errorProcessorChannel;
 
     // <start id="Lifecycle-Validator"/>
-    public void setErrorProcessorChannel(
-            final EndpointBuilder errorProcessorChannelBuilder) {
+    public void setErrorProcessorChannel(final EndpointBuilder errorProcessorChannelBuilder)
+    {
 
         this.errorProcessorChannelBuilder = errorProcessorChannelBuilder;
     }
 
-    public void initialise() throws InitialisationException {
-        if (initialized) {
+    public void initialise() throws InitialisationException
+    {
+        if (initialized)
+        {
             return;
         }
 
-        try {
-            errorProcessorChannel = errorProcessorChannelBuilder
-                    .buildOutboundEndpoint();
+        try
+        {
+            errorProcessorChannel = errorProcessorChannelBuilder.buildOutboundEndpoint();
 
             initialized = true;
-        } catch (final EndpointException ee) {
+        }
+        catch (final EndpointException ee)
+        {
             throw new InitialisationException(ee, this);
         }
     }
@@ -48,19 +54,25 @@ public class ClientValidatorService implements Initialisable, Callable {
     // <end id="Lifecycle-Validator"/>
 
     // <start id="EventContext-Validator"/>
-    public Object onCall(final MuleEventContext eventContext) throws Exception {
+    public Object onCall(final MuleEventContext eventContext) throws Exception
+    {
         eventContext.setStopFurtherProcessing(true);
 
-        final Object payload = eventContext.transformMessage();
+        final Object payload = eventContext.transformMessage(Object.class);
 
-        try {
+        try
+        {
             validatePayloadIsValidClient(payload);
-        } catch (final IllegalArgumentException iae) {
+        }
+        catch (final IllegalArgumentException iae)
+        {
 
-            try {
-                eventContext.dispatchEvent(eventContext.getMessage(),
-                        errorProcessorChannel);
-            } catch (final MuleException me) {
+            try
+            {
+                eventContext.dispatchEvent(eventContext.getMessage(), errorProcessorChannel);
+            }
+            catch (final MuleException me)
+            {
                 processMuleException(me);
             }
 
@@ -74,18 +86,18 @@ public class ClientValidatorService implements Initialisable, Callable {
 
     // <end id="EventContext-Validator"/>
 
-    private void validatePayloadIsValidClient(final Object payload) {
+    private void validatePayloadIsValidClient(final Object payload)
+    {
         Validate.notNull(payload, "Payload is null");
 
-        Validate.isTrue(payload instanceof Client, "Payload is not a: "
-                + Client.class.getName() + " but a: "
-                + payload.getClass().getName());
+        Validate.isTrue(payload instanceof Client, "Payload is not a: " + Client.class.getName() + " but a: "
+                                                   + payload.getClass().getName());
 
-        Validate.isTrue(((Client) payload).getId() > 0,
-                "Client ID must be a positive long");
+        Validate.isTrue(((Client) payload).getId() > 0, "Client ID must be a positive long");
     }
 
-    private void processMuleException(final MuleException me) {
+    private void processMuleException(final MuleException me)
+    {
         // do something smart with the exception
     }
 }

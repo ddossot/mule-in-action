@@ -1,3 +1,4 @@
+
 package com.muleinaction.eventcontext;
 
 import static org.junit.Assert.assertEquals;
@@ -17,29 +18,31 @@ import org.mule.api.MuleMessage;
 import org.mule.api.transformer.TransformerException;
 import org.mule.module.client.MuleClient;
 import org.mule.transformer.AbstractDiscoverableTransformer;
-import org.mule.transport.AbstractMessageAdapter;
+import org.mule.transformer.types.SimpleDataType;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class ProspectingMessage {
+public class ProspectingMessage
+{
 
-    public final static class BigIntegerToBytesTransformer extends
-            AbstractDiscoverableTransformer {
+    public final static class BigIntegerToBytesTransformer extends AbstractDiscoverableTransformer
+    {
 
         public int usageCount = 0;
 
-        public BigIntegerToBytesTransformer() {
+        public BigIntegerToBytesTransformer()
+        {
             super();
-            registerSourceType(BigInteger.class);
-            setReturnClass(byte[].class);
+            registerSourceType(new SimpleDataType<BigInteger>(BigInteger.class));
+            setReturnDataType(new SimpleDataType<byte[]>(byte[].class));
         }
 
         @Override
-        protected Object doTransform(final Object src, final String encoding)
-                throws TransformerException {
+        protected Object doTransform(final Object src, final String encoding) throws TransformerException
+        {
 
             usageCount++;
 
@@ -52,73 +55,68 @@ public class ProspectingMessage {
 
     private static BigIntegerToBytesTransformer BITBT = new BigIntegerToBytesTransformer();
 
-    private static MuleContext getMuleContext() {
+    private static MuleContext getMuleContext()
+    {
         return client.getMuleContext();
     }
-    
+
     @BeforeClass
-    public static void bootstrapMule() throws Exception {
+    public static void bootstrapMule() throws Exception
+    {
         client = new MuleClient(true);
 
         getMuleContext().getRegistry().registerTransformer(BITBT);
     }
 
     @Before
-    public void resetBigIntegerToBytesTransformerUsageCount() {
+    public void resetBigIntegerToBytesTransformerUsageCount()
+    {
         BITBT.usageCount = 0;
     }
 
     @AfterClass
-    public static void disposeMule() throws Exception {
+    public static void disposeMule() throws Exception
+    {
         client.dispose();
     }
 
     @Test
-    public void defaultTransformersExist() {
+    public void defaultTransformersExist()
+    {
         // we should have more than our own transformer in the registry
-        assertTrue(getMuleContext().getRegistry().getTransformers()
-                .size() > 1);
+        assertTrue(getMuleContext().getRegistry().getTransformers().size() > 1);
     }
 
     @Test
-    public void stringPayloadAsBytesAndString() throws Exception {
+    public void stringPayloadAsBytesAndString() throws Exception
+    {
         final String payload = "foo";
 
-        final MuleMessage message = new DefaultMuleMessage(payload,
-                (Map<?, ?>) null, getMuleContext());
+        final MuleMessage message = new DefaultMuleMessage(payload, (Map<String, Object>) null,
+            getMuleContext());
 
-        assertTrue(Arrays.equals(payload.getBytes(message.getEncoding()),
-                message.getPayloadAsBytes()));
-
+        assertTrue(Arrays.equals(payload.getBytes(message.getEncoding()), message.getPayloadAsBytes()));
         assertEquals(payload, message.getPayloadAsString());
 
         // the bytes and string rendering do no alter the payload
         assertEquals(payload, message.getPayload());
-        assertEquals(payload, message.getOrginalPayload());
+        assertEquals(payload, message.getOriginalPayload());
     }
 
     @Test
-    public void serializablePayloadAsBytesAndString() throws Exception {
+    public void serializablePayloadAsBytesAndString() throws Exception
+    {
         final BigInteger payload = BigInteger.valueOf(123L);
 
-        final MuleMessage message = new DefaultMuleMessage(payload,
-                (Map<?, ?>) null, getMuleContext());
+        final MuleMessage message = new DefaultMuleMessage(payload, (Map<String, Object>) null,
+            getMuleContext());
 
         assertEquals(0, BITBT.usageCount);
-
-        assertTrue(Arrays.equals(payload.toByteArray(), message
-                .getPayloadAsBytes()));
-
-        assertEquals(new String(payload.toByteArray(), message.getEncoding()),
-                message.getPayloadAsString());
-
+        assertTrue(Arrays.equals(payload.toByteArray(), message.getPayloadAsBytes()));
+        assertEquals(new String(payload.toByteArray(), message.getEncoding()), message.getPayloadAsString());
         assertEquals(1, BITBT.usageCount);
-
-        assertTrue(Arrays.equals(payload.toByteArray(), message
-                .getPayloadAsBytes()));
-
-        assertEquals(new String(payload.toByteArray(), message.getEncoding()),
-                message.getPayloadAsString());
+        assertTrue(Arrays.equals(payload.toByteArray(), message.getPayloadAsBytes()));
+        assertEquals(new String(payload.toByteArray(), message.getEncoding()), message.getPayloadAsString());
 
         // the usage count has not changed because we have hit the byte cache
         // inside the message
@@ -126,35 +124,25 @@ public class ProspectingMessage {
 
         // the bytes and string rendering do no alter the payload
         assertEquals(payload, message.getPayload());
-        assertEquals(payload, message.getOrginalPayload());
+        assertEquals(payload, message.getOriginalPayload());
     }
 
     @Test
-    public void serializablePayloadTransformation() throws Exception {
+    public void serializablePayloadTransformation() throws Exception
+    {
         final BigInteger payload = BigInteger.valueOf(987L);
 
-        final MuleMessage message = new DefaultMuleMessage(
-        // we do not use DefaultMessageAdapter because its payload is mutable
-                // which allows the original payload to change
-                new AbstractMessageAdapter() {
-                    private static final long serialVersionUID = 3953815192447005350L;
-
-                    public Object getPayload() {
-                        return payload;
-                    }
-                }, (Map<?, ?>) null, getMuleContext());
+        final MuleMessage message = new DefaultMuleMessage(payload, (Map<String, Object>) null,
+            getMuleContext());
 
         assertEquals(0, BITBT.usageCount);
 
         // usually the transformers are defined on the endpoints
-        message.applyTransformers(Collections.singletonList(BITBT));
+        message.applyTransformers(null, Collections.singletonList(BITBT));
+
         assertEquals(1, BITBT.usageCount);
-
         assertTrue(message.getPayload() instanceof byte[]);
-
-        assertTrue(Arrays.equals(payload.toByteArray(), (byte[]) message
-                .getPayload()));
-
-        assertEquals(payload, message.getOrginalPayload());
+        assertTrue(Arrays.equals(payload.toByteArray(), (byte[]) message.getPayload()));
+        assertEquals(payload, message.getOriginalPayload());
     }
 }

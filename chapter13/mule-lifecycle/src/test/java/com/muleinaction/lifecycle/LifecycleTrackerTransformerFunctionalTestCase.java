@@ -29,7 +29,8 @@ public class LifecycleTrackerTransformerFunctionalTestCase
         muleContext.dispose();
         muleClient.dispose();
 
-        assertEquals("[setProperty, setMuleContext, initialise, initialise, start, stop]", ltt.getTracker()
-            .toString());
+        // double initialization due to MULE-5002
+        assertEquals("[setProperty, setMuleContext, initialise, setMuleContext, initialise, start, stop]",
+            ltt.getTracker().toString());
     }
 }

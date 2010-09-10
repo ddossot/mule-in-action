@@ -15,7 +15,7 @@
 
         <service name="Md5FileHasher">
             <inbound>
-                <vm:inbound-endpoint path="Md5FileHasher.In" />
+                <vm:inbound-endpoint path="Md5FileHasher.In" exchange-pattern="request-response" />
             </inbound>
             <pooled-component>
                 <singleton-object class="com.clood.component.MuleClientMd5FileHasher">

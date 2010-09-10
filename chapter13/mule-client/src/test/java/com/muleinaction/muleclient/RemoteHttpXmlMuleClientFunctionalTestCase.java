@@ -1,3 +1,4 @@
+
 package com.muleinaction.muleclient;
 
 import javax.jms.Connection;
@@ -12,20 +13,22 @@ import org.mule.tck.FunctionalTestCase;
 /**
  * @author David Dossot (david@dossot.net)
  */
-public class RemoteHttpXmlMuleClientFunctionalTestCase extends
-        FunctionalTestCase {
+public class RemoteHttpXmlMuleClientFunctionalTestCase extends FunctionalTestCase
+{
 
     private String queueName;
 
     private String expectedPayload;
 
     @Override
-    protected String getConfigResources() {
+    protected String getConfigResources()
+    {
         return "conf/remote-http-xml-muleclient-config.xml";
     }
 
     @Override
-    protected void doSetUp() throws Exception {
+    protected void doSetUp() throws Exception
+    {
         super.doSetUp();
 
         expectedPayload = RandomStringUtils.randomAlphanumeric(10);
@@ -34,28 +37,26 @@ public class RemoteHttpXmlMuleClientFunctionalTestCase extends
 
         // load a message in the test queue so we can fetch it via the remote
         // client
-        final ConnectionFactory connectionFactory =
-                (ConnectionFactory) muleContext.getRegistry().lookupObject(
-                        "amqConnectionFactory");
+        final ConnectionFactory connectionFactory = (ConnectionFactory) muleContext.getRegistry()
+            .lookupObject("amqConnectionFactory");
 
         final Connection connection = connectionFactory.createConnection();
-        final Session session =
-                connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        final Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         session.createProducer(session.createQueue(queueName)).send(
-                session.createTextMessage(expectedPayload));
+            session.createTextMessage(expectedPayload));
         connection.close();
     }
 
-    public void testJmsAsynchronousRequest() throws Exception {
+    public void testJmsAsynchronousRequest() throws Exception
+    {
         // <start id="MuleClient-RDA-HTTPXML"/>
-        final MuleClient muleClient = new MuleClient(false);
+        final MuleClient muleClient = new MuleClient(muleContext);
 
-        final RemoteDispatcher remoteDispatcher =
-                muleClient.getRemoteDispatcher("http://localhost:8181");
+        final RemoteDispatcher remoteDispatcher = muleClient.getRemoteDispatcher("http://localhost:8181");
         // <end id="MuleClient-RDA-HTTPXML"/>
 
-        final Object actualPayload =
-                remoteDispatcher.receiveRemote("jms://" + queueName, 1000).getPayloadAsString();
+        final Object actualPayload = remoteDispatcher.receiveRemote("jms://" + queueName, 1000)
+            .getPayloadAsString();
 
         assertEquals(expectedPayload, actualPayload);
 
