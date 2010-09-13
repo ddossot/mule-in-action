@@ -22,6 +22,12 @@
             <artifactId>commonretrypolicies</artifactId>
             <!-- TODO switch to non snapshot version whenever available -->
             <version>3.0.0-SNAPSHOT</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.mule</groupId>
+                <artifactId>mule-core</artifactId>
+              </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     

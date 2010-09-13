@@ -25,13 +25,14 @@
     <file:connector name="FileConnector"
         streaming="false"
         autoDelete="true"
-        pollingFrequency="1000"  />
+        pollingFrequency="1000" />
 
+    <!-- In Mule 3, exception handling has been unified so the connector specific exception strategies are gone:
+         http://blogs.mulesoft.org/improvements-to-exception-handling-for-mule-3   -->
+    
     <model name="defaultConnectorExceptionStrategyModel">
-        <default-connector-exception-strategy/>
         <service name="defaultConnectorExceptionStrategyService">
             <inbound>
-
                 <file:inbound-endpoint path="./data/invoice">
                     <file:file-to-string-transformer/>
                 </file:inbound-endpoint>
@@ -45,9 +46,7 @@
                         <email:string-to-email-transformer/>
                     </smtp:outbound-endpoint>
                 </pass-through-router>
-
             </outbound>
-            <default-connector-exception-strategy/>
         </service>
     </model>
 </mule>
