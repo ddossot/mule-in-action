@@ -1,22 +1,31 @@
+
 package com.clood;
 
-import org.mule.tck.AbstractMuleTestCase;
 import org.mule.RequestContext;
+import org.mule.tck.AbstractMuleTestCase;
 
-public class MessageEnricherTest extends AbstractMuleTestCase {
+public class MessageEnricherTest extends AbstractMuleTestCase
+{
 
-    protected void doSetUp() throws Exception {
+    @Override
+    protected void doSetUp() throws Exception
+    {
         RequestContext.setEvent(getTestEvent("TEST_PAYLOAD"));
     }
 
-    protected void doTearDown() throws Exception {
-         RequestContext.setEvent(null);
+    @Override
+    protected void doTearDown() throws Exception
+    {
+        RequestContext.setEvent(null);
     }
 
-    public void testOnCall() {
-        MessageEnricher messageEnricher = new MessageEnricher();
+    public void testOnCall()
+    {
+        final MessageEnricher messageEnricher = new MessageEnricher();
         messageEnricher.onCall(RequestContext.getEventContext());
-        assertNotNull(RequestContext.getEvent().getProperty("ORGANIZATION",true));
-        assertEquals("CLOOD", RequestContext.getEvent().getProperty("ORGANIZATION",true));
+        final Object organizationProperty = RequestContext.getEvent().getMessage().getOutboundProperty(
+            "ORGANIZATION", null);
+        assertNotNull(organizationProperty);
+        assertEquals("CLOOD", organizationProperty);
     }
 }
