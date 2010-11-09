@@ -24,31 +24,31 @@
         <service name="selectiveConsumerService">
             <inbound>
 
-                <jms:inbound-endpoint queue="messages.in"/>
-                <vm:inbound-endpoint address="vm://messages"/>
+                <jms:inbound-endpoint queue="messages.in" exchange-pattern="one-way"/>
+                <vm:inbound-endpoint address="vm://messages" exchange-pattern="one-way"/>
 
                 <selective-consumer-router>
                     <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/>
                 </selective-consumer-router>
 
                 <forwarding-catch-all-strategy>
-                    <jms:outbound-endpoint queue="errors"/>
+                    <jms:outbound-endpoint queue="errors" exchange-pattern="one-way"/>
                 </forwarding-catch-all-strategy>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint queue="messages.out"/>
+                    <jms:outbound-endpoint queue="messages.out" exchange-pattern="one-way"/>
                 </pass-through-router>
             </outbound>
         </service>
 
         <service name="Error Channel">
             <inbound>
-                <jms:inbound-endpoint queue="errors"/>
+                <jms:inbound-endpoint queue="errors" exchange-pattern="one-way"/>
             </inbound>
             <outbound>
               <pass-through-router>
-                  <jms:outbound-endpoint queue="messages.errors"/>
+                  <jms:outbound-endpoint queue="messages.errors" exchange-pattern="one-way"/>
               </pass-through-router>
            </outbound>
         </service>

@@ -1,12 +1,10 @@
 package com.muleinaction;
 
-import org.mule.api.service.Service;
+import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleMessage;
-import org.mule.tck.FunctionalTestCase;
+import org.mule.api.service.Service;
 import org.mule.module.client.MuleClient;
-
-import java.util.Map;
-import java.util.HashMap;
+import org.mule.tck.FunctionalTestCase;
 
 /**
  * @author John D'Emic (john.demic@gmail.com)
@@ -28,16 +26,17 @@ public class HeaderFilteringFunctionalTestCase extends FunctionalTestCase {
 
     public void testMessageConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-        Map<String, String> properties = new HashMap<String, String>();
-        properties.put("STATUS", "OK");
-        muleClient.sendAsync("jms://messages.in", "PAYLOAD", properties);
+        MuleMessage message = new DefaultMuleMessage("PAYLOAD", muleContext);
+
+        message.setOutboundProperty("STATUS", "OK");
+        muleClient.dispatch("jms://messages.in", message);
         MuleMessage response = muleClient.request("jms://messages.out", 2000);
         assertNotNull(response);
     }
 
     public void testMessageNotConsumed() throws Exception {
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://messages.in", "STATUS: CRITICAL", null);
+        muleClient.dispatch("jms://messages.in", "STATUS: CRITICAL", null);
         MuleMessage response = muleClient.request("jms://messages.out", 2000);
         assertNull(response);
         response = muleClient.request("jms://errors", 2000);

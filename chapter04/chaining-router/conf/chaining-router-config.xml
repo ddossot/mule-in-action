@@ -26,16 +26,12 @@
                      messageDelayTime="1000"
                      promptMessage="Enter a zip code: "/>
 
-    <cxf:connector name="cxfConnectorClient" createMultipleTransactedReceivers="true"/>
-    <cxf:connector name="cxfConnectorServer" createMultipleTransactedReceivers="true"/>
 
     <model name="chainingRouterModel">
         <service name="chainingRouterService">
             <inbound>
                 <jms:inbound-endpoint queue="weather.request" exchange-pattern="request-response">
-                    
-                        <jms:jmsmessage-to-object-transformer/>
-                    
+                    <jms:jmsmessage-to-object-transformer/>
                 </jms:inbound-endpoint>
             </inbound>
             <outbound>

@@ -29,7 +29,7 @@
             <inbound>
                 <jms:inbound-endpoint queue="orders"/>
                 <wire-tap-router>
-                    <vm:outbound-endpoint path="billing"/>
+                    <vm:outbound-endpoint path="billing" exchange-pattern="one-way"/>
                 </wire-tap-router>
             </inbound>
             <component>
@@ -38,12 +38,11 @@
 
         </service>
 
+        <!-- http://www.mulesoft.org/jira/browse/MULE-5191 will cause a nasty looking exception in the logs here.
+        It doesn't, however, appear to affect message delivery or processing. -->
         <service name="wiretapReceiver">
             <inbound>
-                <vm:inbound-endpoint path="billing">
-                    <jms:jmsmessage-to-object-transformer name="JmsMessageToString"
-                                                          returnClass="java.lang.String"/>
-                </vm:inbound-endpoint>
+                <vm:inbound-endpoint path="billing" exchange-pattern="one-way"/>
             </inbound>
             <component>
                 <spring-object bean="billingService"/>

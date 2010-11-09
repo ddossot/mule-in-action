@@ -1,14 +1,13 @@
 package com.muleinaction;
 
-import org.mule.api.service.Service;
 import org.mule.api.MuleMessage;
-import org.mule.tck.FunctionalTestCase;
+import org.mule.api.service.Service;
 import org.mule.module.client.MuleClient;
-import com.muleinaction.common.Fare;
+import org.mule.tck.FunctionalTestCase;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author John D'Emic (john.demic@gmail.com)
@@ -28,6 +27,7 @@ public class CollectionAggregatorFunctionalTestCase extends FunctionalTestCase {
         assertEquals("collectionAggregatorModel", service.getModel().getName());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void testMessageConsumed() throws Exception {
 
         ResponseTimeMetric metric1 = new ResponseTimeMetric("RUN-123456","client1",1.567,new Date());
@@ -39,9 +39,9 @@ public class CollectionAggregatorFunctionalTestCase extends FunctionalTestCase {
         properties.put("MULE_CORRELATION_GROUP_SIZE", "3");
 
         MuleClient muleClient = new MuleClient(muleContext);
-        muleClient.sendAsync("jms://metrics.responsetimes", metric1, properties);
-        muleClient.sendAsync("jms://metrics.responsetimes", metric2, properties);
-        muleClient.sendAsync("jms://metrics.responsetimes", metric3, properties);
+        muleClient.dispatch("jms://metrics.responsetimes", metric1, properties);
+        muleClient.dispatch("jms://metrics.responsetimes", metric2, properties);
+        muleClient.dispatch("jms://metrics.responsetimes", metric3, properties);
 
         MuleMessage response = muleClient.request("jms://topic:metrics.avg.responsetimes", 3000);
         assertNotNull(response);

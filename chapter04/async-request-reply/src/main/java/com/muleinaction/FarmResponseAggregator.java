@@ -1,31 +1,23 @@
 package com.muleinaction;
 
-import org.mule.api.MuleMessage;
+import org.mule.DefaultMuleEvent;
+import org.mule.api.MuleEvent;
+import org.mule.routing.AbstractCorrelationAggregator;
 import org.mule.routing.AggregationException;
-import org.mule.routing.CollectionCorrelatorCallback;
-import org.mule.routing.EventCorrelatorCallback;
-import org.mule.routing.inbound.EventGroup;
-import org.mule.routing.response.ResponseCorrelationAggregator;
+import org.mule.routing.EventGroup;
 
-public class FarmResponseAggregator extends ResponseCorrelationAggregator
-{
-    protected EventCorrelatorCallback getCorrelatorCallback()
-    {
-        return new CollectionCorrelatorCallback(getMuleContext())
-        {
+public class FarmResponseAggregator extends AbstractCorrelationAggregator {
 
-            public MuleMessage aggregateEvents(EventGroup events) throws AggregationException
-            {
-                try
-                {
-                    FarmSelectionService selector = new FarmSelectionService();
-                    return selector.selectFarmStatistics(events);
-                }
-                catch (Exception e)
-                {
-                    throw new AggregationException(events, null, e);
-                }
-            }
-        };
+    @Override
+    protected MuleEvent aggregateEvents(EventGroup events) throws AggregationException {
+        try {
+            FarmSelectionService selector = new FarmSelectionService();
+            return new DefaultMuleEvent(selector.selectFarmStatistics(events), events.getMessageCollectionEvent());
+        }
+        catch (Exception e) {
+            throw new AggregationException(events, null, e);
+        }
     }
+
+
 }

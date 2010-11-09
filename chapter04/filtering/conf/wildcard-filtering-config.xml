@@ -23,19 +23,19 @@
     <model name="wildcardFilteringModel">
         <service name="wildcardFilteringService">
             <inbound>
-                <jms:inbound-endpoint queue="messages.in"/>
+                <jms:inbound-endpoint queue="messages.in" exchange-pattern="one-way"/>
 
                 <selective-consumer-router>
                     <wildcard-filter pattern="*SUCCESS*"/>
                 </selective-consumer-router>
 
                 <forwarding-catch-all-strategy>
-                    <jms:outbound-endpoint queue="errors"/>
+                    <jms:outbound-endpoint queue="errors" exchange-pattern="one-way"/>
                 </forwarding-catch-all-strategy>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jms:outbound-endpoint queue="messages.out"/>
+                    <jms:outbound-endpoint queue="messages.out" exchange-pattern="one-way"/>
                 </pass-through-router>
             </outbound>
         </service>

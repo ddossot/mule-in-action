@@ -16,30 +16,30 @@
        http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.0/mule-vm.xsd
        http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.0/mule-stdio.xsd
        "
->
+        >
 
-<jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost" />
+    <jms:activemq-connector name="jmsConnector" specification="1.1" brokerURL="vm://localhost"/>
 
-<model name="headerFilteringModel">
-    <service name="headerFilteringService">
-        <inbound> 
-            <jms:inbound-endpoint queue="messages.in"/>
+    <model name="headerFilteringModel">
+        <service name="headerFilteringService">
+            <inbound>
+                <jms:inbound-endpoint queue="messages.in"/>
 
-            <selective-consumer-router>
-                <expression-filter evaluator="header" expression="STATUS=OK"/>
-            </selective-consumer-router> 
+                <selective-consumer-router>
+                    <message-property-filter scope="inbound" pattern="STATUS=OK" />
+                </selective-consumer-router>
 
-            <forwarding-catch-all-strategy> 
-                <jms:outbound-endpoint queue="errors"/> 
-            </forwarding-catch-all-strategy> 
-      </inbound>
-      <outbound>
-          <pass-through-router> 
-              <jms:outbound-endpoint queue="messages.out"/> 
-          </pass-through-router>
-       </outbound>
-    </service>
-    
-</model>
+                <forwarding-catch-all-strategy>
+                    <jms:outbound-endpoint queue="errors"/>
+                </forwarding-catch-all-strategy>
+            </inbound>
+            <outbound>
+                <pass-through-router>
+                    <jms:outbound-endpoint queue="messages.out"/>
+                </pass-through-router>
+            </outbound>
+        </service>
+
+    </model>
 
 </mule>

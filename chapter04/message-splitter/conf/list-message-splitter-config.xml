@@ -23,12 +23,12 @@
 
             <outbound>
                 <list-message-splitter-router>
-                    <vm:outbound-endpoint path="orders.fulfilled">
+                    <outbound-endpoint address="vm://orders.fulfilled">
                         <expression-filter evaluator="jxpath" expression="status = 'FULFILLED'"/>
-                    </vm:outbound-endpoint>
-                    <vm:outbound-endpoint path="orders.pending">
+                    </outbound-endpoint>
+                    <outbound-endpoint address="vm://orders.pending">
                         <expression-filter evaluator="jxpath" expression="status = 'PENDING'"/>
-                    </vm:outbound-endpoint>
+                    </outbound-endpoint>
                     <vm:outbound-endpoint path="orders.unknown"/>
                 </list-message-splitter-router>
             </outbound>

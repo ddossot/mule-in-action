@@ -35,7 +35,7 @@
         <module>common-ch04</module>
         <module>selective-consumer</module>
         <module>filtering</module>
-        <module>forwarding-consumer</module>
+        <!-- <module>forwarding-consumer</module>  -->
         <module>collection-aggregator</module>
         <module>idempotent-receiver</module>
         <module>wiretap</module>

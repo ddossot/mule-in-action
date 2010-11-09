@@ -28,13 +28,8 @@
         <service name="forwardingConsumerService">
             <inbound>
                 <jms:inbound-endpoint queue="messages.in"/>
-                <vm:inbound-endpoint address="vm://messages"/>
-                <forwarding-router>
-                    <regex-filter pattern="^STATUS: (OK|SUCCESS)$"/>
-                </forwarding-router>
-                <selective-consumer-router>
-                    <regex-filter pattern="^STATUS: (CRITICAL)$"/>
-                </selective-consumer-router>
+                <vm:inbound-endpoint address="vm://messages" exchange-pattern="one-way"/>
+                <forwarding-router/>
             </inbound>
             <component>
                 <spring-object bean="messageEnricher"/>

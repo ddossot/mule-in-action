@@ -20,12 +20,12 @@
     <model name="multicastingRouterModel">
         <service name="multicastingRouterService">
             <inbound>
-                <jms:inbound-endpoint queue="messages.in" />
+                <jms:inbound-endpoint queue="messages.in" exchange-pattern="one-way"/>
             </inbound>
             <outbound>
                 <multicasting-router>
-                    <jms:outbound-endpoint queue="messages.out"/>
-                    <vm:outbound-endpoint path="messages.out"/>
+                    <jms:outbound-endpoint queue="messages.out" exchange-pattern="one-way"/>
+                    <vm:outbound-endpoint path="messages.out" exchange-pattern="one-way"/>
                 </multicasting-router>
             </outbound>
         </service>

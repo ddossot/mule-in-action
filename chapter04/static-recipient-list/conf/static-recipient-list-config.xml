@@ -23,10 +23,10 @@
     <model name="staticRecipientListModel">
         <service name="staticRecipientListService">
             <inbound>
-                <vm:inbound-endpoint address="vm://errors"/>
+                <vm:inbound-endpoint address="vm://errors" exchange-pattern="one-way"/>
             </inbound>
             <outbound>
-                <static-recipient-list-router>
+                <static-recipient-list-router>                   
                     <recipients>
                         <spring:value>jms://errors.ops</spring:value>
                         <spring:value>jms://errors.engr</spring:value>
