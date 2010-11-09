@@ -5,19 +5,23 @@
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:xm="http://www.mulesoft.org/schema/mule/xml"
       xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.0/mule.xsd
        http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/3.0/mule-xml.xsd
        http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.0/mule-cxf.xsd
+       http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/3.0/mule-http.xsd
        "
         >
 
     <model name="cxfJaxwsModel">
         <service name="cxfJaxwsService">
             <inbound>
-                <cxf:inbound-endpoint frontend="jaxws" address="http://localhost:9781/greeting"/>
+                <http:inbound-endpoint address="http://localhost:9781/greeting">
+                    <cxf:jaxws-service/>
+                </http:inbound-endpoint>
             </inbound>
             <component class="com.muleinaction.cxf.jaxws.GreetingServiceImpl"/>
         </service>

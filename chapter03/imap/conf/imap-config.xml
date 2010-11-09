@@ -5,7 +5,6 @@
       xmlns:file="http://www.mulesoft.org/schema/mule/file"
       xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
       xmlns:email="http://www.mulesoft.org/schema/mule/email"
-      xmlns:xm="http://www.mulesoft.org/schema/mule/xml"
       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -19,7 +18,7 @@
     <global-property name="imap.port" value="65434"/>
     <global-property name="imap.user" value="bob"/>
     <global-property name="imap.password" value="password"/>
-    
+
     <notifications dynamic="true">
         <notification event="ENDPOINT-MESSAGE"/>
     </notifications>
@@ -30,13 +29,15 @@
 
             <inbound>
                 <imap:inbound-endpoint host="${imap.host}" port="${imap.port}" user="${imap.user}"
-                                       password="${imap.password}" >
-                    <email:email-to-string-transformer/>
+                                       password="${imap.password}">
+                        <email:email-to-string-transformer/>
                 </imap:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/out" outputPattern="EMAIL-#[function:datestamp].txt"/>
+                    <file:outbound-endpoint path="./data/out"
+                                            outputPattern="EMAIL-#[function:datestamp].txt"
+                                            />
                 </pass-through-router>
             </outbound>
         </service>

@@ -26,13 +26,14 @@
         <service name="httpPollingService">
             <inbound>
                 <http:inbound-endpoint address="http://${http.host}?connector=pollingHttp">
-                    <byte-array-to-string-transformer/>
+                        <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
 
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/polling" outputPattern="www.cnn.com-#[function:datestamp].html"/>
+                    <file:outbound-endpoint path="./data/polling" 
+                                            outputPattern="www.cnn.com-#[function:datestamp].html"/>
                 </pass-through-router>
             </outbound>
         </service>

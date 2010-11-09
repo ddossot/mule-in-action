@@ -13,10 +13,12 @@
        "
         >
 
+    <xmpp:connector name="xmppConnector" user="muleinaction@jabber.org" password="manning" host="jabber.org"/>
+
     <model name="xmppInboundModel">
         <service name="xmppInboundService">
             <inbound>
-                <xmpp:inbound-endpoint user="mule" password="secret" host="jabber.org" recipient="mule"/>
+                <xmpp:inbound-endpoint recipient="mule" />
             </inbound>
             <!--
             <outbound>

@@ -42,13 +42,13 @@
                 <imap:inbound-endpoint host="${imap.host}" user='${imap.user}'
                                        port="${imap.port}"
                                        password="${imap.password}">
-                    <email:email-to-string-transformer/>
+                        <email:email-to-string-transformer/>
                 </imap:inbound-endpoint>
             </inbound>
             <component class="com.clood.monitoring.URLAlertComponent"/>
             <outbound>
                 <pass-through-router>
-                    <jdbc:outbound-endpoint queryKey="statsInsert"/>
+                    <jdbc:outbound-endpoint queryKey="statsInsert" exchange-pattern="one-way"/>
                 </pass-through-router>
             </outbound>
         </service>

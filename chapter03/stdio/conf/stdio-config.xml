@@ -21,7 +21,6 @@
             <inbound>
                 <stdio:inbound-endpoint system="IN"/>
             </inbound>
-            <bridge-component/>
             <outbound>
                 <pass-through-router>
                     <stdio:outbound-endpoint system="OUT"/>

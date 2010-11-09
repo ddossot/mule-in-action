@@ -36,9 +36,12 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <smtp:outbound-endpoint host="${smtp.host}" port="${smtp.port}" from="${smtp.from}" subject="Accounting Invoice"
-                                            to="${smtp.to}">
-                        <email:string-to-email-transformer/>
+                    <smtp:outbound-endpoint host="${smtp.host}"
+                                            port="${smtp.port}"
+                                            from="${smtp.from}"
+                                            subject="Accounting Invoice"
+                                            to="${smtp.to}" >
+                            <email:string-to-email-transformer/>
                     </smtp:outbound-endpoint>
                 </pass-through-router>
             </outbound>

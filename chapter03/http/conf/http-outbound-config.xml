@@ -17,11 +17,11 @@
     <notifications dynamic="true">
         <notification event="ENDPOINT-MESSAGE"/>
     </notifications>
-    
-    <file:connector name="FileConnector" 
-        streaming="false"
-        autoDelete="false"
-        pollingFrequency="300000"  />
+
+    <file:connector name="FileConnector"
+                    streaming="false"
+                    autoDelete="false"
+                    pollingFrequency="300000"/>
 
     <global-property name="http.host" value="localhost"/>
     <global-property name="http.port" value="9765"/>
@@ -44,12 +44,13 @@
         <service name="httpInboundService">
             <inbound>
                 <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
-                    <byte-array-to-string-transformer/>
+                        <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/reports" outputPattern="backup-report-#[function:datestamp].xml"/>
+                    <file:outbound-endpoint path="./data/reports" 
+                                            outputPattern="backup-report-#[function:datestamp].xml"/>
                 </pass-through-router>
             </outbound>
         </service>

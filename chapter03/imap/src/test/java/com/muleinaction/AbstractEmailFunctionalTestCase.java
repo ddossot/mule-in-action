@@ -10,26 +10,23 @@
 
 package com.muleinaction;
 
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
 import org.mule.api.MuleMessage;
 import org.mule.module.client.MuleClient;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.transport.email.ImapConnector;
 import org.mule.transport.email.Pop3Connector;
 
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetup;
-
-import java.io.IOException;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 
 public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase {
 
     protected static final String CONFIG_BASE = "-functional-test.xml";
     protected static final long DELIVERY_DELAY_MS = 1000L;
-    protected static final boolean MIME_MESSAGE = true;
     protected static final boolean STRING_MESSAGE = false;
 
     protected static final String DEFAULT_EMAIL = "bob@example.com";
@@ -92,7 +89,7 @@ public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
             msg = message;
         }
 
-        MuleClient client = new MuleClient();
+        MuleClient client = new MuleClient(muleContext);
         client.send("vm://send", msg, null);
 
         server.waitForIncomingEmail(DELIVERY_DELAY_MS, 1);
@@ -121,7 +118,7 @@ public abstract class AbstractEmailFunctionalTestCase extends FunctionalTestCase
     protected void doRequest() throws Exception {
         assertEquals(1, server.getReceivedMessages().length);
 
-        MuleClient client = new MuleClient();
+        MuleClient client = new MuleClient(muleContext);
         MuleMessage message = client.request("vm://receive", 5000);
 
         assertNotNull(message);

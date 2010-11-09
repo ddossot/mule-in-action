@@ -25,13 +25,12 @@
     <global-property name="imap.password" value="password"/>
 
     <notifications dynamic="true">
-           <notification event="ENDPOINT-MESSAGE"/>
-       </notifications>
+        <notification event="ENDPOINT-MESSAGE"/>
+    </notifications>
 
     <spring:beans>
         <spring:import resource="spring-config.xml"/>
     </spring:beans>
-
 
     <jdbc:connector name="jdbcConnector" dataSource-ref="dataSource">
         <jdbc:query key="alertInsert"
@@ -44,12 +43,12 @@
                 <imap:inbound-endpoint host="${imap.host}" user='${imap.user}'
                                        port="${imap.port}"
                                        password="${imap.password}">
-                    <email:email-to-string-transformer/>
+                        <email:email-to-string-transformer/>
                 </imap:inbound-endpoint>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <jdbc:outbound-endpoint queryKey="alertInsert"/>
+                    <jdbc:outbound-endpoint queryKey="alertInsert" exchange-pattern="one-way"/>
                 </pass-through-router>
             </outbound>
         </service>

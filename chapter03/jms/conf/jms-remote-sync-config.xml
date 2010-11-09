@@ -24,7 +24,8 @@
     <model name="jmsRemoteSyncModel">
         <service name="jmsRemoteSyncService">
             <inbound>
-                <http:inbound-endpoint address="http://localhost:9765/orders" exchange-pattern="request-response" method="GET"/>
+                <http:inbound-endpoint address="http://localhost:9765/orders" exchange-pattern="request-response"
+                                       method="GET"/>
             </inbound>
             <outbound>
                 <pass-through-router>

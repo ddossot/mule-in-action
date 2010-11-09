@@ -18,7 +18,7 @@
     <file:connector name="FileConnector"
                     streaming="false"
                     autoDelete="true"
-                    pollingFrequency="1000">
+                    pollingFrequency="15000">
         <file:expression-filename-parser/>
     </file:connector>
 
@@ -29,8 +29,8 @@
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/archive"
-                                            outputPattern="SNAPSHOT-#[function:dateStamp].bak"/>
+                    <file:outbound-endpoint path="./data/archive" 
+                                            outputPattern="SNAPSHOT-[function:dateStamp].bak"/>
                 </pass-through-router>
             </outbound>
         </service>

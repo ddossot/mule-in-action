@@ -28,7 +28,7 @@
         <service name="jmsOutboundService">
             <inbound>
                 <http:inbound-endpoint address="http://${http.host}:${http.port}/backup-reports">
-                    <byte-array-to-string-transformer/>
+                        <byte-array-to-string-transformer/>
                 </http:inbound-endpoint>
             </inbound>
             <outbound>

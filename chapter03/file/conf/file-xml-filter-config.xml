@@ -18,7 +18,7 @@
     <file:connector name="FileConnector"
                     streaming="false"
                     autoDelete="true"
-                    pollingFrequency="1000">
+                    pollingFrequency="15000">
         <file:expression-filename-parser/>
     </file:connector>
 
@@ -28,12 +28,12 @@
                 <file:inbound-endpoint path="./data/snapshot">
                     <file:filename-wildcard-filter pattern="SNAPSHOT*.xml"/>
                 </file:inbound-endpoint>
-
+                <idempotent-receiver-router idExpression="#[header:OUTBOUND:originalFilename]"/>
             </inbound>
             <outbound>
                 <pass-through-router>
-                    <file:outbound-endpoint path="./data/archive"
-                                            outputPattern="[header:originalFilename]-[function:dateStamp].xml"/>
+                    <file:outbound-endpoint path="./data/archive" 
+                                            outputPattern="[header:OUTBOUND:originalFilename]-[function:dateStamp].xml"/>
                 </pass-through-router>
             </outbound>
         </service>
